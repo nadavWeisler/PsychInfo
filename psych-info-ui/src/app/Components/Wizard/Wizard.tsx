@@ -13,6 +13,10 @@ import {
     ThemeProvider,
 } from "@mui/material";
 import { darkTheme } from "@/app/General/styles";
+import Step1 from "@/app/Components/Wizard/Step1";
+import Step2 from "@/app/Components/Wizard/Step2";
+import Step3 from "@/app/Components/Wizard/Step3";
+import ErrorStep from "@/app/Components/Wizard/ErrorStep";
 
 interface WizardDialogProps {
     open: boolean;
@@ -33,8 +37,21 @@ function WizardDialog({
         setActiveStep((prevActiveStep) => prevActiveStep - 1);
     };
 
-    const handleReset = () => {
-        setActiveStep(0);
+    const handleSubmit = () => {
+        onClose();
+    };
+
+    const GetStepContent = (step: number) => {
+        switch (step) {
+            case 0:
+                return <Step1 />;
+            case 1:
+                return <Step2 />;
+            case 2:
+                return <Step3 />;
+            default:
+                return <ErrorStep errorMsg={"Invalid Step"} />;
+        }
     };
 
     const steps = ["Step 1", "Step 2", "Step 3"];
@@ -51,34 +68,29 @@ function WizardDialog({
                             </Step>
                         ))}
                     </Stepper>
-                    {activeStep === steps.length ? (
-                        <Fragment>
-                            <Typography>All steps completed</Typography>
-                            <Button onClick={handleReset}>Reset</Button>
-                        </Fragment>
-                    ) : (
-                        <Fragment>
-                            <Typography>{steps[activeStep]}</Typography>
-                            <Button
-                                disabled={activeStep === 0}
-                                onClick={handleBack}
-                            >
-                                Back
-                            </Button>
-                            <Button
-                                variant="contained"
-                                color="primary"
-                                onClick={handleNext}
-                            >
-                                {activeStep === steps.length - 1
-                                    ? "Finish"
-                                    : "Next"}
-                            </Button>
-                        </Fragment>
-                    )}
+                    {GetStepContent(activeStep)}
                 </DialogContent>
                 <DialogActions>
-                    <Button onClick={onClose}>Cancel</Button>
+                    <Button onClick={onClose}>{"Close"}</Button>
+                    <Button onClick={handleBack} disabled={activeStep === 0}>
+                        {"Back"}
+                    </Button>
+                    <Button
+                        variant={"contained"}
+                        onClick={handleNext}
+                        disabled={activeStep === 2}
+                    >
+                        {"Next"}
+                    </Button>
+                    {activeStep === 2 && (
+                        <Button
+                            variant={"contained"}
+                            color={"primary"}
+                            onClick={handleSubmit}
+                        >
+                            {"Submit"}
+                        </Button>
+                    )}
                 </DialogActions>
             </Dialog>
         </ThemeProvider>
