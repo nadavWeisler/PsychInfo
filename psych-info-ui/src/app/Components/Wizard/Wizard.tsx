@@ -1,5 +1,5 @@
 "use client";
-import { useState, Fragment } from "react";
+import { useState, useEffect } from "react";
 import {
     Dialog,
     DialogTitle,
@@ -9,7 +9,6 @@ import {
     Stepper,
     Step,
     StepLabel,
-    Typography,
     ThemeProvider,
 } from "@mui/material";
 import { darkTheme } from "@/app/General/styles";
@@ -17,17 +16,16 @@ import Step1 from "@/app/Components/Wizard/Step1";
 import Step2 from "@/app/Components/Wizard/Step2";
 import Step3 from "@/app/Components/Wizard/Step3";
 import ErrorStep from "@/app/Components/Wizard/ErrorStep";
-
-interface WizardDialogProps {
-    open: boolean;
-    onClose: () => void;
-}
+import { WizardDialogProps } from "@/app/General/interfaces";
+import { getTags, getOrganizations } from "@/app/General/utils";
 
 function WizardDialog({
     open = false,
     onClose = () => null,
 }: WizardDialogProps) {
     const [activeStep, setActiveStep] = useState(0);
+    const [tags, setTags] = useState<string[]>([]);
+    const [organizations, setOrganizations] = useState<string[]>([]);
 
     const handleNext = () => {
         setActiveStep((prevActiveStep) => prevActiveStep + 1);
@@ -39,22 +37,30 @@ function WizardDialog({
 
     const handleSubmit = () => {
         onClose();
+        // TODO: add more code
     };
+
+    useEffect(() => {
+        setTags(getTags());
+        setOrganizations(getOrganizations());
+    }, []);
 
     const GetStepContent = (step: number) => {
         switch (step) {
             case 0:
-                return <Step1 />;
+                return <Step1 data={tags} text={"תגיות"} />;
             case 1:
-                return <Step2 />;
+                return <Step1 data={organizations} text={"ארגונים"} />;
             case 2:
+                return <Step2 />;
+            case 3:
                 return <Step3 />;
             default:
                 return <ErrorStep errorMsg={"Invalid Step"} />;
         }
     };
 
-    const steps = ["Step 1", "Step 2", "Step 3"];
+    const steps = ["Step 1", "Step 2", "Step 3", "Step 4"];
 
     return (
         <ThemeProvider theme={darkTheme}>
@@ -78,11 +84,11 @@ function WizardDialog({
                     <Button
                         variant={"contained"}
                         onClick={handleNext}
-                        disabled={activeStep === 2}
+                        disabled={activeStep === 3}
                     >
                         {"Next"}
                     </Button>
-                    {activeStep === 2 && (
+                    {activeStep === 3 && (
                         <Button
                             variant={"contained"}
                             color={"primary"}

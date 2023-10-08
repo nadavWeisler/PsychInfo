@@ -10,6 +10,7 @@ import { formTheme } from "@/app/General/styles";
 import { Chip, FormControl, InputLabel, MenuItem, OutlinedInput, Select, SelectChangeEvent, Theme, ThemeProvider, useTheme } from '@mui/material';
 import { AddString } from '../General/addString';
 import { Texts } from '../resources/texts';
+import { getOrganizations, getTags } from '../General/utils';
 
 function getStyles(name: string, personName: readonly string[], theme: Theme) {
     return {
@@ -43,32 +44,31 @@ export default function UploadSource() {
     const [tags, setTags] = React.useState<string[]>(originalTags);
     const [organizations, setOrganizations] = React.useState<string[]>(originalOrganizations);
 
-    function getTags() {
-        return ["tag1", "tag2", "tag3"];
-    }
-
-    function getOrganizations() {
-        return ["org1", "org2", "org3"];
-    }
-
     const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
         event.preventDefault();
         const data = new FormData(event.currentTarget);
 
         console.log({
-            title: data.get('title'),
-            content: data.get('content'),
-            link: data.get('link'),
+            title: data.get("title"),
+            content: data.get("content"),
+            link: data.get("link"),
             tags: selectedTags,
-            organization: selectedOrganization === 'other' ? otherOrgValue : selectedOrganization
+            organization:
+                selectedOrganization === "other"
+                    ? otherOrgValue
+                    : selectedOrganization,
         });
     };
 
-    const hangleChangeTags = (event: SelectChangeEvent<typeof selectedTags>) => {
-        const { target: { value }, } = event;
+    const hangleChangeTags = (
+        event: SelectChangeEvent<typeof selectedTags>
+    ) => {
+        const {
+            target: { value },
+        } = event;
         setSelectedTags(
             // On autofill we get a stringified value.
-            typeof value === 'string' ? value.split(',') : value,
+            typeof value === "string" ? value.split(",") : value
         );
     };
 
@@ -92,7 +92,7 @@ export default function UploadSource() {
     const hangleChangeOrganization = (event: SelectChangeEvent<typeof selectedOrganization>) => {
         const { target: { value }, } = event;
         setSelectedOrganization(value);
-    }
+    };
 
     const handleOpenOrgDialog = () => {
         setOpenAddOrgDialog(true);
