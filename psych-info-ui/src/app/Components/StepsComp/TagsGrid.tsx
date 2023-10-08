@@ -1,8 +1,8 @@
 import { useState } from "react";
 import { Chip, Grid } from "@mui/material";
-import { tags } from "@/app/General/objects";
+import { TagsGridProps } from "@/app/General/interfaces";
 
-function TagsGrid() {
+function TagsGrid({ data = [] }: TagsGridProps) {
     const [chipDataArr, setChipDataArr] = useState<string[]>([]);
 
     const addDataToChipArr = (data: string) => {
@@ -14,19 +14,18 @@ function TagsGrid() {
             setChipDataArr([...chipDataArr, data]);
         }
     };
+    
 
     return (
         <Grid container spacing={2}>
-            {tags.map((tag, index) => (
+            {data.map((tag, index) => (
                 <Grid item xs={3} key={index}>
                     <Chip
                         key={index}
-                        label={tag.label}
-                        onClick={() => addDataToChipArr(tag.data)}
+                        label={tag}
+                        onClick={() => addDataToChipArr(tag)}
                         variant={
-                            chipDataArr.includes(tag.data)
-                                ? "filled"
-                                : "outlined"
+                            chipDataArr.includes(tag) ? "filled" : "outlined"
                         }
                         color="primary"
                     />
