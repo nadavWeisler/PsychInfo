@@ -1,12 +1,23 @@
-"use client"
-import * as React from 'react';
-import Button from '@mui/material/Button';
-import CssBaseline from '@mui/material/CssBaseline';
-import TextField from '@mui/material/TextField';
-import Box from '@mui/material/Box';
-import Typography from '@mui/material/Typography';
-import Container from '@mui/material/Container';
-import { Chip, FormControl, InputLabel, MenuItem, OutlinedInput, Select, SelectChangeEvent, Theme, useTheme } from '@mui/material';
+"use client";
+import * as React from "react";
+import Button from "@mui/material/Button";
+import CssBaseline from "@mui/material/CssBaseline";
+import TextField from "@mui/material/TextField";
+import Box from "@mui/material/Box";
+import Typography from "@mui/material/Typography";
+import Container from "@mui/material/Container";
+import {
+    Chip,
+    FormControl,
+    InputLabel,
+    MenuItem,
+    OutlinedInput,
+    Select,
+    SelectChangeEvent,
+    Theme,
+    useTheme,
+} from "@mui/material";
+import { getTags, getOrganizations } from "@/app/General/utils";
 
 function getStyles(name: string, personName: readonly string[], theme: Theme) {
     return {
@@ -31,15 +42,9 @@ const MenuProps = {
 export default function UploadSource() {
     const theme = useTheme();
     const [selectedTags, setSelectedTags] = React.useState<string[]>([]);
-    const [selectedOrganization, setSelectedOrganization] = React.useState<string>('');
-    const [otherOrgValue, setOtherOrgValue] = React.useState<string>('');
-    function getTags() {
-        return ["tag1", "tag2", "tag3"];
-    }
-
-    function getOrganizations() {
-        return ["org1", "org2", "org3"];
-    }
+    const [selectedOrganization, setSelectedOrganization] =
+        React.useState<string>("");
+    const [otherOrgValue, setOtherOrgValue] = React.useState<string>("");
 
     const tags = getTags();
     const organizations = getOrganizations();
@@ -47,28 +52,39 @@ export default function UploadSource() {
     const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
         event.preventDefault();
         const data = new FormData(event.currentTarget);
-        
+
         console.log({
-            title: data.get('title'),
-            content: data.get('content'),
-            link: data.get('link'),
+            title: data.get("title"),
+            content: data.get("content"),
+            link: data.get("link"),
             tags: selectedTags,
-            organization: selectedOrganization === 'other' ? otherOrgValue : selectedOrganization
+            organization:
+                selectedOrganization === "other"
+                    ? otherOrgValue
+                    : selectedOrganization,
         });
     };
 
-    const hangleChangeTags = (event: SelectChangeEvent<typeof selectedTags>) => {
-        const { target: { value }, } = event;
+    const hangleChangeTags = (
+        event: SelectChangeEvent<typeof selectedTags>
+    ) => {
+        const {
+            target: { value },
+        } = event;
         setSelectedTags(
             // On autofill we get a stringified value.
-            typeof value === 'string' ? value.split(',') : value,
+            typeof value === "string" ? value.split(",") : value
         );
     };
 
-    const hangleChangeOrganization = (event: SelectChangeEvent<typeof selectedOrganization>) => {
-        const { target: { value }, } = event;
+    const hangleChangeOrganization = (
+        event: SelectChangeEvent<typeof selectedOrganization>
+    ) => {
+        const {
+            target: { value },
+        } = event;
         setSelectedOrganization(value);
-    }
+    };
 
     return (
         <Container component="main" maxWidth="xs">
@@ -76,10 +92,10 @@ export default function UploadSource() {
             <Box
                 sx={{
                     marginTop: 4,
-                    display: 'flex',
-                    flexDirection: 'column',
-                    alignItems: 'center',
-                    overflow: 'auto'
+                    display: "flex",
+                    flexDirection: "column",
+                    alignItems: "center",
+                    overflow: "auto",
                 }}
             >
                 <Typography component="h1" variant="h5">
@@ -121,11 +137,13 @@ export default function UploadSource() {
                             ))}
                             <MenuItem value="other">אחר</MenuItem>
                         </Select>
-                        {selectedOrganization === 'other' && (
+                        {selectedOrganization === "other" && (
                             <TextField
                                 label="אחר"
                                 value={otherOrgValue}
-                                onChange={(e) => setOtherOrgValue(e.target.value)}
+                                onChange={(e) =>
+                                    setOtherOrgValue(e.target.value)
+                                }
                             />
                         )}
                     </FormControl>
@@ -140,16 +158,29 @@ export default function UploadSource() {
                         autoComplete="link"
                     />
                     <FormControl fullWidth>
-                        <InputLabel id="demo-multiple-chip-label">תגיות</InputLabel>
+                        <InputLabel id="demo-multiple-chip-label">
+                            תגיות
+                        </InputLabel>
                         <Select
                             labelId="demo-multiple-chip-label"
                             id="demo-multiple-chip"
                             multiple
                             value={selectedTags}
                             onChange={hangleChangeTags}
-                            input={<OutlinedInput id="select-multiple-chip" label="Chip" />}
+                            input={
+                                <OutlinedInput
+                                    id="select-multiple-chip"
+                                    label="Chip"
+                                />
+                            }
                             renderValue={(selected) => (
-                                <Box sx={{ display: 'flex', flexWrap: 'wrap', gap: 0.5 }}>
+                                <Box
+                                    sx={{
+                                        display: "flex",
+                                        flexWrap: "wrap",
+                                        gap: 0.5,
+                                    }}
+                                >
                                     {selected.map((value) => (
                                         <Chip key={value} label={value} />
                                     ))}
@@ -172,12 +203,12 @@ export default function UploadSource() {
                         type="submit"
                         fullWidth
                         variant="contained"
-                        sx= {{ mt: 3, mb: 2 }}
+                        sx={{ mt: 3, mb: 2 }}
                     >
                         העלאה
                     </Button>
                 </Box>
             </Box>
-        </Container >
+        </Container>
     );
 }
