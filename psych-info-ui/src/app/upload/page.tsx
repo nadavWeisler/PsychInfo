@@ -6,7 +6,9 @@ import TextField from '@mui/material/TextField';
 import Box from '@mui/material/Box';
 import Typography from '@mui/material/Typography';
 import Container from '@mui/material/Container';
-import { Chip, FormControl, InputLabel, MenuItem, OutlinedInput, Select, SelectChangeEvent, Theme, useTheme } from '@mui/material';
+import { formTheme } from "@/app/General/styles";
+import { Chip, FormControl, InputLabel, MenuItem, OutlinedInput, Select, SelectChangeEvent, Theme, ThemeProvider, useTheme } from '@mui/material';
+import { AddString } from '../General/addString';
 
 function getStyles(name: string, personName: readonly string[], theme: Theme) {
     return {
@@ -29,10 +31,17 @@ const MenuProps = {
 };
 
 export default function UploadSource() {
-    const theme = useTheme();
     const [selectedTags, setSelectedTags] = React.useState<string[]>([]);
     const [selectedOrganization, setSelectedOrganization] = React.useState<string>('');
     const [otherOrgValue, setOtherOrgValue] = React.useState<string>('');
+    const [otherTagValue, setOtherTagValue] = React.useState<string>('');
+    const [openAddTagDialog, setOpenAddTagDialog] = React.useState<boolean>(false);
+    const [openAddOrgDialog, setOpenAddOrgDialog] = React.useState<boolean>(false);
+    const originalTags = getTags();
+    const originalOrganizations = getOrganizations();
+    const [tags, setTags] = React.useState<string[]>(originalTags);
+    const [organizations, setOrganizations] = React.useState<string[]>(originalOrganizations);
+
     function getTags() {
         return ["tag1", "tag2", "tag3"];
     }
@@ -41,13 +50,11 @@ export default function UploadSource() {
         return ["org1", "org2", "org3"];
     }
 
-    const tags = getTags();
-    const organizations = getOrganizations();
 
     const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
         event.preventDefault();
         const data = new FormData(event.currentTarget);
-        
+
         console.log({
             title: data.get('title'),
             content: data.get('content'),
@@ -65,119 +72,176 @@ export default function UploadSource() {
         );
     };
 
+    const handleOpenTagDialog = () => {
+        setOpenAddTagDialog(true);
+    };
+
+    const handleCloseTagDialog = () => {
+        setOpenAddTagDialog(false);
+    };
+
+    const handleCreateTag = () => {
+        if (otherTagValue.trim()) {
+            setSelectedTags([...selectedTags, otherTagValue]);
+            setTags([...tags, otherTagValue]);
+            setOtherTagValue('');
+            setOpenAddTagDialog(false); // Close the dialog after adding a tag
+        }
+    };
+
     const hangleChangeOrganization = (event: SelectChangeEvent<typeof selectedOrganization>) => {
         const { target: { value }, } = event;
         setSelectedOrganization(value);
     }
 
+    const handleOpenOrgDialog = () => {
+        setOpenAddOrgDialog(true);
+    }
+
+    const handleCloseOrgDialog = () => {
+        setOpenAddOrgDialog(false);
+    }
+
+    const handleCreateOrg = () => {
+        if (otherOrgValue.trim()) {
+            setSelectedOrganization(otherOrgValue);
+            setOrganizations([...organizations, otherOrgValue]);
+            setOtherOrgValue('');
+            setOpenAddOrgDialog(false); // Close the dialog after adding an organization
+        }
+    }
+
     return (
-        <Container component="main" maxWidth="xs">
-            <CssBaseline />
-            <Box
-                sx={{
-                    marginTop: 4,
-                    display: 'flex',
-                    flexDirection: 'column',
-                    alignItems: 'center',
-                    overflow: 'auto'
-                }}
-            >
-                <Typography component="h1" variant="h5">
-                    העלאת מקור חדש
-                </Typography>
-                <Box component="form" onSubmit={handleSubmit}>
-                    <TextField
-                        margin="normal"
-                        required
-                        fullWidth
-                        id="title"
-                        label="כותרת"
-                        name="title"
-                        autoFocus
-                    />
-                    <TextField
-                        margin="normal"
-                        required
-                        fullWidth
-                        name="content"
-                        label="תוכן"
-                        id="content"
-                        multiline={true}
-                    />
-                    <FormControl fullWidth>
-                        <InputLabel>בחר ארגון</InputLabel>
-                        <Select
-                            value={selectedOrganization}
-                            onChange={hangleChangeOrganization}
+        <ThemeProvider theme={formTheme}>
+            <Container component="main" maxWidth="xs">
+                <CssBaseline />
+                <Box
+                    sx={{
+                        marginTop: 4,
+                        display: 'flex',
+                        flexDirection: 'column',
+                        alignItems: 'center',
+                        overflow: 'auto'
+                    }}
+                >
+                    <Typography component="h1" variant="h5">
+                        העלאת מקור חדש
+                    </Typography>
+                    <Box component="form" onSubmit={handleSubmit}>
+                        <TextField
+                            margin="normal"
+                            required
+                            fullWidth
+                            id="title"
+                            label="כותרת"
+                            name="title"
+                            autoFocus
+                        />
+                        <TextField
+                            margin="normal"
+                            required
+                            fullWidth
+                            name="content"
+                            label="תוכן"
+                            id="content"
+                            multiline={true}
+                        />
+                        <FormControl
+                            margin="normal"
+                            fullWidth
+                            required
                         >
-                            {organizations.map((org) => (
-                                <MenuItem
-                                    key={org}
-                                    value={org}
-                                    style={getStyles(org, selectedTags, theme)}
-                                >
-                                    {org}
-                                </MenuItem>
-                            ))}
-                            <MenuItem value="other">אחר</MenuItem>
-                        </Select>
-                        {selectedOrganization === 'other' && (
-                            <TextField
-                                label="אחר"
-                                value={otherOrgValue}
-                                onChange={(e) => setOtherOrgValue(e.target.value)}
-                            />
-                        )}
-                    </FormControl>
-                    <TextField
-                        margin="normal"
-                        required
-                        fullWidth
-                        name="link"
-                        label="קישור"
-                        type="link"
-                        id="link"
-                        autoComplete="link"
-                    />
-                    <FormControl fullWidth>
-                        <InputLabel id="demo-multiple-chip-label">תגיות</InputLabel>
-                        <Select
-                            labelId="demo-multiple-chip-label"
-                            id="demo-multiple-chip"
-                            multiple
-                            value={selectedTags}
-                            onChange={hangleChangeTags}
-                            input={<OutlinedInput id="select-multiple-chip" label="Chip" />}
-                            renderValue={(selected) => (
-                                <Box sx={{ display: 'flex', flexWrap: 'wrap', gap: 0.5 }}>
-                                    {selected.map((value) => (
-                                        <Chip key={value} label={value} />
-                                    ))}
-                                </Box>
-                            )}
-                            MenuProps={MenuProps}
+                            <InputLabel>בחר ארגון</InputLabel>
+                            <Select
+                                value={selectedOrganization}
+                                onChange={hangleChangeOrganization}
+                            >
+                                {organizations.map((org) => (
+                                    <MenuItem
+                                        key={org}
+                                        value={org}
+                                        style={getStyles(org, selectedTags, formTheme)}
+                                    >
+                                        {org}
+                                    </MenuItem>
+                                ))}
+                            </Select>
+                        </FormControl>
+                        <Button variant="outlined" onClick={handleOpenOrgDialog}>
+                            הוסף ארגון חדש
+                        </Button>
+                        <AddString
+                            handleCloseDialog={handleCloseOrgDialog}
+                            handleCreate={handleCreateOrg}
+                            inputValue={otherOrgValue}
+                            setInputValue={setOtherOrgValue}
+                            openDialog={openAddOrgDialog}
+                            title="הוספת ארגון חדש"
+                            question="כתוב ארגון חדש"
+                        />
+                        <TextField
+                            margin="normal"
+                            fullWidth
+                            name="link"
+                            label="קישור"
+                            id="link"
+                        />
+                        <FormControl
+                            fullWidth
+                            required
+                            margin='normal'
                         >
-                            {tags.map((tag) => (
-                                <MenuItem
-                                    key={tag}
-                                    value={tag}
-                                    style={getStyles(tag, selectedTags, theme)}
-                                >
-                                    {tag}
-                                </MenuItem>
-                            ))}
-                        </Select>
-                    </FormControl>
-                    <Button
-                        type="submit"
-                        fullWidth
-                        variant="contained"
-                        sx= {{ mt: 3, mb: 2 }}
-                    >
-                        העלאה
-                    </Button>
+                            <InputLabel id="demo-multiple-chip-label">תגיות</InputLabel>
+                            <Select
+                                labelId="demo-multiple-chip-label"
+                                id="demo-multiple-chip"
+                                multiple
+                                value={selectedTags}
+                                onChange={hangleChangeTags}
+                                input={<OutlinedInput id="select-multiple-chip" label="Chip" />}
+                                renderValue={(selected) => (
+                                    <Box sx={{ display: 'flex', flexWrap: 'wrap', gap: 0.5 }}>
+                                        {selected.map((value) => (
+                                            <Chip key={value} label={value} />
+                                        ))}
+                                    </Box>
+                                )}
+                                MenuProps={MenuProps}
+                            >
+                                {tags.map((tag) => (
+                                    <MenuItem
+                                        key={tag}
+                                        value={tag}
+                                        style={getStyles(tag, selectedTags, formTheme)}
+                                    >
+                                        {tag}
+                                    </MenuItem>
+                                ))}
+                            </Select>
+                        </FormControl>
+                        <Button variant="outlined" onClick={handleOpenTagDialog}>
+                            הוסף תגית חדשה
+                        </Button>
+                        <AddString
+                            handleCloseDialog={handleCloseTagDialog}
+                            handleCreate={handleCreateTag}
+                            inputValue={otherTagValue}
+                            setInputValue={setOtherTagValue}
+                            openDialog={openAddTagDialog}
+                            title="הוספת תגית חדשה"
+                            question="כתוב תגית חדשה"
+                        />
+                        <Button
+                            type="submit"
+                            fullWidth
+                            variant="contained"
+                            sx={{ mt: 3, mb: 2 }}
+                        >
+                            העלאה
+                        </Button>
+                    </Box>
                 </Box>
-            </Box>
-        </Container >
+            </Container >
+        </ThemeProvider>
     );
 }
