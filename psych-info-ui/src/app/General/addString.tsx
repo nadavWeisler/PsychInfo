@@ -1,4 +1,5 @@
 import { Button, Dialog, DialogActions, DialogContent, DialogContentText, DialogTitle, TextField } from "@mui/material";
+import { Texts } from "../resources/texts";
 
 interface AddStringProps {
     title: string;
@@ -26,10 +27,10 @@ export const AddString = (props: AddStringProps) => {
             </DialogContent>
             <DialogActions>
                 <Button onClick={handleCloseDialog} color="primary">
-                    בטל
+                    {Texts.COMMON.Cancel}
                 </Button>
                 <Button onClick={handleCreate} color="primary">
-                    צור
+                    {Texts.COMMON.Create}
                 </Button>
             </DialogActions>
         </Dialog>
