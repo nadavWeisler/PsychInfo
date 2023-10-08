@@ -1,4 +1,3 @@
-import fs from 'fs';
 import {readJsonFile} from "@/app/api/utils";
 export function GET(request: any) {
 
