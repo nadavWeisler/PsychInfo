@@ -9,6 +9,7 @@ import Container from '@mui/material/Container';
 import { formTheme } from "@/app/General/styles";
 import { Chip, FormControl, InputLabel, MenuItem, OutlinedInput, Select, SelectChangeEvent, Theme, ThemeProvider, useTheme } from '@mui/material';
 import { AddString } from '../General/addString';
+import { Texts } from '../resources/texts';
 
 function getStyles(name: string, personName: readonly string[], theme: Theme) {
     return {
@@ -49,7 +50,6 @@ export default function UploadSource() {
     function getOrganizations() {
         return ["org1", "org2", "org3"];
     }
-
 
     const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
         event.preventDefault();
@@ -125,7 +125,7 @@ export default function UploadSource() {
                     }}
                 >
                     <Typography component="h1" variant="h5">
-                        העלאת מקור חדש
+                        {Texts.UPLOAD.Title}
                     </Typography>
                     <Box component="form" onSubmit={handleSubmit}>
                         <TextField
@@ -133,7 +133,7 @@ export default function UploadSource() {
                             required
                             fullWidth
                             id="title"
-                            label="כותרת"
+                            label={Texts.COMMON.Title}
                             name="title"
                             autoFocus
                         />
@@ -142,7 +142,7 @@ export default function UploadSource() {
                             required
                             fullWidth
                             name="content"
-                            label="תוכן"
+                            label={Texts.COMMON.Content}
                             id="content"
                             multiline={true}
                         />
@@ -151,7 +151,7 @@ export default function UploadSource() {
                             fullWidth
                             required
                         >
-                            <InputLabel>בחר ארגון</InputLabel>
+                            <InputLabel>{Texts.COMMON.Orginiztion}</InputLabel>
                             <Select
                                 value={selectedOrganization}
                                 onChange={hangleChangeOrganization}
@@ -168,7 +168,7 @@ export default function UploadSource() {
                             </Select>
                         </FormControl>
                         <Button variant="outlined" onClick={handleOpenOrgDialog}>
-                            הוסף ארגון חדש
+                            {Texts.UPLOAD.AddNewOrg}
                         </Button>
                         <AddString
                             handleCloseDialog={handleCloseOrgDialog}
@@ -176,14 +176,14 @@ export default function UploadSource() {
                             inputValue={otherOrgValue}
                             setInputValue={setOtherOrgValue}
                             openDialog={openAddOrgDialog}
-                            title="הוספת ארגון חדש"
-                            question="כתוב ארגון חדש"
+                            title={Texts.UPLOAD.AddNewOrg}
+                            question={Texts.UPLOAD.AddNewOrgAsk}
                         />
                         <TextField
                             margin="normal"
                             fullWidth
                             name="link"
-                            label="קישור"
+                            label={Texts.COMMON.Link}
                             id="link"
                         />
                         <FormControl
@@ -220,7 +220,7 @@ export default function UploadSource() {
                             </Select>
                         </FormControl>
                         <Button variant="outlined" onClick={handleOpenTagDialog}>
-                            הוסף תגית חדשה
+                            {Texts.UPLOAD.AddNewTag}
                         </Button>
                         <AddString
                             handleCloseDialog={handleCloseTagDialog}
@@ -228,8 +228,8 @@ export default function UploadSource() {
                             inputValue={otherTagValue}
                             setInputValue={setOtherTagValue}
                             openDialog={openAddTagDialog}
-                            title="הוספת תגית חדשה"
-                            question="כתוב תגית חדשה"
+                            title={Texts.UPLOAD.AddNewTag}
+                            question={Texts.UPLOAD.AddNewTagAsk}
                         />
                         <Button
                             type="submit"
@@ -237,7 +237,7 @@ export default function UploadSource() {
                             variant="contained"
                             sx={{ mt: 3, mb: 2 }}
                         >
-                            העלאה
+                            {Texts.COMMON.Save}
                         </Button>
                     </Box>
                 </Box>
