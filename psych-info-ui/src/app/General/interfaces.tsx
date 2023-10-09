@@ -8,6 +8,19 @@ export interface StepProps extends Data {
     text: string;
 }
 
+export interface StringObject {
+    id: string;
+    display: string;
+}
+
+export interface Tag extends StringObject{
+    used: boolean;
+}
+
+export interface Organization extends StringObject {
+    used: boolean;
+}
+
 export interface WizardDialogProps {
     open: boolean;
     onClose: () => void;

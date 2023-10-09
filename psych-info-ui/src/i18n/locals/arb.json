@@ -1,0 +1,21 @@
+{
+    "common": {
+        "no": "לא",
+        "yes": "כן",
+        "next": "הבא",
+        "back": "חזור",
+        "submit": "שלח",
+        "cancel": "ביטול",
+        "close": "סגירה",
+        "save": "שמירה",
+        "edit": "עריכה",
+        "delete": "מחיקה",
+        "add": "הוספה",
+        "search": "חיפוש",
+        "loading": "טוען..."
+    },
+    "add_string": {
+        "enter_id": "הכנס זיהוי",
+        "enter_display": "הכנס תצוגה"
+    }
+}

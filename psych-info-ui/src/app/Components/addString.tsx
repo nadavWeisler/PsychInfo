@@ -1,28 +1,35 @@
 import { Button, Dialog, DialogActions, DialogContent, DialogContentText, DialogTitle, TextField } from "@mui/material";
 import { Texts } from "../resources/texts";
+import { StringObject } from "../general/interfaces";
 
 interface AddStringProps {
     title: string;
-    question: string;
     openDialog: boolean;
     handleCloseDialog: () => void;
     handleCreate: () => void;
-    inputValue: string;
-    setInputValue: (value: string) => void;
+    inputValue: StringObject;
+    setInputValue: (value: StringObject) => void;
 }
 
 export const AddString = (props: AddStringProps) => {
-    const { title, question, openDialog, handleCloseDialog, handleCreate, inputValue, setInputValue } = props;
+    const { title, openDialog, handleCloseDialog, handleCreate, inputValue, setInputValue } = props;
     return (
         <Dialog open={openDialog} onClose={handleCloseDialog}>
             <DialogTitle>{title}</DialogTitle>
             <DialogContent>
                 <TextField
                     fullWidth
-                    label={question}
+                    label={Texts.ADD_STRING.EnterID}
                     variant="outlined"
-                    value={inputValue}
-                    onChange={(e) => setInputValue(e.target.value)}
+                    value={inputValue.id}
+                    onChange={(e) => setInputValue({ ...inputValue, id: e.target.value })}
+                />
+                <TextField
+                    fullWidth
+                    label={Texts.ADD_STRING.EnterDisplayName}
+                    variant="outlined"
+                    value={inputValue.display}
+                    onChange={(e) => setInputValue({ ...inputValue, display: e.target.value })}
                 />
             </DialogContent>
             <DialogActions>

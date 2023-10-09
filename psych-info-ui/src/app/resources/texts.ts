@@ -21,8 +21,14 @@ export class Texts {
         Content: 'תוכן',
         Orginiztion: 'ארגון',
         Tag: 'תגית',
+        Tags: 'תגיות',
         Link: 'קישור',
     };
+
+    public static readonly ADD_STRING = {
+        EnterID: 'הכנס זיהוי',
+        EnterDisplayName: 'הכנס שם להצגה'
+    }
 
     // Create page texts here
     public static readonly UPLOAD = {

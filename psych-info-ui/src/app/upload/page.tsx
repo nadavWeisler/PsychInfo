@@ -1,5 +1,5 @@
 "use client";
-import * as React from "react";
+import { useState, useEffect, FormEvent } from "react";
 import Button from "@mui/material/Button";
 import CssBaseline from "@mui/material/CssBaseline";
 import TextField from "@mui/material/TextField";
@@ -17,18 +17,18 @@ import {
     SelectChangeEvent,
     Theme,
     ThemeProvider,
-    useTheme,
 } from "@mui/material";
-import { AddString } from "../General/addString";
+import { AddString } from "../Components/addString";
 import { Texts } from "../resources/texts";
-import { getOrganizations, getTags } from "../General/utils";
 import { Provider } from "react-redux";
 import store from "@/app/store";
+import { Organization, StringObject, Tag } from "../general/interfaces";
+import { EMPTY_ORGANIZATION, EMPTY_TAG } from "../general/utils";
 
-function getStyles(name: string, personName: readonly string[], theme: Theme) {
+function getSelectStyles(obj: StringObject, allObjects: readonly StringObject[], theme: Theme) {
     return {
         fontWeight:
-            personName.indexOf(name) === -1
+            allObjects.indexOf(obj) === -1
                 ? theme.typography.fontWeightRegular
                 : theme.typography.fontWeightMedium,
     };
@@ -46,48 +46,70 @@ const MenuProps = {
 };
 
 export default function UploadSource() {
-    const [selectedTags, setSelectedTags] = React.useState<string[]>([]);
-    const [selectedOrganization, setSelectedOrganization] =
-        React.useState<string>("");
-    const [otherOrgValue, setOtherOrgValue] = React.useState<string>("");
-    const [otherTagValue, setOtherTagValue] = React.useState<string>("");
-    const [openAddTagDialog, setOpenAddTagDialog] =
-        React.useState<boolean>(false);
-    const [openAddOrgDialog, setOpenAddOrgDialog] =
-        React.useState<boolean>(false);
-    const originalTags = getTags();
-    const originalOrganizations = getOrganizations();
-    const [tags, setTags] = React.useState<string[]>(originalTags);
-    const [organizations, setOrganizations] = React.useState<string[]>(
-        originalOrganizations
-    );
+    const [tags, setTags] = useState<Tag[]>([]);
+    const [organizations, setOrganizations] = useState<Organization[]>([]);
+    const [selectedTags, setSelectedTags] = useState<Tag[]>([]);
+    const [selectedOrganization, setSelectedOrganization] = useState<Organization>();
+    const [otherOrgValue, setOtherOrgValue] = useState<Organization>(EMPTY_ORGANIZATION);
+    const [otherTagValue, setOtherTagValue] = useState<Tag>(EMPTY_TAG);
+    const [openAddTagDialog, setOpenAddTagDialog] = useState<boolean>(false);
+    const [openAddOrgDialog, setOpenAddOrgDialog] = useState<boolean>(false);
 
-    const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
+    useEffect(() => {
+        fetch('/api/data/tags')
+            .then((res) => res.json())
+            .then((data) => {
+                setTags(data)
+            })
+    }, [])
+
+    useEffect(() => {
+        fetch('/api/data/orginizations')
+            .then((res) => res.json())
+            .then((data) => {
+                setOrganizations(data)
+            })
+    }, [])
+
+    const handleSubmit = async (event: FormEvent<HTMLFormElement>) => {
         event.preventDefault();
         const data = new FormData(event.currentTarget);
+        const formData = {
+            "title": data.get("title"),
+            "content": data.get("content"),
+            "link": data.get("link"),
+            "tags": selectedTags,
+            "organization": selectedOrganization,
+        }
+        console.log(formData);
+        try {
+            // Make a POST request using the fetch API
+            const response = await fetch('/api/data/tags', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify(formData),
+            });
 
-        console.log({
-            title: data.get("title"),
-            content: data.get("content"),
-            link: data.get("link"),
-            tags: selectedTags,
-            organization:
-                selectedOrganization === "other"
-                    ? otherOrgValue
-                    : selectedOrganization,
-        });
+            if (!response.ok) {
+                throw new Error(`HTTP error! Status: ${response.status}`);
+            }
+
+            // Handle the response as needed
+            const data = await response.json();
+            console.log('Response:', data);
+        } catch (error) {
+            // Handle any errors
+            console.error('Error:', error);
+        }
     };
 
-    const hangleChangeTags = (
-        event: SelectChangeEvent<typeof selectedTags>
-    ) => {
+    const hangleChangeTags = (event: SelectChangeEvent<typeof selectedTags>) => {
         const {
             target: { value },
         } = event;
-        setSelectedTags(
-            // On autofill we get a stringified value.
-            typeof value === "string" ? value.split(",") : value
-        );
+        console.log(value);
     };
 
     const handleOpenTagDialog = () => {
@@ -98,22 +120,49 @@ export default function UploadSource() {
         setOpenAddTagDialog(false);
     };
 
-    const handleCreateTag = () => {
-        if (otherTagValue.trim()) {
+    const handleCreateTag = async () => {
+        if (otherTagValue) {
             setSelectedTags([...selectedTags, otherTagValue]);
-            setTags([...tags, otherTagValue]);
-            setOtherTagValue("");
-            setOpenAddTagDialog(false); // Close the dialog after adding a tag
+
+            const formData = {
+                "displayName": otherTagValue,
+                "used": false
+            };
+
+            try {
+                const fetchPromise = fetch('/api/data/tags', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify(formData),
+                });
+
+                const response = await fetchPromise;
+
+                if (!response.ok) {
+                    throw new Error(`HTTP error! Status: ${response.status}`);
+                }
+
+                const data = await response.json();
+                console.log('Response:', data);
+            } catch (error) {
+                console.error('Error:', error);
+            }
+
+            setOtherTagValue(EMPTY_TAG);
+            setOpenAddTagDialog(false);
         }
     };
 
-    const hangleChangeOrganization = (
-        event: SelectChangeEvent<typeof selectedOrganization>
-    ) => {
-        const {
-            target: { value },
-        } = event;
-        setSelectedOrganization(value);
+    const setOtherOrganizationInForm = (org: StringObject) => {
+        setOtherOrgValue({ ...org, used: false});
+    }
+
+
+    const hangleChangeOrganization = (event: SelectChangeEvent<typeof selectedOrganization>) => {
+        const { target: { value }, } = event;
+        setSelectedOrganization(organizations.find(org => org.id === value));
     };
 
     const handleOpenOrgDialog = () => {
@@ -127,11 +176,14 @@ export default function UploadSource() {
     const handleCreateOrg = () => {
         if (otherOrgValue.trim()) {
             setSelectedOrganization(otherOrgValue);
-            setOrganizations([...organizations, otherOrgValue]);
             setOtherOrgValue("");
-            setOpenAddOrgDialog(false); // Close the dialog after adding an organization
+            setOpenAddOrgDialog(false);
         }
     };
+
+    const setOtherTagInForm = (tag: StringObject) => {
+        setOtherTagValue({ ...tag, used: false});
+    }
 
     return (
         <Provider store={store}>
@@ -179,15 +231,15 @@ export default function UploadSource() {
                                 >
                                     {organizations.map((org) => (
                                         <MenuItem
-                                            key={org}
-                                            value={org}
-                                            style={getStyles(
+                                            key={org.id}
+                                            value={org.id}
+                                            style={getSelectStyles(
                                                 org,
-                                                selectedTags,
+                                                selectedOrganization ? [selectedOrganization] : [],
                                                 formTheme
                                             )}
                                         >
-                                            {org}
+                                            {org.display}
                                         </MenuItem>
                                     ))}
                                 </Select>
@@ -202,10 +254,9 @@ export default function UploadSource() {
                                 handleCloseDialog={handleCloseOrgDialog}
                                 handleCreate={handleCreateOrg}
                                 inputValue={otherOrgValue}
-                                setInputValue={setOtherOrgValue}
+                                setInputValue={setOtherOrganizationInForm}
                                 openDialog={openAddOrgDialog}
                                 title={Texts.UPLOAD.AddNewOrg}
-                                question={Texts.UPLOAD.AddNewOrgAsk}
                             />
                             <TextField
                                 margin="normal"
@@ -216,7 +267,7 @@ export default function UploadSource() {
                             />
                             <FormControl fullWidth required margin="normal">
                                 <InputLabel id="demo-multiple-chip-label">
-                                    תגיות
+                                    {Texts.COMMON.Tags}
                                 </InputLabel>
                                 <Select
                                     labelId="demo-multiple-chip-label"
@@ -240,8 +291,8 @@ export default function UploadSource() {
                                         >
                                             {selected.map((value) => (
                                                 <Chip
-                                                    key={value}
-                                                    label={value}
+                                                    key={value.id}
+                                                    label={value.display}
                                                 />
                                             ))}
                                         </Box>
@@ -250,15 +301,15 @@ export default function UploadSource() {
                                 >
                                     {tags.map((tag) => (
                                         <MenuItem
-                                            key={tag}
-                                            value={tag}
-                                            style={getStyles(
+                                            key={tag.id}
+                                            value={tag.display}
+                                            style={getSelectStyles(
                                                 tag,
                                                 selectedTags,
                                                 formTheme
                                             )}
                                         >
-                                            {tag}
+                                            {tag.display}
                                         </MenuItem>
                                     ))}
                                 </Select>
@@ -273,10 +324,9 @@ export default function UploadSource() {
                                 handleCloseDialog={handleCloseTagDialog}
                                 handleCreate={handleCreateTag}
                                 inputValue={otherTagValue}
-                                setInputValue={setOtherTagValue}
+                                setInputValue={setOtherTagInForm}
                                 openDialog={openAddTagDialog}
                                 title={Texts.UPLOAD.AddNewTag}
-                                question={Texts.UPLOAD.AddNewTagAsk}
                             />
                             <Button
                                 type="submit"
