@@ -1,5 +1,6 @@
 {
     "common": {
+        "app_name": "מידע פסיכולוגי",
         "no": "לא",
         "yes": "כן",
         "next": "הבא",
@@ -17,5 +18,11 @@
     "add_string": {
         "enter_id": "הכנס זיהוי",
         "enter_display": "הכנס תצוגה"
+    },
+    "wizard": {
+
+    },
+    "upload": {
+        
     }
 }

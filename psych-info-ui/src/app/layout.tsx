@@ -3,6 +3,8 @@ import type { Metadata } from "next";
 import { Inter } from "next/font/google";
 import Navbar from "@/app/Components/UI/NavBar";
 
+import "../i18n/config";
+
 const inter = Inter({ subsets: ["latin"] });
 
 export const metadata: Metadata = {

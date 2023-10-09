@@ -19,3 +19,7 @@ export const EMPTY_ORGANIZATION: Organization = {
     display: "",
     used: false,
 };
+
+export function isEmptyOrSpaces(str: string) {
+    return str === null || str.match(/^ *$/) !== null || str === "\r";
+}
