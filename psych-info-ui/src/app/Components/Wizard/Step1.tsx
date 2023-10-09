@@ -1,9 +1,14 @@
 import { Fragment } from "react";
 import { Typography } from "@mui/material";
-import TagsGrid from "@/app/Components/StepsComp/TagsGrid";
+import TagsGrid from "@/app/Components/Wizard/TagsGrid";
 import { StepProps } from "@/app/General/interfaces";
 
-function Step1({ data = [], text = "" }: StepProps) {
+function Step1({
+    data = [],
+    text = "",
+    addData = () => null,
+    dataType = "",
+}: StepProps) {
     return (
         <Fragment>
             <Typography
@@ -12,7 +17,7 @@ function Step1({ data = [], text = "" }: StepProps) {
             >
                 :בחר {text}
             </Typography>
-            <TagsGrid data={data} />
+            <TagsGrid data={data} addData={addData} dataType={dataType} />
         </Fragment>
     );
 }
