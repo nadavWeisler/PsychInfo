@@ -6,7 +6,7 @@ export function readJsonFile(filePath: string) {
 }
 
 export function writeJsonFile(filePath: string, data: any) {
-    fs.writeFileSync(filePath, JSON.stringify(data));
+    fs.writeFileSync(filePath, JSON.stringify(data, null, 4));
 }
 
 export function parseParams(request: any) {
@@ -23,3 +23,4 @@ export function parseParams(request: any) {
 
 export const DATAFILE = 'C:\\Users\\User\\WebstormProjects\\PsychInfo\\psych-info-ui\\src\\data\\data.json';
 export const TAGSFILE = 'C:\\Users\\User\\WebstormProjects\\PsychInfo\\psych-info-ui\\src\\data\\tags.json';
+export const ORGSFILE = 'C:\\Users\\User\\WebstormProjects\\PsychInfo\\psych-info-ui\\src\\data\\organizations.json';
