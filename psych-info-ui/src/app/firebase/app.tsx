@@ -16,3 +16,12 @@ const firebaseConfig = {
 export const app = initializeApp(firebaseConfig);
 
 export const db = getDatabase(app, process.env.NEXT_PUBLIC_DATABASE_URL);
+
+export const dbPaths = {
+    currentEnv: process.env.NEXT_PUBLIC_ENV,
+    allTags: process.env.NEXT_PUBLIC_ENV + "/tags",
+    allOrganizations: process.env.NEXT_PUBLIC_ENV + "/organizations",
+    content: process.env.NEXT_PUBLIC_ENV + "/content",
+    validateContent: process.env.NEXT_PUBLIC_ENV + "/validateContent",
+
+};

@@ -1,6 +1,6 @@
 import { Button, Dialog, DialogActions, DialogContent, DialogContentText, DialogTitle, TextField } from "@mui/material";
-import { Texts } from "../resources/texts";
 import { StringObject } from "../general/interfaces";
+import { useTranslation } from "react-i18next";
 
 interface AddStringProps {
     title: string;
@@ -12,32 +12,36 @@ interface AddStringProps {
 }
 
 export const AddString = (props: AddStringProps) => {
+    const { t } = useTranslation();
+
     const { title, openDialog, handleCloseDialog, handleCreate, inputValue, setInputValue } = props;
     return (
         <Dialog open={openDialog} onClose={handleCloseDialog}>
             <DialogTitle>{title}</DialogTitle>
             <DialogContent>
                 <TextField
+                    margin="dense"
                     fullWidth
-                    label={Texts.ADD_STRING.EnterID}
+                    label={t("add_string.enter_id")}
                     variant="outlined"
                     value={inputValue.id}
                     onChange={(e) => setInputValue({ ...inputValue, id: e.target.value })}
                 />
                 <TextField
+                    margin="dense"
                     fullWidth
-                    label={Texts.ADD_STRING.EnterDisplayName}
+                    label={t("add_string.enter_display")}
                     variant="outlined"
                     value={inputValue.display}
                     onChange={(e) => setInputValue({ ...inputValue, display: e.target.value })}
                 />
             </DialogContent>
             <DialogActions>
-                <Button onClick={handleCloseDialog} color="primary">
-                    {Texts.COMMON.Cancel}
+                <Button onClick={handleCloseDialog} color="primary" sx={{ margin: '10px' }}>
+                    {t("common.cancel")}
                 </Button>
-                <Button onClick={handleCreate} color="primary">
-                    {Texts.COMMON.Create}
+                <Button onClick={handleCreate} color="primary" sx={{ margin: '10px' }}>
+                    {t("common.create")}
                 </Button>
             </DialogActions>
         </Dialog>
