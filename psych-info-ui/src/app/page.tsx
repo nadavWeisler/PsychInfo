@@ -1,7 +1,8 @@
 "use client";
 import { Fragment, useState } from "react";
-import { Typography, Button, Box, ThemeProvider } from "@mui/material";
+import { ThemeProvider } from "@mui/material";
 import Wizrad from "@/app/Components/Wizard/Wizard";
+import WelcomeMsg from "@/app/Components/UI/WelcomeMsg";
 import { darkTheme } from "@/app/General/styles";
 import { Provider } from "react-redux";
 import store from "@/app/store";
@@ -17,36 +18,11 @@ function HomePage() {
         setOpen(false);
     };
     return (
-        <Provider store={store}> 
+        <Provider store={store}>
             <Fragment>
                 <ThemeProvider theme={darkTheme}>
                     <Wizrad open={open} onClose={closeWizradHandler} />
-                    <Box
-                        sx={{
-                            margin: "auto",
-                            textAlign: "center",
-                            marginTop: "75px",
-                        }}
-                    >
-                        <Typography variant="h1" component="div" gutterBottom>
-                            Welcome to PsychInfo!
-                        </Typography>
-                        <Typography variant="h4" component="div" gutterBottom>
-                            Click the button below to get started.
-                        </Typography>
-                        <Button
-                            sx={{
-                                marginTop: "20px",
-                                width: "100px",
-                                height: "50px",
-                            }}
-                            variant="contained"
-                            color="primary"
-                            onClick={openWizradHandler}
-                        >
-                            Start
-                        </Button>
-                    </Box>
+                    <WelcomeMsg openWizradHandler={openWizradHandler} />
                 </ThemeProvider>
             </Fragment>
         </Provider>
