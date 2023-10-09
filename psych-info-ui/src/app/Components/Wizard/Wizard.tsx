@@ -1,5 +1,7 @@
 "use client";
 import { useState, useEffect } from "react";
+import { useDispatch } from "react-redux";
+import { pagesActions } from "@/app/store/pagesSlice";
 import {
     Dialog,
     DialogTitle,
@@ -13,8 +15,6 @@ import {
 } from "@mui/material";
 import { darkTheme } from "@/app/General/styles";
 import Step1 from "@/app/Components/Wizard/Step1";
-import Step2 from "@/app/Components/Wizard/Step2";
-import Step3 from "@/app/Components/Wizard/Step3";
 import ErrorStep from "@/app/Components/Wizard/ErrorStep";
 import { WizardDialogProps } from "@/app/General/interfaces";
 import { getTags, getOrganizations } from "@/app/General/utils";
@@ -26,6 +26,18 @@ function WizardDialog({
     const [activeStep, setActiveStep] = useState(0);
     const [tags, setTags] = useState<string[]>([]);
     const [organizations, setOrganizations] = useState<string[]>([]);
+    const [tagsArr, setTagsArr] = useState<string[]>([]);
+    const [organizationArr, setOrganizationArr] = useState<string[]>([]);
+
+    const dispatch = useDispatch();
+
+    const tagsArrHandler = (data: string[]) => {
+        setTagsArr(data);
+    };
+
+    const organizationArrHandler = (data: string[]) => {
+        setOrganizationArr(data);
+    };
 
     const handleNext = () => {
         setActiveStep((prevActiveStep) => prevActiveStep + 1);
@@ -36,8 +48,12 @@ function WizardDialog({
     };
 
     const handleSubmit = () => {
+        const data = {
+            tags: tagsArr,
+            organization: organizationArr,
+        };
+        dispatch(pagesActions.addData(data));
         onClose();
-        // TODO: add more code
     };
 
     useEffect(() => {
@@ -48,19 +64,34 @@ function WizardDialog({
     const GetStepContent = (step: number) => {
         switch (step) {
             case 0:
-                return <Step1 data={tags} text={"תגיות"} />;
+                return (
+                    <Step1
+                        data={tags}
+                        text={"תגיות"}
+                        addData={tagsArrHandler}
+                        dataType="tags"
+                    />
+                );
             case 1:
-                return <Step1 data={organizations} text={"ארגונים"} />;
-            case 2:
-                return <Step2 />;
-            case 3:
-                return <Step3 />;
+                return (
+                    <Step1
+                        data={organizations}
+                        text={"ארגונים"}
+                        addData={organizationArrHandler}
+                        dataType="organization"
+                    />
+                );
             default:
                 return <ErrorStep errorMsg={"Invalid Step"} />;
         }
     };
 
-    const steps = ["Step 1", "Step 2", "Step 3", "Step 4"];
+    const steps = ["שלב 1", "שלב 2"];
+
+    const test = () => {
+        console.log(tagsArr);
+        console.log(organizationArr);
+    };
 
     return (
         <ThemeProvider theme={darkTheme}>
@@ -84,11 +115,11 @@ function WizardDialog({
                     <Button
                         variant={"contained"}
                         onClick={handleNext}
-                        disabled={activeStep === 3}
+                        disabled={activeStep === 1}
                     >
                         {"Next"}
                     </Button>
-                    {activeStep === 3 && (
+                    {activeStep === 1 && (
                         <Button
                             variant={"contained"}
                             color={"primary"}
@@ -97,6 +128,9 @@ function WizardDialog({
                             {"Submit"}
                         </Button>
                     )}
+                    <Button variant="contained" onClick={test}>
+                        Test
+                    </Button>
                 </DialogActions>
             </Dialog>
         </ThemeProvider>

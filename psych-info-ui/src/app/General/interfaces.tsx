@@ -1,5 +1,7 @@
 interface Data {
     data: string[];
+    addData: (data: string[]) => void;
+    dataType: string;
 }
 
 export interface TagsGridProps extends Data {}
@@ -27,9 +29,10 @@ export interface WizardDialogProps {
 }
 
 export interface PagesSliceInitialState {
-    index: number;
-    prop1: number;
-    prop2: number;
-    prop3: string;
-    prop4: string;
+    tags: string[];
+    organization: string[];
+}
+
+export interface WelcomeMsgProps {
+    openWizradHandler: () => void;
 }
