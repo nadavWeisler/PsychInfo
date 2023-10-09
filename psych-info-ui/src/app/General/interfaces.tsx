@@ -12,3 +12,11 @@ export interface WizardDialogProps {
     open: boolean;
     onClose: () => void;
 }
+
+export interface PagesSliceInitialState {
+    index: number;
+    prop1: number;
+    prop2: number;
+    prop3: string;
+    prop4: string;
+}
