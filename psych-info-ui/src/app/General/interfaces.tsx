@@ -4,6 +4,13 @@ interface Data {
     dataType: string;
 }
 
+export enum Language {
+    Hebrew = "he",
+    English = "en",
+    Arabic = "arb",
+    Russian = "rus",
+}
+
 export interface TagsGridProps extends Data {}
 
 export interface StepProps extends Data {
@@ -13,6 +20,15 @@ export interface StepProps extends Data {
 export interface StringObject {
     id: string;
     display: string;
+}
+
+export interface Content {
+    title: string;
+    link: string;
+    tags: Tag[];
+    organization: Organization[];
+    description: string;
+    language: Language;
 }
 
 export interface Tag extends StringObject{

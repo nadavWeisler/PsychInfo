@@ -1,7 +1,7 @@
 export class Texts {
-    // Create common texts here
     public static readonly COMMON = {
         Create: 'צור',
+        Language: 'שפה',
         Edit: 'ערוך',
         Delete: 'מחק',
         Save: 'שמור',
@@ -23,6 +23,7 @@ export class Texts {
         Tag: 'תגית',
         Tags: 'תגיות',
         Link: 'קישור',
+        Uploader: 'מעלה',
     };
 
     public static readonly ADD_STRING = {
@@ -30,7 +31,6 @@ export class Texts {
         EnterDisplayName: 'הכנס שם להצגה'
     }
 
-    // Create page texts here
     public static readonly UPLOAD = {
         Title: "העלאת תוכן חדש",
         AddNewOrg: "העלאת ארגון חדש",
