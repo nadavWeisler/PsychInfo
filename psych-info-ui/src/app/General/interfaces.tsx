@@ -1,9 +1,10 @@
-interface Data {
+interface DataForWizard {
     data: string[];
     addData: (data: string[]) => void;
     dataType: string;
 }
 
+export interface TagsGridProps extends DataForWizard {}
 export enum Language {
     Hebrew = "he",
     English = "en",
@@ -11,9 +12,7 @@ export enum Language {
     Russian = "rus",
 }
 
-export interface TagsGridProps extends Data {}
-
-export interface StepProps extends Data {
+export interface StepProps extends DataForWizard {
     text: string;
 }
 
@@ -31,7 +30,7 @@ export interface Content {
     language: Language;
 }
 
-export interface Tag extends StringObject{
+export interface Tag extends StringObject {
     used: boolean;
 }
 
@@ -52,3 +51,16 @@ export interface PagesSliceInitialState {
 export interface WelcomeMsgProps {
     openWizradHandler: () => void;
 }
+
+interface Results {
+    content: string;
+    link: string;
+    organization: string;
+    relevantTags: string[];
+}
+
+export interface ResultAccordionProps extends Results {
+    title: string;
+}
+
+export interface AccordionContentProps extends Results {}
