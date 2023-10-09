@@ -159,7 +159,6 @@ export default function UploadSource() {
         setOtherOrgValue({ ...org, used: false});
     }
 
-
     const hangleChangeOrganization = (event: SelectChangeEvent<typeof selectedOrganization>) => {
         const { target: { value }, } = event;
         setSelectedOrganization(organizations.find(org => org.id === value));
@@ -265,6 +264,14 @@ export default function UploadSource() {
                                 label={Texts.COMMON.Link}
                                 id="link"
                             />
+                            <TextField
+                                margin="normal"
+                                fullWidth
+                                required
+                                name="language"
+                                label={Texts.COMMON.Language}
+                                id="language"
+                            />
                             <FormControl fullWidth required margin="normal">
                                 <InputLabel id="demo-multiple-chip-label">
                                     {Texts.COMMON.Tags}
@@ -327,6 +334,14 @@ export default function UploadSource() {
                                 setInputValue={setOtherTagInForm}
                                 openDialog={openAddTagDialog}
                                 title={Texts.UPLOAD.AddNewTag}
+                            />
+                            <TextField
+                                margin="normal"
+                                fullWidth
+                                name="person"
+                                required
+                                label={Texts.COMMON.Uploader}
+                                id="person"
                             />
                             <Button
                                 type="submit"

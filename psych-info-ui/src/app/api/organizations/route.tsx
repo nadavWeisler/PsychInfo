@@ -1,16 +1,14 @@
-import {readJsonFile, writeJsonFile, parseParams, ORGSFILE} from "@/app/api/utils";
-export function GET(request: any) {
-    const orgs = readJsonFile(ORGSFILE);
+import { ORGS_FILE, readOrginizationsFile, getNewOrgFromRequest, writeOrginizationsFile } from "@/app/api/utils";
 
+export function GET() {
+    const orgs = readOrginizationsFile(ORGS_FILE);
     return Response.json(orgs)
 }
 
-export function POST(request: any) {
-    const params = parseParams(request);
-    console.log(params)
-    let orgs = readJsonFile(ORGSFILE);
-    // @ts-ignore
-    orgs[params['orgid']] = params
-    writeJsonFile(ORGSFILE, orgs);
+export function POST(request: Request) {
+    const newOrgainization = getNewOrgFromRequest(request);
+    let orgs = readOrginizationsFile(ORGS_FILE);
+    orgs.push(newOrgainization);
+    writeOrginizationsFile(ORGS_FILE, orgs);
     return Response.json(orgs)
 }
