@@ -66,6 +66,8 @@ function ResultAccordion({
                         <Link href={link} target="_blank" rel="noopener">
                             {title}
                         </Link>
+                        <br />
+                        <br />
                         <Button variant={"outlined"} onClick={openShareDialog}>
                             שיתוף
                         </Button>

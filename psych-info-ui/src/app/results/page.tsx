@@ -33,7 +33,11 @@ function ResultsPage() {
     // TODO: get results from store
     return (
         <Fragment>
-            <Typography variant="h1">תוצאות</Typography>
+            <br />
+            <Typography align="center" variant="h3">
+                הנה התוצאות שמצאנו:
+            </Typography>
+            <br />
             {results.map((result) => {
                 return (
                     <ResultAccordion
