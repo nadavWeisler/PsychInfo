@@ -1,4 +1,5 @@
 "use client";
+import { useState, useEffect } from "react";
 import { Button, TextField, Box } from "@mui/material";
 import { AdminSignInFormProps } from "@/app/general/interfaces";
 
@@ -7,11 +8,27 @@ function SigninForm({
     passwordHandler = () => null,
     emailHandler = () => null,
 }: AdminSignInFormProps) {
+    const [width, setWidth] = useState<number>(window.innerWidth);
+
+    function handleWindowSizeChange() {
+        setWidth(window.innerWidth);
+    }
+    useEffect(() => {
+        window.addEventListener("resize", handleWindowSizeChange);
+        return () => {
+            window.removeEventListener("resize", handleWindowSizeChange);
+        };
+    }, []);
+
+    const isMobile = width <= 768;
+
+    const windowWidth = isMobile ? "60%" : "20%";
+    const marginForBtn = isMobile ? 12 : 20;
     return (
         <Box
             component="form"
             onSubmit={handleSubmit}
-            sx={{ mt: 1, width: "20%", margin: "auto" }}
+            sx={{ mt: 1, width: windowWidth, margin: "auto" }}
         >
             <TextField
                 margin="normal"
@@ -40,7 +57,7 @@ function SigninForm({
                 type="submit"
                 fullWidth
                 variant="contained"
-                sx={{ mt: 3, mb: 2, mr: 20, width: "20%" }}
+                sx={{ mt: 3, mb: 2, mr: marginForBtn, width: "20%" }}
             >
                 התחבר
             </Button>
