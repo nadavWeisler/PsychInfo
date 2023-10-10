@@ -119,11 +119,11 @@ function WizardDialog({ open, onClose }: WizardDialogProps) {
                 <Button
                     variant={"contained"}
                     onClick={handleNext}
-                    disabled={activeStep === 1}
+                    disabled={activeStep === 2}
                 >
                     {t("common.next")}
                 </Button>
-                {activeStep === 1 && (
+                {activeStep === 2 && (
                     <Button
                         variant={"contained"}
                         color={"primary"}

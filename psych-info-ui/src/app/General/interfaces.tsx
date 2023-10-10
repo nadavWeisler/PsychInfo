@@ -1,16 +1,12 @@
-export interface DataForWizard {
-    data: StringObject[];
-    addData: (data: StringObject[]) => void;
-    dataType: WizardDataType;
+export enum Operator {
+    AND, 
+    OR
 }
 
-export enum WizardDataType {
-    Tags = "tags",
-    Organization = "organization",
-}
-
-export interface StepProps extends DataForWizard {
-    text: string;
+export enum WizardStep {
+    Tags,
+    Organizations,
+    Languages,
 }
 
 export interface StringObject {
@@ -24,7 +20,7 @@ export interface Content {
     tags: Tag[];
     organization: Organization;
     description: string;
-    language: string;
+    language: Language;
     uploader: string;
 }
 

@@ -40,7 +40,7 @@ export default function OrgsStep({ organizations, updateSelectedOrganizations }:
             </Typography>
             <Grid container spacing={2}>
                 {organizations.map((organization) => (
-                    <Grid item xs={3} key={organization.id}>
+                    <Grid item key={organization.id}>
                         <Chip
                             key={organization.id}
                             label={organization.display}

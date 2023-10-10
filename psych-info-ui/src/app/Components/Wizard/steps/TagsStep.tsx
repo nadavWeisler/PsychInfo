@@ -40,7 +40,7 @@ export default function TagsStep({ tags, updateSelectedTags }: TagsStepProps) {
             </Typography>
             <Grid container spacing={2}>
                 {tags.map((tag) => (
-                    <Grid item xs={3} key={tag.id}>
+                    <Grid item key={tag.id}>
                         <Chip
                             key={tag.id}
                             label={tag.display}

@@ -40,7 +40,7 @@ export default function LangStep({ langs, updateSelectedLangs }: LangStepProps) 
             </Typography>
             <Grid container spacing={2}>
                 {langs.map((lang) => (
-                    <Grid item xs={3} key={lang.id}>
+                    <Grid item key={lang.id}>
                         <Chip
                             key={lang.id}
                             label={lang.display}

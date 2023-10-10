@@ -48,6 +48,7 @@
     "upload": {
         "title": "העלאת תוכן חדש",
         "create_new_organization": "צור ארגון חדש",
-        "create_new_tag": "צור תגית חדשה"
+        "create_new_tag": "צור תגית חדשה",
+        "create_new_language": "צור שפה חדשה"
     }
 }

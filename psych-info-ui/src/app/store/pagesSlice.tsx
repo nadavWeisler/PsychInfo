@@ -1,6 +1,6 @@
 "use client";
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
-import { Organization, PagesSliceInitialState, Tag } from "@/app/General/interfaces";
+import { Organization, PagesSliceInitialState, Tag } from "@/app/general/interfaces";
 
 export const pagesSlice = createSlice({
     name: "pagesSlice",

@@ -1,8 +1,8 @@
 "use client";
 import { Fragment, useState } from "react";
-import { Box, Container, CssBaseline, ThemeProvider } from "@mui/material";
-import Wizrad from "@/app/Components/Wizard/Wizard";
-import WelcomeMsg from "@/app/Components/UI/WelcomeMsg";
+import { ThemeProvider } from "@mui/material";
+import Wizrad from "@/app/Components/wizard/Wizard";
+import WelcomeMsg from "@/app/Components/ui/WelcomeMsg";
 import { darkTheme } from "@/app/General/styles";
 import { Provider } from "react-redux";
 import store from "@/app/store";
@@ -29,7 +29,16 @@ function HomePage() {
             language: "English",
             organization: "organization1",
             tags: ["tag1", "tag2"],
-        }
+        }, 
+        {
+            title: "title1",
+            description: "description1",
+            id: "id1",
+            img: "https://picsum.photos/200/300",
+            language: "English",
+            organization: "organization1",
+            tags: ["tag1", "tag2"],
+        }, 
     ]
     return (
         <Provider store={store}>

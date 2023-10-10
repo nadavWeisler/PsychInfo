@@ -1,6 +1,6 @@
 import { get, push, ref, set } from "firebase/database";
 import { db, dbPaths } from "./app";
-import { Content, Language, Organization, Tag } from "../general/interfaces";
+import { Content, Language, Operator, Organization, Tag } from "../general/interfaces";
 
 export async function getAllTags(used: boolean): Promise<Tag[]> {
     try {
@@ -62,22 +62,35 @@ export async function getAllLanguages(used: boolean): Promise<Language[]> {
     }
 }
 
-export async function getContent(organizations: Organization[], tags: Tag[]): Promise<Content[]> {
+export async function getContent(organizations: Organization[], 
+    tags: Tag[], Languages: Language[], operator: Operator): Promise<Content[]> {
     try {
         const snapshot = await get(ref(db, dbPaths.content));
         if (snapshot.exists()) {
             const content: Content[] = Object.values(snapshot.val());
             return Object.values(content).filter((item) => {
-                if (item.organization) {
-                    return organizations.some((organization) => organization.id === item.organization.id);
+                let org = false;
+                let tag = false;
+                let lang = false;
+                if (organizations.length > 0) {
+                    org = organizations.some((organization) => item.organization.id === organization.id);
                 } else {
-                    return false;
+                    org = true;
                 }
-            }).filter((item) => {
-                if (item.tags) {
-                    return tags.some((tag) => item.tags.includes(tag));
+                if (tags.length > 0) {
+                    tag = tags.some((tag) => item.tags.some((contentTag) => contentTag.id === tag.id));
                 } else {
-                    return false;
+                    tag = true;
+                }
+                if (Languages.length > 0) {
+                    lang = Languages.some((language) => item.language.id === language.id);
+                } else {
+                    lang = true;
+                }
+                if (operator === Operator.AND) {
+                    return org && tag && lang;
+                } else {
+                    return org || tag || lang;
                 }
             });
         } else {
@@ -110,24 +123,28 @@ export function createOrganization(organization: Organization): Promise<void> {
     }
 }
 
-export function updateUsedTags(tags: Tag[]): Promise<void> {
-    tags = tags.map((tag) => {
+export async function updateUsed(newContent: Content): Promise<void> {
+    const newTags: Tag[] = newContent.tags.map((tag) => {
         tag.used = true;
         return tag;
     });
+    const newOrganization: Organization = {...newContent.organization, used: true};
+    const newLanguage: Language = {...newContent.language, used: true};
     try {
-        return set(ref(db, dbPaths.allTags), tags);
+        await set(ref(db, dbPaths.allTags), newTags)
+        await set(ref(db, dbPaths.allOrganizations), newOrganization);
+        await set(ref(db, dbPaths.languages), newLanguage);
     } catch (error) {
         console.error('Error:', error);
         throw error;
     }
 }
 
-export function createContent(content: Content): Promise<void> {
+export async function createContent(content: Content): Promise<void> {
     try {
-        const newContentRef = push(ref(db, dbPaths.validateContent));
-        updateUsedTags(content.tags);
-        return set(newContentRef, content);
+        const newContentRef = await push(ref(db, dbPaths.validateContent));
+        updateUsed(content);
+        return await set(newContentRef, content);
     } catch (error) {
         console.error('Error:', error);
         throw error;
