@@ -67,3 +67,13 @@ export interface Filter {
     title: string;
     description: string;
 }
+
+export interface AdminSignInFormProps {
+    emailHandler: (e: React.ChangeEvent<HTMLInputElement>) => void;
+    passwordHandler: (e: React.ChangeEvent<HTMLInputElement>) => void;
+    handleSubmit: (e: React.FormEvent<HTMLFormElement>) => void;
+}
+
+export interface RequestAccordionProps extends Content {
+    deleteHandler: () => void;
+}

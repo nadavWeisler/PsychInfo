@@ -1,6 +1,11 @@
 "use client";
 import { initializeApp } from "firebase/app";
 import { getDatabase } from "firebase/database";
+import {
+    getAuth,
+    setPersistence,
+    browserLocalPersistence,
+} from "firebase/auth";
 
 const firebaseConfig = {
     apiKey: process.env.NEXT_PUBLIC_API_KEY,
@@ -25,3 +30,6 @@ export const dbPaths = {
     validateContent: process.env.NEXT_PUBLIC_ENV + "/validateContent",
     languages: process.env.NEXT_PUBLIC_ENV + "/languages",
 };
+
+export const auth = getAuth(app);
+setPersistence(auth, browserLocalPersistence);

@@ -1,22 +1,19 @@
 "use client";
-import { Fragment, useState } from "react";
 import {
     Accordion,
     AccordionDetails,
     AccordionSummary,
     Typography,
     Link,
-    Button,
     Box,
-    ThemeProvider,
+    Button,
 } from "@mui/material";
 import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
-import { Content, Language } from "@/app/general/interfaces";
+import { RequestAccordionProps, Language } from "@/app/general/interfaces";
 import AccordionContent from "@/app/Components/ResultComp/AccordionContent";
-import ShareDialog from "@/app/Components/ResultComp/ShareDialog";
 import { darkTheme } from "@/app/General/styles";
 
-function ResultAccordion({
+function RequestAccordion({
     title = "",
     link = "",
     tags = [],
@@ -24,17 +21,12 @@ function ResultAccordion({
     description = "",
     language = Language.Hebrew,
     uploader = "",
-}: Content) {
-    const [open, setOpen] = useState(false);
-
-    const openShareDialog = () => {
-        setOpen(true);
+    deleteHandler = () => null,
+}: RequestAccordionProps) {
+    const deleteRequest = async () => {
+        // await deleteFromDB(path);
+        deleteHandler();
     };
-
-    const closeShareDialog = () => {
-        setOpen(false);
-    };
-
     return (
         <Box
             sx={{
@@ -68,21 +60,15 @@ function ResultAccordion({
                     <br />
                     <br />
                     <Button
-                        color={"success"}
-                        variant={"contained"}
-                        onClick={openShareDialog}
+                        color={"error"}
+                        variant={"outlined"}
+                        onClick={deleteRequest}
                     >
-                        שיתוף
+                        מחק
                     </Button>
-                    <ShareDialog
-                        open={open}
-                        onClose={closeShareDialog}
-                        urlToShare={link}
-                    />
                 </AccordionDetails>
             </Accordion>
         </Box>
     );
 }
-
-export default ResultAccordion;
+export default RequestAccordion;
