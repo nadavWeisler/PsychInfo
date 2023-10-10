@@ -1,3 +1,6 @@
+import { ReactNode } from "react";
+import { User } from "firebase/auth";
+
 interface DataForWizard {
     data: string[];
     addData: (data: string[]) => void;
@@ -65,4 +68,12 @@ export interface AdminSignInFormProps {
 
 export interface RequestAccordionProps extends Content {
     deleteHandler: () => void;
+}
+
+export interface ContextProps {
+    user: User | null | undefined;
+}
+
+export interface AuthProviderProps {
+    children: ReactNode;
 }
