@@ -1,15 +1,12 @@
-interface DataForWizard {
-    data: string[];
-    addData: (data: string[]) => void;
-    dataType: string;
+export interface DataForWizard {
+    data: StringObject[];
+    addData: (data: StringObject[]) => void;
+    dataType: WizardDataType;
 }
 
-export interface TagsGridProps extends DataForWizard {}
-export enum Language {
-    Hebrew = "עברית",
-    English = "English",
-    Arabic = "العربية",
-    Russian = "Русский",
+export enum WizardDataType {
+    Tags = "tags",
+    Organization = "organization",
 }
 
 export interface StepProps extends DataForWizard {
@@ -31,6 +28,10 @@ export interface Content {
     uploader: string;
 }
 
+export interface Language extends StringObject {
+    used: boolean;
+}
+
 export interface Tag extends StringObject {
     used: boolean;
 }
@@ -39,20 +40,30 @@ export interface Organization extends StringObject {
     used: boolean;
 }
 
-export interface WizardDialogProps {
-    open: boolean;
-    onClose: () => void;
-}
 
 export interface PagesSliceInitialState {
-    tags: string[];
-    organization: string[];
+    tags: Tag[];
+    organization: Organization[];
 }
 
 export interface WelcomeMsgProps {
     openWizradHandler: () => void;
 }
 
+export interface WizardDialogProps {
+    open: boolean;
+    onClose: () => void;
+}
 export interface ShareDialogProps extends WizardDialogProps {
     urlToShare: string;
+}
+
+export interface Filter {
+    id: string;
+    img: string;
+    tags: string[];
+    organization: string;
+    language: string;
+    title: string;
+    description: string;
 }

@@ -10,35 +10,30 @@ import {
     DialogActions,
     Button,
     Stepper,
-    Step,
     StepLabel,
-    ThemeProvider,
+    Step,
 } from "@mui/material";
-import { darkTheme } from "@/app/General/styles";
-import Step1 from "@/app/Components/Wizard/Step1";
-import ErrorStep from "@/app/Components/Wizard/ErrorStep";
-import { WizardDialogProps } from "@/app/general/interfaces";
-import { getTags, getOrganizations } from "@/app/General/utils";
+import { useTranslation } from "react-i18next";
+import { getAllLanguages, getAllOrganizations, getAllTags } from "@/app/firebase/commands";
+import { Language, Organization, Tag, WizardDialogProps } from "@/app/general/interfaces";
+import TagsStep from "@/app/Components/wizard/steps/TagsStep";
+import OrgsStep from "@/app/Components/wizard/steps/OrgsStep";
+import ErrorStep from "@/app/Components/wizard/steps/ErrorStep";
+import LangStep from "@/app/Components/wizard/steps/LangStep";
 
-function WizardDialog({
-    open = false,
-    onClose = () => null,
-}: WizardDialogProps) {
+
+
+function WizardDialog({ open, onClose }: WizardDialogProps) {
+    const { t } = useTranslation();
     const [activeStep, setActiveStep] = useState(0);
-    const [tags, setTags] = useState<string[]>([]);
-    const [organizations, setOrganizations] = useState<string[]>([]);
-    const [tagsArr, setTagsArr] = useState<string[]>([]);
-    const [organizationArr, setOrganizationArr] = useState<string[]>([]);
+    const [tags, setTags] = useState<Tag[]>([]);
+    const [languages, setLanguages] = useState<Tag[]>([]);
+    const [organizations, setOrganizations] = useState<Organization[]>([]);
+    const [selectedTags, setSelectedTags] = useState<Tag[]>([]);
+    const [selectedOrgs, setSelectedOrgs] = useState<Organization[]>([]);
+    const [selectedLanguages, setSelectedLanguages] = useState<Language[]>([]);
 
     const dispatch = useDispatch();
-
-    const tagsArrHandler = (data: string[]) => {
-        setTagsArr(data);
-    };
-
-    const organizationArrHandler = (data: string[]) => {
-        setOrganizationArr(data);
-    };
 
     const handleNext = () => {
         setActiveStep((prevActiveStep) => prevActiveStep + 1);
@@ -52,8 +47,9 @@ function WizardDialog({
 
     const handleSubmit = () => {
         const data = {
-            tags: tagsArr,
-            organization: organizationArr,
+            tags: selectedTags,
+            organization: selectedOrgs,
+            languages: selectedLanguages,
         };
         dispatch(pagesActions.addData(data));
         onClose();
@@ -61,28 +57,38 @@ function WizardDialog({
     };
 
     useEffect(() => {
-        setTags(getTags());
-        setOrganizations(getOrganizations());
+        getAllTags(true).then((res) => setTags(res));
+    }, []);
+
+    useEffect(() => {
+        getAllOrganizations(true).then((res) => setOrganizations(res));
+    }, []);
+
+    useEffect(() => {
+        getAllLanguages(true).then((res) => setLanguages(res));
     }, []);
 
     const GetStepContent = (step: number) => {
         switch (step) {
             case 0:
                 return (
-                    <Step1
-                        data={tags}
-                        text={"תגיות"}
-                        addData={tagsArrHandler}
-                        dataType="tags"
+                    <TagsStep
+                        tags={tags}
+                        updateSelectedTags={setSelectedTags}
                     />
                 );
             case 1:
                 return (
-                    <Step1
-                        data={organizations}
-                        text={"ארגונים"}
-                        addData={organizationArrHandler}
-                        dataType="organization"
+                    <OrgsStep
+                        organizations={organizations}
+                        updateSelectedOrganizations={setSelectedOrgs}
+                    />
+                );
+            case 2:
+                return (
+                    <LangStep 
+                        langs={languages}
+                        updateSelectedLangs={setSelectedLanguages}
                     />
                 );
             default:
@@ -90,46 +96,44 @@ function WizardDialog({
         }
     };
 
-    const steps = ["תגיות", "ארגונים"];
+    const steps = [t("common.tags"), t("common.organizations"), t("common.languages")];
 
     return (
-        <ThemeProvider theme={darkTheme}>
-            <Dialog open={open} onClose={onClose} fullWidth>
-                <DialogTitle>מה המידע שאתה צריך?</DialogTitle>
-                <DialogContent>
-                    <Stepper activeStep={activeStep}>
-                        {steps.map((label) => (
-                            <Step key={label}>
-                                <StepLabel>{label}</StepLabel>
-                            </Step>
-                        ))}
-                    </Stepper>
-                    {GetStepContent(activeStep)}
-                </DialogContent>
-                <DialogActions>
-                    <Button onClick={onClose}>{"סגור"}</Button>
-                    <Button onClick={handleBack} disabled={activeStep === 0}>
-                        {"אחורה"}
-                    </Button>
+        <Dialog open={open} onClose={onClose} fullWidth>
+            <DialogTitle>{t("wizard.which_info_you_need")}</DialogTitle>
+            <DialogContent>
+                <Stepper activeStep={activeStep}>
+                    {steps.map((label) => (
+                        <Step key={label}>
+                            <StepLabel>{label}</StepLabel>
+                        </Step>
+                    ))}
+                </Stepper>
+                {GetStepContent(activeStep)}
+            </DialogContent>
+            <DialogActions>
+                <Button onClick={onClose}>{t("common.close")}</Button>
+                <Button onClick={handleBack} disabled={activeStep === 0}>
+                    {t("common.back")}
+                </Button>
+                <Button
+                    variant={"contained"}
+                    onClick={handleNext}
+                    disabled={activeStep === 1}
+                >
+                    {t("common.next")}
+                </Button>
+                {activeStep === 1 && (
                     <Button
                         variant={"contained"}
-                        onClick={handleNext}
-                        disabled={activeStep === 1}
+                        color={"primary"}
+                        onClick={handleSubmit}
                     >
-                        {"הבא"}
+                        {t("common.submit")}
                     </Button>
-                    {activeStep === 1 && (
-                        <Button
-                            variant={"contained"}
-                            color={"primary"}
-                            onClick={handleSubmit}
-                        >
-                            {"הגש"}
-                        </Button>
-                    )}
-                </DialogActions>
-            </Dialog>
-        </ThemeProvider>
+                )}
+            </DialogActions>
+        </Dialog>
     );
 }
 

@@ -23,4 +23,5 @@ export const dbPaths = {
     allOrganizations: process.env.NEXT_PUBLIC_ENV + "/organizations",
     content: process.env.NEXT_PUBLIC_ENV + "/content",
     validateContent: process.env.NEXT_PUBLIC_ENV + "/validateContent",
+    languages: process.env.NEXT_PUBLIC_ENV + "/languages",
 };

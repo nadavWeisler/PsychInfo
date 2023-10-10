@@ -23,7 +23,14 @@
         "links": "קישורים",
         "uploader": "מעלה",
         "language": "שפה",
-        "start": "התחלה"
+        "languages": "שפות",
+        "start": "התחלה",
+        "choose": "בחר",
+        "organizations": "ארגונים"
+    },
+    "errors": {
+        "error_occured": "אירעה שגיאה",
+        "invalid_data_type": "סוג נתונים לא תקין"
     },
     "welcome": {
         "title": "ברוכים הבאים",
@@ -34,7 +41,9 @@
         "enter_display": "הכנס תצוגה"
     },
     "wizard": {
-
+        "which_info_you_need": "איזה מידע אתה צריך?",
+        "choose_organizations": "בחר ארגונים",
+        "choose_tags": "בחר תגיות"
     },
     "upload": {
         "title": "העלאת תוכן חדש",

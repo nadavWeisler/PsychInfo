@@ -1,6 +1,6 @@
 import { get, push, ref, set } from "firebase/database";
 import { db, dbPaths } from "./app";
-import { Content, Organization, Tag } from "../general/interfaces";
+import { Content, Language, Organization, Tag } from "../general/interfaces";
 
 export async function getAllTags(used: boolean): Promise<Tag[]> {
     try {
@@ -31,6 +31,26 @@ export async function getAllOrganizations(used: boolean): Promise<Organization[]
                 return Object.values(tags).filter((item) => item.used === used);
             } else {
                 return Object.values(tags);
+            }
+        } else {
+            console.log('No data available');
+            return [];
+        }
+    } catch (error) {
+        console.error('Error:', error);
+        throw error;
+    }
+}
+
+export async function getAllLanguages(used: boolean): Promise<Language[]> {
+    try {
+        const snapshot = await get(ref(db, dbPaths.languages));
+        if (snapshot.exists()) {
+            const languages: Language[] = Object.values(snapshot.val());
+            if (used) {
+                return Object.values(languages).filter((item) => item.used === used);
+            } else {
+                return Object.values(languages);
             }
         } else {
             console.log('No data available');

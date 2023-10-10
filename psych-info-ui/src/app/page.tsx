@@ -6,6 +6,8 @@ import WelcomeMsg from "@/app/Components/UI/WelcomeMsg";
 import { darkTheme } from "@/app/General/styles";
 import { Provider } from "react-redux";
 import store from "@/app/store";
+import { Filter } from "./general/interfaces";
+import Gallary from "./Components/gallary/gallary";
 
 function HomePage() {
     const [open, setOpen] = useState(false);
@@ -17,12 +19,25 @@ function HomePage() {
     const closeWizradHandler = () => {
         setOpen(false);
     };
+
+    const filters: Filter[] = [
+        {
+            title: "title1",
+            description: "description1",
+            id: "id1",
+            img: "https://picsum.photos/200/300",
+            language: "English",
+            organization: "organization1",
+            tags: ["tag1", "tag2"],
+        }
+    ]
     return (
         <Provider store={store}>
             <Fragment>
                 <ThemeProvider theme={darkTheme}>
                     <Wizrad open={open} onClose={closeWizradHandler} />
                     <WelcomeMsg openWizradHandler={openWizradHandler} />
+                    <Gallary filters={filters} />
                 </ThemeProvider>
             </Fragment>
         </Provider>

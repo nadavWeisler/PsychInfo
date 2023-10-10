@@ -1,12 +1,12 @@
-import { Organization, Tag } from "./interfaces";
+import { Organization, StringObject, Tag } from "./interfaces";
 
-export const getTags = () => {
-    return ["tag1", "tag2", "tag3"];
-};
+export function ListContainsById(StringObjectList: Tag[] | Organization[] | StringObject[], id: string): boolean {
+    return StringObjectList.some((item) => item.id === id);
+}
 
-export const getOrganizations = () => {
-    return ["org1", "org2", "org3"];
-};
+export function GetAllDisplays(StringObjectList: Tag[] | Organization[] | StringObject[]): string[] {
+    return StringObjectList.map((item) => item.display);
+}
 
 export const EMPTY_TAG: Tag = {
     id: "",
