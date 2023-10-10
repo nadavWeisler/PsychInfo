@@ -13,12 +13,11 @@ const getResults = () => {
                 { id: "טאג1", display: "טאג1", used: false },
                 { id: "טאג2", display: "טאג2", used: false },
             ],
-            organization: [
-                { id: "ארגון1", display: "ארגון1", used: false },
-                { id: "ארגון2", display: "ארגון2", used: false },
-            ],
+            organization: { id: "ארגון1", display: "ארגון1", used: false },
+
             description: "תיאור",
             language: "he",
+            uploader: "אני",
         },
     ];
     return data as Content[];
@@ -44,6 +43,7 @@ function ResultsPage() {
                         organization={result.organization}
                         description={result.description}
                         language={result.language}
+                        uploader={result.uploader}
                     />
                 );
             })}

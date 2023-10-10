@@ -20,9 +20,10 @@ function ResultAccordion({
     title = "",
     link = "",
     tags = [],
-    organization = [],
+    organization = { id: "", display: "", used: false },
     description = "",
     language = Language.Hebrew,
+    uploader = "",
 }: Content) {
     const [open, setOpen] = useState(false);
 
@@ -60,6 +61,7 @@ function ResultAccordion({
                             organization={organization}
                             description={description}
                             language={language}
+                            uploader={uploader}
                         />
                         <Link href={link} target="_blank" rel="noopener">
                             {title}
