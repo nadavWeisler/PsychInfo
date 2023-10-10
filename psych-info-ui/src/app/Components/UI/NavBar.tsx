@@ -37,13 +37,13 @@ function Navbar() {
                     
                 </div>
                 <div>
-                <Link href="/upload">
+                <Link href="/admin-signin">
                         <Typography
                             variant="h6"
                             component="div"
                             sx={{ cursor: "pointer", color: "white" }}
                         >
-                            העלאה
+                            אדמין? התחבר
                         </Typography>
                     </Link>
                 </div>
