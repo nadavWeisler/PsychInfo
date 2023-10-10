@@ -3,6 +3,7 @@ import { useState, useEffect, Fragment } from "react";
 import { Content } from "@/app/general/interfaces";
 import { Typography } from "@mui/material";
 import RequestAccordion from "@/app/Components/AdminComp/RequestAccordion";
+import { getPendingContent } from "@/app/firebase/commands";
 
 const getRequests = (): Content[] => {
     const dummyRequests: Content[] = [
@@ -55,8 +56,13 @@ function IncomingRequests() {
     };
 
     useEffect(() => {
-        const requests = getRequests();
-        setRequests(requests);
+        getPendingContent()
+            .then((requests) => {
+                setRequests(requests);
+            })
+            .catch((error) => {
+                console.log(error);
+            });
     }, [isDelete]);
 
     return (
