@@ -1,6 +1,6 @@
 "use client";
 import { Typography, Button, Box, ThemeProvider } from "@mui/material";
-import { WelcomeMsgProps } from "@/app/General/interfaces";
+import { WelcomeMsgProps } from "@/app/general/interfaces";
 import { darkTheme } from "@/app/General/styles";
 import { useTranslation } from "react-i18next";
 
@@ -15,10 +15,20 @@ function WelcomeMsg({ openWizradHandler = () => null }: WelcomeMsgProps) {
                     marginTop: "75px",
                 }}
             >
-                <Typography variant="h3" component="div" gutterBottom>
+                <Typography
+                    color={"black"}
+                    variant="h3"
+                    component="div"
+                    gutterBottom
+                >
                     {t("welcome.title")}
                 </Typography>
-                <Typography variant="h6" component="div" gutterBottom>
+                <Typography
+                    color={"black"}
+                    variant="h6"
+                    component="div"
+                    gutterBottom
+                >
                     {t("welcome.subtitle")}
                 </Typography>
                 <Button
