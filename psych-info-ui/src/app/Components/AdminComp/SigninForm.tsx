@@ -1,7 +1,7 @@
 "use client";
 import { useState, useEffect } from "react";
 import { Button, TextField, Box } from "@mui/material";
-import { AdminSignInFormProps } from "@/app/general/interfaces";
+import { AdminSignInFormProps } from "@/app/General/interfaces";
 
 function SigninForm({
     handleSubmit = () => null,

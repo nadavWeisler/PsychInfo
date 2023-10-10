@@ -1,12 +1,12 @@
 "use client";
 import { useState, useEffect, FormEvent } from "react";
 import {
-    Button, 
-    CssBaseline, 
-    TextField, 
-    Box, 
-    Container, 
-    Typography, 
+    Button,
+    CssBaseline,
+    TextField,
+    Box,
+    Container,
+    Typography,
     Chip,
     FormControl,
     InputLabel,
@@ -19,12 +19,34 @@ import {
 } from "@mui/material";
 import { formTheme } from "@/app/General/styles";
 import { AddString } from "../Components/addString";
-import { Content, Language, Organization, StringObject, Tag } from "../general/interfaces";
-import { EMPTY_LANGUAGE, EMPTY_ORGANIZATION, EMPTY_TAG } from "../general/utils";
-import { createContent, createOrganization, createTag, getAllLanguages, getAllOrganizations, getAllTags } from "../firebase/commands";
+import {
+    Content,
+    Language,
+    Organization,
+    StringObject,
+    Tag,
+} from "@/app/General/interfaces";
+import {
+    EMPTY_LANGUAGE,
+    EMPTY_ORGANIZATION,
+    EMPTY_TAG,
+} from "../general/utils";
+import {
+    createContent,
+    createOrganization,
+    createTag,
+    getAllLanguages,
+    getAllOrganizations,
+    getAllTags,
+    postPendingContent,
+} from "../firebase/commands";
 import { useTranslation } from "react-i18next";
 
-function getSelectStyles(obj: string, allObjects: readonly string[], theme: Theme) {
+function getSelectStyles(
+    obj: string,
+    allObjects: readonly string[],
+    theme: Theme
+) {
     return {
         fontWeight:
             allObjects.indexOf(obj) === -1
@@ -52,12 +74,16 @@ export default function UploadContent() {
     const [languages, setLanguages] = useState<Language[]>([]);
 
     const [selectedTags, setSelectedTags] = useState<string[]>([]);
-    const [selectedOrganization, setSelectedOrganization] = useState<Organization>(EMPTY_ORGANIZATION);
-    const [selectedLanguage, setSelectedLanguage] = useState<Language>(EMPTY_LANGUAGE);
+    const [selectedOrganization, setSelectedOrganization] =
+        useState<Organization>(EMPTY_ORGANIZATION);
+    const [selectedLanguage, setSelectedLanguage] =
+        useState<Language>(EMPTY_LANGUAGE);
 
-    const [otherOrgValue, setOtherOrgValue] = useState<Organization>(EMPTY_ORGANIZATION);
+    const [otherOrgValue, setOtherOrgValue] =
+        useState<Organization>(EMPTY_ORGANIZATION);
     const [otherTagValue, setOtherTagValue] = useState<Tag>(EMPTY_TAG);
-    const [otherLangValue, setOtherLangValue] = useState<Language>(EMPTY_LANGUAGE);
+    const [otherLangValue, setOtherLangValue] =
+        useState<Language>(EMPTY_LANGUAGE);
 
     const [openAddTagDialog, setOpenAddTagDialog] = useState<boolean>(false);
     const [openAddOrgDialog, setOpenAddOrgDialog] = useState<boolean>(false);
@@ -65,21 +91,21 @@ export default function UploadContent() {
 
     useEffect(() => {
         getAllTags(false).then((allTags: Tag[]) => {
-            setTags(allTags)
+            setTags(allTags);
         });
-    }, [otherTagValue])
+    }, [otherTagValue]);
 
     useEffect(() => {
         getAllOrganizations(false).then((allOrgs: Organization[]) => {
-            setOrganizations(allOrgs)
+            setOrganizations(allOrgs);
         });
-    }, [otherOrgValue])
+    }, [otherOrgValue]);
 
     useEffect(() => {
         getAllLanguages(false).then((allLangs: Language[]) => {
-            setLanguages(allLangs)
+            setLanguages(allLangs);
         });
-    }, [otherLangValue])
+    }, [otherLangValue]);
 
     async function handleSubmit(event: FormEvent<HTMLFormElement>) {
         event.preventDefault();
@@ -92,26 +118,36 @@ export default function UploadContent() {
             organization: selectedOrganization,
             language: selectedLanguage,
             uploader: data.get("uploader")?.toString() || "",
-        }
-        await createContent(newContent);
-    };
+        };
+        await postPendingContent(newContent);
+    }
 
     function hangleChangeTags(event: SelectChangeEvent<typeof selectedTags>) {
-        const { target: { value }, } = event;
+        const {
+            target: { value },
+        } = event;
         const newTags = tags.filter((tag) => value.includes(tag.display));
         setSelectedTags(newTags.map((tag) => tag.display));
-    };
+    }
 
-    function hangleChangeOrganization(event: SelectChangeEvent<typeof selectedOrganization>) {
-        const { target: { value }, } = event;
+    function hangleChangeOrganization(
+        event: SelectChangeEvent<typeof selectedOrganization>
+    ) {
+        const {
+            target: { value },
+        } = event;
         const newOrg = organizations.find((org) => org.id === value);
         if (newOrg) {
             setSelectedOrganization(newOrg);
         }
-    };
+    }
 
-    function handleChangeLanguage(event: SelectChangeEvent<typeof selectedLanguage>) {
-        const { target: { value }, } = event;
+    function handleChangeLanguage(
+        event: SelectChangeEvent<typeof selectedLanguage>
+    ) {
+        const {
+            target: { value },
+        } = event;
         const newLang = languages.find((lang) => lang.id === value);
         if (newLang) {
             setSelectedLanguage(newLang);
@@ -126,7 +162,7 @@ export default function UploadContent() {
                 setOpenAddTagDialog(false);
             });
         }
-    };
+    }
 
     async function handleCreateOrg() {
         if (otherOrgValue) {
@@ -136,7 +172,7 @@ export default function UploadContent() {
                 setOpenAddOrgDialog(false);
             });
         }
-    };
+    }
 
     async function handleCreateLanguage() {
         if (otherLangValue) {
@@ -159,8 +195,6 @@ export default function UploadContent() {
     function setOtherTagInForm(tag: StringObject): void {
         setOtherTagValue({ ...tag, used: false });
     }
-
-
 
     return (
         <ThemeProvider theme={formTheme}>
@@ -198,13 +232,13 @@ export default function UploadContent() {
                             multiline={true}
                         />
                         <FormControl margin="normal" fullWidth required>
-                            <InputLabel>
-                                {t("common.organization")}
-                            </InputLabel>
+                            <InputLabel>{t("common.organization")}</InputLabel>
                             <Select
                                 value={selectedOrganization}
                                 onChange={hangleChangeOrganization}
-                                renderValue={(selected) => (selected as Organization).display}
+                                renderValue={(selected) =>
+                                    (selected as Organization).display
+                                }
                             >
                                 {organizations.map((org) => (
                                     <MenuItem
@@ -212,7 +246,9 @@ export default function UploadContent() {
                                         value={org.id}
                                         style={getSelectStyles(
                                             org.id,
-                                            selectedOrganization ? [selectedOrganization.id] : [],
+                                            selectedOrganization
+                                                ? [selectedOrganization.id]
+                                                : [],
                                             formTheme
                                         )}
                                     >
@@ -247,7 +283,9 @@ export default function UploadContent() {
                             <Select
                                 value={selectedLanguage}
                                 onChange={handleChangeLanguage}
-                                renderValue={(selected) => (selected as Language).display}
+                                renderValue={(selected) =>
+                                    (selected as Language).display
+                                }
                             >
                                 {languages.map((lang) => (
                                     <MenuItem
@@ -255,7 +293,9 @@ export default function UploadContent() {
                                         value={lang.id}
                                         style={getSelectStyles(
                                             lang.id,
-                                            selectedLanguage ? [selectedLanguage.id] : [],
+                                            selectedLanguage
+                                                ? [selectedLanguage.id]
+                                                : [],
                                             formTheme
                                         )}
                                     >
@@ -264,11 +304,16 @@ export default function UploadContent() {
                                 ))}
                             </Select>
                         </FormControl>
-                        <Button variant="outlined" onClick={() => setOpenAddLangDialog(true)}>
+                        <Button
+                            variant="outlined"
+                            onClick={() => setOpenAddLangDialog(true)}
+                        >
                             {t("upload.create_new_language")}
                         </Button>
                         <AddString
-                            handleCloseDialog={() => setOpenAddLangDialog(false)}
+                            handleCloseDialog={() =>
+                                setOpenAddLangDialog(false)
+                            }
                             handleCreate={handleCreateLanguage}
                             inputValue={otherLangValue}
                             setInputValue={setOtherLangInForm}
@@ -300,10 +345,7 @@ export default function UploadContent() {
                                         }}
                                     >
                                         {selected.map((value) => (
-                                            <Chip
-                                                key={value}
-                                                label={value}
-                                            />
+                                            <Chip key={value} label={value} />
                                         ))}
                                     </Box>
                                 )}

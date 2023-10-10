@@ -14,14 +14,21 @@ import {
     Step,
 } from "@mui/material";
 import { useTranslation } from "react-i18next";
-import { getAllLanguages, getAllOrganizations, getAllTags } from "@/app/firebase/commands";
-import { Language, Organization, Tag, WizardDialogProps } from "@/app/general/interfaces";
-import TagsStep from "@/app/Components/wizard/steps/TagsStep";
-import OrgsStep from "@/app/Components/wizard/steps/OrgsStep";
-import ErrorStep from "@/app/Components/wizard/steps/ErrorStep";
-import LangStep from "@/app/Components/wizard/steps/LangStep";
-
-
+import {
+    getAllLanguages,
+    getAllOrganizations,
+    getAllTags,
+} from "@/app/firebase/commands";
+import {
+    Language,
+    Organization,
+    Tag,
+    WizardDialogProps,
+} from "@/app/General/interfaces";
+import TagsStep from "@/app/Components/Wizard/steps/TagsStep";
+import OrgsStep from "@/app/Components/Wizard/steps/OrgsStep";
+import ErrorStep from "@/app/Components/Wizard/steps/ErrorStep";
+import LangStep from "@/app/Components/Wizard/steps/LangStep";
 
 function WizardDialog({ open, onClose }: WizardDialogProps) {
     const { t } = useTranslation();
@@ -86,7 +93,7 @@ function WizardDialog({ open, onClose }: WizardDialogProps) {
                 );
             case 2:
                 return (
-                    <LangStep 
+                    <LangStep
                         langs={languages}
                         updateSelectedLangs={setSelectedLanguages}
                     />
@@ -96,7 +103,11 @@ function WizardDialog({ open, onClose }: WizardDialogProps) {
         }
     };
 
-    const steps = [t("common.tags"), t("common.organizations"), t("common.languages")];
+    const steps = [
+        t("common.tags"),
+        t("common.organizations"),
+        t("common.languages"),
+    ];
 
     return (
         <Dialog open={open} onClose={onClose} fullWidth>

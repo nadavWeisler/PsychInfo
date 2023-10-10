@@ -2,8 +2,8 @@ import { ReactNode } from "react";
 import { User } from "firebase/auth";
 
 export enum Operator {
-    AND, 
-    OR
+    AND,
+    OR,
 }
 
 export enum WizardStep {
@@ -39,10 +39,10 @@ export interface Organization extends StringObject {
     used: boolean;
 }
 
-
 export interface PagesSliceInitialState {
     tags: Tag[];
     organization: Organization[];
+    languages: Language[];
 }
 
 export interface WelcomeMsgProps {

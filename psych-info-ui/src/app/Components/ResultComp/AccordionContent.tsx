@@ -1,5 +1,5 @@
 import { Typography, Box } from "@mui/material";
-import { Content, Language } from "@/app/general/interfaces";
+import { Content } from "@/app/General/interfaces";
 
 function AccordionContent({
     title = "",
@@ -7,7 +7,7 @@ function AccordionContent({
     tags = [],
     organization = { id: "", display: "", used: false },
     description = "",
-    language = Language.Hebrew,
+    language = { id: "", display: "", used: false },
 }: Content) {
     const tagsArr = tags.map((tag) => tag.display);
     const tagsString = tagsArr.join(", ");
