@@ -24,7 +24,7 @@ import {
     Organization,
     Tag,
     WizardDialogProps,
-} from "@/app/General/interfaces";
+} from "@/app/general/interfaces";
 import TagsStep from "@/app/Components/Wizard/steps/TagsStep";
 import OrgsStep from "@/app/Components/Wizard/steps/OrgsStep";
 import ErrorStep from "@/app/Components/Wizard/steps/ErrorStep";

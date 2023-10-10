@@ -10,3 +10,5 @@ function ResultsPage() {
         </Provider>
     );
 }
+
+export default ResultsPage;

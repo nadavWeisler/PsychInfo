@@ -1,7 +1,7 @@
 import { useState, useEffect, Fragment } from "react";
 import { Chip, Grid, Typography } from "@mui/material";
 import { Tag } from "@/app/general/interfaces";
-import { GetAllDisplays, ListContainsById } from "@/app/general/utils";
+import { GetAllDisplays, ListContainsById } from "@/app/General/utils";
 import { useTranslation } from "react-i18next";
 
 interface TagsStepProps {
@@ -46,7 +46,9 @@ export default function TagsStep({ tags, updateSelectedTags }: TagsStepProps) {
                             label={tag.display}
                             onClick={() => handleChoice(tag)}
                             variant={
-                                ListContainsById(selectedTags, tag.id) ? "filled" : "outlined"
+                                ListContainsById(selectedTags, tag.id)
+                                    ? "filled"
+                                    : "outlined"
                             }
                             color="primary"
                         />
@@ -54,6 +56,5 @@ export default function TagsStep({ tags, updateSelectedTags }: TagsStepProps) {
                 ))}
             </Grid>
         </Fragment>
-    );  
-
+    );
 }

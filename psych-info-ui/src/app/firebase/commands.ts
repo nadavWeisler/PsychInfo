@@ -5,8 +5,8 @@ import {
     Language,
     Operator,
     Organization,
-    Tag
-} from "@/app/general/interfaces";
+    Tag,
+} from "@/app/General/interfaces";
 
 export async function getAllTags(used: boolean): Promise<Tag[]> {
     try {
@@ -54,13 +54,12 @@ export async function getAllLanguages(used: boolean): Promise<Language[]> {
     try {
         const snapshot = await get(ref(db, dbPaths.languages));
         if (snapshot.exists()) {
-            const languages: Language[] = Object.values(snapshot.val());
+            const languages = Object.values(snapshot.val()) as Language[];
             if (used) {
-                return Object.values(languages).filter(
-                    (item) => item.used === used
-                );
+                return languages.filter((item) => item.used === used);
             } else {
-                return Object.values(languages);
+                console.log(Object.values(languages));
+                return languages;
             }
         } else {
             console.log("No data available");
@@ -79,7 +78,7 @@ export async function getContent(
     operator: Operator
 ): Promise<Content[]> {
     try {
-        const snapshot = await get(ref(db, dbPaths.content));
+        const snapshot = await get(ref(db, dbPaths.validateContent));
         if (snapshot.exists()) {
             const content: Content[] = Object.values(snapshot.val());
             return Object.values(content).filter((item) => {
@@ -143,6 +142,15 @@ export function createOrganization(organization: Organization): Promise<void> {
         throw error;
     }
 }
+export function createLanguage(language: Language): Promise<void> {
+    try {
+        const newLanguageRef = push(ref(db, dbPaths.languages));
+        return set(newLanguageRef, language);
+    } catch (error) {
+        console.error("Error:", error);
+        throw error;
+    }
+}
 
 export async function updateUsed(newContent: Content): Promise<void> {
     const newTags: Tag[] = newContent.tags.map((tag) => {
@@ -167,7 +175,8 @@ export async function updateUsed(newContent: Content): Promise<void> {
 export async function createContent(content: Content): Promise<void> {
     try {
         const newContentRef = await push(ref(db, dbPaths.validateContent));
-        updateUsed(content);
+        // TODO: create bug in database - check why
+        // updateUsed(content);
         return await set(newContentRef, content);
     } catch (error) {
         console.error("Error:", error);
@@ -179,10 +188,6 @@ export const getPendingContent = async (): Promise<Content[]> => {
     try {
         const snapshot = await get(ref(db, dbPaths.pendingContent));
         if (snapshot.exists()) {
-            const x = Object.values(snapshot.val() || {}) as Array<
-                Record<string, unknown>
-            >;
-
             const preContent = Object.values(snapshot.val() || {}) as Array<
                 Record<string, unknown>
             >;

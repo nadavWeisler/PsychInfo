@@ -30,9 +30,10 @@ import {
     EMPTY_LANGUAGE,
     EMPTY_ORGANIZATION,
     EMPTY_TAG,
-} from "../general/utils";
+} from "@/app/General/utils";
 import {
     createContent,
+    createLanguage,
     createOrganization,
     createTag,
     getAllLanguages,
@@ -41,6 +42,7 @@ import {
     postPendingContent,
 } from "../firebase/commands";
 import { useTranslation } from "react-i18next";
+import { set } from "firebase/database";
 
 function getSelectStyles(
     obj: string,
@@ -88,6 +90,7 @@ export default function UploadContent() {
     const [openAddTagDialog, setOpenAddTagDialog] = useState<boolean>(false);
     const [openAddOrgDialog, setOpenAddOrgDialog] = useState<boolean>(false);
     const [openAddLangDialog, setOpenAddLangDialog] = useState<boolean>(false);
+    const [isSubmit, setIsSubmit] = useState<boolean>(false);
 
     useEffect(() => {
         getAllTags(false).then((allTags: Tag[]) => {
@@ -120,6 +123,7 @@ export default function UploadContent() {
             uploader: data.get("uploader")?.toString() || "",
         };
         await postPendingContent(newContent);
+        setIsSubmit(true);
     }
 
     function hangleChangeTags(event: SelectChangeEvent<typeof selectedTags>) {
@@ -177,7 +181,7 @@ export default function UploadContent() {
     async function handleCreateLanguage() {
         if (otherLangValue) {
             setSelectedLanguage(otherLangValue);
-            await createOrganization(otherLangValue).then(() => {
+            await createLanguage(otherLangValue).then(() => {
                 setOtherLangValue(EMPTY_LANGUAGE);
                 setOpenAddLangDialog(false);
             });
@@ -397,6 +401,11 @@ export default function UploadContent() {
                             {t("common.submit")}
                         </Button>
                     </Box>
+                    {isSubmit && (
+                        <Typography component="h1" variant="h5">
+                            הטופס נשלח בהצלחה, והוא ממתין לאישור מנהל
+                        </Typography>
+                    )}
                 </Box>
             </Container>
         </ThemeProvider>

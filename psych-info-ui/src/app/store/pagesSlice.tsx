@@ -5,7 +5,7 @@ import {
     PagesSliceInitialState,
     Tag,
     Language,
-} from "@/app/General/interfaces";
+} from "@/app/general/interfaces";
 
 export const pagesSlice = createSlice({
     name: "pagesSlice",
