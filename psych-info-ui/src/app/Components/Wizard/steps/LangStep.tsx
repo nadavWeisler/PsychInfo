@@ -1,7 +1,7 @@
 import { useState, useEffect, Fragment } from "react";
 import { Chip, Grid, Typography } from "@mui/material";
 import { Language, Tag } from "@/app/general/interfaces";
-import { GetAllDisplays, ListContainsById } from "@/app/general/utils";
+import { GetAllDisplays, ListContainsById } from "@/app/General/utils";
 import { useTranslation } from "react-i18next";
 
 interface LangStepProps {

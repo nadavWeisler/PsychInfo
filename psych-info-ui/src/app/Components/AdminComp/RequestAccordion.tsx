@@ -11,7 +11,7 @@ import {
 import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
 import { RequestAccordionProps } from "@/app/General/interfaces";
 import AccordionContent from "@/app/Components/ResultComp/AccordionContent";
-import { deletePendingContent } from "@/app/firebase/commands";
+import { deletePendingContent, createContent } from "@/app/firebase/commands";
 
 function RequestAccordion({
     title = "",
@@ -24,6 +24,20 @@ function RequestAccordion({
     deleteHandler = () => null,
 }: RequestAccordionProps) {
     const deleteRequest = async () => {
+        deletePendingContent(title);
+        deleteHandler();
+    };
+    const aproveRequest = async () => {
+        const content = {
+            title,
+            link,
+            tags,
+            organization,
+            description,
+            language,
+            uploader,
+        };
+        await createContent(content);
         deletePendingContent(title);
         deleteHandler();
     };
@@ -59,13 +73,23 @@ function RequestAccordion({
                     </Link>
                     <br />
                     <br />
-                    <Button
-                        color={"error"}
-                        variant={"outlined"}
-                        onClick={deleteRequest}
-                    >
-                        מחק
-                    </Button>
+                    <Box sx={{ display: "flex", flexDirection: "row" }}>
+                        <Button
+                            sx={{ marginLeft: "20px" }}
+                            color={"error"}
+                            variant={"outlined"}
+                            onClick={deleteRequest}
+                        >
+                            מחק
+                        </Button>
+                        <Button
+                            color={"success"}
+                            variant={"contained"}
+                            onClick={aproveRequest}
+                        >
+                            אשר
+                        </Button>
+                    </Box>
                 </AccordionDetails>
             </Accordion>
         </Box>

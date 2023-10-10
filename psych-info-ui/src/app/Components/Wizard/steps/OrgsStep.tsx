@@ -1,7 +1,7 @@
 import { useState, useEffect, Fragment } from "react";
 import { Chip, Grid, Typography } from "@mui/material";
 import { Organization } from "@/app/general/interfaces";
-import { GetAllDisplays, ListContainsById } from "@/app/general/utils";
+import { GetAllDisplays, ListContainsById } from "@/app/General/utils";
 import { useTranslation } from "react-i18next";
 
 interface OrganizationStepProps {
@@ -9,7 +9,10 @@ interface OrganizationStepProps {
     updateSelectedOrganizations: (organizations: Organization[]) => void;
 }
 
-export default function OrgsStep({ organizations, updateSelectedOrganizations }: OrganizationStepProps) {
+export default function OrgsStep({
+    organizations,
+    updateSelectedOrganizations,
+}: OrganizationStepProps) {
     const { t } = useTranslation();
     const [selectedOrgs, setSelectedOrgs] = useState<Organization[]>([]);
     const [displayOrgs, setDisplayOrgs] = useState<string[]>([]);
@@ -46,7 +49,9 @@ export default function OrgsStep({ organizations, updateSelectedOrganizations }:
                             label={organization.display}
                             onClick={() => handleChoice(organization)}
                             variant={
-                                ListContainsById(selectedOrgs, organization.id) ? "filled" : "outlined"
+                                ListContainsById(selectedOrgs, organization.id)
+                                    ? "filled"
+                                    : "outlined"
                             }
                             color="primary"
                         />
