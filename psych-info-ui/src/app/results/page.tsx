@@ -3,6 +3,7 @@ import { Fragment, useEffect, useState } from "react";
 import { Typography } from "@mui/material";
 import ResultAccordion from "@/app/Components/ResultComp/ResultAccordion";
 import { Content } from "@/app/general/interfaces";
+import { useTranslation } from "react-i18next";
 
 const getResults = () => {
     const data = [
@@ -23,8 +24,10 @@ const getResults = () => {
     return data as Content[];
 };
 
-function ResultsPage() {
+export default function ResultsPage() {
+    const {t} = useTranslation();
     const [results, setResults] = useState<Content[]>([]);
+
     useEffect(() => {
         const dataFromDB = getResults();
         setResults(dataFromDB);
@@ -33,11 +36,10 @@ function ResultsPage() {
     // TODO: get results from store
     return (
         <Fragment>
-            <br />
             <Typography align="center" variant="h3">
-                הנה התוצאות שמצאנו:
+                {t("results.title")}
             </Typography>
-            <br />
+
             {results.map((result) => {
                 return (
                     <ResultAccordion
@@ -54,5 +56,3 @@ function ResultsPage() {
         </Fragment>
     );
 }
-
-export default ResultsPage;

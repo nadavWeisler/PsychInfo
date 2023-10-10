@@ -1,4 +1,4 @@
-import { Language, Organization, StringObject, Tag } from "./interfaces";
+import { Filter, Language, Organization, StringObject, Tag } from "./interfaces";
 
 export function ListContainsById(StringObjectList: Tag[] | Organization[] | StringObject[], id: string): boolean {
     return StringObjectList.some((item) => item.id === id);
@@ -25,6 +25,12 @@ export const EMPTY_LANGUAGE: Language = {
     display: "",
     used: false
 };
+
+export function GetFilters(): Filter[] {
+    const filterFile = require("./filters.json");
+    const filters: Filter[] = filterFile.filters;  
+    return filters;  
+}
 
 export function isEmptyOrSpaces(str: string) {
     return str === null || str.match(/^ *$/) !== null || str === "\r";

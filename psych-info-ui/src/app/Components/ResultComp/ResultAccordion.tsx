@@ -1,5 +1,5 @@
 "use client";
-import { Fragment, useState } from "react";
+import { useState } from "react";
 import {
     Accordion,
     AccordionDetails,
@@ -8,32 +8,17 @@ import {
     Link,
     Button,
     Box,
-    ThemeProvider,
+    AccordionActions,
 } from "@mui/material";
 import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
-import { Content, Language } from "@/app/general/interfaces";
+import { Content } from "@/app/general/interfaces";
 import AccordionContent from "@/app/Components/ResultComp/AccordionContent";
 import ShareDialog from "@/app/Components/ResultComp/ShareDialog";
-import { darkTheme } from "@/app/General/styles";
+import { useTranslation } from "react-i18next";
 
-function ResultAccordion({
-    title = "",
-    link = "",
-    tags = [],
-    organization = { id: "", display: "", used: false },
-    description = "",
-    language = { id: "", display: "", used: false } as Language,
-    uploader = "",
-}: Content) {
+function ResultAccordion({ title, link, tags, organization, description, language, uploader }: Content) {
+    const { t } = useTranslation();
     const [open, setOpen] = useState(false);
-
-    const openShareDialog = () => {
-        setOpen(true);
-    };
-
-    const closeShareDialog = () => {
-        setOpen(false);
-    };
 
     return (
         <Box
@@ -44,7 +29,7 @@ function ResultAccordion({
                 alignItems: "center",
             }}
         >
-            <Accordion sx={{ backgroundColor: "#42a5f5" }}>
+            <Accordion sx={{ backgroundColor: "#42a5f5", margin: "auto" }}>
                 <AccordionSummary
                     expandIcon={<ExpandMoreIcon />}
                     aria-controls="panel1a-content"
@@ -62,26 +47,34 @@ function ResultAccordion({
                         language={language}
                         uploader={uploader}
                     />
-                    <Link href={link} target="_blank" rel="noopener">
+                    <Link
+                        margin={"normal"}
+                        href={link}
+                        target="_blank"
+                        rel="noopener"
+                    >
                         {title}
                     </Link>
-                    <br />
-                    <br />
+
+                </AccordionDetails>
+                <AccordionActions>
                     <Button
+                        sx={{ margin: "auto" }}
                         color={"success"}
                         variant={"contained"}
-                        onClick={openShareDialog}
+                        onClick={() => setOpen(true)}
                     >
-                        שיתוף
+                        {t("common.share")}
                     </Button>
-                    <ShareDialog
-                        open={open}
-                        onClose={closeShareDialog}
-                        urlToShare={link}
-                    />
-                </AccordionDetails>
+                </AccordionActions>
             </Accordion>
+            <ShareDialog
+                open={open}
+                onClose={() => setOpen(false)}
+                urlToShare={link}
+            />
         </Box>
+
     );
 }
 

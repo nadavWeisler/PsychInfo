@@ -43,6 +43,7 @@ export interface Organization extends StringObject {
 export interface PagesSliceInitialState {
     tags: Tag[];
     organization: Organization[];
+    languages: Language[];
 }
 
 export interface WelcomeMsgProps {
@@ -60,9 +61,9 @@ export interface ShareDialogProps extends WizardDialogProps {
 export interface Filter {
     id: string;
     img: string;
-    tags: string[];
-    organization: string;
-    language: string;
+    tags: Tag[];
+    organizations: Organization[];
+    languages: Language[];
     title: string;
     description: string;
 }

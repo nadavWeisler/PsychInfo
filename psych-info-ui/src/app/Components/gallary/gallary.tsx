@@ -1,12 +1,27 @@
 "use client";
 import { Filter } from "@/app/general/interfaces";
-import { Button, Card, CardActions, CardContent, CardMedia, Container, Grid, Typography } from "@mui/material";
+import { pagesActions } from "@/app/store/pagesSlice";
+import { Card, CardContent, CardMedia, Container, Grid, Typography } from "@mui/material";
+import { useRouter } from "next/navigation";
+import { useDispatch } from "react-redux";
 
 interface GallaryProps {
     filters: Filter[];
 }
 
 export default function Gallary({ filters }: GallaryProps) {
+    const dispatch = useDispatch();
+    const router = useRouter();
+
+    const handleChoice = (filter: Filter) => {
+        const data = {
+            tags: filter.tags,
+            organization: filter.organizations,
+            languages: filter.languages
+        }
+        dispatch(pagesActions.addData(data));
+        router.push("/results");
+    }
     return (
         <Container sx={{ py: 8 }} maxWidth="md">
             <Grid container spacing={4}>
@@ -14,6 +29,7 @@ export default function Gallary({ filters }: GallaryProps) {
                     <Grid item key={filter.id} xs={12} sm={6} md={4}>
                         <Card
                             sx={{ height: '100%', display: 'flex', flexDirection: 'column' }}
+                            onClick={() => handleChoice(filter)}
                         >
                             <CardMedia
                                 component="div"
@@ -31,10 +47,6 @@ export default function Gallary({ filters }: GallaryProps) {
                                     {filter.description}
                                 </Typography>
                             </CardContent>
-                            <CardActions>
-                                <Button size="small">View</Button>
-                                <Button size="small">Edit</Button>
-                            </CardActions>
                         </Card>
                     </Grid>
                 ))}

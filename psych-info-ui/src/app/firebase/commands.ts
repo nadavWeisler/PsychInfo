@@ -1,6 +1,6 @@
 import { get, push, ref, set } from "firebase/database";
 import { db, dbPaths } from "./app";
-import { Content, Language, Operator, Organization, Tag } from "../general/interfaces";
+import { Content, Filter, Language, Operator, Organization, Tag } from "../general/interfaces";
 
 export async function getAllTags(used: boolean): Promise<Tag[]> {
     try {

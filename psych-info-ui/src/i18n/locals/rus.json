@@ -1,10 +1,10 @@
 {
     "common": {
-        "no": "לא",
-        "yes": "כן",
+        "app_name": "מידע פסיכולוגי",
         "next": "הבא",
         "back": "חזור",
         "submit": "שלח",
+        "create": "צור",
         "cancel": "ביטול",
         "close": "סגירה",
         "save": "שמירה",
@@ -12,10 +12,43 @@
         "delete": "מחיקה",
         "add": "הוספה",
         "search": "חיפוש",
-        "loading": "טוען..."
+        "loading": "טוען...",
+        "title": "כותרת",
+        "description": "תיאור",
+        "content": "תוכן",
+        "organization": "ארגון",
+        "tag": "תגית",
+        "tags": "תגיות",
+        "link": "קישור",
+        "links": "קישורים",
+        "uploader": "מעלה",
+        "language": "שפה",
+        "languages": "שפות",
+        "start": "התחלה",
+        "choose": "בחר",
+        "organizations": "ארגונים"
+    },
+    "errors": {
+        "error_occured": "אירעה שגיאה",
+        "invalid_data_type": "סוג נתונים לא תקין"
+    },
+    "welcome": {
+        "title": "ברוכים הבאים",
+        "subtitle": "מוזמן לנסות"
     },
     "add_string": {
         "enter_id": "הכנס זיהוי",
         "enter_display": "הכנס תצוגה"
+    },
+    "wizard": {
+        "which_info_you_need": "איזה מידע אתה צריך?",
+        "choose_organizations": "בחר ארגונים",
+        "choose_tags": "בחר תגיות"
+    },
+    "upload": {
+        "title": "העלאת תוכן חדש",
+        "create_new_organization": "צור ארגון חדש",
+        "create_new_tag": "צור תגית חדשה",
+        "create_new_language": "צור שפה חדשה"
     }
 }

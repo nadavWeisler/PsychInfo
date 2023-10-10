@@ -8,6 +8,8 @@ import { Provider } from "react-redux";
 import store from "@/app/store";
 import { Filter } from "./general/interfaces";
 import Gallary from "./Components/gallary/gallary";
+import { get } from "http";
+import { GetFilters } from "./general/utils";
 
 function HomePage() {
     const [open, setOpen] = useState(false);
@@ -20,26 +22,9 @@ function HomePage() {
         setOpen(false);
     };
 
-    const filters: Filter[] = [
-        {
-            title: "title1",
-            description: "description1",
-            id: "id1",
-            img: "https://picsum.photos/200/300",
-            language: "English",
-            organization: "organization1",
-            tags: ["tag1", "tag2"],
-        }, 
-        {
-            title: "title1",
-            description: "description1",
-            id: "id1",
-            img: "https://picsum.photos/200/300",
-            language: "English",
-            organization: "organization1",
-            tags: ["tag1", "tag2"],
-        }, 
-    ]
+    const filters: Filter[] = GetFilters();
+    console.log(filters);
+
     return (
         <Provider store={store}>
             <Fragment>

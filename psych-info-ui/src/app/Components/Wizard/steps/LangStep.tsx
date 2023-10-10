@@ -36,7 +36,7 @@ export default function LangStep({ langs, updateSelectedLangs }: LangStepProps) 
                 sx={{ marginBottom: "20px", marginTop: "20px" }}
                 variant="h4"
             >
-                {t("wizard.choose_tags")}
+                {t("wizard.choose_langueges")}
             </Typography>
             <Grid container spacing={2}>
                 {langs.map((lang) => (
