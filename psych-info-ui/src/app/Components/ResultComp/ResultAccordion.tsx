@@ -36,50 +36,52 @@ function ResultAccordion({
     };
 
     return (
-        <ThemeProvider theme={darkTheme}>
-            <Box
-                sx={{
-                    width: "60%",
-                    margin: "auto",
-                    justifyContent: "center",
-                    alignItems: "center",
-                }}
-            >
-                <Accordion>
-                    <AccordionSummary
-                        expandIcon={<ExpandMoreIcon />}
-                        aria-controls="panel1a-content"
-                        id="panel1a-header"
+        <Box
+            sx={{
+                width: "60%",
+                margin: "auto",
+                justifyContent: "center",
+                alignItems: "center",
+            }}
+        >
+            <Accordion sx={{ backgroundColor: "#42a5f5" }}>
+                <AccordionSummary
+                    expandIcon={<ExpandMoreIcon />}
+                    aria-controls="panel1a-content"
+                    id="panel1a-header"
+                >
+                    <Typography>{title}</Typography>
+                </AccordionSummary>
+                <AccordionDetails>
+                    <AccordionContent
+                        title={title}
+                        link={link}
+                        tags={tags}
+                        organization={organization}
+                        description={description}
+                        language={language}
+                        uploader={uploader}
+                    />
+                    <Link href={link} target="_blank" rel="noopener">
+                        {title}
+                    </Link>
+                    <br />
+                    <br />
+                    <Button
+                        color={"success"}
+                        variant={"contained"}
+                        onClick={openShareDialog}
                     >
-                        <Typography>{title}</Typography>
-                    </AccordionSummary>
-                    <AccordionDetails>
-                        <AccordionContent
-                            title={title}
-                            link={link}
-                            tags={tags}
-                            organization={organization}
-                            description={description}
-                            language={language}
-                            uploader={uploader}
-                        />
-                        <Link href={link} target="_blank" rel="noopener">
-                            {title}
-                        </Link>
-                        <br />
-                        <br />
-                        <Button variant={"outlined"} onClick={openShareDialog}>
-                            שיתוף
-                        </Button>
-                        <ShareDialog
-                            open={open}
-                            onClose={closeShareDialog}
-                            urlToShare={link}
-                        />
-                    </AccordionDetails>
-                </Accordion>
-            </Box>
-        </ThemeProvider>
+                        שיתוף
+                    </Button>
+                    <ShareDialog
+                        open={open}
+                        onClose={closeShareDialog}
+                        urlToShare={link}
+                    />
+                </AccordionDetails>
+            </Accordion>
+        </Box>
     );
 }
 
