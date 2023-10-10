@@ -1,5 +1,5 @@
 "use client";
-import { Fragment, useState } from "react";
+import { useState } from "react";
 import {
     Accordion,
     AccordionDetails,
@@ -8,13 +8,11 @@ import {
     Link,
     Button,
     Box,
-    ThemeProvider,
 } from "@mui/material";
 import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
-import { Content, Language } from "@/app/general/interfaces";
+import { Content, Language } from "@/app/General/interfaces";
 import AccordionContent from "@/app/Components/ResultComp/AccordionContent";
 import ShareDialog from "@/app/Components/ResultComp/ShareDialog";
-import { darkTheme } from "@/app/General/styles";
 
 function ResultAccordion({
     title = "",

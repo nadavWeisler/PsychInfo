@@ -9,9 +9,9 @@ import {
     Button,
 } from "@mui/material";
 import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
-import { RequestAccordionProps, Language } from "@/app/general/interfaces";
+import { RequestAccordionProps } from "@/app/General/interfaces";
 import AccordionContent from "@/app/Components/ResultComp/AccordionContent";
-import { darkTheme } from "@/app/General/styles";
+import { deletePendingContent } from "@/app/firebase/commands";
 
 function RequestAccordion({
     title = "",
@@ -19,12 +19,12 @@ function RequestAccordion({
     tags = [],
     organization = { id: "", display: "", used: false },
     description = "",
-    language = Language.Hebrew,
+    language = { id: "", display: "", used: false },
     uploader = "",
     deleteHandler = () => null,
 }: RequestAccordionProps) {
     const deleteRequest = async () => {
-        // await deleteFromDB(path);
+        deletePendingContent(title);
         deleteHandler();
     };
     return (

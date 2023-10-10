@@ -1,6 +1,12 @@
-import { get, push, ref, set } from "firebase/database";
+import { get, push, ref, set, remove } from "firebase/database";
 import { db, dbPaths } from "./app";
-import { Content, Language, Operator, Organization, Tag } from "../general/interfaces";
+import {
+    Content,
+    Language,
+    Operator,
+    Organization,
+    Tag,
+} from "@/app/General/interfaces";
 
 export async function getAllTags(used: boolean): Promise<Tag[]> {
     try {
@@ -50,22 +56,28 @@ export async function getAllLanguages(used: boolean): Promise<Language[]> {
         if (snapshot.exists()) {
             const languages: Language[] = Object.values(snapshot.val());
             if (used) {
-                return Object.values(languages).filter((item) => item.used === used);
+                return Object.values(languages).filter(
+                    (item) => item.used === used
+                );
             } else {
                 return Object.values(languages);
             }
         } else {
-            console.log('No data available');
+            console.log("No data available");
             return [];
         }
     } catch (error) {
-        console.error('Error:', error);
+        console.error("Error:", error);
         throw error;
     }
 }
 
-export async function getContent(organizations: Organization[], 
-    tags: Tag[], Languages: Language[], operator: Operator): Promise<Content[]> {
+export async function getContent(
+    organizations: Organization[],
+    tags: Tag[],
+    Languages: Language[],
+    operator: Operator
+): Promise<Content[]> {
     try {
         const snapshot = await get(ref(db, dbPaths.content));
         if (snapshot.exists()) {
@@ -75,17 +87,24 @@ export async function getContent(organizations: Organization[],
                 let tag = false;
                 let lang = false;
                 if (organizations.length > 0) {
-                    org = organizations.some((organization) => item.organization.id === organization.id);
+                    org = organizations.some(
+                        (organization) =>
+                            item.organization.id === organization.id
+                    );
                 } else {
                     org = true;
                 }
                 if (tags.length > 0) {
-                    tag = tags.some((tag) => item.tags.some((contentTag) => contentTag.id === tag.id));
+                    tag = tags.some((tag) =>
+                        item.tags.some((contentTag) => contentTag.id === tag.id)
+                    );
                 } else {
                     tag = true;
                 }
                 if (Languages.length > 0) {
-                    lang = Languages.some((language) => item.language.id === language.id);
+                    lang = Languages.some(
+                        (language) => item.language.id === language.id
+                    );
                 } else {
                     lang = true;
                 }
@@ -130,10 +149,13 @@ export async function updateUsed(newContent: Content): Promise<void> {
         tag.used = true;
         return tag;
     });
-    const newOrganization: Organization = {...newContent.organization, used: true};
-    const newLanguage: Language = {...newContent.language, used: true};
+    const newOrganization: Organization = {
+        ...newContent.organization,
+        used: true,
+    };
+    const newLanguage: Language = { ...newContent.language, used: true };
     try {
-        await set(ref(db, dbPaths.allTags), newTags)
+        await set(ref(db, dbPaths.allTags), newTags);
         await set(ref(db, dbPaths.allOrganizations), newOrganization);
         await set(ref(db, dbPaths.languages), newLanguage);
     } catch (error) {
@@ -157,8 +179,18 @@ export const getPendingContent = async (): Promise<Content[]> => {
     try {
         const snapshot = await get(ref(db, dbPaths.pendingContent));
         if (snapshot.exists()) {
-            const content: Content[] = Object.values(snapshot.val());
-            return Object.values(content);
+            const x = Object.values(snapshot.val() || {}) as Array<
+                Record<string, unknown>
+            >;
+
+            const preContent = Object.values(snapshot.val() || {}) as Array<
+                Record<string, unknown>
+            >;
+
+            const content: Content[] = preContent.map(
+                (item) => Object.values(item)[0] as Content
+            );
+            return content;
         } else {
             console.log("No data available");
             return [];
@@ -166,5 +198,26 @@ export const getPendingContent = async (): Promise<Content[]> => {
     } catch (error) {
         console.error("Error:", error);
         throw error;
+    }
+};
+
+export const postPendingContent = async (content: Content): Promise<void> => {
+    try {
+        const newContentRef = await push(
+            ref(db, dbPaths.pendingContent + "/" + content.title)
+        );
+        return await set(newContentRef, content);
+    } catch (error) {
+        console.error("Error:", error);
+        throw error;
+    }
+};
+
+export const deletePendingContent = async (title: string): Promise<void> => {
+    try {
+        const contentRef = ref(db, `${dbPaths.pendingContent}/${title}`);
+        await remove(contentRef);
+    } catch (error) {
+        console.error("Error:", error);
     }
 };
