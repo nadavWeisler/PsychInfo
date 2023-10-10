@@ -52,15 +52,6 @@ export interface WelcomeMsgProps {
     openWizradHandler: () => void;
 }
 
-interface Results {
-    content: string;
-    link: string;
-    organization: string;
-    relevantTags: string[];
+export interface ShareDialogProps extends WizardDialogProps {
+    urlToShare: string;
 }
-
-export interface ResultAccordionProps extends Results {
-    title: string;
-}
-
-export interface AccordionContentProps extends Results {}
