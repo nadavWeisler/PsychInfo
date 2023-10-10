@@ -90,17 +90,12 @@ function WizardDialog({
         }
     };
 
-    const steps = ["שלב 1", "שלב 2"];
-
-    const test = () => {
-        console.log(tagsArr);
-        console.log(organizationArr);
-    };
+    const steps = ["תגיות", "ארגונים"];
 
     return (
         <ThemeProvider theme={darkTheme}>
             <Dialog open={open} onClose={onClose} fullWidth>
-                <DialogTitle>Wizard Dialog</DialogTitle>
+                <DialogTitle>מה המידע שאתה צריך?</DialogTitle>
                 <DialogContent>
                     <Stepper activeStep={activeStep}>
                         {steps.map((label) => (
@@ -112,16 +107,16 @@ function WizardDialog({
                     {GetStepContent(activeStep)}
                 </DialogContent>
                 <DialogActions>
-                    <Button onClick={onClose}>{"Close"}</Button>
+                    <Button onClick={onClose}>{"סגור"}</Button>
                     <Button onClick={handleBack} disabled={activeStep === 0}>
-                        {"Back"}
+                        {"אחורה"}
                     </Button>
                     <Button
                         variant={"contained"}
                         onClick={handleNext}
                         disabled={activeStep === 1}
                     >
-                        {"Next"}
+                        {"הבא"}
                     </Button>
                     {activeStep === 1 && (
                         <Button
@@ -129,12 +124,9 @@ function WizardDialog({
                             color={"primary"}
                             onClick={handleSubmit}
                         >
-                            {"Submit"}
+                            {"הגש"}
                         </Button>
                     )}
-                    <Button variant="contained" onClick={test}>
-                        Test
-                    </Button>
                 </DialogActions>
             </Dialog>
         </ThemeProvider>

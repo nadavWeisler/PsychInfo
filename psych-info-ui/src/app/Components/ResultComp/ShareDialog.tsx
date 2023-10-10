@@ -57,7 +57,7 @@ function ShareDialog({
                 <DialogTitle>שתף עם חבריך!</DialogTitle>
                     <Grid container spacing={2}>
                         {shareBtns.map((btn, index) => (
-                            <Grid item xs={12} sm={6} md={4} key={index}>
+                            <Grid item xs={6} sm={6} md={4} key={index}>
                                 {btn}
                             </Grid>
                         ))}
