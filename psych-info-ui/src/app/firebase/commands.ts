@@ -13,16 +13,18 @@ export async function getAllTags(used: boolean): Promise<Tag[]> {
                 return Object.values(tags);
             }
         } else {
-            console.log('No data available');
+            console.log("No data available");
             return [];
         }
     } catch (error) {
-        console.error('Error:', error);
+        console.error("Error:", error);
         throw error;
     }
 }
 
-export async function getAllOrganizations(used: boolean): Promise<Organization[]> {
+export async function getAllOrganizations(
+    used: boolean
+): Promise<Organization[]> {
     try {
         const snapshot = await get(ref(db, dbPaths.allOrganizations));
         if (snapshot.exists()) {
@@ -33,11 +35,11 @@ export async function getAllOrganizations(used: boolean): Promise<Organization[]
                 return Object.values(tags);
             }
         } else {
-            console.log('No data available');
+            console.log("No data available");
             return [];
         }
     } catch (error) {
-        console.error('Error:', error);
+        console.error("Error:", error);
         throw error;
     }
 }
@@ -94,11 +96,11 @@ export async function getContent(organizations: Organization[],
                 }
             });
         } else {
-            console.log('No data available');
+            console.log("No data available");
             return [];
         }
     } catch (error) {
-        console.error('Error:', error);
+        console.error("Error:", error);
         throw error;
     }
 }
@@ -108,7 +110,7 @@ export function createTag(tag: Tag): Promise<void> {
         const newTagRef = push(ref(db, dbPaths.allTags));
         return set(newTagRef, tag);
     } catch (error) {
-        console.error('Error:', error);
+        console.error("Error:", error);
         throw error;
     }
 }
@@ -118,7 +120,7 @@ export function createOrganization(organization: Organization): Promise<void> {
         const newOrganizationRef = push(ref(db, dbPaths.allOrganizations));
         return set(newOrganizationRef, organization);
     } catch (error) {
-        console.error('Error:', error);
+        console.error("Error:", error);
         throw error;
     }
 }
@@ -135,7 +137,7 @@ export async function updateUsed(newContent: Content): Promise<void> {
         await set(ref(db, dbPaths.allOrganizations), newOrganization);
         await set(ref(db, dbPaths.languages), newLanguage);
     } catch (error) {
-        console.error('Error:', error);
+        console.error("Error:", error);
         throw error;
     }
 }
@@ -146,7 +148,23 @@ export async function createContent(content: Content): Promise<void> {
         updateUsed(content);
         return await set(newContentRef, content);
     } catch (error) {
-        console.error('Error:', error);
+        console.error("Error:", error);
         throw error;
     }
 }
+
+export const getPendingContent = async (): Promise<Content[]> => {
+    try {
+        const snapshot = await get(ref(db, dbPaths.pendingContent));
+        if (snapshot.exists()) {
+            const content: Content[] = Object.values(snapshot.val());
+            return Object.values(content);
+        } else {
+            console.log("No data available");
+            return [];
+        }
+    } catch (error) {
+        console.error("Error:", error);
+        throw error;
+    }
+};

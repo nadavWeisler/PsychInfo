@@ -22,7 +22,7 @@ function ResultAccordion({
     tags = [],
     organization = { id: "", display: "", used: false },
     description = "",
-    language = Language.Hebrew,
+    language = { id: "", display: "", used: false } as Language,
     uploader = "",
 }: Content) {
     const [open, setOpen] = useState(false);

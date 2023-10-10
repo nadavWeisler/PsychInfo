@@ -1,3 +1,6 @@
+import { ReactNode } from "react";
+import { User } from "firebase/auth";
+
 export enum Operator {
     AND, 
     OR
@@ -72,4 +75,12 @@ export interface AdminSignInFormProps {
 
 export interface RequestAccordionProps extends Content {
     deleteHandler: () => void;
+}
+
+export interface ContextProps {
+    user: User | null | undefined;
+}
+
+export interface AuthProviderProps {
+    children: ReactNode;
 }

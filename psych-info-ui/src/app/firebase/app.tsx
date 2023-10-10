@@ -29,6 +29,7 @@ export const dbPaths = {
     content: process.env.NEXT_PUBLIC_ENV + "/content",
     validateContent: process.env.NEXT_PUBLIC_ENV + "/validateContent",
     languages: process.env.NEXT_PUBLIC_ENV + "/languages",
+    pendingContent: process.env.NEXT_PUBLIC_ENV + "/pendingContent",
 };
 
 export const auth = getAuth(app);
