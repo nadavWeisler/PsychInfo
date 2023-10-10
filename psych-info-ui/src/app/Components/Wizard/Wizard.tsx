@@ -1,5 +1,6 @@
 "use client";
 import { useState, useEffect } from "react";
+import { useRouter } from "next/navigation";
 import { useDispatch } from "react-redux";
 import { pagesActions } from "@/app/store/pagesSlice";
 import {
@@ -16,7 +17,7 @@ import {
 import { darkTheme } from "@/app/General/styles";
 import Step1 from "@/app/Components/Wizard/Step1";
 import ErrorStep from "@/app/Components/Wizard/ErrorStep";
-import { WizardDialogProps } from "@/app/General/interfaces";
+import { WizardDialogProps } from "@/app/general/interfaces";
 import { getTags, getOrganizations } from "@/app/General/utils";
 
 function WizardDialog({
@@ -47,6 +48,8 @@ function WizardDialog({
         setActiveStep((prevActiveStep) => prevActiveStep - 1);
     };
 
+    const router = useRouter();
+
     const handleSubmit = () => {
         const data = {
             tags: tagsArr,
@@ -54,6 +57,7 @@ function WizardDialog({
         };
         dispatch(pagesActions.addData(data));
         onClose();
+        router.push("/results");
     };
 
     useEffect(() => {
