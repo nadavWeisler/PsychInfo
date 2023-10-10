@@ -1,6 +1,6 @@
 "use client";
 import { Fragment, useState } from "react";
-import { ThemeProvider } from "@mui/material";
+import { Box, Container, CssBaseline, ThemeProvider } from "@mui/material";
 import Wizrad from "@/app/Components/Wizard/Wizard";
 import WelcomeMsg from "@/app/Components/UI/WelcomeMsg";
 import { darkTheme } from "@/app/General/styles";

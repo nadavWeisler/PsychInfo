@@ -6,10 +6,10 @@ interface DataForWizard {
 
 export interface TagsGridProps extends DataForWizard {}
 export enum Language {
-    Hebrew = "he",
-    English = "en",
-    Arabic = "arb",
-    Russian = "rus",
+    Hebrew = "עברית",
+    English = "English",
+    Arabic = "العربية",
+    Russian = "Русский",
 }
 
 export interface StepProps extends DataForWizard {
@@ -25,9 +25,10 @@ export interface Content {
     title: string;
     link: string;
     tags: Tag[];
-    organization: Organization[];
+    organization: Organization;
     description: string;
-    language: Language;
+    language: string;
+    uploader: string;
 }
 
 export interface Tag extends StringObject {

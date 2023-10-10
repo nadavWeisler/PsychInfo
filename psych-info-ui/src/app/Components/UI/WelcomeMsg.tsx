@@ -2,8 +2,10 @@
 import { Typography, Button, Box, ThemeProvider } from "@mui/material";
 import { WelcomeMsgProps } from "@/app/General/interfaces";
 import { darkTheme } from "@/app/General/styles";
+import { useTranslation } from "react-i18next";
 
 function WelcomeMsg({ openWizradHandler = () => null }: WelcomeMsgProps) {
+    const { t } = useTranslation();
     return (
         <ThemeProvider theme={darkTheme}>
             <Box
@@ -13,11 +15,11 @@ function WelcomeMsg({ openWizradHandler = () => null }: WelcomeMsgProps) {
                     marginTop: "75px",
                 }}
             >
-                <Typography variant="h1" component="div" gutterBottom>
-                    Welcome to PsychInfo!
+                <Typography variant="h3" component="div" gutterBottom>
+                    {t("welcome.title")}
                 </Typography>
-                <Typography variant="h4" component="div" gutterBottom>
-                    Click the button below to get started.
+                <Typography variant="h6" component="div" gutterBottom>
+                    {t("welcome.subtitle")}
                 </Typography>
                 <Button
                     sx={{
@@ -29,7 +31,7 @@ function WelcomeMsg({ openWizradHandler = () => null }: WelcomeMsgProps) {
                     color="primary"
                     onClick={openWizradHandler}
                 >
-                    Start
+                    {t("common.start")}
                 </Button>
             </Box>
         </ThemeProvider>

@@ -1,11 +1,10 @@
 {
     "common": {
         "app_name": "מידע פסיכולוגי",
-        "no": "לא",
-        "yes": "כן",
         "next": "הבא",
         "back": "חזור",
         "submit": "שלח",
+        "create": "צור",
         "cancel": "ביטול",
         "close": "סגירה",
         "save": "שמירה",
@@ -13,7 +12,22 @@
         "delete": "מחיקה",
         "add": "הוספה",
         "search": "חיפוש",
-        "loading": "טוען..."
+        "loading": "טוען...",
+        "title": "כותרת",
+        "description": "תיאור",
+        "content": "תוכן",
+        "organization": "ארגון",
+        "tag": "תגית",
+        "tags": "תגיות",
+        "link": "קישור",
+        "links": "קישורים",
+        "uploader": "מעלה",
+        "language": "שפה",
+        "start": "התחלה"
+    },
+    "welcome": {
+        "title": "ברוכים הבאים",
+        "subtitle": "מוזמן לנסות"
     },
     "add_string": {
         "enter_id": "הכנס זיהוי",
@@ -23,6 +37,8 @@
 
     },
     "upload": {
-        
+        "title": "העלאת תוכן חדש",
+        "create_new_organization": "צור ארגון חדש",
+        "create_new_tag": "צור תגית חדשה"
     }
 }
