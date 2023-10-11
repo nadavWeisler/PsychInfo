@@ -8,10 +8,10 @@ function SigninForm({
     passwordHandler = () => null,
     emailHandler = () => null,
 }: AdminSignInFormProps) {
-    const [width, setWidth] = useState<number>(window.innerWidth);
+    const [width, setWidth] = useState<number>(window ? window.innerWidth : 0);
 
     function handleWindowSizeChange() {
-        setWidth(window.innerWidth);
+        setWidth(innerWidth);
     }
     useEffect(() => {
         window.addEventListener("resize", handleWindowSizeChange);
