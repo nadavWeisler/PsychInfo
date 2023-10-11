@@ -1,7 +1,7 @@
 "use client";
 import { Fragment, useEffect, useState } from "react";
 import { useSelector } from "react-redux";
-import { Typography, Button } from "@mui/material";
+import { Typography } from "@mui/material";
 import ResultAccordion from "@/app/Components/ResultComp/ResultAccordion";
 import { getContent } from "@/app/firebase/commands";
 import { Content, Operator } from "@/app/general/interfaces";

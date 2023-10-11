@@ -4,7 +4,6 @@ import {
     Organization,
     PagesSliceInitialState,
     Tag,
-    Language,
 } from "@/app/general/interfaces";
 
 export const pagesSlice = createSlice({
@@ -12,7 +11,7 @@ export const pagesSlice = createSlice({
     initialState: {
         tags: [] as Tag[],
         organization: [] as Organization[],
-        languages: [] as Language[],
+        languages: [] as string[],
     },
 
     reducers: {

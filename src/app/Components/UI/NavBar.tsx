@@ -1,5 +1,5 @@
 "use client";
-import { useState, useEffect, useContext } from "react";
+import { useState, useEffect, useContext, Fragment } from "react";
 import {
     AppBar,
     Toolbar,
@@ -11,9 +11,10 @@ import {
     IconButton,
     Menu,
     Tooltip,
+    Link,
 } from "@mui/material";
 import MenuIcon from "@mui/icons-material/Menu";
-import Link from "next/link";
+// import Link from "next/link";
 import { User, onAuthStateChanged } from "firebase/auth";
 import { useTranslation } from "react-i18next";
 import { auth } from "@/app/firebase/app";
@@ -30,7 +31,6 @@ export default function Navbar() {
     const [isMobile, setIsMobile] = useState<Boolean>(width <= 768);
     const { user } = useContext(AuthContext);
     const { t, i18n } = useTranslation();
-
 
     useEffect(() => {
         onAuthStateChanged(auth, (user) => {
@@ -77,13 +77,16 @@ export default function Navbar() {
                         >
                             {pages.map((page, index) => (
                                 <MenuItem key={index} onClick={handleCloseMenu}>
-                                    <div>
+                                    <Fragment>
                                         <Link href={page.url}>
-                                            <Typography textAlign="center">
+                                            <Typography
+                                                textAlign="center"
+                                                component="div"
+                                            >
                                                 {page.text}
                                             </Typography>
                                         </Link>
-                                    </div>
+                                    </Fragment>
                                 </MenuItem>
                             ))}
                         </Menu>
@@ -99,7 +102,11 @@ export default function Navbar() {
                         >
                             {Object.keys(DisplayLanguages).map((lang) => (
                                 <MenuItem key={lang} value={lang}>
-                                    {DisplayLanguages[lang as keyof typeof DisplayLanguages]}
+                                    {
+                                        DisplayLanguages[
+                                            lang as keyof typeof DisplayLanguages
+                                        ]
+                                    }
                                 </MenuItem>
                             ))}
                         </Select>
@@ -179,14 +186,18 @@ export default function Navbar() {
                         aria-label="change language"
                         value={i18n.language || "he"}
                         sx={{
-                            color: "white"
+                            color: "white",
                         }}
                     >
                         {Object.keys(DisplayLanguages).map((lang) => (
-                                <MenuItem key={lang} value={lang}>
-                                    {DisplayLanguages[lang as keyof typeof DisplayLanguages]}
-                                </MenuItem>
-                            ))}
+                            <MenuItem key={lang} value={lang}>
+                                {
+                                    DisplayLanguages[
+                                        lang as keyof typeof DisplayLanguages
+                                    ]
+                                }
+                            </MenuItem>
+                        ))}
                     </Select>
                 </div>
             </Toolbar>
@@ -196,4 +207,3 @@ export default function Navbar() {
     const display = isMobile ? ResponsiveAppBar : DesktopAppBar;
     return display;
 }
-

@@ -1,14 +1,11 @@
 import { get, push, ref, set, remove } from "firebase/database";
 import { db, dbPaths } from "./app";
-import {
-    Content,
-    Language,
-    Operator,
-    Organization,
-    Tag,
-} from "@/app/general/interfaces";
+import { Content, Operator, Organization, Tag } from "@/app/general/interfaces";
 
-export async function getAllTags(used: boolean, langId: string): Promise<Tag[]> {
+export async function getAllTags(
+    used: boolean,
+    langId: string
+): Promise<Tag[]> {
     try {
         const snapshot = await get(ref(db, dbPaths.allTags));
         if (snapshot.exists()) {
@@ -30,7 +27,8 @@ export async function getAllTags(used: boolean, langId: string): Promise<Tag[]> 
 }
 
 export async function getAllOrganizations(
-    used: boolean, langId: string
+    used: boolean,
+    langId: string
 ): Promise<Organization[]> {
     try {
         const snapshot = await get(ref(db, dbPaths.allOrganizations));
@@ -52,31 +50,10 @@ export async function getAllOrganizations(
     }
 }
 
-export async function getAllLanguages(used: boolean): Promise<Language[]> {
-    try {
-        const snapshot = await get(ref(db, dbPaths.languages));
-        if (snapshot.exists()) {
-            const languages = Object.values(snapshot.val()) as Language[];
-            if (used) {
-                return languages.filter((item) => item.used === used);
-            } else {
-                console.log(Object.values(languages));
-                return languages;
-            }
-        } else {
-            console.log("No data available");
-            return [];
-        }
-    } catch (error) {
-        console.error("Error:", error);
-        throw error;
-    }
-}
-
 export async function getContent(
     organizations: Organization[],
     tags: Tag[],
-    Languages: Language[],
+    Languages: string[],
     operator: Operator
 ): Promise<Content[]> {
     try {
@@ -104,7 +81,7 @@ export async function getContent(
                 }
                 if (Languages.length > 0) {
                     lang = Languages.some(
-                        (language) => item.language.id === language.id
+                        (language) => item.languageId === language
                     );
                 } else {
                     lang = true;
@@ -145,16 +122,6 @@ export function createOrganization(organization: Organization): Promise<void> {
     }
 }
 
-export function createLanguage(language: Language): Promise<void> {
-    try {
-        const newLanguageRef = push(ref(db, dbPaths.languages));
-        return set(newLanguageRef, language);
-    } catch (error) {
-        console.error("Error:", error);
-        throw error;
-    }
-}
-
 export async function updateUsed(newContent: Content): Promise<void> {
     const newTags: Tag[] = newContent.tags.map((tag) => {
         tag.used = true;
@@ -164,11 +131,9 @@ export async function updateUsed(newContent: Content): Promise<void> {
         ...newContent.organization,
         used: true,
     };
-    const newLanguage: Language = { ...newContent.language, used: true };
     try {
         await set(ref(db, dbPaths.allTags), newTags);
         await set(ref(db, dbPaths.allOrganizations), newOrganization);
-        await set(ref(db, dbPaths.languages), newLanguage);
     } catch (error) {
         console.error("Error:", error);
         throw error;
