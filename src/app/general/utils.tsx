@@ -8,14 +8,6 @@ export function GetAllDisplays(StringObjectList: Tag[] | Organization[] | String
     return StringObjectList.map((item) => item.display);
 }
 
-export function getWindowWidth(): number {
-    if (typeof window !== undefined) {
-        return window.innerWidth;
-    } else {
-        return 0;
-    }
-}
-
 export const EMPTY_TAG: Tag = {
     id: "",
     display: "",

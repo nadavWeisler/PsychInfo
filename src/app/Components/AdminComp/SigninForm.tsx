@@ -2,26 +2,18 @@
 import { useState, useEffect } from "react";
 import { Button, TextField, Box } from "@mui/material";
 import { AdminSignInFormProps } from "@/app/general/interfaces";
-import { getWindowWidth } from "@/app/general/utils";
+import { useWindowWidth } from "@/app/general/useWidth";
 
 function SigninForm({
     handleSubmit = () => null,
     passwordHandler = () => null,
     emailHandler = () => null,
 }: AdminSignInFormProps) {
-    const [width, setWidth] = useState<number>(getWindowWidth());
-
-    function handleWindowSizeChange() {
-        setWidth(innerWidth);
-    }
+    const width = useWindowWidth();
+    const [isMobile, setIsMobile] = useState<Boolean>(width <= 768);
     useEffect(() => {
-        window.addEventListener("resize", handleWindowSizeChange);
-        return () => {
-            window.removeEventListener("resize", handleWindowSizeChange);
-        };
-    }, []);
-
-    const isMobile = width <= 768;
+        setIsMobile(width <= 768);
+    }, [width]);
 
     const windowWidth = isMobile ? "60%" : "20%";
     const marginForBtn = isMobile ? 12 : 20;

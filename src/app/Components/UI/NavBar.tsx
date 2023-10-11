@@ -18,20 +18,16 @@ import { User, onAuthStateChanged } from "firebase/auth";
 import { useTranslation } from "react-i18next";
 import { auth } from "@/app/firebase/app";
 import { AuthContext } from "@/app/context/AuthContext";
-import { getWindowWidth } from "@/app/general/utils";
+import { useWindowWidth } from "@/app/general/useWidth";
 
 function Navbar() {
     const [openMenu, setOpenMenu] = useState(false);
     const handleOpenMenu = () => setOpenMenu(true);
     const handleCloseMenu = () => setOpenMenu(false);
     const [authUser, setAuthUser] = useState<User | null>(null);
-    const [width, setWidth] = useState<number>(getWindowWidth());
-
+    const width = useWindowWidth();
+    const [isMobile, setIsMobile] = useState<Boolean>(width <= 768);
     const { user } = useContext(AuthContext);
-
-    function handleWindowSizeChange() {
-        setWidth(getWindowWidth());
-    }
 
     useEffect(() => {
         onAuthStateChanged(auth, (user) => {
@@ -40,16 +36,15 @@ function Navbar() {
     }, [user]);
 
     useEffect(() => {
-        window.addEventListener("resize", handleWindowSizeChange);
-        return () => {
-            window.removeEventListener("resize", handleWindowSizeChange);
-        };
-    }, []);
-
-    const isMobile = width <= 768;
+        setIsMobile(width <= 768);
+    }, [width]);
 
     const { t, i18n } = useTranslation();
-    document.body.dir = i18n.dir();
+    try {
+        document.body.dir = i18n.dir();
+    } catch (e) {
+        console.log(e);
+    }
     const pages = [
         { text: t("common.app_name"), url: "/" },
         { text: "העלאת תוכן", url: "/upload" },
@@ -57,7 +52,7 @@ function Navbar() {
     ];
     const ResponsiveAppBar = (
         <AppBar position="static">
-            <Container maxWidth="xl">
+            <Container maxWidth="md">
                 <Toolbar disableGutters>
                     <Box sx={{ flexGrow: 0 }}>
                         <Tooltip title="פתח תפריט">
