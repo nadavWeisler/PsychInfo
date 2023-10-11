@@ -18,18 +18,19 @@ import { User, onAuthStateChanged } from "firebase/auth";
 import { useTranslation } from "react-i18next";
 import { auth } from "@/app/firebase/app";
 import { AuthContext } from "@/app/context/AuthContext";
+import { getWindowWidth } from "@/app/general/utils";
 
 function Navbar() {
     const [openMenu, setOpenMenu] = useState(false);
     const handleOpenMenu = () => setOpenMenu(true);
     const handleCloseMenu = () => setOpenMenu(false);
     const [authUser, setAuthUser] = useState<User | null>(null);
-    const [width, setWidth] = useState<number>(window ? window.innerWidth : 0);
+    const [width, setWidth] = useState<number>(getWindowWidth());
 
     const { user } = useContext(AuthContext);
 
     function handleWindowSizeChange() {
-        setWidth(window ? window.innerWidth : 0);
+        setWidth(getWindowWidth());
     }
 
     useEffect(() => {

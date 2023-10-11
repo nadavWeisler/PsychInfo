@@ -2,13 +2,14 @@
 import { useState, useEffect } from "react";
 import { Button, TextField, Box } from "@mui/material";
 import { AdminSignInFormProps } from "@/app/general/interfaces";
+import { getWindowWidth } from "@/app/general/utils";
 
 function SigninForm({
     handleSubmit = () => null,
     passwordHandler = () => null,
     emailHandler = () => null,
 }: AdminSignInFormProps) {
-    const [width, setWidth] = useState<number>(window ? window.innerWidth : 0);
+    const [width, setWidth] = useState<number>(getWindowWidth());
 
     function handleWindowSizeChange() {
         setWidth(innerWidth);
