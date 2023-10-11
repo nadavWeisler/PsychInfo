@@ -41,7 +41,7 @@ function IncomingRequests() {
                         tags={request.tags}
                         organization={request.organization}
                         description={request.description}
-                        language={request.language}
+                        languageId={request.languageId}
                         uploader={request.uploader}
                         deleteHandler={deleteHandler}
                     />

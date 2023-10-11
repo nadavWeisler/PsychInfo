@@ -15,7 +15,6 @@ import {
 } from "@mui/material";
 import { useTranslation } from "react-i18next";
 import {
-    getAllLanguages,
     getAllOrganizations,
     getAllTags,
 } from "@/app/firebase/commands";
