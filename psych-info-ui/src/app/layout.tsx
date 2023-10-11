@@ -6,7 +6,7 @@ import AuthProvider from "@/app/context/AuthContext";
 
 import "../i18n/config";
 import { ThemeProvider } from "@mui/material/styles";
-import { appTheme } from "./General/styles";
+import { appTheme } from "./general/styles";
 
 const inter = Inter({ subsets: ["latin"] });
 

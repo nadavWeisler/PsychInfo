@@ -1,6 +1,6 @@
 "use client";
 import { useState, useEffect, Fragment } from "react";
-import { Content } from "@/app/General/interfaces";
+import { Content } from "@/app/general/interfaces";
 import { Typography } from "@mui/material";
 import RequestAccordion from "@/app/Components/AdminComp/RequestAccordion";
 import { getPendingContent } from "@/app/firebase/commands";

@@ -1,7 +1,7 @@
 import { useState, useEffect, Fragment } from "react";
 import { Chip, Grid, Typography } from "@mui/material";
 import { Organization } from "@/app/general/interfaces";
-import { GetAllDisplays, ListContainsById } from "@/app/General/utils";
+import { GetAllDisplays, ListContainsById } from "@/app/general/utils";
 import { useTranslation } from "react-i18next";
 
 interface OrganizationStepProps {

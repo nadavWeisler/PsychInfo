@@ -4,7 +4,6 @@ import {
     AppBar,
     Toolbar,
     Typography,
-    Button,
     Select,
     MenuItem,
     Container,
@@ -25,12 +24,12 @@ function Navbar() {
     const handleOpenMenu = () => setOpenMenu(true);
     const handleCloseMenu = () => setOpenMenu(false);
     const [authUser, setAuthUser] = useState<User | null>(null);
-    const [width, setWidth] = useState<number>(window?.innerWidth);
+    const [width, setWidth] = useState<number>(window.innerWidth);
 
     const { user } = useContext(AuthContext);
 
     function handleWindowSizeChange() {
-        setWidth();
+        setWidth(window.innerWidth);
     }
 
     useEffect(() => {
