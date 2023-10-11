@@ -1,28 +1,26 @@
 import { useState, useEffect, Fragment } from "react";
 import { Chip, Grid, Typography } from "@mui/material";
-import { Language, Tag } from "@/app/general/interfaces";
-import { GetAllDisplays, ListContainsById } from "@/app/general/utils";
 import { useTranslation } from "react-i18next";
+import { DisplayLanguages } from "@/app/general/interfaces";
 
 interface LangStepProps {
-    langs: Tag[];
-    updateSelectedLangs: (newTags: Tag[]) => void;
+    updateSelectedLangs: (newTags: string[]) => void;
 }
 
-export default function LangStep({ langs, updateSelectedLangs }: LangStepProps) {
+export default function LangStep({ updateSelectedLangs }: LangStepProps) {
     const { t } = useTranslation();
-    const [selectedLangs, setSelectedLangs] = useState<Language[]>([]);
+    const [selectedLangs, setSelectedLangs] = useState<string[]>([]);
     const [displayLangs, setDisplayLangs] = useState<string[]>([]);
 
-    const handleChoice = (lang: Language) => {
-        if (ListContainsById(selectedLangs, lang.id)) {
+    const handleChoice = (lang: string) => {
+        if (selectedLangs.includes(lang)) {
             const index = selectedLangs.indexOf(lang);
             selectedLangs.splice(index, 1);
             setSelectedLangs([...selectedLangs]);
-            setDisplayLangs(GetAllDisplays(selectedLangs));
+            setDisplayLangs(selectedLangs.map((currentLang) => DisplayLanguages[currentLang as keyof typeof DisplayLanguages]));
         } else {
             setSelectedLangs([...selectedLangs, lang]);
-            setDisplayLangs([...displayLangs, lang.display]);
+            setDisplayLangs([...displayLangs, DisplayLanguages[lang as keyof typeof DisplayLanguages]]);
         }
     };
 
@@ -39,14 +37,14 @@ export default function LangStep({ langs, updateSelectedLangs }: LangStepProps) 
                 {t("wizard.choose_langueges")}
             </Typography>
             <Grid container spacing={2}>
-                {langs.map((lang) => (
-                    <Grid item key={lang.id}>
+                {Object.keys(DisplayLanguages).map((lang) => (
+                    <Grid item key={lang}>
                         <Chip
-                            key={lang.id}
-                            label={lang.display}
+                            key={lang}
+                            label={DisplayLanguages[lang as keyof typeof DisplayLanguages]}
                             onClick={() => handleChoice(lang)}
                             variant={
-                                ListContainsById(selectedLangs, lang.id) ? "filled" : "outlined"
+                                selectedLangs.includes(lang) ? "filled" : "outlined"
                             }
                             color="primary"
                         />

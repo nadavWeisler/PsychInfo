@@ -8,11 +8,12 @@ import {
     Tag,
 } from "@/app/general/interfaces";
 
-export async function getAllTags(used: boolean): Promise<Tag[]> {
+export async function getAllTags(used: boolean, langId: string): Promise<Tag[]> {
     try {
         const snapshot = await get(ref(db, dbPaths.allTags));
         if (snapshot.exists()) {
-            const tags: Tag[] = Object.values(snapshot.val());
+            let tags: Tag[] = Object.values(snapshot.val());
+            tags = tags.filter((item) => item.languageId === langId);
             if (used) {
                 return Object.values(tags).filter((item) => item.used === used);
             } else {
@@ -29,16 +30,17 @@ export async function getAllTags(used: boolean): Promise<Tag[]> {
 }
 
 export async function getAllOrganizations(
-    used: boolean
+    used: boolean, langId: string
 ): Promise<Organization[]> {
     try {
         const snapshot = await get(ref(db, dbPaths.allOrganizations));
         if (snapshot.exists()) {
-            const tags: Organization[] = Object.values(snapshot.val());
+            let org: Organization[] = Object.values(snapshot.val());
+            org = org.filter((item) => item.languageId === langId);
             if (used) {
-                return Object.values(tags).filter((item) => item.used === used);
+                return Object.values(org).filter((item) => item.used === used);
             } else {
-                return Object.values(tags);
+                return Object.values(org);
             }
         } else {
             console.log("No data available");
@@ -142,6 +144,7 @@ export function createOrganization(organization: Organization): Promise<void> {
         throw error;
     }
 }
+
 export function createLanguage(language: Language): Promise<void> {
     try {
         const newLanguageRef = push(ref(db, dbPaths.languages));

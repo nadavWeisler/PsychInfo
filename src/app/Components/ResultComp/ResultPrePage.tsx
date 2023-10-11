@@ -40,7 +40,7 @@ function ResultsPrePage() {
                             tags={result.tags}
                             organization={result.organization}
                             description={result.description}
-                            language={result.language}
+                            languageId={result.languageId}
                             uploader={result.uploader}
                         />
                         <br />

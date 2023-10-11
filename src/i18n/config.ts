@@ -14,12 +14,15 @@ i18n.use(initReactI18next).init({
         },
         arb: {
             translations: require('./locals/arb.json')
+        }, 
+        en: {
+            translations: require('./locals/en.json')
         }
     },
     ns: ['translations'],
     defaultNS: 'translations'
 });
 
-i18n.languages = ['rus', 'he', 'arb'];
+i18n.languages = ['rus', 'he', 'arb', 'en'];
 
 export default i18n;

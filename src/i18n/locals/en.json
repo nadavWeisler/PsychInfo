@@ -30,9 +30,7 @@
         "no_data": "אין נתונים",
         "enter": "הכנס",
         "click": "לחץ",
-        "share": "שתף",
-        "hello": "שלום",
-        "personalize": "פרסונליזציה"
+        "share": "שתף"
     },
     "errors": {
         "error_occured": "אירעה שגיאה",
@@ -47,8 +45,7 @@
     },
     "add_string": {
         "enter_id": "הכנס זיהוי",
-        "enter_display": "הכנס תצוגה",
-        "enter_language": "הכנס שפה"
+        "enter_display": "הכנס תצוגה"
     },
     "wizard": {
         "which_info_you_need": "איזה מידע אתה צריך?",
@@ -69,8 +66,6 @@
         "title": "נושאים נבחרים"
     },
     "navbar": {
-        "admin_log_in": "אדמין? התחבר",
-        "open_menu": "פתח תפריט",
-        "upload_content": "העלאת תוכן"
+        "open_menu": "פתח תפריט"
     }
 }

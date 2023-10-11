@@ -12,9 +12,17 @@ export enum WizardStep {
     Languages,
 }
 
+export const DisplayLanguages = {
+    he: "עברית",
+    en: "English",
+    arb: "العربية",
+    rus: "Русский",
+};
+
 export interface StringObject {
     id: string;
     display: string;
+    languageId: string;
 }
 
 export interface Content {
@@ -23,13 +31,10 @@ export interface Content {
     tags: Tag[];
     organization: Organization;
     description: string;
-    language: Language;
+    languageId: string;
     uploader: string;
 }
 
-export interface Language extends StringObject {
-    used: boolean;
-}
 
 export interface Tag extends StringObject {
     used: boolean;
@@ -42,7 +47,7 @@ export interface Organization extends StringObject {
 export interface PagesSliceInitialState {
     tags: Tag[];
     organization: Organization[];
-    languages: Language[];
+    languages: string[];
 }
 
 export interface WelcomeMsgProps {
@@ -62,7 +67,7 @@ export interface Filter {
     img: string;
     tags: Tag[];
     organizations: Organization[];
-    languages: Language[];
+    languages: string[];
     title: string;
     description: string;
 }

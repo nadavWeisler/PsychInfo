@@ -1,5 +1,4 @@
 "use client";
-// themes.js
 import { createTheme } from "@mui/material/styles";
 
 export const appTheme = createTheme({
@@ -15,7 +14,7 @@ export const appTheme = createTheme({
     },
   },
   typography: {
-    fontFamily: 'Comic Sans MS, cursive',
+    fontFamily: 'Assistant, sans-serif',
   },
   components: {
     MuiTextField: {

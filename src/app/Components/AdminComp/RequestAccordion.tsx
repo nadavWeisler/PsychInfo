@@ -12,14 +12,15 @@ import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
 import { RequestAccordionProps } from "@/app/general/interfaces";
 import AccordionContent from "@/app/Components/ResultComp/AccordionContent";
 import { deletePendingContent, createContent } from "@/app/firebase/commands";
+import { useTranslation } from "react-i18next";
 
 function RequestAccordion({
     title = "",
     link = "",
     tags = [],
-    organization = { id: "", display: "", used: false },
+    organization = { id: "", display: "", used: false, languageId: "" },
     description = "",
-    language = { id: "", display: "", used: false },
+    languageId = "",
     uploader = "",
     deleteHandler = () => null,
 }: RequestAccordionProps) {
@@ -34,13 +35,14 @@ function RequestAccordion({
             tags,
             organization,
             description,
-            language,
+            languageId,
             uploader,
         };
         await createContent(content);
         deletePendingContent(title);
         deleteHandler();
     };
+    const { t } = useTranslation();
     return (
         <Box
             sx={{
@@ -65,7 +67,7 @@ function RequestAccordion({
                         tags={tags}
                         organization={organization}
                         description={description}
-                        language={language}
+                        languageId={languageId}
                         uploader={uploader}
                     />
                     <Link href={link} target="_blank" rel="noopener">
@@ -80,14 +82,14 @@ function RequestAccordion({
                             variant={"outlined"}
                             onClick={deleteRequest}
                         >
-                            מחק
+                            {t("common.delete")}
                         </Button>
                         <Button
                             color={"success"}
                             variant={"contained"}
                             onClick={aproveRequest}
                         >
-                            אשר
+                            {t("common.submit")}
                         </Button>
                     </Box>
                 </AccordionDetails>

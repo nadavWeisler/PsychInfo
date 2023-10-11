@@ -22,7 +22,6 @@ function HomePage() {
     };
 
     const filters: Filter[] = GetFilters();
-    console.log(filters);
 
     return (
         <Provider store={store}>

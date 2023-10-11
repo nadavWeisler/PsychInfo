@@ -2,7 +2,7 @@
 import { useState, useEffect } from "react";
 import { Button, TextField, Box } from "@mui/material";
 import { AdminSignInFormProps } from "@/app/general/interfaces";
-import { useWindowWidth } from "@/app/general/useWidth";
+import { useWindowWidth } from "@/app/hooks/useWidth";
 
 function SigninForm({
     handleSubmit = () => null,

@@ -18,9 +18,10 @@ import { User, onAuthStateChanged } from "firebase/auth";
 import { useTranslation } from "react-i18next";
 import { auth } from "@/app/firebase/app";
 import { AuthContext } from "@/app/context/AuthContext";
-import { useWindowWidth } from "@/app/general/useWidth";
+import { useWindowWidth } from "@/app/hooks/useWidth";
+import { DisplayLanguages } from "@/app/general/interfaces";
 
-function Navbar() {
+export default function Navbar() {
     const [openMenu, setOpenMenu] = useState(false);
     const handleOpenMenu = () => setOpenMenu(true);
     const handleCloseMenu = () => setOpenMenu(false);
@@ -28,6 +29,8 @@ function Navbar() {
     const width = useWindowWidth();
     const [isMobile, setIsMobile] = useState<Boolean>(width <= 768);
     const { user } = useContext(AuthContext);
+    const { t, i18n } = useTranslation();
+
 
     useEffect(() => {
         onAuthStateChanged(auth, (user) => {
@@ -39,27 +42,24 @@ function Navbar() {
         setIsMobile(width <= 768);
     }, [width]);
 
-    const { t, i18n } = useTranslation();
-    try {
+    useEffect(() => {
         document.body.dir = i18n.dir();
-    } catch (e) {
-        console.log(e);
-    }
+    }, [i18n.language]);
+
     const pages = [
         { text: t("common.app_name"), url: "/" },
-        { text: "העלאת תוכן", url: "/upload" },
-        { text: "אדמין? התחבר", url: "/admin-signin" },
+        { text: t("navbar.upload_content"), url: "/upload" },
+        { text: t("navbar.admin_log_in"), url: "/admin-signin" },
     ];
+
     const ResponsiveAppBar = (
         <AppBar position="static">
             <Container maxWidth="md">
                 <Toolbar disableGutters>
-                    <Box sx={{ flexGrow: 0 }}>
-                        <Tooltip title="פתח תפריט">
-                            <IconButton onClick={handleOpenMenu} sx={{ p: 0 }}>
-                                <MenuIcon />
-                            </IconButton>
-                        </Tooltip>
+                    <Box sx={{ flexGrow: 0, direction: "rtl" }}>
+                        <IconButton onClick={handleOpenMenu} sx={{ p: 0 }}>
+                            <MenuIcon />
+                        </IconButton>
                         <Menu
                             sx={{ mt: "45px" }}
                             id="menu-appbar"
@@ -97,15 +97,18 @@ function Navbar() {
                             value={i18n.language}
                             sx={{ color: "white" }}
                         >
-                            <MenuItem value="he">עברית</MenuItem>
-                            <MenuItem value="arb">العربية</MenuItem>
-                            <MenuItem value="rus">Русский</MenuItem>
+                            {Object.keys(DisplayLanguages).map((lang) => (
+                                <MenuItem key={lang} value={lang}>
+                                    {DisplayLanguages[lang as keyof typeof DisplayLanguages]}
+                                </MenuItem>
+                            ))}
                         </Select>
                     </Box>
                 </Toolbar>
             </Container>
         </AppBar>
     );
+
     const userEmail =
         authUser?.email?.indexOf("@") !== -1
             ? authUser?.email?.split("@")[0]
@@ -116,7 +119,7 @@ function Navbar() {
             component="div"
             sx={{ cursor: "pointer", color: "white" }}
         >
-            שלום {userEmail}
+            {t("common.hello")} {userEmail}
         </Typography>
     );
 
@@ -127,7 +130,7 @@ function Navbar() {
                 component="div"
                 sx={{ cursor: "pointer", color: "white" }}
             >
-                אדמין? התחבר
+                {t("navbar.admin_log_in")}
             </Typography>
         </Link>
     );
@@ -162,7 +165,7 @@ function Navbar() {
                             component="div"
                             sx={{ cursor: "pointer", color: "white" }}
                         >
-                            העלאת תוכן
+                            {t("navbar.upload_content")}
                         </Typography>
                     </Link>
                 </div>
@@ -174,12 +177,16 @@ function Navbar() {
                             i18n.changeLanguage(e.target.value as string)
                         }
                         aria-label="change language"
-                        value={i18n.language}
-                        sx={{ color: "white" }}
+                        value={i18n.language || "he"}
+                        sx={{
+                            color: "white"
+                        }}
                     >
-                        <MenuItem value="he">עברית</MenuItem>
-                        <MenuItem value="arb">العربية</MenuItem>
-                        <MenuItem value="rus">Русский</MenuItem>
+                        {Object.keys(DisplayLanguages).map((lang) => (
+                                <MenuItem key={lang} value={lang}>
+                                    {DisplayLanguages[lang as keyof typeof DisplayLanguages]}
+                                </MenuItem>
+                            ))}
                     </Select>
                 </div>
             </Toolbar>
@@ -190,4 +197,3 @@ function Navbar() {
     return display;
 }
 
-export default Navbar;

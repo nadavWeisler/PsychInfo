@@ -21,12 +21,10 @@ import {
     TelegramIcon,
 } from "react-share";
 import { ShareDialogProps } from "@/app/general/interfaces";
+import { useTranslation } from "react-i18next";
 
-function ShareDialog({
-    open = false,
-    onClose = () => null,
-    urlToShare = "",
-}: ShareDialogProps) {
+function ShareDialog({ open, onClose, urlToShare, }: ShareDialogProps) {
+    const { t } = useTranslation();
     const shareBtns = [
         <FacebookShareButton url={urlToShare}>
             <FacebookIcon />
@@ -51,7 +49,7 @@ function ShareDialog({
     return (
         <Dialog onClose={onClose} open={open}>
             <DialogContent>
-                <DialogTitle>שתף עם חבריך!</DialogTitle>
+                <DialogTitle>{t("common.share")}</DialogTitle>
                 <Grid container spacing={2}>
                     {shareBtns.map((btn, index) => (
                         <Grid item xs={6} sm={6} md={4} key={index}>
@@ -62,7 +60,7 @@ function ShareDialog({
             </DialogContent>
             <DialogActions>
                 <Button variant={"contained"} onClick={onClose}>
-                    סגור
+                    {t("common.close")}
                 </Button>
             </DialogActions>
         </Dialog>

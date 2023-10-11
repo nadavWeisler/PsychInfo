@@ -20,7 +20,7 @@ import { appTheme } from "@/app/general/styles";
 import { AddString } from "../Components/addString";
 import {
     Content,
-    Language,
+    DisplayLanguages,
     Organization,
     StringObject,
     Tag,
@@ -66,46 +66,37 @@ const MenuProps = {
 };
 
 export default function UploadContent() {
-    const { t } = useTranslation();
+    const { t, i18n } = useTranslation();
 
     const [tags, setTags] = useState<Tag[]>([]);
     const [organizations, setOrganizations] = useState<Organization[]>([]);
-    const [languages, setLanguages] = useState<Language[]>([]);
+    const [languages, setLanguages] = useState<string[]>([]);
 
     const [selectedTags, setSelectedTags] = useState<string[]>([]);
     const [selectedOrganization, setSelectedOrganization] =
         useState<Organization>(EMPTY_ORGANIZATION);
     const [selectedLanguage, setSelectedLanguage] =
-        useState<Language>(EMPTY_LANGUAGE);
+        useState<string>("");
 
     const [otherOrgValue, setOtherOrgValue] =
         useState<Organization>(EMPTY_ORGANIZATION);
     const [otherTagValue, setOtherTagValue] = useState<Tag>(EMPTY_TAG);
-    const [otherLangValue, setOtherLangValue] =
-        useState<Language>(EMPTY_LANGUAGE);
 
     const [openAddTagDialog, setOpenAddTagDialog] = useState<boolean>(false);
     const [openAddOrgDialog, setOpenAddOrgDialog] = useState<boolean>(false);
-    const [openAddLangDialog, setOpenAddLangDialog] = useState<boolean>(false);
     const [isSubmit, setIsSubmit] = useState<boolean>(false);
 
     useEffect(() => {
-        getAllTags(false).then((allTags: Tag[]) => {
+        getAllTags(false, i18n.language).then((allTags: Tag[]) => {
             setTags(allTags);
         });
     }, [otherTagValue]);
 
     useEffect(() => {
-        getAllOrganizations(false).then((allOrgs: Organization[]) => {
+        getAllOrganizations(false, i18n.language).then((allOrgs: Organization[]) => {
             setOrganizations(allOrgs);
         });
     }, [otherOrgValue]);
-
-    useEffect(() => {
-        getAllLanguages(false).then((allLangs: Language[]) => {
-            setLanguages(allLangs);
-        });
-    }, [otherLangValue]);
 
     async function handleSubmit(event: FormEvent<HTMLFormElement>) {
         event.preventDefault();
@@ -116,7 +107,7 @@ export default function UploadContent() {
             link: data.get("link")?.toString() || "",
             tags: tags.filter((tag) => selectedTags.includes(tag.display)),
             organization: selectedOrganization,
-            language: selectedLanguage,
+            languageId: selectedLanguage,
             uploader: data.get("uploader")?.toString() || "",
         };
         await postPendingContent(newContent);
@@ -124,9 +115,7 @@ export default function UploadContent() {
     }
 
     function hangleChangeTags(event: SelectChangeEvent<typeof selectedTags>) {
-        const {
-            target: { value },
-        } = event;
+        const { target: { value }, } = event;
         const newTags = tags.filter((tag) => value.includes(tag.display));
         setSelectedTags(newTags.map((tag) => tag.display));
     }
@@ -140,18 +129,6 @@ export default function UploadContent() {
         const newOrg = organizations.find((org) => org.id === value);
         if (newOrg) {
             setSelectedOrganization(newOrg);
-        }
-    }
-
-    function handleChangeLanguage(
-        event: SelectChangeEvent<typeof selectedLanguage>
-    ) {
-        const {
-            target: { value },
-        } = event;
-        const newLang = languages.find((lang) => lang.id === value);
-        if (newLang) {
-            setSelectedLanguage(newLang);
         }
     }
 
@@ -175,22 +152,8 @@ export default function UploadContent() {
         }
     }
 
-    async function handleCreateLanguage() {
-        if (otherLangValue) {
-            setSelectedLanguage(otherLangValue);
-            await createLanguage(otherLangValue).then(() => {
-                setOtherLangValue(EMPTY_LANGUAGE);
-                setOpenAddLangDialog(false);
-            });
-        }
-    }
-
     function setOtherOrganizationInForm(org: StringObject): void {
         setOtherOrgValue({ ...org, used: false });
-    }
-
-    function setOtherLangInForm(lang: StringObject): void {
-        setOtherLangValue({ ...lang, used: false });
     }
 
     function setOtherTagInForm(tag: StringObject): void {
@@ -282,44 +245,30 @@ export default function UploadContent() {
                         <InputLabel>{t("common.language")}</InputLabel>
                         <Select
                             value={selectedLanguage}
-                            onChange={handleChangeLanguage}
+                            onChange={(e) => setSelectedLanguage(e.target.value as string)}
                             renderValue={(selected) =>
-                                (selected as Language).display
+                                DisplayLanguages[selected as keyof typeof DisplayLanguages]
                             }
                         >
-                            {languages.map((lang) => (
-                                <MenuItem
-                                    key={lang.id}
-                                    value={lang.id}
-                                    style={getSelectStyles(
-                                        lang.id,
-                                        selectedLanguage
-                                            ? [selectedLanguage.id]
-                                            : [],
-                                        appTheme
-                                    )}
-                                >
-                                    {lang.display}
-                                </MenuItem>
-                            ))}
+                            {
+                                Object.keys(DisplayLanguages).map((lang) => (
+                                    <MenuItem
+                                        key={lang}
+                                        value={lang}
+                                        style={getSelectStyles(
+                                            lang,
+                                            selectedLanguage
+                                                ? [selectedLanguage]
+                                                : [],
+                                            appTheme
+                                        )}
+                                    >
+                                        {DisplayLanguages[lang as keyof typeof DisplayLanguages]}
+                                    </MenuItem>
+                                ))
+                            }
                         </Select>
                     </FormControl>
-                    <Button
-                        variant="outlined"
-                        onClick={() => setOpenAddLangDialog(true)}
-                    >
-                        {t("upload.create_new_language")}
-                    </Button>
-                    <AddString
-                        handleCloseDialog={() =>
-                            setOpenAddLangDialog(false)
-                        }
-                        handleCreate={handleCreateLanguage}
-                        inputValue={otherLangValue}
-                        setInputValue={setOtherLangInForm}
-                        openDialog={openAddLangDialog}
-                        title={t("upload.create_new_language")}
-                    />
                     <FormControl fullWidth required margin="normal">
                         <InputLabel id="demo-multiple-chip-label">
                             {t("common.tags")}

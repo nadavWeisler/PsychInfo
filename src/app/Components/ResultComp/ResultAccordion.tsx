@@ -16,7 +16,7 @@ import AccordionContent from "@/app/Components/ResultComp/AccordionContent";
 import ShareDialog from "@/app/Components/ResultComp/ShareDialog";
 import { useTranslation } from "react-i18next";
 
-function ResultAccordion({ title, link, tags, organization, description, language, uploader }: Content) {
+function ResultAccordion({ title, link, tags, organization, description, languageId, uploader }: Content) {
     const { t } = useTranslation();
     const [open, setOpen] = useState(false);
 
@@ -44,7 +44,7 @@ function ResultAccordion({ title, link, tags, organization, description, languag
                         tags={tags}
                         organization={organization}
                         description={description}
-                        language={language}
+                        languageId={languageId}
                         uploader={uploader}
                     />
                     <Link

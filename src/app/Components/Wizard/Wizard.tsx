@@ -20,7 +20,7 @@ import {
     getAllTags,
 } from "@/app/firebase/commands";
 import {
-    Language,
+    DisplayLanguages,
     Organization,
     Tag,
     WizardDialogProps,
@@ -31,14 +31,13 @@ import ErrorStep from "@/app/Components/Wizard/steps/ErrorStep";
 import LangStep from "@/app/Components/Wizard/steps/LangStep";
 
 function WizardDialog({ open, onClose }: WizardDialogProps) {
-    const { t } = useTranslation();
+    const { t, i18n } = useTranslation();
     const [activeStep, setActiveStep] = useState(0);
     const [tags, setTags] = useState<Tag[]>([]);
-    const [languages, setLanguages] = useState<Tag[]>([]);
     const [organizations, setOrganizations] = useState<Organization[]>([]);
     const [selectedTags, setSelectedTags] = useState<Tag[]>([]);
     const [selectedOrgs, setSelectedOrgs] = useState<Organization[]>([]);
-    const [selectedLanguages, setSelectedLanguages] = useState<Language[]>([]);
+    const [selectedLanguages, setSelectedLanguages] = useState<string[]>([]);
 
     const dispatch = useDispatch();
 
@@ -64,15 +63,11 @@ function WizardDialog({ open, onClose }: WizardDialogProps) {
     };
 
     useEffect(() => {
-        getAllTags(true).then((res) => setTags(res));
+        getAllTags(true, i18n.language).then((res) => setTags(res));
     }, []);
 
     useEffect(() => {
-        getAllOrganizations(true).then((res) => setOrganizations(res));
-    }, []);
-
-    useEffect(() => {
-        getAllLanguages(true).then((res) => setLanguages(res));
+        getAllOrganizations(true, i18n.language).then((res) => setOrganizations(res));
     }, []);
 
     const GetStepContent = (step: number) => {
@@ -94,7 +89,6 @@ function WizardDialog({ open, onClose }: WizardDialogProps) {
             case 2:
                 return (
                     <LangStep
-                        langs={languages}
                         updateSelectedLangs={setSelectedLanguages}
                     />
                 );
