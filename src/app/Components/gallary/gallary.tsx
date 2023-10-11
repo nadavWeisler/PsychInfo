@@ -26,7 +26,7 @@ export default function Gallary({ filters }: GallaryProps) {
     }
     return (
         <Container maxWidth="md">
-            <Typography variant="h3" align="center" margin={"auto"}>
+            <Typography variant="h4" align="center" margin={"auto"}>
                 {t("gallary.title")}
             </Typography>
             <Grid container spacing={4} margin={"auto"}>
