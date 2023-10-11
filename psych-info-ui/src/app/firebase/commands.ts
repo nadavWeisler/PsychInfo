@@ -6,7 +6,7 @@ import {
     Operator,
     Organization,
     Tag,
-} from "@/app/General/interfaces";
+} from "@/app/general/interfaces";
 
 export async function getAllTags(used: boolean): Promise<Tag[]> {
     try {

@@ -16,7 +16,7 @@ import {
     SelectChangeEvent,
     Theme,
 } from "@mui/material";
-import { appTheme } from "@/app/General/styles";
+import { appTheme } from "@/app/general/styles";
 import { AddString } from "../Components/addString";
 import {
     Content,
@@ -24,12 +24,12 @@ import {
     Organization,
     StringObject,
     Tag,
-} from "@/app/General/interfaces";
+} from "@/app/general/interfaces";
 import {
     EMPTY_LANGUAGE,
     EMPTY_ORGANIZATION,
     EMPTY_TAG,
-} from "@/app/General/utils";
+} from "@/app/general/utils";
 import {
     createLanguage,
     createOrganization,

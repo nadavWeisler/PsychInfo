@@ -9,7 +9,7 @@ import {
     Button,
 } from "@mui/material";
 import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
-import { RequestAccordionProps } from "@/app/General/interfaces";
+import { RequestAccordionProps } from "@/app/general/interfaces";
 import AccordionContent from "@/app/Components/ResultComp/AccordionContent";
 import { deletePendingContent, createContent } from "@/app/firebase/commands";
 

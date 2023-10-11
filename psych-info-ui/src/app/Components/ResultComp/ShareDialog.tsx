@@ -20,7 +20,7 @@ import {
     LinkedinIcon,
     TelegramIcon,
 } from "react-share";
-import { ShareDialogProps } from "@/app/General/interfaces";
+import { ShareDialogProps } from "@/app/general/interfaces";
 
 function ShareDialog({
     open = false,

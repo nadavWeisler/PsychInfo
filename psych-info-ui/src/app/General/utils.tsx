@@ -1,4 +1,4 @@
-import { Filter, Language, Organization, StringObject, Tag } from "./interfaces";
+import { Filter, Language, Organization, StringObject, Tag } from "@/app/general/interfaces";
 
 export function ListContainsById(StringObjectList: Tag[] | Organization[] | StringObject[], id: string): boolean {
     return StringObjectList.some((item) => item.id === id);

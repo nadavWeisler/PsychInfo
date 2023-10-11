@@ -1,5 +1,5 @@
 import { Typography, Box } from "@mui/material";
-import { Content } from "@/app/General/interfaces";
+import { Content } from "@/app/general/interfaces";
 
 function AccordionContent({
     title = "",
