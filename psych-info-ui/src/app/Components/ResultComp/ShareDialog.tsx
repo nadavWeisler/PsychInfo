@@ -3,7 +3,6 @@ import {
     DialogTitle,
     DialogContent,
     DialogActions,
-    ThemeProvider,
     Grid,
     Button,
 } from "@mui/material";
@@ -21,7 +20,6 @@ import {
     LinkedinIcon,
     TelegramIcon,
 } from "react-share";
-import { darkTheme } from "@/app/General/styles";
 import { ShareDialogProps } from "@/app/General/interfaces";
 
 function ShareDialog({
@@ -51,25 +49,23 @@ function ShareDialog({
     ];
 
     return (
-        <ThemeProvider theme={darkTheme}>
-            <Dialog onClose={onClose} open={open}>
-                <DialogContent>
-                    <DialogTitle>שתף עם חבריך!</DialogTitle>
-                    <Grid container spacing={2}>
-                        {shareBtns.map((btn, index) => (
-                            <Grid item xs={6} sm={6} md={4} key={index}>
-                                {btn}
-                            </Grid>
-                        ))}
-                    </Grid>
-                </DialogContent>
-                <DialogActions>
-                    <Button variant={"contained"} onClick={onClose}>
-                        סגור
-                    </Button>
-                </DialogActions>
-            </Dialog>
-        </ThemeProvider>
+        <Dialog onClose={onClose} open={open}>
+            <DialogContent>
+                <DialogTitle>שתף עם חבריך!</DialogTitle>
+                <Grid container spacing={2}>
+                    {shareBtns.map((btn, index) => (
+                        <Grid item xs={6} sm={6} md={4} key={index}>
+                            {btn}
+                        </Grid>
+                    ))}
+                </Grid>
+            </DialogContent>
+            <DialogActions>
+                <Button variant={"contained"} onClick={onClose}>
+                    סגור
+                </Button>
+            </DialogActions>
+        </Dialog>
     );
 }
 

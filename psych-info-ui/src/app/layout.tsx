@@ -5,6 +5,8 @@ import Navbar from "@/app/Components/UI/NavBar";
 import AuthProvider from "@/app/context/AuthContext";
 
 import "../i18n/config";
+import { ThemeProvider } from "@mui/material/styles";
+import { appTheme } from "./General/styles";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -21,8 +23,10 @@ export default function RootLayout({
     return (
         <html lang="en">
             <body className={inter.className}>
+            <ThemeProvider theme={appTheme}>
                 <Navbar />
                 <AuthProvider>{children}</AuthProvider>
+            </ThemeProvider>
             </body>
         </html>
     );
