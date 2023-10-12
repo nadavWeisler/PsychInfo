@@ -1,6 +1,6 @@
 "use client";
 import { Filter } from "@/app/general/interfaces";
-import { pagesActions } from "@/app/store/pagesSlice";
+import { pagesActions } from "@/store/pagesSlice";
 import { Card, CardContent, CardMedia, Container, Grid, Typography } from "@mui/material";
 import { useRouter } from "next/navigation";
 import { useTranslation } from "react-i18next";

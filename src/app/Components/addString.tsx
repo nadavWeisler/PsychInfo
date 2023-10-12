@@ -1,4 +1,15 @@
-import { Button, Dialog, DialogActions, DialogContent, DialogTitle, FormControl, InputLabel, MenuItem, Select, TextField } from "@mui/material";
+import {
+    Button,
+    Dialog,
+    DialogActions,
+    DialogContent,
+    DialogTitle,
+    FormControl,
+    InputLabel,
+    MenuItem,
+    Select,
+    TextField,
+} from "@mui/material";
 import { DisplayLanguages, Organization, Tag } from "../general/interfaces";
 import { useTranslation } from "react-i18next";
 
@@ -13,7 +24,14 @@ interface AddStringProps {
 
 export const AddString = (props: AddStringProps) => {
     const { t } = useTranslation();
-    const { title, openDialog, handleCloseDialog, handleCreate, inputValue, setInputValue } = props;
+    const {
+        title,
+        openDialog,
+        handleCloseDialog,
+        handleCreate,
+        inputValue,
+        setInputValue,
+    } = props;
 
     return (
         <Dialog open={openDialog} onClose={handleCloseDialog}>
@@ -26,7 +44,9 @@ export const AddString = (props: AddStringProps) => {
                     label={t("add_string.enter_id")}
                     variant="outlined"
                     value={inputValue.id}
-                    onChange={(e) => setInputValue({ ...inputValue, id: e.target.value })}
+                    onChange={(e) =>
+                        setInputValue({ ...inputValue, id: e.target.value })
+                    }
                 />
                 <TextField
                     required
@@ -35,31 +55,57 @@ export const AddString = (props: AddStringProps) => {
                     label={t("add_string.enter_display")}
                     variant="outlined"
                     value={inputValue.display}
-                    onChange={(e) => setInputValue({ ...inputValue, display: e.target.value })}
+                    onChange={(e) =>
+                        setInputValue({
+                            ...inputValue,
+                            display: e.target.value,
+                        })
+                    }
                 />
                 <FormControl margin="dense" fullWidth required>
                     <InputLabel>{t("add_string.enter_language")}</InputLabel>
                     <Select
                         variant="outlined"
-                        value={DisplayLanguages[inputValue.languageId as keyof typeof DisplayLanguages]}
-                        onChange={(e) => setInputValue({ ...inputValue, languageId: e.target.value })}
+                        value={
+                            DisplayLanguages[
+                                inputValue.languageId as keyof typeof DisplayLanguages
+                            ]
+                        }
+                        onChange={(e) =>
+                            setInputValue({
+                                ...inputValue,
+                                languageId: e.target.value,
+                            })
+                        }
                     >
                         {Object.keys(DisplayLanguages).map((lang) => (
                             <MenuItem key={lang} value={lang}>
-                                {DisplayLanguages[lang as keyof typeof DisplayLanguages]}
+                                {
+                                    DisplayLanguages[
+                                        lang as keyof typeof DisplayLanguages
+                                    ]
+                                }
                             </MenuItem>
                         ))}
                     </Select>
                 </FormControl>
             </DialogContent>
             <DialogActions>
-                <Button onClick={handleCloseDialog} color="primary" sx={{ margin: '10px' }}>
+                <Button
+                    onClick={handleCloseDialog}
+                    color="primary"
+                    sx={{ margin: "10px" }}
+                >
                     {t("common.cancel")}
                 </Button>
-                <Button onClick={handleCreate} color="primary" sx={{ margin: '10px' }}>
+                <Button
+                    onClick={handleCreate}
+                    color="primary"
+                    sx={{ margin: "10px" }}
+                >
                     {t("common.create")}
                 </Button>
             </DialogActions>
         </Dialog>
     );
-}
+};

@@ -3,10 +3,10 @@ import type { Metadata } from "next";
 import { Inter } from "next/font/google";
 import Navbar from "@/app/Components/UI/NavBar";
 import AuthProvider from "@/app/context/AuthContext";
-
 import "../i18n/config";
 import { ThemeProvider } from "@mui/material/styles";
 import { appTheme } from "./general/styles";
+import { Providers } from "@/store/provider";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -23,10 +23,12 @@ export default function RootLayout({
     return (
         <html lang="en">
             <body className={inter.className}>
-            <ThemeProvider theme={appTheme}>
-                <Navbar />
-                <AuthProvider>{children}</AuthProvider>
-            </ThemeProvider>
+                <ThemeProvider theme={appTheme}>
+                    <Navbar />
+                    <AuthProvider>
+                        <Providers>{children}</Providers>
+                    </AuthProvider>
+                </ThemeProvider>
             </body>
         </html>
     );

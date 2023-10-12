@@ -54,13 +54,14 @@ export async function getContent(
     organizations: Organization[],
     tags: Tag[],
     Languages: string[],
-    operator: Operator
-): Promise<Content[]> {
+    operator: Operator,
+    callback: Function
+) {
     try {
         const snapshot = await get(ref(db, dbPaths.validateContent));
         if (snapshot.exists()) {
             const content: Content[] = Object.values(snapshot.val());
-            return Object.values(content).filter((item) => {
+            const data = Object.values(content).filter((item) => {
                 let org = false;
                 let tag = false;
                 let lang = false;
@@ -92,6 +93,7 @@ export async function getContent(
                     return org || tag || lang;
                 }
             });
+            callback(data);
         } else {
             console.log("No data available");
             return [];
