@@ -55,8 +55,7 @@ export async function getContent(
     tags: Tag[],
     Languages: string[],
     operator: Operator,
-    callback: Function
-) {
+): Promise<Content[]> {
     try {
         const snapshot = await get(ref(db, dbPaths.validateContent));
         if (snapshot.exists()) {
@@ -93,7 +92,7 @@ export async function getContent(
                     return org || tag || lang;
                 }
             });
-            callback(data);
+            return data;
         } else {
             console.log("No data available");
             return [];

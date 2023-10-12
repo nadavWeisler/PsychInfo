@@ -1,7 +1,6 @@
 "use client";
 import { useState, useEffect } from "react";
 import { useRouter } from "next/navigation";
-import { useDispatch } from "react-redux";
 import { pagesActions } from "@/store/pagesSlice";
 import { useAppDispatch } from "@/app/hooks/redux";
 import {
@@ -15,8 +14,8 @@ import {
     Step,
 } from "@mui/material";
 import { useTranslation } from "react-i18next";
-import { getAllOrganizations, getAllTags } from "@/app/firebase/commands";
-import { Organization, Tag, WizardDialogProps } from "@/app/general/interfaces";
+import { getAllOrganizations, getAllTags, getContent } from "@/app/firebase/commands";
+import { Operator, Organization, Tag, WizardDialogProps } from "@/app/general/interfaces";
 import TagsStep from "@/app/Components/Wizard/steps/TagsStep";
 import OrgsStep from "@/app/Components/Wizard/steps/OrgsStep";
 import ErrorStep from "@/app/Components/Wizard/steps/ErrorStep";
@@ -43,13 +42,9 @@ function WizardDialog({ open, onClose }: WizardDialogProps) {
 
     const router = useRouter();
 
-    const handleSubmit = () => {
-        const data = {
-            tags: selectedTags,
-            organization: selectedOrgs,
-            languages: selectedLanguages,
-        };
-        dispatch(pagesActions.addData(data));
+    const handleSubmit = async () => {
+        const results = await getContent(selectedOrgs, selectedTags, selectedLanguages, Operator.AND);
+        dispatch(pagesActions.UploadContent({content: results}));
         onClose();
         router.replace("/results");
     };

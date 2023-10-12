@@ -1,5 +1,6 @@
 "use client";
-import { Filter } from "@/app/general/interfaces";
+import { getContent } from "@/app/firebase/commands";
+import { Filter, Operator } from "@/app/general/interfaces";
 import { pagesActions } from "@/store/pagesSlice";
 import { Card, CardContent, CardMedia, Container, Grid, Typography } from "@mui/material";
 import { useRouter } from "next/navigation";
@@ -15,13 +16,11 @@ export default function Gallary({ filters }: GallaryProps) {
     const dispatch = useDispatch();
     const router = useRouter();
 
-    const handleChoice = (filter: Filter) => {
-        const data = {
-            tags: filter.tags,
-            organization: filter.organizations,
-            languages: filter.languages
-        }
-        dispatch(pagesActions.addData(data));
+    const handleChoice = async (filter: Filter) => {
+        const results = await getContent(filter.organizations ?? [], 
+            filter.tags ?? [], filter.languages ?? [], Operator.AND);
+        console.log(results);
+        dispatch(pagesActions.UploadContent({content: results}));
         router.push("/results");
     }
     return (

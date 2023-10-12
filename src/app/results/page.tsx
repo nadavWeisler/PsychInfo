@@ -5,24 +5,12 @@ import ResultAccordion from "@/app/Components/ResultComp/ResultAccordion";
 import { getContent } from "@/app/firebase/commands";
 import { Content, Operator } from "@/app/general/interfaces";
 import { useAppSelector } from "@/app/hooks/redux";
+import { RootState } from "@/store";
 
 const operator = Operator.AND;
 
 function ResultsPrePage() {
-    const [results, setResults] = useState<Content[]>([]);
-    const [isLoaded, setIsLoaded] = useState(false);
-
-    const tags = useAppSelector((state: any) => state.pages.tags);
-    const organization = useAppSelector(
-        (state: any) => state.pages.organization
-    );
-    const language = useAppSelector((state: any) => state.pages.languages);
-
-    useEffect(() => {
-        setIsLoaded(true);
-        getContent(tags, organization, language, operator, setResults);
-        setIsLoaded(false);
-    }, [tags, organization, language]);
+    const results = useAppSelector((state: RootState) => state.pages.content);
 
     return (
         <Fragment>
@@ -37,9 +25,9 @@ function ResultsPrePage() {
                     justifyContent: "center",
                 }}
             >
-                {isLoaded && <CircularProgress />}
             </Box>
-            {results.map((result, index) => {
+            {false && (<CircularProgress />)}
+            {results && results.map((result, index) => {
                 return (
                     <Fragment key={index}>
                         <ResultAccordion
