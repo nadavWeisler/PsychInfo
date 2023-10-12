@@ -1,4 +1,4 @@
-import { get, push, ref, set, remove } from "firebase/database";
+import { get, push, ref, set, remove, update } from "firebase/database";
 import { db, dbPaths } from "./app";
 import { Content, Operator, Organization, Tag } from "@/app/general/interfaces";
 
@@ -131,9 +131,37 @@ export async function updateUsed(newContent: Content): Promise<void> {
         ...newContent.organization,
         used: true,
     };
+
+    const tags = await get(ref(db, dbPaths.allTags));
+    const organizations = await get(ref(db, dbPaths.allOrganizations));
+
+    const tagPathArray: string[] = [];
+    newContent.tags.forEach((tag) => {
+        const tagKeys = Object.keys(tags.val());
+        const tagPath = tagKeys.filter((key) => tags.val()[key].id === tag.id);
+        tagPathArray.push(tagPath[0]);
+    });
+
+    const organizationKeys = Object.keys(organizations.val());
+    const organizationPath = organizationKeys.filter(
+        (key) => organizations.val()[key].id === newContent.organization.id
+    );
+
+    for (let i = 0; i < tagPathArray.length; i++) {
+        const tagPath = tagPathArray[i];
+        const tagRef = ref(db, `${dbPaths.allTags}/${tagPath}`);
+        try {
+            await update(tagRef, newTags[i]);
+        } catch (error) {
+            console.error("Error:", error);
+            throw error;
+        }
+    }
     try {
-        await set(ref(db, dbPaths.allTags), newTags);
-        await set(ref(db, dbPaths.allOrganizations), newOrganization);
+        await update(
+            ref(db, `${dbPaths.allOrganizations}/${organizationPath}`),
+            newOrganization
+        );
     } catch (error) {
         console.error("Error:", error);
         throw error;
@@ -143,8 +171,7 @@ export async function updateUsed(newContent: Content): Promise<void> {
 export async function createContent(content: Content): Promise<void> {
     try {
         const newContentRef = await push(ref(db, dbPaths.validateContent));
-        // TODO: create bug in database - check why
-        // updateUsed(content);
+        await updateUsed(content);
         return await set(newContentRef, content);
     } catch (error) {
         console.error("Error:", error);
