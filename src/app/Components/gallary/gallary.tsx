@@ -29,7 +29,7 @@ export default function Gallary({ filters }: GallaryProps) {
             <Typography variant="h4" align="center" margin={"auto"}>
                 {t("gallary.title")}
             </Typography>
-            <Grid container spacing={4} margin={"auto"}>
+            <Grid container spacing={4} margin={"auto"} marginBottom={"10px"}>
                 {filters.map((filter) => (
                     <Grid item key={filter.id} xs={12} sm={6} md={4}>
                         <Card

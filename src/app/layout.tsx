@@ -11,7 +11,7 @@ import { appTheme } from "./general/styles";
 const inter = Inter({ subsets: ["latin"] });
 
 export const metadata: Metadata = {
-    title: "Psych Info",
+    title: "מידע פסיכולוגי",
     description: "Pshych Info To help you",
 };
 

@@ -3,12 +3,10 @@ import { Provider } from "react-redux";
 import store from "@/app/store/index";
 import ResultsPrePage from "@/app/Components/ResultComp/ResultPrePage";
 
-function ResultsPage() {
+export default function ResultsPage() {
     return (
         <Provider store={store}>
             <ResultsPrePage />
         </Provider>
     );
 }
-
-export default ResultsPage;
