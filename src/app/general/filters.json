@@ -1,16 +1,49 @@
 {
     "filters": [
         {
-            "title": "title1",
-            "description": "description1",
+            "title": "התנהלות רגשית בשעת חירום",
+            "description": "כולל את התגיות: טיפים לעזרה ראשונה נפשית, התמודדות עם מצב חירום, התמודדות עם אזעקות, התמודדות ראשונית עם טראומה.",
             "id": "id1",
-            "img": "https://picsum.photos/200/300",
-            "languages": [
+            "img": "https://images.unsplash.com/photo-1532106753298-e7b431b26dae?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=3742&q=80",
+            "languageId": "he",
+            "organizations": [
                 {
-                    "display": "English",
-                    "id": "en"
+                    "display": "org1",
+                    "id": "org1"
                 }
             ],
+            "tags": [
+                {
+                    "display": "tag1",
+                    "id": "tag1"
+                }
+            ]
+        },
+        {
+            "title": "פנייה לסיוע נפשי",
+            "description": "כולל את התגיות: קווים חמים וצ'אטים לסיוע נפשי, סיוע מאנשי מקצוע בבריאות הנפש",
+            "id": "id2",
+            "img": "https://images.unsplash.com/photo-1604881988758-f76ad2f7aac1?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=3871&q=80",
+            "languageId": "he",
+            "organizations": [
+                {
+                    "display": "org1",
+                    "id": "org1"
+                }
+            ],
+            "tags": [
+                {
+                    "display": "tag1",
+                    "id": "tag1"
+                }
+            ]
+        },
+        {
+            "title": "תוכן לתעסוקה והסחת דעת",
+            "description": "כולל את התגיות: העשרה אונליין, פודקאסטים, התנדבויות, תעסוקה לילדים",
+            "id": "id2",
+            "img": "https://images.unsplash.com/photo-1616531770192-6eaea74c2456?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=3870&q=80",
+            "languageId": "he",
             "organizations": [
                 {
                     "display": "org1",
