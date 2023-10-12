@@ -2,7 +2,8 @@
 import { useState, useEffect } from "react";
 import { useRouter } from "next/navigation";
 import { useDispatch } from "react-redux";
-import { pagesActions } from "@/app/store/pagesSlice";
+import { pagesActions } from "@/store/pagesSlice";
+import { useAppDispatch } from "@/app/hooks/redux";
 import {
     Dialog,
     DialogTitle,
@@ -14,16 +15,8 @@ import {
     Step,
 } from "@mui/material";
 import { useTranslation } from "react-i18next";
-import {
-    getAllOrganizations,
-    getAllTags,
-} from "@/app/firebase/commands";
-import {
-    DisplayLanguages,
-    Organization,
-    Tag,
-    WizardDialogProps,
-} from "@/app/general/interfaces";
+import { getAllOrganizations, getAllTags } from "@/app/firebase/commands";
+import { Organization, Tag, WizardDialogProps } from "@/app/general/interfaces";
 import TagsStep from "@/app/Components/Wizard/steps/TagsStep";
 import OrgsStep from "@/app/Components/Wizard/steps/OrgsStep";
 import ErrorStep from "@/app/Components/Wizard/steps/ErrorStep";
@@ -38,7 +31,7 @@ function WizardDialog({ open, onClose }: WizardDialogProps) {
     const [selectedOrgs, setSelectedOrgs] = useState<Organization[]>([]);
     const [selectedLanguages, setSelectedLanguages] = useState<string[]>([]);
 
-    const dispatch = useDispatch();
+    const dispatch = useAppDispatch();
 
     const handleNext = () => {
         setActiveStep((prevActiveStep) => prevActiveStep + 1);
@@ -58,7 +51,7 @@ function WizardDialog({ open, onClose }: WizardDialogProps) {
         };
         dispatch(pagesActions.addData(data));
         onClose();
-        router.push("/results");
+        router.replace("/results");
     };
 
     useEffect(() => {
@@ -66,7 +59,9 @@ function WizardDialog({ open, onClose }: WizardDialogProps) {
     }, []);
 
     useEffect(() => {
-        getAllOrganizations(true, i18n.language).then((res) => setOrganizations(res));
+        getAllOrganizations(true, i18n.language).then((res) =>
+            setOrganizations(res)
+        );
     }, []);
 
     const GetStepContent = (step: number) => {
@@ -86,11 +81,7 @@ function WizardDialog({ open, onClose }: WizardDialogProps) {
                     />
                 );
             case 2:
-                return (
-                    <LangStep
-                        updateSelectedLangs={setSelectedLanguages}
-                    />
-                );
+                return <LangStep updateSelectedLangs={setSelectedLanguages} />;
             default:
                 return <ErrorStep errorMsg={"Invalid Step"} />;
         }

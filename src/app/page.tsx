@@ -4,7 +4,7 @@ import { Container } from "@mui/material";
 import Wizrad from "@/app/Components/Wizard/Wizard";
 import WelcomeMsg from "@/app/Components/UI/WelcomeMsg";
 import { Provider } from "react-redux";
-import store from "@/app/store";
+import store from "@/store";
 import { Filter } from "./general/interfaces";
 import Gallary from "./Components/gallary/gallary";
 import { GetFilters } from "./general/utils";

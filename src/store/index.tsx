@@ -1,6 +1,6 @@
 "use client";
 import { configureStore } from "@reduxjs/toolkit";
-import { pagesSlice } from "@/app/store/pagesSlice";
+import { pagesSlice } from "@/store/pagesSlice";
 
 const store = configureStore({
     reducer: {
@@ -9,4 +9,5 @@ const store = configureStore({
 });
 
 export type RootState = ReturnType<typeof store.getState>;
+export type AppDispatch = typeof store.dispatch;
 export default store;
