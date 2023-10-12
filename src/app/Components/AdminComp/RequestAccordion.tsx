@@ -70,11 +70,6 @@ function RequestAccordion({
                         languageId={languageId}
                         uploader={uploader}
                     />
-                    <Link href={link} target="_blank" rel="noopener">
-                        {title}
-                    </Link>
-                    <br />
-                    <br />
                     <Box sx={{ display: "flex", flexDirection: "row" }}>
                         <Button
                             sx={{ marginLeft: "20px" }}

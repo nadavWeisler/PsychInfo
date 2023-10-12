@@ -32,7 +32,8 @@
         "click": "לחץ",
         "share": "שתף",
         "hello": "שלום",
-        "personalize": "פרסונליזציה"
+        "personalize": "פרסונליזציה",
+        "invalid_link": "קישור לא תקין"
     },
     "errors": {
         "error_occured": "אירעה שגיאה",

@@ -41,3 +41,12 @@ export function GetFilters(): Filter[] {
 export function isEmptyOrSpaces(str: string) {
     return str === null || str.match(/^ *$/) !== null || str === "\r";
 }
+
+export function ifValidLink(url: string): boolean {
+    // Regular expression to match a valid URL
+    const urlPattern = /^(https?|ftp):\/\/[^\s/$.?#].[^\s]*$/i;
+  
+    // Test the URL against the pattern
+    return urlPattern.test(url);
+  }
+  
