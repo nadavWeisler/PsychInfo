@@ -34,7 +34,7 @@ export const EMPTY_ORGANIZATION: Organization = {
 
 export function GetFilters(): Filter[] {
     const filterFile = require("./filters.json");
-    const filters: Filter[] = filterFile.filters;
+    let filters: Filter[] = filterFile.filters;
     return filters;
 }
 
@@ -45,8 +45,8 @@ export function isEmptyOrSpaces(str: string) {
 export function ifValidLink(url: string): boolean {
     // Regular expression to match a valid URL
     const urlPattern = /^(https?|ftp):\/\/[^\s/$.?#].[^\s]*$/i;
-  
+
     // Test the URL against the pattern
     return urlPattern.test(url);
-  }
-  
+}
+
