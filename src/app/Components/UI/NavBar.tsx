@@ -121,13 +121,15 @@ export default function Navbar() {
             ? authUser?.email?.split("@")[0]
             : authUser?.email;
     const greetMsg = (
-        <Typography
-            variant="h6"
-            component="div"
-            sx={{ cursor: "pointer", color: "white" }}
-        >
-            {t("common.hello")} {userEmail}
-        </Typography>
+        <Link href="/admin">
+            <Typography
+                variant="h6"
+                component="div"
+                sx={{ cursor: "pointer", color: "white" }}
+            >
+                {t("common.hello")} {userEmail}
+            </Typography>
+        </Link>
     );
 
     const adminLink = (
