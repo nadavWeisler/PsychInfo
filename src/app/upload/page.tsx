@@ -25,11 +25,7 @@ import {
     StringObject,
     Tag,
 } from "@/app/general/interfaces";
-import {
-    EMPTY_LANGUAGE,
-    EMPTY_ORGANIZATION,
-    EMPTY_TAG,
-} from "@/app/general/utils";
+import { EMPTY_ORGANIZATION, EMPTY_TAG } from "@/app/general/utils";
 import {
     createOrganization,
     createTag,
@@ -73,8 +69,7 @@ export default function UploadContent() {
     const [selectedTags, setSelectedTags] = useState<string[]>([]);
     const [selectedOrganization, setSelectedOrganization] =
         useState<Organization>(EMPTY_ORGANIZATION);
-    const [selectedLanguage, setSelectedLanguage] =
-        useState<string>("");
+    const [selectedLanguage, setSelectedLanguage] = useState<string>("");
 
     const [otherOrgValue, setOtherOrgValue] =
         useState<Organization>(EMPTY_ORGANIZATION);
@@ -91,9 +86,11 @@ export default function UploadContent() {
     }, [otherTagValue]);
 
     useEffect(() => {
-        getAllOrganizations(false, i18n.language).then((allOrgs: Organization[]) => {
-            setOrganizations(allOrgs);
-        });
+        getAllOrganizations(false, i18n.language).then(
+            (allOrgs: Organization[]) => {
+                setOrganizations(allOrgs);
+            }
+        );
     }, [otherOrgValue]);
 
     async function handleSubmit(event: FormEvent<HTMLFormElement>) {
@@ -113,7 +110,9 @@ export default function UploadContent() {
     }
 
     function hangleChangeTags(event: SelectChangeEvent<typeof selectedTags>) {
-        const { target: { value }, } = event;
+        const {
+            target: { value },
+        } = event;
         const newTags = tags.filter((tag) => value.includes(tag.display));
         setSelectedTags(newTags.map((tag) => tag.display));
     }
@@ -243,28 +242,34 @@ export default function UploadContent() {
                         <InputLabel>{t("common.language")}</InputLabel>
                         <Select
                             value={selectedLanguage}
-                            onChange={(e) => setSelectedLanguage(e.target.value as string)}
+                            onChange={(e) =>
+                                setSelectedLanguage(e.target.value as string)
+                            }
                             renderValue={(selected) =>
-                                DisplayLanguages[selected as keyof typeof DisplayLanguages]
+                                DisplayLanguages[
+                                    selected as keyof typeof DisplayLanguages
+                                ]
                             }
                         >
-                            {
-                                Object.keys(DisplayLanguages).map((lang) => (
-                                    <MenuItem
-                                        key={lang}
-                                        value={lang}
-                                        style={getSelectStyles(
-                                            lang,
-                                            selectedLanguage
-                                                ? [selectedLanguage]
-                                                : [],
-                                            appTheme
-                                        )}
-                                    >
-                                        {DisplayLanguages[lang as keyof typeof DisplayLanguages]}
-                                    </MenuItem>
-                                ))
-                            }
+                            {Object.keys(DisplayLanguages).map((lang) => (
+                                <MenuItem
+                                    key={lang}
+                                    value={lang}
+                                    style={getSelectStyles(
+                                        lang,
+                                        selectedLanguage
+                                            ? [selectedLanguage]
+                                            : [],
+                                        appTheme
+                                    )}
+                                >
+                                    {
+                                        DisplayLanguages[
+                                            lang as keyof typeof DisplayLanguages
+                                        ]
+                                    }
+                                </MenuItem>
+                            ))}
                         </Select>
                     </FormControl>
                     <FormControl fullWidth required margin="normal">
