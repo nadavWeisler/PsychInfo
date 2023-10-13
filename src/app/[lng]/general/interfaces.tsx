@@ -26,7 +26,7 @@ export interface StringObject {
     languageId: string;
 }
 
-export interface Content {
+export interface ContentDB {
     title: string;
     link: string;
     tags: Tag[];
@@ -34,6 +34,9 @@ export interface Content {
     description: string;
     languageId: string;
     uploader: string;
+}
+
+export interface Content extends ContentDB {
     id: string;
 }
 

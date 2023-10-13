@@ -7,6 +7,7 @@ import {
     Tag,
     FoundMistakeDB,
     FoundMistake,
+    ContentDB,
 } from "@/app/[lng]/general/interfaces";
 
 export async function getAllTags(
@@ -257,7 +258,7 @@ export const getPendingContent = async (): Promise<Content[]> => {
     }
 };
 
-export const postPendingContent = async (content: Content): Promise<void> => {
+export const postPendingContent = async (content: ContentDB): Promise<void> => {
     try {
         const newContentRef = await push(
             ref(db, dbPaths.pendingContent + "/" + content.title)
