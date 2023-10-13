@@ -19,41 +19,22 @@ import { auth } from "@/app/[lng]/firebase/app";
 import { AuthContext } from "@/app/[lng]/context/AuthContext";
 import { useWindowWidth } from "@/app/[lng]/hooks/useWidth";
 import { DisplayLanguages } from "@/app/[lng]/general/interfaces";
-import {
-    useRouter,
-    useParams,
-    useSelectedLayoutSegments,
-    usePathname,
-} from "next/navigation";
+import { useParams } from "next/navigation";
 import { LocaleTypes } from "@/i18n/settings";
 
-export default function Navbar({ lng = "he" }: { lng: string }) {
+export default function Navbar() {
     const [openMenu, setOpenMenu] = useState(false);
     const handleOpenMenu = () => setOpenMenu(true);
     const handleCloseMenu = () => setOpenMenu(false);
     const [authUser, setAuthUser] = useState<User | null>(null);
     const width = useWindowWidth();
     const [isMobile, setIsMobile] = useState<Boolean>(width <= 768);
+    const [direction, setDirection] = useState<"ltr" | "rtl">("rtl");
+
     const { user } = useContext(AuthContext);
 
-    const router = useRouter();
-    const params = useParams();
-    const urlSegments = useSelectedLayoutSegments();
-    const pathName = usePathname();
     const locale = useParams()?.locale as LocaleTypes;
     const { t, i18n } = useTranslation(locale, "translation");
-
-    // const [t, setT] = useState<TFunction<any, any> | Function>(
-    //     () => () => null
-    // );
-    // const [i18n, setI18n] = useState<any>({ language: "he" });
-    // useEffect(() => {
-    //     useTranslation(lng, "translation").then((res) => {
-    //         const { t, i18n } = res;
-    //         setT(t);
-    //         setI18n(i18n);
-    //     });
-    // }, []);
 
     useEffect(() => {
         onAuthStateChanged(auth, (user) => {
@@ -65,27 +46,24 @@ export default function Navbar({ lng = "he" }: { lng: string }) {
         setIsMobile(width <= 768);
     }, [width]);
 
-    // useEffect(() => {
-    //     document.body.dir = i18n.dir();
-    // }, [i18n.language]);
-
-    const handleLocaleChange = (event: any) => {
-        const newLocale = event.target.value;
-
-        router.push(`/${newLocale}/${urlSegments.join("/")}`);
-    };
+    useEffect(() => {
+        setDirection(i18n.dir());
+    }, [i18n.language]);
 
     const pages = [
-        { text: t("common.app_name"), url: "/" },
-        { text: t("navbar.upload_content"), url: "/upload" },
-        { text: t("navbar.admin_log_in"), url: "/admin-signin" },
+        { text: t("common.app_name"), url: `/${i18n.language}` },
+        { text: t("navbar.upload_content"), url: `${i18n.language}/upload` },
+        {
+            text: t("navbar.admin_log_in"),
+            url: `${i18n.language}/admin-signin`,
+        },
     ];
 
     const ResponsiveAppBar = (
         <AppBar position="static">
             <Container maxWidth="md">
                 <Toolbar disableGutters>
-                    <Box sx={{ flexGrow: 0, direction: "rtl" }}>
+                    <Box sx={{ flexGrow: 0, direction: direction }}>
                         <IconButton onClick={handleOpenMenu} sx={{ p: 0 }}>
                             <MenuIcon />
                         </IconButton>
@@ -125,10 +103,8 @@ export default function Navbar({ lng = "he" }: { lng: string }) {
                             onChange={(e) =>
                                 i18n.changeLanguage(e.target.value as string)
                             }
-                            // onChange={handleLocaleChange}
                             aria-label="change language"
-                            // value={i18n.language}
-                            value={params.lng}
+                            value={i18n.language}
                             sx={{ color: "white" }}
                         >
                             {Object.keys(DisplayLanguages).map((lang) => (
@@ -152,7 +128,7 @@ export default function Navbar({ lng = "he" }: { lng: string }) {
             ? authUser?.email?.split("@")[0]
             : authUser?.email;
     const greetMsg = (
-        <Link href="/admin">
+        <Link href={`/${i18n.language}/admin`}>
             <Typography
                 variant="h6"
                 component="div"
@@ -164,7 +140,7 @@ export default function Navbar({ lng = "he" }: { lng: string }) {
     );
 
     const adminLink = (
-        <Link href="/admin-signin">
+        <Link href={`/${i18n.language}/admin-signin`}>
             <Typography
                 variant="h6"
                 component="div"
@@ -184,7 +160,7 @@ export default function Navbar({ lng = "he" }: { lng: string }) {
                     display: "flex",
                     justifyContent: "space-evenly",
                     alignItems: "center",
-                    direction: "rtl", // Force left-to-right direction
+                    direction: direction, // Force left-to-right direction
                 }}
             >
                 <div>
@@ -199,7 +175,7 @@ export default function Navbar({ lng = "he" }: { lng: string }) {
                     </Link>
                 </div>
                 <div>
-                    <Link href="/upload">
+                    <Link href={`/${i18n.language}/upload`}>
                         <Typography
                             variant="h6"
                             component="div"
@@ -216,10 +192,8 @@ export default function Navbar({ lng = "he" }: { lng: string }) {
                         onChange={(e) =>
                             i18n.changeLanguage(e.target.value as string)
                         }
-                        // onChange={handleLocaleChange}
                         aria-label="change language"
-                        // value={i18n.language || "he"}
-                        value={params.lng}
+                        value={i18n.language || "he"}
                         sx={{
                             color: "white",
                         }}
