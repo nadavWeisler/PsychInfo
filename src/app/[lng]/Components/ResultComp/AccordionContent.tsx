@@ -1,18 +1,14 @@
 import { Typography, Box, TextField, FormControl, InputLabel, Grid, Chip, Link } from "@mui/material";
 import { Content, DisplayLanguages } from "@/app/[lng]/general/interfaces";
-import { useTranslation } from "react-i18next";
-import { Select } from "react-i18next/icu.macro";
 import { ifValidLink, isEmptyOrSpaces } from "@/app/[lng]/general/utils";
+import { useParams } from "next/navigation";
+import { LocaleTypes } from "@/i18n/settings";
+import { useTranslation } from "@/i18n/client";
 
-function AccordionContent({
-    title = "",
-    link = "",
-    tags = [],
-    organization = { id: "", display: "", used: false, languageId: "" },
-    description = "",
-    languageId = ""
-}: Content) {
-    const { t } = useTranslation();
+export default function AccordionContent({ link, tags, organization, description, languageId }: Content) {
+    const locale = useParams()?.locale as LocaleTypes;
+    const { t } = useTranslation(locale, "translation");
+
     return (
         <Box sx={{
             display: "flex",
@@ -20,7 +16,7 @@ function AccordionContent({
             overflow: "auto"
         }}>
             {
-                !isEmptyOrSpaces(link) && ifValidLink(link) ?
+                (!isEmptyOrSpaces(link) && ifValidLink(link)) ?
                     <Box sx={{
                         display: "flex",
                         flexDirection: "row",
@@ -76,7 +72,6 @@ function AccordionContent({
                 <Typography sx={{ margin: "10px" }} variant="h6">
                     {t("common.language")}:
                 </Typography>
-
                 {[languageId].map((lang) => (
                     <Chip
                         sx={{ margin: "10px" }}
@@ -115,6 +110,4 @@ function AccordionContent({
             </Box>
         </Box >
     );
-}
-
-export default AccordionContent;
+};

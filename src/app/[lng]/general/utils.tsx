@@ -5,16 +5,11 @@ import {
     Tag,
 } from "@/app/[lng]/general/interfaces";
 
-export function ListContainsById(
-    StringObjectList: Tag[] | Organization[] | StringObject[],
-    id: string
-): boolean {
+export function ListContainsById(StringObjectList: Tag[] | Organization[], id: string): boolean {
     return StringObjectList.some((item) => item.id === id);
 }
 
-export function GetAllDisplays(
-    StringObjectList: Tag[] | Organization[] | StringObject[]
-): string[] {
+export function GetAllDisplays(StringObjectList: Tag[] | Organization[]): string[] {
     return StringObjectList.map((item) => item.display);
 }
 
@@ -38,15 +33,12 @@ export function GetFilters(): Filter[] {
     return filters;
 }
 
-export function isEmptyOrSpaces(str: string) {
+export function isEmptyOrSpaces(str: string): boolean {
     return str === null || str.match(/^ *$/) !== null || str === "\r";
 }
 
 export function ifValidLink(url: string): boolean {
-    // Regular expression to match a valid URL
     const urlPattern = /^(https?|ftp):\/\/[^\s/$.?#].[^\s]*$/i;
-
-    // Test the URL against the pattern
     return urlPattern.test(url);
 }
 

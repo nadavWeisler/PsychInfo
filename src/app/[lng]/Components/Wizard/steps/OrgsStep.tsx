@@ -1,4 +1,4 @@
-import { useState, useEffect, Fragment } from "react";
+import { useState, useEffect, Fragment, ReactElement } from "react";
 import { Chip, Grid, Typography } from "@mui/material";
 import { Organization } from "@/app/[lng]/general/interfaces";
 import { GetAllDisplays, ListContainsById } from "@/app/[lng]/general/utils";
@@ -9,15 +9,18 @@ interface OrganizationStepProps {
     updateSelectedOrganizations: (organizations: Organization[]) => void;
 }
 
-export default function OrgsStep({
-    organizations,
-    updateSelectedOrganizations,
-}: OrganizationStepProps) {
+export default function OrgsStep({ organizations, updateSelectedOrganizations }:
+    OrganizationStepProps): ReactElement {
+
     const { t } = useTranslation();
     const [selectedOrgs, setSelectedOrgs] = useState<Organization[]>([]);
     const [displayOrgs, setDisplayOrgs] = useState<string[]>([]);
 
-    const handleChoice = (org: Organization) => {
+    useEffect(() => {
+        updateSelectedOrganizations(selectedOrgs);
+    }, [selectedOrgs]);
+
+    function handleChoice(org: Organization) {
         if (ListContainsById(selectedOrgs, org.id)) {
             const index = selectedOrgs.indexOf(org);
             selectedOrgs.splice(index, 1);
@@ -28,11 +31,7 @@ export default function OrgsStep({
             setDisplayOrgs([...displayOrgs, org.display]);
         }
     };
-
-    useEffect(() => {
-        updateSelectedOrganizations(selectedOrgs);
-    }, [selectedOrgs]);
-
+    
     return (
         <Fragment>
             <Typography

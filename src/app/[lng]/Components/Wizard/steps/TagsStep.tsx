@@ -1,4 +1,4 @@
-import { useState, useEffect, Fragment } from "react";
+import { useState, useEffect, Fragment, ReactElement } from "react";
 import { Chip, Grid, Typography } from "@mui/material";
 import { Tag } from "@/app/[lng]/general/interfaces";
 import { GetAllDisplays, ListContainsById } from "@/app/[lng]/general/utils";
@@ -9,12 +9,16 @@ interface TagsStepProps {
     updateSelectedTags: (newTags: Tag[]) => void;
 }
 
-export default function TagsStep({ tags, updateSelectedTags }: TagsStepProps) {
+export default function TagsStep({ tags, updateSelectedTags }: TagsStepProps): ReactElement {
     const { t } = useTranslation();
     const [selectedTags, setSelectedTags] = useState<Tag[]>([]);
     const [displayTags, setDisplayTags] = useState<string[]>([]);
 
-    const handleChoice = (tag: Tag) => {
+    useEffect(() => {
+        updateSelectedTags(selectedTags);
+    }, [selectedTags]);
+
+    function handleChoice(tag: Tag): void {
         if (ListContainsById(selectedTags, tag.id)) {
             const index = selectedTags.indexOf(tag);
             selectedTags.splice(index, 1);
@@ -25,10 +29,6 @@ export default function TagsStep({ tags, updateSelectedTags }: TagsStepProps) {
             setDisplayTags([...displayTags, tag.display]);
         }
     };
-
-    useEffect(() => {
-        updateSelectedTags(selectedTags);
-    }, [selectedTags]);
 
     return (
         <Fragment>

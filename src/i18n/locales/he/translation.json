@@ -33,7 +33,13 @@
         "share": "שתף",
         "hello": "שלום",
         "personalize": "פרסונליזציה",
-        "invalid_link": "קישור לא תקין"
+        "invalid_link": "קישור לא תקין",
+        "login": "התחבר",
+        "logout": "התנתק",
+        "email": "אימייל",
+        "password": "סיסמה",
+        "reported_mistake": "דיווח על טעות",
+        "name": "שם"
     },
     "errors": {
         "error_occured": "אירעה שגיאה",
@@ -55,13 +61,15 @@
         "which_info_you_need": "איזה מידע אתה צריך?",
         "choose_organizations": "בחר ארגונים",
         "choose_tags": "בחר תגיות",
-        "choose_langueges": "בחר שפות"
+        "choose_langueges": "בחר שפות",
+        "invalid_step": "שלב לא תקין"
     },
     "upload": {
         "title": "העלאת תוכן חדש",
         "create_new_organization": "צור ארגון חדש",
         "create_new_tag": "צור תגית חדשה",
-        "create_new_language": "צור שפה חדשה"
+        "create_new_language": "צור שפה חדשה",
+        "submit_success": "הטופס נשלח בהצלחה, והוא ממתין לאישור מנהל"
     },
     "results": {
         "title": "תוצאות"
@@ -82,5 +90,12 @@
         "send": "שלח",
         "greeting": "אם מצאת בעיה כלשהי באתר, נשמח אם תמלא את הטופס הבא. תודה על עזרתך!",
         "form_sent": "הטופס נשלח בהצלחה!"
+    },
+    "admin": {
+        "mistakes_requests": "טעויות הממתינות לבדיקה",
+        "no_mistakes": "אין טעויות הממתינות לבדיקה",
+        "waiting_requests": "בקשות הממתינות לבדיקה",
+        "no_requests": "אין בקשות הממתינות לבדיקה",
+        "admin_login": "כניסת מנהל"
     }
 }

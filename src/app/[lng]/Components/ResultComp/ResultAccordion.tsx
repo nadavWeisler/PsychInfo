@@ -14,11 +14,14 @@ import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
 import { Content } from "@/app/[lng]/general/interfaces";
 import AccordionContent from "@/app/[lng]/Components/ResultComp/AccordionContent";
 import ShareDialog from "@/app/[lng]/Components/ResultComp/ShareDialog";
-import { useTranslation } from "react-i18next";
+import { LocaleTypes } from "@/i18n/settings";
+import { useParams } from "next/navigation";
+import { useTranslation } from "@/i18n/client";
 
-function ResultAccordion({ title, link, tags, organization, description, languageId, uploader }: Content) {
-    const { t } = useTranslation();
-    const [open, setOpen] = useState(false);
+export default function ResultAccordion({ title, link, tags, organization, description, languageId, uploader }: Content) {
+    const locale = useParams()?.locale as LocaleTypes;
+    const { t } = useTranslation(locale, "translation");
+    const [open, setOpen] = useState<boolean>(false);
 
     return (
         <Box
@@ -74,8 +77,5 @@ function ResultAccordion({ title, link, tags, organization, description, languag
                 urlToShare={link}
             />
         </Box>
-
     );
-}
-
-export default ResultAccordion;
+};

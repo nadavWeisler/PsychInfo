@@ -109,6 +109,13 @@ export interface FoundMistakeFormProps {
     isSentHandler: () => void;
 }
 
+export interface FoundMistakeAccordionContentProps extends FoundMistake { }
+
 export interface FoundMistakeAccordionProps extends FoundMistakeDB {
     deleteHandler: () => void;
+}
+
+export interface NavBarPage{
+    text: string;
+    url: string;
 }

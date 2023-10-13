@@ -8,30 +8,29 @@ import {
     Button,
 } from "@mui/material";
 import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
-import { RequestAccordionProps } from "@/app/[lng]/general/interfaces";
+import { Content, RequestAccordionProps } from "@/app/[lng]/general/interfaces";
 import AccordionContent from "@/app/[lng]/Components/ResultComp/AccordionContent";
 import {
     deletePendingContent,
     createContent,
 } from "@/app/[lng]/firebase/commands";
-import { useTranslation } from "react-i18next";
+import { useParams } from "next/navigation";
+import { LocaleTypes } from "@/i18n/settings";
+import { useTranslation } from "@/i18n/client";
 
-function RequestAccordion({
-    title = "",
-    link = "",
-    tags = [],
-    organization = { id: "", display: "", used: false, languageId: "" },
-    description = "",
-    languageId = "",
-    uploader = "",
-    deleteHandler = () => null,
-}: RequestAccordionProps) {
-    const deleteRequest = async () => {
-        deletePendingContent(title);
+export default function RequestAccordion({ title, link, tags, organization, description,
+    languageId, uploader, deleteHandler }: RequestAccordionProps) {
+        
+    const locale = useParams()?.locale as LocaleTypes;
+    const { t } = useTranslation(locale, "translation");
+
+    async function deleteRequest(): Promise<void> {
+        await deletePendingContent(title);
         deleteHandler();
     };
-    const aproveRequest = async () => {
-        const content = {
+
+    async function aproveRequest(): Promise<void> {
+        const content: Content = {
             title,
             link,
             tags,
@@ -44,7 +43,7 @@ function RequestAccordion({
         deletePendingContent(title);
         deleteHandler();
     };
-    const { t } = useTranslation();
+
     return (
         <Box
             sx={{
@@ -93,5 +92,4 @@ function RequestAccordion({
             </Accordion>
         </Box>
     );
-}
-export default RequestAccordion;
+};

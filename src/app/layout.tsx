@@ -8,6 +8,7 @@ import { appTheme } from "./[lng]/general/styles";
 import { Providers } from "@/store/provider";
 import { dir } from "i18next";
 import { locales } from "@/i18n/settings";
+import { Container } from "@mui/material";
 
 export async function generateStaticParams() {
     return locales.map((lng) => ({ lng }));
@@ -32,9 +33,11 @@ export default function RootLayout({
             <body className={inter.className}>
                 <ThemeProvider theme={appTheme}>
                     <Navbar />
-                    <AuthProvider>
-                        <Providers>{children}</Providers>
-                    </AuthProvider>
+                    <Container component="main" maxWidth="md">
+                        <AuthProvider>
+                            <Providers>{children}</Providers>
+                        </AuthProvider>
+                    </Container>
                 </ThemeProvider>
             </body>
         </html>

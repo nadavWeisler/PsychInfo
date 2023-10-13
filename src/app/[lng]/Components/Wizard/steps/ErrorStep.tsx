@@ -6,7 +6,7 @@ interface ErrorStepProps {
     errorMsg: string;
 }
 
-function ErrorStep({ errorMsg = "" }: ErrorStepProps) {
+export default function ErrorStep({ errorMsg }: ErrorStepProps): React.ReactElement {
     const { t } = useTranslation();
 
     return (
@@ -15,6 +15,4 @@ function ErrorStep({ errorMsg = "" }: ErrorStepProps) {
             <Typography>{errorMsg}</Typography>
         </Fragment>
     );
-}
-
-export default ErrorStep;
+};

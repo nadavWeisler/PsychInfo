@@ -21,11 +21,15 @@ import {
     TelegramIcon,
 } from "react-share";
 import { ShareDialogProps } from "@/app/[lng]/general/interfaces";
-import { useTranslation } from "react-i18next";
+import { useParams } from "next/navigation";
+import { LocaleTypes } from "@/i18n/settings";
+import { useTranslation } from "@/i18n/client";
 
-function ShareDialog({ open, onClose, urlToShare, }: ShareDialogProps) {
-    const { t } = useTranslation();
-    const shareBtns = [
+export default function ShareDialog({ open, urlToShare, onClose }: ShareDialogProps) {
+    const locale = useParams()?.locale as LocaleTypes;
+    const { t } = useTranslation(locale, "translation");
+
+    const shareBtns: React.ReactElement[] = [
         <FacebookShareButton url={urlToShare}>
             <FacebookIcon />
         </FacebookShareButton>,
@@ -65,6 +69,4 @@ function ShareDialog({ open, onClose, urlToShare, }: ShareDialogProps) {
             </DialogActions>
         </Dialog>
     );
-}
-
-export default ShareDialog;
+};

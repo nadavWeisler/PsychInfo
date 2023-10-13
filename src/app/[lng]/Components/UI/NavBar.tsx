@@ -18,17 +18,16 @@ import { useTranslation } from "@/i18n/client";
 import { auth } from "@/app/[lng]/firebase/app";
 import { AuthContext } from "@/app/[lng]/context/AuthContext";
 import { useWindowWidth } from "@/app/[lng]/hooks/useWidth";
-import { DisplayLanguages } from "@/app/[lng]/general/interfaces";
+import { DisplayLanguages, NavBarPage } from "@/app/[lng]/general/interfaces";
 import { useParams } from "next/navigation";
 import { LocaleTypes } from "@/i18n/settings";
 
-export default function Navbar() {
-    const [openMenu, setOpenMenu] = useState(false);
-    const handleOpenMenu = () => setOpenMenu(true);
-    const handleCloseMenu = () => setOpenMenu(false);
+export default function Navbar(): React.ReactElement {
+    const [openMenu, setOpenMenu] = useState<boolean>(false);
     const [authUser, setAuthUser] = useState<User | null>(null);
+
     const width = useWindowWidth();
-    const [isMobile, setIsMobile] = useState<Boolean>(width <= 768);
+    const [isMobile, setIsMobile] = useState<boolean>(width <= 768);
     const [direction, setDirection] = useState<"ltr" | "rtl">("rtl");
 
     const { user } = useContext(AuthContext);
@@ -50,7 +49,7 @@ export default function Navbar() {
         setDirection(i18n.dir());
     }, [i18n.language]);
 
-    const pages = [
+    const pages: NavBarPage[] = [
         { text: t("common.app_name"), url: `/${i18n.language}` },
         { text: t("navbar.upload_content"), url: `${i18n.language}/upload` },
         {
@@ -63,75 +62,73 @@ export default function Navbar() {
         },
     ];
 
-    const ResponsiveAppBar = (
+    const ResponsiveAppBar: React.ReactElement = (
         <AppBar position="static">
-            <Container maxWidth="md">
-                <Toolbar disableGutters>
-                    <Box sx={{ flexGrow: 0, direction: direction }}>
-                        <IconButton onClick={handleOpenMenu} sx={{ p: 0 }}>
-                            <MenuIcon />
-                        </IconButton>
-                        <Menu
-                            sx={{ mt: "45px" }}
-                            id="menu-appbar"
-                            anchorOrigin={{
-                                vertical: "top",
-                                horizontal: "right",
-                            }}
-                            keepMounted
-                            transformOrigin={{
-                                vertical: "top",
-                                horizontal: "right",
-                            }}
-                            open={openMenu}
-                            onClose={handleCloseMenu}
-                        >
-                            {pages.map((page, index) => (
-                                <MenuItem key={index} onClick={handleCloseMenu}>
-                                    <Fragment>
-                                        <Link href={page.url}>
-                                            <Typography
-                                                textAlign="center"
-                                                component="div"
-                                            >
-                                                {page.text}
-                                            </Typography>
-                                        </Link>
-                                    </Fragment>
-                                </MenuItem>
-                            ))}
-                        </Menu>
-                    </Box>
-                    <Box sx={{ mr: 30 }}>
-                        <Select
-                            onChange={(e) =>
-                                i18n.changeLanguage(e.target.value as string)
-                            }
-                            aria-label="change language"
-                            value={i18n.language}
-                            sx={{ color: "white" }}
-                        >
-                            {Object.keys(DisplayLanguages).map((lang) => (
-                                <MenuItem key={lang} value={lang}>
-                                    {
-                                        DisplayLanguages[
-                                            lang as keyof typeof DisplayLanguages
-                                        ]
-                                    }
-                                </MenuItem>
-                            ))}
-                        </Select>
-                    </Box>
-                </Toolbar>
-            </Container>
+            <Toolbar disableGutters>
+                <Box sx={{ flexGrow: 0, direction: direction }}>
+                    <IconButton onClick={() => setOpenMenu(true)} sx={{ p: 0 }}>
+                        <MenuIcon />
+                    </IconButton>
+                    <Menu
+                        sx={{ mt: "45px" }}
+                        id="menu-appbar"
+                        anchorOrigin={{
+                            vertical: "top",
+                            horizontal: "right",
+                        }}
+                        keepMounted
+                        transformOrigin={{
+                            vertical: "top",
+                            horizontal: "right",
+                        }}
+                        open={openMenu}
+                        onClose={() => setOpenMenu(false)}
+                    >
+                        {pages.map((page, index) => (
+                            <MenuItem key={index} onClick={() => setOpenMenu(false)}>
+                                <Fragment>
+                                    <Link href={page.url}>
+                                        <Typography
+                                            textAlign="center"
+                                            component="div"
+                                        >
+                                            {page.text}
+                                        </Typography>
+                                    </Link>
+                                </Fragment>
+                            </MenuItem>
+                        ))}
+                    </Menu>
+                </Box>
+                <Box sx={{ mr: 30 }}>
+                    <Select
+                        onChange={(e) =>
+                            i18n.changeLanguage(e.target.value as string)
+                        }
+                        aria-label="change language"
+                        value={i18n.language}
+                        sx={{ color: "white" }}
+                    >
+                        {Object.keys(DisplayLanguages).map((lang) => (
+                            <MenuItem key={lang} value={lang}>
+                                {
+                                    DisplayLanguages[
+                                    lang as keyof typeof DisplayLanguages
+                                    ]
+                                }
+                            </MenuItem>
+                        ))}
+                    </Select>
+                </Box>
+            </Toolbar>
         </AppBar>
     );
 
-    const userEmail =
-        authUser?.email?.indexOf("@") !== -1
-            ? authUser?.email?.split("@")[0]
-            : authUser?.email;
-    const greetMsg = (
+    const userEmail: string | undefined = authUser?.email?.indexOf("@") !== -1
+        ? authUser?.email?.split("@")[0]
+        : authUser?.email;
+
+    const greetMsg: React.ReactElement = (
         <Link href={`/${i18n.language}/admin`}>
             <Typography
                 variant="h6"
@@ -143,7 +140,7 @@ export default function Navbar() {
         </Link>
     );
 
-    const adminLink = (
+    const adminLink: React.ReactElement = (
         <Link href={`/${i18n.language}/admin-signin`}>
             <Typography
                 variant="h6"
@@ -155,9 +152,7 @@ export default function Navbar() {
         </Link>
     );
 
-    const adminDisplay = !!authUser && authUser !== null ? greetMsg : adminLink;
-
-    const DesktopAppBar = (
+    const DesktopAppBar: React.ReactElement = (
         <AppBar position="static">
             <Toolbar
                 sx={{
@@ -189,7 +184,13 @@ export default function Navbar() {
                         </Typography>
                     </Link>
                 </div>
-                <div>{adminDisplay}</div>
+                <div>
+                    {
+                        (!!authUser && authUser !== null)
+                            ? greetMsg
+                            : adminLink
+                    }
+                </div>
                 <div>
                     <Link href={`/${i18n.language}/found-mistake`}>
                         <Typography
@@ -217,7 +218,7 @@ export default function Navbar() {
                             <MenuItem key={lang} value={lang}>
                                 {
                                     DisplayLanguages[
-                                        lang as keyof typeof DisplayLanguages
+                                    lang as keyof typeof DisplayLanguages
                                     ]
                                 }
                             </MenuItem>
@@ -228,6 +229,9 @@ export default function Navbar() {
         </AppBar>
     );
 
-    const display = isMobile ? ResponsiveAppBar : DesktopAppBar;
-    return display;
+    return (
+        isMobile ?
+            ResponsiveAppBar :
+            DesktopAppBar
+    );
 }
