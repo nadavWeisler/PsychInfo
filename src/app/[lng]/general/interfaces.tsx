@@ -50,6 +50,10 @@ export interface PagesSliceInitialState {
     languages: string[];
 }
 
+export interface ContentState {
+    content: Content[];
+}
+
 export interface WelcomeMsgProps {
     lng: LocaleTypes;
     openWizradHandler: () => void;

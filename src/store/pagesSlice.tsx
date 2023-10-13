@@ -1,25 +1,16 @@
 "use client";
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
-import {
-    Organization,
-    PagesSliceInitialState,
-    Tag,
-} from "@/app/general/interfaces";
+import { ContentState } from "@/app/general/interfaces";
 
 export const pagesSlice = createSlice({
-    name: "pagesSlice",
+    name: "pages",
     initialState: {
-        tags: [] as Tag[],
-        organization: [] as Organization[],
-        languages: [] as string[],
-    },
-
+        content: []
+    } as ContentState,
     reducers: {
-        addData(state, action: PayloadAction<PagesSliceInitialState>) {
-            state.tags = action.payload.tags;
-            state.organization = action.payload.organization;
-            state.languages = action.payload.languages;
-        },
+        UploadContent(state, action: PayloadAction<ContentState>) {
+            state.content = action.payload.content;
+        }
     },
 });
 
