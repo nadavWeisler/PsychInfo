@@ -4,14 +4,16 @@ import {
     AccordionDetails,
     AccordionSummary,
     Typography,
-    Link,
     Box,
     Button,
 } from "@mui/material";
 import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
 import { RequestAccordionProps } from "@/app/[lng]/general/interfaces";
 import AccordionContent from "@/app/[lng]/Components/ResultComp/AccordionContent";
-import { deletePendingContent, createContent } from "@/app/[lng]/firebase/commands";
+import {
+    deletePendingContent,
+    createContent,
+} from "@/app/[lng]/firebase/commands";
 import { useTranslation } from "react-i18next";
 
 function RequestAccordion({

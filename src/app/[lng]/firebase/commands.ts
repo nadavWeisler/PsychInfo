@@ -1,6 +1,13 @@
 import { get, push, ref, set, remove, update } from "firebase/database";
 import { db, dbPaths } from "./app";
-import { Content, Operator, Organization, Tag } from "@/app/[lng]/general/interfaces";
+import {
+    Content,
+    Operator,
+    Organization,
+    Tag,
+    FoundMistakeDB,
+    FoundMistake,
+} from "@/app/[lng]/general/interfaces";
 
 export async function getAllTags(
     used: boolean,
@@ -54,7 +61,7 @@ export async function getContent(
     organizations: Organization[],
     tags: Tag[],
     Languages: string[],
-    operator: Operator,
+    operator: Operator
 ): Promise<Content[]> {
     try {
         const snapshot = await get(ref(db, dbPaths.validateContent));
@@ -218,6 +225,62 @@ export const deletePendingContent = async (title: string): Promise<void> => {
     try {
         const contentRef = ref(db, `${dbPaths.pendingContent}/${title}`);
         await remove(contentRef);
+    } catch (error) {
+        console.error("Error:", error);
+    }
+};
+
+export const getMistakes = async (): Promise<FoundMistakeDB[]> => {
+    try {
+        const snapshot = await get(ref(db, dbPaths.foundMistakes));
+        if (snapshot.exists()) {
+            return Object.values(snapshot.val());
+        } else {
+            console.log("No data available");
+            return [];
+        }
+    } catch (error) {
+        console.error("Error:", error);
+        throw error;
+    }
+};
+
+export const postMistakes = async (content: FoundMistake) => {
+    try {
+        const mistakes = await getMistakes();
+        const mistakesLength = mistakes.length + 1;
+        const newContent = {
+            ...content,
+            id: mistakesLength,
+        };
+        const newContentRef = await push(ref(db, dbPaths.foundMistakes));
+        return await update(newContentRef, newContent);
+    } catch (error) {
+        console.error("Error:", error);
+        throw error;
+    }
+};
+
+export const deletePendingMistake = async (index: string): Promise<void> => {
+    try {
+        const snapshot = await get(ref(db, dbPaths.foundMistakes));
+        const mistakes: FoundMistakeDB[] = snapshot.val();
+        let mistakeKey = "";
+        for (const key in mistakes) {
+            if (mistakes[key].id === index) {
+                mistakeKey = key;
+                break;
+            }
+        }
+        if (mistakeKey !== "") {
+            const contentRef = ref(
+                db,
+                `${dbPaths.foundMistakes}/${mistakeKey}`
+            );
+            await remove(contentRef);
+        } else {
+            console.log(`No mistake found with id ${index}`);
+        }
     } catch (error) {
         console.error("Error:", error);
     }

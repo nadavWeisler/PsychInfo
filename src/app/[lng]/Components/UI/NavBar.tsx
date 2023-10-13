@@ -57,6 +57,10 @@ export default function Navbar() {
             text: t("navbar.admin_log_in"),
             url: `${i18n.language}/admin-signin`,
         },
+        {
+            text: t("navbar.found_mistake"),
+            url: `${i18n.language}/found-mistake`,
+        },
     ];
 
     const ResponsiveAppBar = (
@@ -186,6 +190,17 @@ export default function Navbar() {
                     </Link>
                 </div>
                 <div>{adminDisplay}</div>
+                <div>
+                    <Link href={`/${i18n.language}/found-mistake`}>
+                        <Typography
+                            variant="h6"
+                            component="div"
+                            sx={{ cursor: "pointer", color: "white" }}
+                        >
+                            {t("navbar.found_mistake")}
+                        </Typography>
+                    </Link>
+                </div>
 
                 <div>
                     <Select

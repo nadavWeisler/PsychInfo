@@ -3,6 +3,7 @@ import { useContext, useEffect, Fragment } from "react";
 import { useRouter } from "next/navigation";
 import { onAuthStateChanged, signOut } from "firebase/auth";
 import IncomingRequests from "@/app/[lng]/Components/AdminComp/IncomingRequests";
+import IncomingMistakes from "@/app/[lng]/Components/AdminComp/IncomingMistakes";
 import { auth } from "@/app/[lng]/firebase/app";
 import { AuthContext } from "@/app/[lng]/context/AuthContext";
 import { Button, Box } from "@mui/material";
@@ -35,6 +36,7 @@ function AdminPage() {
     return (
         <Fragment>
             <IncomingRequests />
+            <IncomingMistakes />
             <Box
                 sx={{
                     display: "flex",
