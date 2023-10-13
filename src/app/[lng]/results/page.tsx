@@ -37,6 +37,7 @@ function ResultsPrePage() {
                                 description={result.description}
                                 languageId={result.languageId}
                                 uploader={result.uploader}
+                                id={result.id}
                             />
                             <br />
                         </Fragment>

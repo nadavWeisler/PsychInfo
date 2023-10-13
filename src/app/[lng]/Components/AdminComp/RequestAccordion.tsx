@@ -24,6 +24,7 @@ function RequestAccordion({
     description = "",
     languageId = "",
     uploader = "",
+    id = "",
     deleteHandler = () => null,
 }: RequestAccordionProps) {
     const deleteRequest = async () => {
@@ -39,6 +40,7 @@ function RequestAccordion({
             description,
             languageId,
             uploader,
+            id,
         };
         await createContent(content);
         deletePendingContent(title);
@@ -64,6 +66,7 @@ function RequestAccordion({
                 </AccordionSummary>
                 <AccordionDetails>
                     <AccordionContent
+                        id={id}
                         title={title}
                         link={link}
                         tags={tags}

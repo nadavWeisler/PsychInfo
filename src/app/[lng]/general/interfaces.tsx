@@ -34,6 +34,7 @@ export interface Content {
     description: string;
     languageId: string;
     uploader: string;
+    id: string;
 }
 
 export interface Tag extends StringObject {
