@@ -4,6 +4,9 @@ import { useRouter } from "next/navigation";
 import { Alert, CircularProgress, Typography, Box } from "@mui/material";
 import SigninForm from "@/app/[lng]/Components/AdminComp/SigninForm";
 import { signIn } from "@/app/[lng]/firebase/auth";
+import { useParams } from "next/navigation";
+import { LocaleTypes } from "@/i18n/settings";
+import { useTranslation } from "@/i18n/client";
 
 function AdminSignInPage() {
     const [email, setEmail] = useState<string>("");
@@ -11,6 +14,9 @@ function AdminSignInPage() {
     const [isError, setIsError] = useState<boolean>(false);
     const [errorMsg, setErrorMsg] = useState<string>("");
     const [isLoading, setIsLoading] = useState<boolean>(false);
+
+    const locale = useParams()?.locale as LocaleTypes;
+    const { t, i18n } = useTranslation(locale, "translation");
 
     const passwordHandler = (e: React.ChangeEvent<HTMLInputElement>) => {
         setPassword(e.target.value);
@@ -30,7 +36,7 @@ function AdminSignInPage() {
             if (error) {
                 throw error;
             }
-            router.push("/admin");
+            router.push(`${i18n.language}/admin`);
         } catch (err: any) {
             setIsError(true);
             setErrorMsg(err.message);

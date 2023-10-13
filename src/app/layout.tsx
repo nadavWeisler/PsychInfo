@@ -31,7 +31,7 @@ export default function RootLayout({
         <html lang={lng} dir={dir(lng)}>
             <body className={inter.className}>
                 <ThemeProvider theme={appTheme}>
-                    <Navbar lng={lng} />
+                    <Navbar />
                     <AuthProvider>
                         <Providers>{children}</Providers>
                     </AuthProvider>

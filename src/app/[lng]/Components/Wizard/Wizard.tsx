@@ -13,16 +13,26 @@ import {
     StepLabel,
     Step,
 } from "@mui/material";
-import { useTranslation } from "react-i18next";
-import { getAllOrganizations, getAllTags, getContent } from "@/app/[lng]/firebase/commands";
-import { Organization, Tag, WizardDialogProps, Operator } from "@/app/[lng]/general/interfaces";
+import {
+    getAllOrganizations,
+    getAllTags,
+    getContent,
+} from "@/app/[lng]/firebase/commands";
+import {
+    Organization,
+    Tag,
+    WizardDialogProps,
+    Operator,
+} from "@/app/[lng]/general/interfaces";
 import TagsStep from "@/app/[lng]/Components/Wizard/steps/TagsStep";
 import OrgsStep from "@/app/[lng]/Components/Wizard/steps/OrgsStep";
 import ErrorStep from "@/app/[lng]/Components/Wizard/steps/ErrorStep";
 import LangStep from "@/app/[lng]/Components/Wizard/steps/LangStep";
+import { useParams } from "next/navigation";
+import { LocaleTypes } from "@/i18n/settings";
+import { useTranslation } from "@/i18n/client";
 
 function WizardDialog({ open, onClose }: WizardDialogProps) {
-    const { t, i18n } = useTranslation();
     const [activeStep, setActiveStep] = useState(0);
     const [tags, setTags] = useState<Tag[]>([]);
     const [organizations, setOrganizations] = useState<Organization[]>([]);
@@ -30,6 +40,8 @@ function WizardDialog({ open, onClose }: WizardDialogProps) {
     const [selectedOrgs, setSelectedOrgs] = useState<Organization[]>([]);
     const [selectedLanguages, setSelectedLanguages] = useState<string[]>([]);
 
+    const locale = useParams()?.locale as LocaleTypes;
+    const { t, i18n } = useTranslation(locale, "translation");
     const dispatch = useAppDispatch();
 
     const handleNext = () => {
@@ -43,10 +55,15 @@ function WizardDialog({ open, onClose }: WizardDialogProps) {
     const router = useRouter();
 
     const handleSubmit = async () => {
-        const results = await getContent(selectedOrgs, selectedTags, selectedLanguages, Operator.AND);
-        dispatch(pagesActions.UploadContent({content: results}));
+        const results = await getContent(
+            selectedOrgs,
+            selectedTags,
+            selectedLanguages,
+            Operator.AND
+        );
+        dispatch(pagesActions.UploadContent({ content: results }));
         onClose();
-        router.replace("/results");
+        router.replace(`${i18n.language}/results`);
     };
 
     useEffect(() => {

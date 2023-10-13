@@ -8,19 +8,18 @@ function WelcomeMsg({
     lng = "he",
     openWizradHandler = () => null,
 }: WelcomeMsgProps) {
-    // const [t, setT] = useState<TFunction<any, any> | Function>(
-    //     () => () => null
-    // );
-    // useEffect(() => {
-    //     useTranslation(lng, "translation").then((res) => {
-    //         const { t } = res;
-    //         setT(t);
-    //     });
-    // }, []);
-    const { t } = useTranslation(lng, "translation");
+    const [direction, setDirection] = useState<"ltr" | "rtl">("rtl");
+
+    const { t, i18n } = useTranslation(lng, "translation");
+
+    useEffect(() => {
+        setDirection(i18n.dir());
+    }, [i18n.language]);
+
     return (
-        <Box margin={"20px"}>
+        <Box margin={"20px"} >
             <Typography
+                dir={direction}
                 margin={"normal"}
                 color={"black"}
                 variant="h4"
@@ -31,6 +30,7 @@ function WelcomeMsg({
                 {t("welcome.title")}
             </Typography>
             <Typography
+                dir={direction}
                 margin={"normal"}
                 color={"black"}
                 variant="h6"
@@ -40,6 +40,7 @@ function WelcomeMsg({
                 {t("welcome.subtitle1")}
             </Typography>
             <Typography
+                dir={direction}
                 margin={"normal"}
                 color={"black"}
                 variant="h6"
@@ -49,6 +50,7 @@ function WelcomeMsg({
                 {t("welcome.list1")}
             </Typography>
             <Typography
+                dir={direction}
                 margin={"normal"}
                 color={"black"}
                 variant="h6"
@@ -58,6 +60,7 @@ function WelcomeMsg({
                 {t("welcome.list2")}
             </Typography>
             <Typography
+                dir={direction}
                 margin={"normal"}
                 color={"black"}
                 variant="h6"

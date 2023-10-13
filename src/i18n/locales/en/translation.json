@@ -30,18 +30,19 @@
         "no_data": "אין נתונים",
         "enter": "הכנס",
         "click": "לחץ",
-        "share": "שתף"
+        "share": "שתף",
+        "hello": "Hello"
     },
     "errors": {
         "error_occured": "אירעה שגיאה",
         "invalid_data_type": "סוג נתונים לא תקין"
     },
     "welcome": {
-        "title": "הנגשת תוכן להתמודדות נפשית בשעת חירום",
-        "subtitle1": "מטרת האתר היא להנגיש את כל המידע החשוב שצף בימים האחרונים אודות התמודדות פסיכולוגית לאור המצב החריג שאנחנו ניצבים וניצבות בו, בצורה ידידותית ומסודרת. יש שתי דרכים בהן תוכלו להשתמש במאגר המידע שלנו:",
-        "list1": "1. להיכנס לכל אחד מהנושאים המוצעים ולהסתכל בתוכן שעלה בהם באופן מרוכז.",
-        "list2": "2. להשתמש בפונקציית ה \"פרסונליזציה\" שלנו, ובאמצעות בחירת התגיות הרלוונטיות אליכם/ן לרכז את המידע הרצוי כולו בהתאמה אישית",
-        "subtitle2": "מוזמנים ומוזמנות לנסות את תהליך הפרסונליזציה דרך הלחצן למטה, או להיכנס לנושאים מומלצים המוצגים בעמוד זה"
+        "title": "Accessible mental health content in times of emergency",
+        "subtitle1": "The purpose of the website is to make available all the important information that has been circling around in recent days about psychological coping in light of the unusual situation we are facing, in a friendly and orderly manner.  There are two ways you can use our database:",
+        "list1": "1. Enter each of the given topics and look at the content that appears in them in a concentrated way.",
+        "list2": "2. Use our \"personalisation\" function, and by selecting the tags relevant to you, gather all the desired information in a personalized way.",
+        "subtitle2": "You are welcome to try the personalisation process through the button below, or enter the recommended topics shown on this page"
     },
     "add_string": {
         "enter_id": "הכנס זיהוי",
@@ -68,6 +69,15 @@
     "navbar": {
         "admin_log_in": "admin? login",
         "open_menu": "open menu",
-        "upload_content": "upload content"
+        "upload_content": "upload content",
+        "found_mistake": "found a mistake?"
+    },
+    "email": {
+        "name": "Full name (not required)",
+        "email": "Email (not required)",
+        "description": "Description of the mistake",
+        "send": "Send",
+        "greeting": "If you found a mistake in the content of the site, please fill out the form below. Thank you for your help!",
+        "form_sent": "The form was sent successfully!"
     }
 }

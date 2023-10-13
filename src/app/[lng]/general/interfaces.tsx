@@ -94,3 +94,21 @@ export interface ContextProps {
 export interface AuthProviderProps {
     children: ReactNode;
 }
+
+export interface FoundMistake {
+    name: string;
+    emailToContact: string;
+    description: string;
+}
+
+export interface FoundMistakeDB extends FoundMistake {
+    id: string;
+}
+
+export interface FoundMistakeFormProps {
+    isSentHandler: () => void;
+}
+
+export interface FoundMistakeAccordionProps extends FoundMistakeDB {
+    deleteHandler: () => void;
+}
