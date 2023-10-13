@@ -1,7 +1,7 @@
 import { auth } from "@/app/[lng]/firebase/app";
 import { signInWithEmailAndPassword } from "firebase/auth";
 
-export const runtime = "edge";
+export const runtime: string = "edge";
 
 export const signIn = async (email: string, password: string) => {
     let result;

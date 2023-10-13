@@ -4,10 +4,7 @@ import { Typography, Button, Box } from "@mui/material";
 import { WelcomeMsgProps } from "@/app/[lng]/general/interfaces";
 import { useTranslation } from "@/i18n/client";
 
-function WelcomeMsg({
-    lng = "he",
-    openWizradHandler = () => null,
-}: WelcomeMsgProps) {
+export default function WelcomeMsg({ lng, openWizradHandler }: WelcomeMsgProps): React.ReactElement {
     const [direction, setDirection] = useState<"ltr" | "rtl">("rtl");
 
     const { t, i18n } = useTranslation(lng, "translation");
@@ -90,6 +87,4 @@ function WelcomeMsg({
             </Box>
         </Box>
     );
-}
-
-export default WelcomeMsg;
+};

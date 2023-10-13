@@ -8,7 +8,7 @@ import { useParams } from "next/navigation";
 import { LocaleTypes } from "@/i18n/settings";
 import { useTranslation } from "@/i18n/client";
 
-function AdminSignInPage() {
+export default function AdminSignInPage() {
     const [email, setEmail] = useState<string>("");
     const [password, setPassword] = useState<string>("");
     const [isError, setIsError] = useState<boolean>(false);
@@ -18,17 +18,9 @@ function AdminSignInPage() {
     const locale = useParams()?.locale as LocaleTypes;
     const { t, i18n } = useTranslation(locale, "translation");
 
-    const passwordHandler = (e: React.ChangeEvent<HTMLInputElement>) => {
-        setPassword(e.target.value);
-    };
-
-    const emailHandler = (e: React.ChangeEvent<HTMLInputElement>) => {
-        setEmail(e.target.value);
-    };
-
     const router = useRouter();
 
-    const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
+    async function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
         e.preventDefault();
         setIsLoading(true);
         try {
@@ -53,13 +45,12 @@ function AdminSignInPage() {
                 variant="h4"
                 align="center"
             >
-                כניסת מנהל
+                {t("admin.admin_login")}
             </Typography>
-
             {isError && <Alert severity={"error"}>{errorMsg}</Alert>}
             <SigninForm
-                passwordHandler={passwordHandler}
-                emailHandler={emailHandler}
+                passwordHandler={(e) => setPassword(e.target.value)}
+                emailHandler={(e) => setEmail(e.target.value)}
                 handleSubmit={handleSubmit}
             />
             <Box
@@ -72,6 +63,4 @@ function AdminSignInPage() {
             </Box>
         </Fragment>
     );
-}
-
-export default AdminSignInPage;
+};

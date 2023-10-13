@@ -11,7 +11,10 @@ import {
     TextField,
 } from "@mui/material";
 import { DisplayLanguages, Organization, Tag } from "../general/interfaces";
-import { useTranslation } from "react-i18next";
+import { ReactElement } from "react";
+import { useParams } from "next/navigation";
+import { LocaleTypes } from "@/i18n/settings";
+import { useTranslation } from "@/i18n/client";
 
 interface AddStringProps {
     title: string;
@@ -22,16 +25,11 @@ interface AddStringProps {
     setInputValue: (value: Tag | Organization) => void;
 }
 
-export const AddString = (props: AddStringProps) => {
-    const { t } = useTranslation();
-    const {
-        title,
-        openDialog,
-        handleCloseDialog,
-        handleCreate,
-        inputValue,
-        setInputValue,
-    } = props;
+export const AddString = ({ title, openDialog, handleCloseDialog, handleCreate,
+    inputValue, setInputValue }: AddStringProps): ReactElement => {
+    
+    const locale = useParams()?.locale as LocaleTypes;
+    const { t } = useTranslation(locale, "translation");
 
     return (
         <Dialog open={openDialog} onClose={handleCloseDialog}>
@@ -68,7 +66,7 @@ export const AddString = (props: AddStringProps) => {
                         variant="outlined"
                         value={
                             DisplayLanguages[
-                                inputValue.languageId as keyof typeof DisplayLanguages
+                            inputValue.languageId as keyof typeof DisplayLanguages
                             ]
                         }
                         onChange={(e) =>
@@ -82,7 +80,7 @@ export const AddString = (props: AddStringProps) => {
                             <MenuItem key={lang} value={lang}>
                                 {
                                     DisplayLanguages[
-                                        lang as keyof typeof DisplayLanguages
+                                    lang as keyof typeof DisplayLanguages
                                     ]
                                 }
                             </MenuItem>

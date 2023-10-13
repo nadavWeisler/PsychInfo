@@ -14,24 +14,17 @@ import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
 import { Content } from "@/app/[lng]/general/interfaces";
 import AccordionContent from "@/app/[lng]/Components/ResultComp/AccordionContent";
 import ShareDialog from "@/app/[lng]/Components/ResultComp/ShareDialog";
-import { useTranslation } from "react-i18next";
+import { LocaleTypes } from "@/i18n/settings";
+import { useParams } from "next/navigation";
+import { useTranslation } from "@/i18n/client";
 import { onAuthStateChanged } from "firebase/auth";
 import { auth } from "@/app/[lng]/firebase/app";
 import { AuthContext } from "@/app/[lng]/context/AuthContext";
 import { deleteContent } from "@/app/[lng]/firebase/commands";
-
-function ResultAccordion({
-    title,
-    link,
-    tags,
-    organization,
-    description,
-    languageId,
-    uploader,
-    id,
-}: Content) {
-    const { t } = useTranslation();
-    const [open, setOpen] = useState(false);
+export default function ResultAccordion({ id, title, link, tags, organization, description, languageId, uploader }: Content) {
+    const locale = useParams()?.locale as LocaleTypes;
+    const { t } = useTranslation(locale, "translation");
+    const [open, setOpen] = useState<boolean>(false);
     const [isAdmin, setIsAdmin] = useState(false);
 
     const { user } = useContext(AuthContext);
@@ -117,6 +110,4 @@ function ResultAccordion({
             />
         </Box>
     );
-}
-
-export default ResultAccordion;
+};

@@ -8,7 +8,7 @@ import store from "@/store";
 import { Filter } from "./[lng]/general/interfaces";
 import Gallary from "./[lng]/Components/gallary/gallary";
 import { GetFilters } from "./[lng]/general/utils";
-import {LocaleTypes} from "@/i18n/settings"
+import { LocaleTypes } from "@/i18n/settings"
 
 function HomePage({ params: { lng } }: { params: { lng: LocaleTypes } }) {
     const [open, setOpen] = useState(false);
@@ -26,14 +26,12 @@ function HomePage({ params: { lng } }: { params: { lng: LocaleTypes } }) {
     return (
         <Provider store={store}>
             <Fragment>
-                <Container component="main" maxWidth="md">
-                    <Wizrad open={open} onClose={closeWizradHandler} />
-                    <WelcomeMsg
-                        lng={lng}
-                        openWizradHandler={openWizradHandler}
-                    />
-                    <Gallary filters={filters} />
-                </Container>
+                <Wizrad open={open} onClose={closeWizradHandler} />
+                <WelcomeMsg
+                    lng={lng}
+                    openWizradHandler={openWizradHandler}
+                />
+                <Gallary filters={filters} />
             </Fragment>
         </Provider>
     );

@@ -4,14 +4,17 @@ import { Content } from "@/app/[lng]/general/interfaces";
 import { Typography } from "@mui/material";
 import RequestAccordion from "@/app/[lng]/Components/AdminComp/RequestAccordion";
 import { getPendingContent } from "@/app/[lng]/firebase/commands";
+import { useTranslation } from "@/i18n/client";
+import { LocaleTypes } from "@/i18n/settings";
+import { useParams } from "next/navigation";
 
-function IncomingRequests() {
+
+export default function IncomingRequests() {
+    const locale = useParams()?.locale as LocaleTypes;
+    const { t } = useTranslation(locale, "translation");
+
     const [requests, setRequests] = useState<Content[]>([]);
-    const [isDelete, setIsDelete] = useState(false);
-
-    const deleteHandler = () => {
-        setIsDelete(!isDelete);
-    };
+    const [isDelete, setIsDelete] = useState<boolean>(false);
 
     useEffect(() => {
         getPendingContent()
@@ -28,29 +31,36 @@ function IncomingRequests() {
             <Typography
                 sx={{ mt: 3, mb: 5 }}
                 align={"center"}
-                variant="h2"
+                variant="h4"
                 color={"black"}
             >
-                בקשות ממתינות
+                {t("admin.waiting_requests")}
             </Typography>
-            {requests.map((request, index) => (
-                <Fragment key={index}>
-                    <RequestAccordion
-                        id={request.id}
-                        title={request.title}
-                        link={request.link}
-                        tags={request.tags}
-                        organization={request.organization}
-                        description={request.description}
-                        languageId={request.languageId}
-                        uploader={request.uploader}
-                        deleteHandler={deleteHandler}
-                    />
-                    <br />
-                </Fragment>
-            ))}
-        </Fragment>
+            {(requests && requests.length > 0) ?
+                requests.map((request, index) => (
+                    <Fragment key={index}>
+                        <RequestAccordion
+                            id={request.id}
+                            title={request.title}
+                            link={request.link}
+                            tags={request.tags}
+                            organization={request.organization}
+                            description={request.description}
+                            languageId={request.languageId}
+                            uploader={request.uploader}
+                            deleteHandler={() => setIsDelete(!isDelete)}
+                        />
+                    </Fragment>
+                )) :
+                <Typography
+                    sx={{ mt: 3, mb: 5 }}
+                    align={"center"}
+                    variant="h4"
+                    color={"black"}
+                >
+                    {t("admin.no_mistaeks")}
+                </Typography>
+            }
+        </Fragment >
     );
 }
-
-export default IncomingRequests;

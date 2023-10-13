@@ -4,14 +4,16 @@ import { FoundMistakeDB } from "@/app/[lng]/general/interfaces";
 import { Typography } from "@mui/material";
 import { getMistakes } from "@/app/[lng]/firebase/commands";
 import FoundMistakeAccordion from "@/app/[lng]/Components/FoundMistake/FoundMistakeAccordion";
+import { useParams } from "next/navigation";
+import { LocaleTypes } from "@/i18n/settings";
+import { useTranslation } from "@/i18n/client";
 
-function IncomingMistakes() {
+export default function IncomingMistakes() {
+    const locale = useParams()?.locale as LocaleTypes;
+    const { t } = useTranslation(locale, "translation");
+    
     const [mistakes, setMistakes] = useState<FoundMistakeDB[]>([]);
-    const [isDelete, setIsDelete] = useState(false);
-
-    const deleteHandler = () => {
-        setIsDelete(!isDelete);
-    };
+    const [isDelete, setIsDelete] = useState<boolean>(false);
 
     useEffect(() => {
         getMistakes()
@@ -28,25 +30,33 @@ function IncomingMistakes() {
             <Typography
                 sx={{ mt: 3, mb: 5 }}
                 align={"center"}
-                variant="h2"
+                variant="h4"
                 color={"black"}
             >
-                טעויות ממתינות
+                {t("admin.mistakes_requests")}
             </Typography>
-            {mistakes.map((mistake, index) => (
-                <Fragment key={index}>
-                    <FoundMistakeAccordion
-                        id={mistake.id}
-                        name={mistake.name}
-                        emailToContact={mistake.emailToContact}
-                        description={mistake.description}
-                        deleteHandler={deleteHandler}
-                    />
-                    <br />
-                </Fragment>
-            ))}
+            {(mistakes && mistakes.length > 0) ?
+                mistakes.map((mistake, index) => (
+                    <Fragment key={index}>
+                        <FoundMistakeAccordion
+                            id={mistake.id}
+                            name={mistake.name}
+                            emailToContact={mistake.emailToContact}
+                            description={mistake.description}
+                            deleteHandler={() => setIsDelete(!isDelete)}
+                        />
+                        <br />
+                    </Fragment>
+                ))
+                : <Typography
+                    sx={{ mt: 3, mb: 5 }}
+                    align={"center"}
+                    variant="h6"
+                    color={"black"}
+                >
+                    {t("admin.no_mistakes")}
+                </Typography>
+            }
         </Fragment>
     );
-}
-
-export default IncomingMistakes;
+};

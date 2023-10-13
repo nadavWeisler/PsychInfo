@@ -12,33 +12,20 @@ import FoundMistakeAccordionContent from "@/app/[lng]/Components/FoundMistake/Fo
 import { useParams } from "next/navigation";
 import { LocaleTypes } from "@/i18n/settings";
 import { useTranslation } from "@/i18n/client";
-import {
-    FoundMistakeAccordionProps,
-    FoundMistakeDB,
-} from "@/app/[lng]/general/interfaces";
-import {
-    deletePendingMistake,
-    getMistakes,
-} from "@/app/[lng]/firebase/commands";
+import { FoundMistakeAccordionProps } from "@/app/[lng]/general/interfaces";
+import { deletePendingMistake } from "@/app/[lng]/firebase/commands";
 
-function FoundMistakeAccordion({
-    name = "",
-    emailToContact = "",
-    description = "",
-    id = "",
-    deleteHandler = () => null,
-}: FoundMistakeAccordionProps) {
+export default function FoundMistakeAccordion({ name, emailToContact, description, id,
+    deleteHandler }: FoundMistakeAccordionProps) {
     const { lng } = useParams();
-    const { t, i18n } = useTranslation(lng as LocaleTypes, "translation");
 
-    const deleteMistake = async () => {
-        // const mistakes = await getMistakes();
-        // const mistake = mistakes.find(
-        //     (mistake) => mistake.id === id
-        // ) as FoundMistakeDB;
+    const { t } = useTranslation(lng as LocaleTypes, "translation");
+
+    async function deleteMistake(): Promise<void> {
         await deletePendingMistake(id);
         deleteHandler();
     };
+
     return (
         <Box
             sx={{
@@ -54,12 +41,12 @@ function FoundMistakeAccordion({
                     aria-controls="panel1a-content"
                     id="panel1a-header"
                 >
-                    <Typography>{`טעות מדווחת ${id}`}</Typography>
+                    <Typography>{`${t("common.reported_mistake")}: ${id}`}</Typography>
                 </AccordionSummary>
                 <AccordionDetails>
                     <FoundMistakeAccordionContent
                         name={name}
-                        email={emailToContact}
+                        emailToContact={emailToContact}
                         description={description}
                     />
                     <Box sx={{ display: "flex", flexDirection: "row" }}>
@@ -76,6 +63,4 @@ function FoundMistakeAccordion({
             </Accordion>
         </Box>
     );
-}
-
-export default FoundMistakeAccordion;
+};

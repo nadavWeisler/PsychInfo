@@ -1,5 +1,5 @@
 "use client";
-import { useState, useEffect } from "react";
+import { useState, useEffect, ReactElement } from "react";
 import { useRouter } from "next/navigation";
 import { pagesActions } from "@/store/pagesSlice";
 import { useAppDispatch } from "@/app/[lng]/hooks/redux";
@@ -23,6 +23,7 @@ import {
     Tag,
     WizardDialogProps,
     Operator,
+    Content,
 } from "@/app/[lng]/general/interfaces";
 import TagsStep from "@/app/[lng]/Components/Wizard/steps/TagsStep";
 import OrgsStep from "@/app/[lng]/Components/Wizard/steps/OrgsStep";
@@ -32,8 +33,8 @@ import { useParams } from "next/navigation";
 import { LocaleTypes } from "@/i18n/settings";
 import { useTranslation } from "@/i18n/client";
 
-function WizardDialog({ open, onClose }: WizardDialogProps) {
-    const [activeStep, setActiveStep] = useState(0);
+export default function WizardDialog({ open, onClose }: WizardDialogProps): ReactElement {
+    const [activeStep, setActiveStep] = useState<number>(0);
     const [tags, setTags] = useState<Tag[]>([]);
     const [organizations, setOrganizations] = useState<Organization[]>([]);
     const [selectedTags, setSelectedTags] = useState<Tag[]>([]);
@@ -42,20 +43,12 @@ function WizardDialog({ open, onClose }: WizardDialogProps) {
 
     const locale = useParams()?.locale as LocaleTypes;
     const { t, i18n } = useTranslation(locale, "translation");
+
     const dispatch = useAppDispatch();
-
-    const handleNext = () => {
-        setActiveStep((prevActiveStep) => prevActiveStep + 1);
-    };
-
-    const handleBack = () => {
-        setActiveStep((prevActiveStep) => prevActiveStep - 1);
-    };
-
     const router = useRouter();
 
-    const handleSubmit = async () => {
-        const results = await getContent(
+    async function handleSubmit() {
+        const results: Content[] = await getContent(
             selectedOrgs,
             selectedTags,
             selectedLanguages,
@@ -68,38 +61,28 @@ function WizardDialog({ open, onClose }: WizardDialogProps) {
 
     useEffect(() => {
         getAllTags(true, i18n.language).then((res) => setTags(res));
-    }, []);
+    }, [i18n.language]);
 
     useEffect(() => {
         getAllOrganizations(true, i18n.language).then((res) =>
             setOrganizations(res)
         );
-    }, []);
+    }, [i18n.language]);
 
-    const GetStepContent = (step: number) => {
+    function GetStepContent(step: number) {
         switch (step) {
             case 0:
-                return (
-                    <TagsStep
-                        tags={tags}
-                        updateSelectedTags={setSelectedTags}
-                    />
-                );
+                return <TagsStep tags={tags} updateSelectedTags={setSelectedTags} />;
             case 1:
-                return (
-                    <OrgsStep
-                        organizations={organizations}
-                        updateSelectedOrganizations={setSelectedOrgs}
-                    />
-                );
+                return <OrgsStep organizations={organizations} updateSelectedOrganizations={setSelectedOrgs} />;
             case 2:
                 return <LangStep updateSelectedLangs={setSelectedLanguages} />;
             default:
-                return <ErrorStep errorMsg={"Invalid Step"} />;
+                return <ErrorStep errorMsg={t("wizard.invalid_step")} />;
         }
     };
 
-    const steps = [
+    const steps: string[] = [
         t("common.tags"),
         t("common.organizations"),
         t("common.languages"),
@@ -120,12 +103,12 @@ function WizardDialog({ open, onClose }: WizardDialogProps) {
             </DialogContent>
             <DialogActions>
                 <Button onClick={onClose}>{t("common.close")}</Button>
-                <Button onClick={handleBack} disabled={activeStep === 0}>
+                <Button onClick={() => setActiveStep((prevActiveStep) => prevActiveStep - 1)} disabled={activeStep === 0}>
                     {t("common.back")}
                 </Button>
                 <Button
                     variant={"contained"}
-                    onClick={handleNext}
+                    onClick={() => setActiveStep((prevActiveStep) => prevActiveStep + 1)}
                     disabled={activeStep === 2}
                 >
                     {t("common.next")}
@@ -142,6 +125,4 @@ function WizardDialog({ open, onClose }: WizardDialogProps) {
             </DialogActions>
         </Dialog>
     );
-}
-
-export default WizardDialog;
+};
