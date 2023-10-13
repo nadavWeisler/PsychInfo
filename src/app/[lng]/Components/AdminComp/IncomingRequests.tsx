@@ -12,7 +12,7 @@ import { useParams } from "next/navigation";
 export default function IncomingRequests() {
     const locale = useParams()?.locale as LocaleTypes;
     const { t } = useTranslation(locale, "translation");
-    
+
     const [requests, setRequests] = useState<Content[]>([]);
     const [isDelete, setIsDelete] = useState<boolean>(false);
 
@@ -40,6 +40,7 @@ export default function IncomingRequests() {
                 requests.map((request, index) => (
                     <Fragment key={index}>
                         <RequestAccordion
+                            id={request.id}
                             title={request.title}
                             link={request.link}
                             tags={request.tags}
@@ -49,18 +50,17 @@ export default function IncomingRequests() {
                             uploader={request.uploader}
                             deleteHandler={() => setIsDelete(!isDelete)}
                         />
-                        <br />
                     </Fragment>
-                )):
+                )) :
                 <Typography
                     sx={{ mt: 3, mb: 5 }}
-                    align={"center"}    
+                    align={"center"}
                     variant="h4"
                     color={"black"}
                 >
                     {t("admin.no_mistaeks")}
                 </Typography>
             }
-        </Fragment>
+        </Fragment >
     );
 }

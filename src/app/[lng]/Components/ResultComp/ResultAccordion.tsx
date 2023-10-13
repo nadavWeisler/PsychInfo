@@ -1,5 +1,5 @@
 "use client";
-import { useState } from "react";
+import { useState, useContext, useEffect } from "react";
 import {
     Accordion,
     AccordionDetails,
@@ -17,11 +17,31 @@ import ShareDialog from "@/app/[lng]/Components/ResultComp/ShareDialog";
 import { LocaleTypes } from "@/i18n/settings";
 import { useParams } from "next/navigation";
 import { useTranslation } from "@/i18n/client";
-
-export default function ResultAccordion({ title, link, tags, organization, description, languageId, uploader }: Content) {
+import { onAuthStateChanged } from "firebase/auth";
+import { auth } from "@/app/[lng]/firebase/app";
+import { AuthContext } from "@/app/[lng]/context/AuthContext";
+import { deleteContent } from "@/app/[lng]/firebase/commands";
+export default function ResultAccordion({ id, title, link, tags, organization, description, languageId, uploader }: Content) {
     const locale = useParams()?.locale as LocaleTypes;
     const { t } = useTranslation(locale, "translation");
     const [open, setOpen] = useState<boolean>(false);
+    const [isAdmin, setIsAdmin] = useState(false);
+
+    const { user } = useContext(AuthContext);
+
+    useEffect(() => {
+        onAuthStateChanged(auth, (user) => {
+            if (!!user) {
+                setIsAdmin(true);
+            } else {
+                setIsAdmin(false);
+            }
+        });
+    }, [user]);
+
+    const deleteSelectedContent = () => {
+        deleteContent(id);
+    };
 
     return (
         <Box
@@ -49,6 +69,7 @@ export default function ResultAccordion({ title, link, tags, organization, descr
                         description={description}
                         languageId={languageId}
                         uploader={uploader}
+                        id={id}
                     />
                     <Link
                         margin={"normal"}
@@ -58,7 +79,6 @@ export default function ResultAccordion({ title, link, tags, organization, descr
                     >
                         {title}
                     </Link>
-
                 </AccordionDetails>
                 <AccordionActions>
                     <Button
@@ -69,6 +89,18 @@ export default function ResultAccordion({ title, link, tags, organization, descr
                     >
                         {t("common.share")}
                     </Button>
+                    {isAdmin && (
+                        <Box sx={{ display: "flex", flexDirection: "row" }}>
+                            <Button
+                                sx={{ margin: "auto" }}
+                                color={"error"}
+                                variant={"outlined"}
+                                onClick={deleteSelectedContent}
+                            >
+                                {t("common.delete")}
+                            </Button>
+                        </Box>
+                    )}
                 </AccordionActions>
             </Accordion>
             <ShareDialog

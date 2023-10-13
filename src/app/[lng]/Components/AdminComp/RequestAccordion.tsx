@@ -18,7 +18,7 @@ import { useParams } from "next/navigation";
 import { LocaleTypes } from "@/i18n/settings";
 import { useTranslation } from "@/i18n/client";
 
-export default function RequestAccordion({ title, link, tags, organization, description,
+export default function RequestAccordion({ id, title, link, tags, organization, description,
     languageId, uploader, deleteHandler }: RequestAccordionProps) {
         
     const locale = useParams()?.locale as LocaleTypes;
@@ -38,6 +38,7 @@ export default function RequestAccordion({ title, link, tags, organization, desc
             description,
             languageId,
             uploader,
+            id
         };
         await createContent(content);
         deletePendingContent(title);
@@ -63,6 +64,7 @@ export default function RequestAccordion({ title, link, tags, organization, desc
                 </AccordionSummary>
                 <AccordionDetails>
                     <AccordionContent
+                        id={id}
                         title={title}
                         link={link}
                         tags={tags}

@@ -44,6 +44,7 @@ export default function ResultsPrePage(): ReactElement {
                             description={result.description}
                             languageId={result.languageId}
                             uploader={result.uploader}
+                            id={result.id}
                         />
                     </Box>
                 );

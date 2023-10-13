@@ -19,7 +19,7 @@ import {
 import { appTheme } from "@/app/[lng]/general/styles";
 import { AddString } from "../Components/addString";
 import {
-    Content,
+    ContentDB,
     DisplayLanguages,
     Organization,
     StringObject,
@@ -96,7 +96,7 @@ export default function UploadContent() {
     async function handleSubmit(event: FormEvent<HTMLFormElement>): Promise<void> {
         event.preventDefault();
         const data = new FormData(event.currentTarget);
-        const newContent: Content = {
+        const newContent: ContentDB = {
             title: data.get("title")?.toString() || "",
             description: data.get("description")?.toString() || "",
             link: data.get("link")?.toString() || "",
