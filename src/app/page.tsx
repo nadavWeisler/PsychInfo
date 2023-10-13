@@ -8,8 +8,9 @@ import store from "@/store";
 import { Filter } from "./[lng]/general/interfaces";
 import Gallary from "./[lng]/Components/gallary/gallary";
 import { GetFilters } from "./[lng]/general/utils";
+import {LocaleTypes} from "@/i18n/settings"
 
-function HomePage({ params: { lng } }: { params: { lng: string } }) {
+function HomePage({ params: { lng } }: { params: { lng: LocaleTypes } }) {
     const [open, setOpen] = useState(false);
 
     const openWizradHandler = () => {
