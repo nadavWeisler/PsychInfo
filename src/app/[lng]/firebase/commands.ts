@@ -185,25 +185,25 @@ export async function createContent(content: Content): Promise<void> {
             if (allContent.length === 0) {
                 const newContent = {
                     ...content,
-                    id: 1,
+                    id: "1",
                 };
                 const newContentRef = await push(
                     ref(db, dbPaths.validateContent)
                 );
                 await updateUsed(content);
-                return await update(newContentRef, newContent);
+                return await set(newContentRef, newContent);
             } else {
                 const lastContent = allContent[allContent.length - 1];
                 const newContent = {
                     ...content,
-                    id: lastContent.id + 1,
+                    id: (lastContent.id + 1).toString(),
                 };
 
                 const newContentRef = await push(
                     ref(db, dbPaths.validateContent)
                 );
                 await updateUsed(content);
-                return await update(newContentRef, newContent);
+                return await set(newContentRef, newContent);
             }
         }
     } catch (error) {
@@ -228,6 +228,7 @@ export async function deleteContent(index: string) {
                 `${dbPaths.validateContent}/${contentKey}`
             );
             await remove(contentRef);
+            updateUnusedTags();
         } else {
             console.log(`No content found with id ${index}`);
         }
@@ -235,6 +236,83 @@ export async function deleteContent(index: string) {
         console.error("Error:", error);
     }
 }
+
+export const updateUnusedTags = async (): Promise<void> => {
+    try {
+        const snapshot = await get(ref(db, dbPaths.validateContent));
+        if (snapshot.exists()) {
+            const allContent: Content[] = Object.values(snapshot.val());
+            const tagSnapshot = await get(ref(db, dbPaths.allTags));
+            const organizationSnapshot = await get(
+                ref(db, dbPaths.allOrganizations)
+            );
+            if (tagSnapshot.exists() && organizationSnapshot.exists()) {
+                const allTagsValues: Tag[] = Object.values(tagSnapshot.val());
+                const allOrganizationsValues: Organization[] = Object.values(
+                    organizationSnapshot.val()
+                );
+                for (const tag of allTagsValues) {
+                    const isUsed = allContent.some((content) =>
+                        content.tags.some(
+                            (contentTag) => contentTag.id === tag.id
+                        )
+                    );
+
+                    let tagKey = "";
+                    for (const [key, value] of Object.entries(
+                        tagSnapshot.val() as Record<string, Tag>
+                    )) {
+                        if (value.id === tag.id) {
+                            tagKey = key;
+                            break;
+                        }
+                    }
+
+                    if (!isUsed) {
+                        const tagRef = ref(db, `${dbPaths.allTags}/${tagKey}`);
+                        if (tagKey !== "") {
+                            await update(tagRef, { ...tag, used: false });
+                        }
+                    }
+                }
+                for (const organization of allOrganizationsValues) {
+                    const isUsed = allContent.some(
+                        (content) => content.organization.id === organization.id
+                    );
+
+                    let organizationKey = "";
+                    for (const [key, value] of Object.entries(
+                        organizationSnapshot.val() as Record<
+                            string,
+                            Organization
+                        >
+                    )) {
+                        if (value.id === organization.id) {
+                            organizationKey = key;
+                            break;
+                        }
+                    }
+
+                    if (!isUsed) {
+                        const organizationRef = ref(
+                            db,
+                            `${dbPaths.allOrganizations}/${organizationKey}`
+                        );
+                        if (organizationKey !== "") {
+                            await update(organizationRef, {
+                                ...organization,
+                                used: false,
+                            });
+                        }
+                    }
+                }
+            }
+        }
+    } catch (error) {
+        console.error("Error:", error);
+        throw error;
+    }
+};
 
 export const getPendingContent = async (): Promise<Content[]> => {
     try {
