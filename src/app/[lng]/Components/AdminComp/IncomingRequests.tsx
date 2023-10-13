@@ -36,6 +36,7 @@ function IncomingRequests() {
             {requests.map((request, index) => (
                 <Fragment key={index}>
                     <RequestAccordion
+                        id={request.id}
                         title={request.title}
                         link={request.link}
                         tags={request.tags}

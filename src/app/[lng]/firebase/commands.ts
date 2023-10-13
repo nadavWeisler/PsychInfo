@@ -7,6 +7,7 @@ import {
     Tag,
     FoundMistakeDB,
     FoundMistake,
+    ContentDB,
 } from "@/app/[lng]/general/interfaces";
 
 export async function getAllTags(
@@ -178,12 +179,60 @@ export async function updateUsed(newContent: Content): Promise<void> {
 
 export async function createContent(content: Content): Promise<void> {
     try {
-        const newContentRef = await push(ref(db, dbPaths.validateContent));
-        await updateUsed(content);
-        return await set(newContentRef, content);
+        const snapshot = await get(ref(db, dbPaths.validateContent));
+        if (snapshot.exists()) {
+            const allContent: Content[] = Object.values(snapshot.val());
+            if (allContent.length === 0) {
+                const newContent = {
+                    ...content,
+                    id: 1,
+                };
+                const newContentRef = await push(
+                    ref(db, dbPaths.validateContent)
+                );
+                await updateUsed(content);
+                return await update(newContentRef, newContent);
+            } else {
+                const lastContent = allContent[allContent.length - 1];
+                const newContent = {
+                    ...content,
+                    id: lastContent.id + 1,
+                };
+
+                const newContentRef = await push(
+                    ref(db, dbPaths.validateContent)
+                );
+                await updateUsed(content);
+                return await update(newContentRef, newContent);
+            }
+        }
     } catch (error) {
         console.error("Error:", error);
         throw error;
+    }
+}
+export async function deleteContent(index: string) {
+    try {
+        const snapshot = await get(ref(db, dbPaths.validateContent));
+        const allContent: Content[] = snapshot.val();
+        let contentKey = "";
+        for (const key in allContent) {
+            if (allContent[key].id === index) {
+                contentKey = key;
+                break;
+            }
+        }
+        if (contentKey !== "") {
+            const contentRef = ref(
+                db,
+                `${dbPaths.validateContent}/${contentKey}`
+            );
+            await remove(contentRef);
+        } else {
+            console.log(`No content found with id ${index}`);
+        }
+    } catch (error) {
+        console.error("Error:", error);
     }
 }
 
@@ -209,7 +258,7 @@ export const getPendingContent = async (): Promise<Content[]> => {
     }
 };
 
-export const postPendingContent = async (content: Content): Promise<void> => {
+export const postPendingContent = async (content: ContentDB): Promise<void> => {
     try {
         const newContentRef = await push(
             ref(db, dbPaths.pendingContent + "/" + content.title)
@@ -248,13 +297,23 @@ export const getMistakes = async (): Promise<FoundMistakeDB[]> => {
 export const postMistakes = async (content: FoundMistake) => {
     try {
         const mistakes = await getMistakes();
-        const mistakesLength = mistakes.length + 1;
-        const newContent = {
-            ...content,
-            id: mistakesLength,
-        };
-        const newContentRef = await push(ref(db, dbPaths.foundMistakes));
-        return await update(newContentRef, newContent);
+        if (mistakes.length === 0) {
+            const newContent = {
+                ...content,
+                id: 1,
+            };
+            const newContentRef = await push(ref(db, dbPaths.foundMistakes));
+            return await update(newContentRef, newContent);
+        } else {
+            const lastMistake = mistakes[mistakes.length - 1];
+            const newId = lastMistake.id + 1;
+            const newContent = {
+                ...content,
+                id: newId,
+            };
+            const newContentRef = await push(ref(db, dbPaths.foundMistakes));
+            return await update(newContentRef, newContent);
+        }
     } catch (error) {
         console.error("Error:", error);
         throw error;
