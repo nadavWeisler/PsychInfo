@@ -1,0 +1,73 @@
+{
+    "common": {
+        "app_name": "psychological information",
+        "next": "הבא",
+        "back": "חזור",
+        "submit": "שלח",
+        "create": "צור",
+        "cancel": "ביטול",
+        "close": "סגירה",
+        "save": "שמירה",
+        "edit": "עריכה",
+        "delete": "מחיקה",
+        "add": "הוספה",
+        "search": "חיפוש",
+        "loading": "טוען...",
+        "title": "כותרת",
+        "description": "תיאור",
+        "content": "תוכן",
+        "organization": "ארגון",
+        "tag": "תגית",
+        "tags": "תגיות",
+        "link": "קישור",
+        "links": "קישורים",
+        "uploader": "מעלה",
+        "language": "שפה",
+        "languages": "שפות",
+        "start": "התחלה",
+        "choose": "בחר",
+        "organizations": "ארגונים",
+        "no_data": "אין נתונים",
+        "enter": "הכנס",
+        "click": "לחץ",
+        "share": "שתף"
+    },
+    "errors": {
+        "error_occured": "אירעה שגיאה",
+        "invalid_data_type": "סוג נתונים לא תקין"
+    },
+    "welcome": {
+        "title": "הנגשת תוכן להתמודדות נפשית בשעת חירום",
+        "subtitle1": "מטרת האתר היא להנגיש את כל המידע החשוב שצף בימים האחרונים אודות התמודדות פסיכולוגית לאור המצב החריג שאנחנו ניצבים וניצבות בו, בצורה ידידותית ומסודרת. יש שתי דרכים בהן תוכלו להשתמש במאגר המידע שלנו:",
+        "list1": "1. להיכנס לכל אחד מהנושאים המוצעים ולהסתכל בתוכן שעלה בהם באופן מרוכז.",
+        "list2": "2. להשתמש בפונקציית ה \"פרסונליזציה\" שלנו, ובאמצעות בחירת התגיות הרלוונטיות אליכם/ן לרכז את המידע הרצוי כולו בהתאמה אישית",
+        "subtitle2": "מוזמנים ומוזמנות לנסות את תהליך הפרסונליזציה דרך הלחצן למטה, או להיכנס לנושאים מומלצים המוצגים בעמוד זה"
+    },
+    "add_string": {
+        "enter_id": "הכנס זיהוי",
+        "enter_display": "הכנס תצוגה"
+    },
+    "wizard": {
+        "which_info_you_need": "איזה מידע אתה צריך?",
+        "choose_organizations": "בחר ארגונים",
+        "choose_tags": "בחר תגיות",
+        "choose_langueges": "בחר שפות"
+    },
+    "upload": {
+        "title": "העלאת תוכן חדש",
+        "create_new_organization": "צור ארגון חדש",
+        "create_new_tag": "צור תגית חדשה",
+        "create_new_language": "צור שפה חדשה"
+    },
+    "results": {
+        "title": "תוצאות"
+    },
+    "gallary": {
+        "title": "נושאים נבחרים"
+    },
+    "navbar": {
+        "admin_log_in": "admin? login",
+        "open_menu": "open menu",
+        "upload_content": "upload content"
+    }
+}

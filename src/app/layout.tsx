@@ -1,12 +1,17 @@
 import "./globals.css";
 import type { Metadata } from "next";
 import { Inter } from "next/font/google";
-import Navbar from "@/app/Components/UI/NavBar";
-import AuthProvider from "@/app/context/AuthContext";
-import "../i18n/config";
+import Navbar from "@/app/[lng]/Components/UI/NavBar";
+import AuthProvider from "@/app/[lng]/context/AuthContext";
 import { ThemeProvider } from "@mui/material/styles";
-import { appTheme } from "./general/styles";
+import { appTheme } from "./[lng]/general/styles";
 import { Providers } from "@/store/provider";
+import { dir } from "i18next";
+import { locales } from "@/i18n/settings";
+
+export async function generateStaticParams() {
+    return locales.map((lng) => ({ lng }));
+}
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -17,14 +22,16 @@ export const metadata: Metadata = {
 
 export default function RootLayout({
     children,
+    params: { lng },
 }: {
     children: React.ReactNode;
+    params: { lng: string };
 }) {
     return (
-        <html lang="en">
+        <html lang={lng} dir={dir(lng)}>
             <body className={inter.className}>
                 <ThemeProvider theme={appTheme}>
-                    <Navbar />
+                    <Navbar lng={lng} />
                     <AuthProvider>
                         <Providers>{children}</Providers>
                     </AuthProvider>
