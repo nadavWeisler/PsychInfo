@@ -25,7 +25,7 @@ export default function AdminSignInPage() {
             if (error) {
                 throw error;
             }
-            router.push(`${i18n.language}/admin`);
+            router.replace(`/${i18n.language}/admin`);
         } catch (err: any) {
             setIsError(true);
             setErrorMsg(err.message);

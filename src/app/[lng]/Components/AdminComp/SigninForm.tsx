@@ -18,7 +18,7 @@ export default function SigninForm({
         setIsMobile(width <= 768);
     }, [width]);
 
-    const windowWidth: string = isMobile ? "60%" : "20%";
+    const windowWidth: string = isMobile ? "60%" : "40%";
     const marginForBtn: number = isMobile ? 12 : 20;
 
     return (

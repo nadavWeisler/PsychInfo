@@ -40,16 +40,52 @@ export default function Navbar(): React.ReactElement {
         setIsMobile(width <= 768);
     }, [width]);
 
+    const userEmail: string | undefined =
+        authUser?.email?.indexOf("@") !== -1
+            ? authUser?.email?.split("@")[0]
+            : authUser?.email;
+
+    const greetMsg: React.ReactElement = (
+        <Link href={`/${i18n.language}/admin`}>
+            <Typography
+                variant="h6"
+                component="div"
+                sx={{ cursor: "pointer", color: "white" }}
+            >
+                {t("common.hello")} {userEmail}
+            </Typography>
+        </Link>
+    );
+
+    const adminLink: React.ReactElement = (
+        <Link href={`/${i18n.language}/admin-signin`}>
+            <Typography
+                variant="h6"
+                component="div"
+                sx={{ cursor: "pointer", color: "white" }}
+            >
+                {t("navbar.admin_log_in")}
+            </Typography>
+        </Link>
+    );
+
+    const adminPage = !authUser
+        ? {
+              text: t("navbar.admin_log_in"),
+              url: `/${i18n.language}/admin-signin`,
+          }
+        : {
+              text: t("common.hello") + " " + userEmail,
+              url: `/${i18n.language}/admin`,
+          };
+
     const pages: NavBarPage[] = [
-        { text: t("common.app_name"), url: `/${i18n.language}` },
-        { text: t("navbar.upload_content"), url: `${i18n.language}/upload` },
-        {
-            text: t("navbar.admin_log_in"),
-            url: `${i18n.language}/admin-signin`,
-        },
+        { text: t("common.app_name"), url: `/` },
+        { text: t("navbar.upload_content"), url: `/${i18n.language}/upload` },
+        adminPage,
         {
             text: t("navbar.found_mistake"),
-            url: `${i18n.language}/found-mistake`,
+            url: `/${i18n.language}/found-mistake`,
         },
     ];
 
@@ -57,7 +93,10 @@ export default function Navbar(): React.ReactElement {
         <AppBar position="static">
             <Toolbar disableGutters>
                 <Box sx={{ flexGrow: 0, direction: direction }}>
-                    <IconButton onClick={() => setOpenMenu(true)} sx={{ p: 0 }}>
+                    <IconButton
+                        onClick={() => setOpenMenu(true)}
+                        sx={{ p: 0, mr: "20px" }}
+                    >
                         <MenuIcon />
                     </IconButton>
                     <Menu
@@ -116,35 +155,6 @@ export default function Navbar(): React.ReactElement {
                 </Box>
             </Toolbar>
         </AppBar>
-    );
-
-    const userEmail: string | undefined =
-        authUser?.email?.indexOf("@") !== -1
-            ? authUser?.email?.split("@")[0]
-            : authUser?.email;
-
-    const greetMsg: React.ReactElement = (
-        <Link href={`/${i18n.language}/admin`}>
-            <Typography
-                variant="h6"
-                component="div"
-                sx={{ cursor: "pointer", color: "white" }}
-            >
-                {t("common.hello")} {userEmail}
-            </Typography>
-        </Link>
-    );
-
-    const adminLink: React.ReactElement = (
-        <Link href={`/${i18n.language}/admin-signin`}>
-            <Typography
-                variant="h6"
-                component="div"
-                sx={{ cursor: "pointer", color: "white" }}
-            >
-                {t("navbar.admin_log_in")}
-            </Typography>
-        </Link>
     );
 
     const DesktopAppBar: React.ReactElement = (

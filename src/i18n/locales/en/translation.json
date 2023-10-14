@@ -96,6 +96,7 @@
         "no_mistakes": "No pending mistakes",
         "waiting_requests": "Pending requests",
         "no_requests": "No pending requests",
-        "admin_login": "Admin login"
+        "admin_login": "Admin login",
+        "login": "Login"
     }
 }
