@@ -1,20 +1,16 @@
 "use client";
-import { useState, useEffect } from "react";
 import { Typography, Button, Box } from "@mui/material";
 import { WelcomeMsgProps } from "@/app/[lng]/general/interfaces";
-import { useTranslation } from "@/i18n/client";
+import useTrans from "@/app/[lng]/hooks/useTrans";
 
-export default function WelcomeMsg({ lng, openWizradHandler }: WelcomeMsgProps): React.ReactElement {
-    const [direction, setDirection] = useState<"ltr" | "rtl">("rtl");
-
-    const { t, i18n } = useTranslation(lng, "translation");
-
-    useEffect(() => {
-        setDirection(i18n.dir());
-    }, [i18n.language]);
+export default function WelcomeMsg({
+    lng,
+    openWizradHandler,
+}: WelcomeMsgProps): React.ReactElement {
+    const { t, i18n, direction } = useTrans();
 
     return (
-        <Box margin={"20px"} >
+        <Box margin={"20px"}>
             <Typography
                 dir={direction}
                 margin={"normal"}
@@ -87,4 +83,4 @@ export default function WelcomeMsg({ lng, openWizradHandler }: WelcomeMsgProps):
             </Box>
         </Box>
     );
-};
+}

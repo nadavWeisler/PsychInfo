@@ -3,16 +3,16 @@ import { useState, useEffect } from "react";
 import { Button, TextField, Box } from "@mui/material";
 import { AdminSignInFormProps } from "@/app/[lng]/general/interfaces";
 import { useWindowWidth } from "@/app/[lng]/hooks/useWidth";
-import { useParams } from "next/navigation";
-import { LocaleTypes } from "@/i18n/settings";
-import { useTranslation } from "@/i18n/client";
+import useTrans from "@/app/[lng]/hooks/useTrans";
 
-export default function SigninForm({ handleSubmit, passwordHandler, emailHandler }: AdminSignInFormProps) {
-    const locale = useParams()?.locale as LocaleTypes;
-    const { t } = useTranslation(locale, "translation");
-    
+export default function SigninForm({
+    handleSubmit,
+    passwordHandler,
+    emailHandler,
+}: AdminSignInFormProps) {
     const width = useWindowWidth();
     const [isMobile, setIsMobile] = useState<boolean>(width <= 768);
+    const { t } = useTrans();
 
     useEffect(() => {
         setIsMobile(width <= 768);
@@ -60,4 +60,4 @@ export default function SigninForm({ handleSubmit, passwordHandler, emailHandler
             </Button>
         </Box>
     );
-};
+}

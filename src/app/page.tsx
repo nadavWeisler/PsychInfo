@@ -1,6 +1,5 @@
 "use client";
 import { Fragment, useState } from "react";
-import { Container } from "@mui/material";
 import Wizrad from "@/app/[lng]/Components/Wizard/Wizard";
 import WelcomeMsg from "@/app/[lng]/Components/UI/WelcomeMsg";
 import { Provider } from "react-redux";
@@ -8,7 +7,7 @@ import store from "@/store";
 import { Filter } from "./[lng]/general/interfaces";
 import Gallary from "./[lng]/Components/gallary/gallary";
 import { GetFilters } from "./[lng]/general/utils";
-import { LocaleTypes } from "@/i18n/settings"
+import { LocaleTypes } from "@/i18n/settings";
 
 function HomePage({ params: { lng } }: { params: { lng: LocaleTypes } }) {
     const [open, setOpen] = useState(false);
@@ -27,10 +26,7 @@ function HomePage({ params: { lng } }: { params: { lng: LocaleTypes } }) {
         <Provider store={store}>
             <Fragment>
                 <Wizrad open={open} onClose={closeWizradHandler} />
-                <WelcomeMsg
-                    lng={lng}
-                    openWizradHandler={openWizradHandler}
-                />
+                <WelcomeMsg lng={lng} openWizradHandler={openWizradHandler} />
                 <Gallary filters={filters} />
             </Fragment>
         </Provider>

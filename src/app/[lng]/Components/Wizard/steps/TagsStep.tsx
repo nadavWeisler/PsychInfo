@@ -2,17 +2,21 @@ import { useState, useEffect, Fragment, ReactElement } from "react";
 import { Chip, Grid, Typography } from "@mui/material";
 import { Tag } from "@/app/[lng]/general/interfaces";
 import { GetAllDisplays, ListContainsById } from "@/app/[lng]/general/utils";
-import { useTranslation } from "react-i18next";
+import useTrans from "@/app/[lng]/hooks/useTrans";
 
 interface TagsStepProps {
     tags: Tag[];
     updateSelectedTags: (newTags: Tag[]) => void;
 }
 
-export default function TagsStep({ tags, updateSelectedTags }: TagsStepProps): ReactElement {
-    const { t } = useTranslation();
+export default function TagsStep({
+    tags,
+    updateSelectedTags,
+}: TagsStepProps): ReactElement {
     const [selectedTags, setSelectedTags] = useState<Tag[]>([]);
     const [displayTags, setDisplayTags] = useState<string[]>([]);
+
+    const { t } = useTrans();
 
     useEffect(() => {
         updateSelectedTags(selectedTags);
@@ -28,7 +32,7 @@ export default function TagsStep({ tags, updateSelectedTags }: TagsStepProps): R
             setSelectedTags([...selectedTags, tag]);
             setDisplayTags([...displayTags, tag.display]);
         }
-    };
+    }
 
     return (
         <Fragment>

@@ -7,13 +7,10 @@ import IncomingMistakes from "@/app/[lng]/Components/AdminComp/IncomingMistakes"
 import { auth } from "@/app/[lng]/firebase/app";
 import { AuthContext } from "@/app/[lng]/context/AuthContext";
 import { Button, Box } from "@mui/material";
-import { LocaleTypes } from "@/i18n/settings";
-import { useTranslation } from "@/i18n/client";
+import useTrans from "@/app/[lng]/hooks/useTrans";
 
 export default function AdminPage() {
-    const locale = useParams()?.locale as LocaleTypes;
-    const { t } = useTranslation(locale, "translation"); 
-    
+    const { t } = useTrans();
     const { user } = useContext(AuthContext);
     const router = useRouter();
 
@@ -33,30 +30,28 @@ export default function AdminPage() {
             .catch((error) => {
                 console.log(error);
             });
-    };
+    }
 
-    return (
-        user ?
-            <Fragment>
-                <IncomingRequests />
-                <IncomingMistakes />
-                <Box
-                    sx={{
-                        display: "flex",
-                        justifyContent: "center",
-                        alignItems: "center",
-                        height: "100vh",
-                    }}
+    return user ? (
+        <Fragment>
+            <IncomingRequests />
+            <IncomingMistakes />
+            <Box
+                sx={{
+                    display: "flex",
+                    justifyContent: "center",
+                    alignItems: "center",
+                    height: "100vh",
+                }}
+            >
+                <Button
+                    onClick={logoutHandler}
+                    sx={{ margin: "auto" }}
+                    variant={"contained"}
                 >
-                    <Button
-                        onClick={logoutHandler}
-                        sx={{ margin: "auto" }}
-                        variant={"contained"}
-                    >
-                        {t("common.logout")}
-                    </Button>
-                </Box>
-            </Fragment>
-            : null
-    )
-};
+                    {t("common.logout")}
+                </Button>
+            </Box>
+        </Fragment>
+    ) : null;
+}

@@ -4,16 +4,13 @@ import { FoundMistakeDB } from "@/app/[lng]/general/interfaces";
 import { Typography } from "@mui/material";
 import { getMistakes } from "@/app/[lng]/firebase/commands";
 import FoundMistakeAccordion from "@/app/[lng]/Components/FoundMistake/FoundMistakeAccordion";
-import { useParams } from "next/navigation";
-import { LocaleTypes } from "@/i18n/settings";
-import { useTranslation } from "@/i18n/client";
+import useTrans from "@/app/[lng]/hooks/useTrans";
 
 export default function IncomingMistakes() {
-    const locale = useParams()?.locale as LocaleTypes;
-    const { t } = useTranslation(locale, "translation");
-    
     const [mistakes, setMistakes] = useState<FoundMistakeDB[]>([]);
     const [isDelete, setIsDelete] = useState<boolean>(false);
+
+    const { t } = useTrans();
 
     useEffect(() => {
         getMistakes()
@@ -35,7 +32,7 @@ export default function IncomingMistakes() {
             >
                 {t("admin.mistakes_requests")}
             </Typography>
-            {(mistakes && mistakes.length > 0) ?
+            {mistakes && mistakes.length > 0 ? (
                 mistakes.map((mistake, index) => (
                     <Fragment key={index}>
                         <FoundMistakeAccordion
@@ -48,7 +45,8 @@ export default function IncomingMistakes() {
                         <br />
                     </Fragment>
                 ))
-                : <Typography
+            ) : (
+                <Typography
                     sx={{ mt: 3, mb: 5 }}
                     align={"center"}
                     variant="h6"
@@ -56,7 +54,7 @@ export default function IncomingMistakes() {
                 >
                     {t("admin.no_mistakes")}
                 </Typography>
-            }
+            )}
         </Fragment>
     );
-};
+}

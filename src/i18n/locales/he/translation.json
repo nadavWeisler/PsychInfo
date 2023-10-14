@@ -83,7 +83,7 @@
         "upload_content": "העלאת תוכן",
         "found_mistake": "מצאת טעות?"
     },
-    "email": {
+    "mistake": {
         "name": "שם מלא (לא חובה)",
         "email": "אימייל ליצירת קשר (לא חובה)",
         "description": "תיאור הבעיה",

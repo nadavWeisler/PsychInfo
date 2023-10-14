@@ -2,19 +2,21 @@ import { useState, useEffect, Fragment, ReactElement } from "react";
 import { Chip, Grid, Typography } from "@mui/material";
 import { Organization } from "@/app/[lng]/general/interfaces";
 import { GetAllDisplays, ListContainsById } from "@/app/[lng]/general/utils";
-import { useTranslation } from "react-i18next";
+import useTrans from "@/app/[lng]/hooks/useTrans";
 
 interface OrganizationStepProps {
     organizations: Organization[];
     updateSelectedOrganizations: (organizations: Organization[]) => void;
 }
 
-export default function OrgsStep({ organizations, updateSelectedOrganizations }:
-    OrganizationStepProps): ReactElement {
-
-    const { t } = useTranslation();
+export default function OrgsStep({
+    organizations,
+    updateSelectedOrganizations,
+}: OrganizationStepProps): ReactElement {
     const [selectedOrgs, setSelectedOrgs] = useState<Organization[]>([]);
     const [displayOrgs, setDisplayOrgs] = useState<string[]>([]);
+
+    const { t } = useTrans();
 
     useEffect(() => {
         updateSelectedOrganizations(selectedOrgs);
@@ -30,8 +32,8 @@ export default function OrgsStep({ organizations, updateSelectedOrganizations }:
             setSelectedOrgs([...selectedOrgs, org]);
             setDisplayOrgs([...displayOrgs, org.display]);
         }
-    };
-    
+    }
+
     return (
         <Fragment>
             <Typography

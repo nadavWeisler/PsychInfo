@@ -4,9 +4,7 @@ import { useRouter } from "next/navigation";
 import { Alert, CircularProgress, Typography, Box } from "@mui/material";
 import SigninForm from "@/app/[lng]/Components/AdminComp/SigninForm";
 import { signIn } from "@/app/[lng]/firebase/auth";
-import { useParams } from "next/navigation";
-import { LocaleTypes } from "@/i18n/settings";
-import { useTranslation } from "@/i18n/client";
+import useTrans from "@/app/[lng]/hooks/useTrans";
 
 export default function AdminSignInPage() {
     const [email, setEmail] = useState<string>("");
@@ -15,8 +13,7 @@ export default function AdminSignInPage() {
     const [errorMsg, setErrorMsg] = useState<string>("");
     const [isLoading, setIsLoading] = useState<boolean>(false);
 
-    const locale = useParams()?.locale as LocaleTypes;
-    const { t, i18n } = useTranslation(locale, "translation");
+    const { t, i18n } = useTrans();
 
     const router = useRouter();
 
@@ -35,7 +32,7 @@ export default function AdminSignInPage() {
         } finally {
             setIsLoading(false);
         }
-    };
+    }
 
     return (
         <Fragment>
@@ -63,4 +60,4 @@ export default function AdminSignInPage() {
             </Box>
         </Fragment>
     );
-};
+}

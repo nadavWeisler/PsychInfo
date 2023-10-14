@@ -1,7 +1,6 @@
 import {
     Filter,
     Organization,
-    StringObject,
     Tag,
 } from "@/app/[lng]/general/interfaces";
 
