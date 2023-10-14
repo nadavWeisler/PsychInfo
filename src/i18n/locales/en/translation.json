@@ -92,11 +92,15 @@
         "form_sent": "The form was sent successfully!"
     },
     "admin": {
+        "title": "Admin dashboard",
         "mistakes_requests": "Pending mistakes",
         "no_mistakes": "No pending mistakes",
         "waiting_requests": "Pending requests",
         "no_requests": "No pending requests",
         "admin_login": "Admin login",
-        "login": "Login"
+        "login": "Login",
+        "open_tags": "open tags",
+        "open_organizations": "open organizations",
+        "empty_list": "No items to show"
     }
 }

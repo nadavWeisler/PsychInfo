@@ -1,4 +1,12 @@
-import { get, push, ref, set, remove, update, DataSnapshot } from "firebase/database";
+import {
+    get,
+    push,
+    ref,
+    set,
+    remove,
+    update,
+    DataSnapshot,
+} from "firebase/database";
 import { db, dbPaths } from "./app";
 import {
     Content,
@@ -10,7 +18,10 @@ import {
     ContentDB,
 } from "@/app/[lng]/general/interfaces";
 
-export async function getAllTags(used: boolean, langId: string): Promise<Tag[]> {
+export async function getAllTags(
+    used: boolean,
+    langId: string
+): Promise<Tag[]> {
     try {
         const snapshot: DataSnapshot = await get(ref(db, dbPaths.allTags));
         if (snapshot.exists()) {
@@ -31,9 +42,14 @@ export async function getAllTags(used: boolean, langId: string): Promise<Tag[]> 
     }
 }
 
-export async function getAllOrganizations(used: boolean, langId: string): Promise<Organization[]> {
+export async function getAllOrganizations(
+    used: boolean,
+    langId: string
+): Promise<Organization[]> {
     try {
-        const snapshot: DataSnapshot = await get(ref(db, dbPaths.allOrganizations));
+        const snapshot: DataSnapshot = await get(
+            ref(db, dbPaths.allOrganizations)
+        );
         if (snapshot.exists()) {
             let org: Organization[] = Object.values(snapshot.val());
             org = org.filter((item) => item.languageId === langId);
@@ -59,7 +75,9 @@ export async function getContent(
     operator: Operator
 ): Promise<Content[]> {
     try {
-        const snapshot: DataSnapshot = await get(ref(db, dbPaths.validateContent));
+        const snapshot: DataSnapshot = await get(
+            ref(db, dbPaths.validateContent)
+        );
         if (snapshot.exists()) {
             const content: Content[] = Object.values(snapshot.val());
             const data = Object.values(content).filter((item) => {
@@ -115,9 +133,13 @@ export async function createTag(tag: Tag): Promise<void> {
     }
 }
 
-export async function createOrganization(organization: Organization): Promise<void> {
+export async function createOrganization(
+    organization: Organization
+): Promise<void> {
     try {
-        const newOrganizationRef = await push(ref(db, dbPaths.allOrganizations));
+        const newOrganizationRef = await push(
+            ref(db, dbPaths.allOrganizations)
+        );
         return await set(newOrganizationRef, organization);
     } catch (error) {
         console.error("Error:", error);
@@ -311,7 +333,9 @@ export const updateUnusedTags = async (): Promise<void> => {
 
 export const getPendingContent = async (): Promise<Content[]> => {
     try {
-        const snapshot: DataSnapshot = await get(ref(db, dbPaths.pendingContent));
+        const snapshot: DataSnapshot = await get(
+            ref(db, dbPaths.pendingContent)
+        );
         if (snapshot.exists()) {
             const preContent = Object.values(snapshot.val() || {}) as Array<
                 Record<string, unknown>
@@ -350,7 +374,7 @@ export async function deletePendingContent(title: string): Promise<void> {
     } catch (error) {
         console.error("Error:", error);
     }
-};
+}
 
 export async function getMistakes(): Promise<FoundMistakeDB[]> {
     try {
@@ -365,7 +389,7 @@ export async function getMistakes(): Promise<FoundMistakeDB[]> {
         console.error("Error:", error);
         throw error;
     }
-};
+}
 
 export async function postMistakes(content: FoundMistake) {
     try {
@@ -391,7 +415,7 @@ export async function postMistakes(content: FoundMistake) {
         console.error("Error:", error);
         throw error;
     }
-};
+}
 
 export async function deletePendingMistake(index: string): Promise<void> {
     try {
@@ -416,4 +440,53 @@ export async function deletePendingMistake(index: string): Promise<void> {
     } catch (error) {
         console.error("Error:", error);
     }
-};
+}
+
+export async function deleteTags(id: string) {
+    try {
+        const snapshot = await get(ref(db, dbPaths.allTags));
+        const tags: [string, Tag][] = Object.entries(snapshot.val());
+
+        let tagKey = "";
+        for (const [key, value] of tags) {
+            if (value.id === id) {
+                tagKey = key;
+                break;
+            }
+        }
+        if (tagKey !== "") {
+            const contentRef = ref(db, `${dbPaths.allTags}/${tagKey}`);
+            await remove(contentRef);
+        } else {
+            console.log(`No tags found with id ${id}`);
+        }
+    } catch (error) {
+        console.error("Error:", error);
+    }
+}
+
+export async function deleteOrganization(id: string) {
+    try {
+        const snapshot = await get(ref(db, dbPaths.allOrganizations));
+        const organizations: [string, Organization][] = Object.entries(snapshot.val());
+
+        let organizationKey = "";
+        for (const [key, value] of organizations) {
+            if (value.id === id) {
+                organizationKey = key;
+                break;
+            }
+        }
+        if (organizationKey !== "") {
+            const contentRef = ref(
+                db,
+                `${dbPaths.allOrganizations}/${organizationKey}`
+            );
+            await remove(contentRef);
+        } else {
+            console.log(`No organizations found with id ${id}`);
+        }
+    } catch (error) {
+        console.error("Error:", error);
+    }
+}

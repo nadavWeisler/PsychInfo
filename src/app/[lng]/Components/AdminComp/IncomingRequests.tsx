@@ -27,7 +27,7 @@ export default function IncomingRequests() {
             <Typography
                 sx={{ mt: 3, mb: 5 }}
                 align={"center"}
-                variant="h4"
+                variant="h5"
                 color={"black"}
             >
                 {t("admin.waiting_requests")}
@@ -52,7 +52,7 @@ export default function IncomingRequests() {
                 <Typography
                     sx={{ mt: 3, mb: 5 }}
                     align={"center"}
-                    variant="h4"
+                    variant="h6"
                     color={"black"}
                 >
                     {t("admin.no_mistakes")}
