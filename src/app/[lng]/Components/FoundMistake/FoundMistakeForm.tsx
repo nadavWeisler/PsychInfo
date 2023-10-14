@@ -1,5 +1,5 @@
 "use client";
-import { useState, FormEvent } from "react";
+import { useState, FormEvent, use, useEffect } from "react";
 import { Box, TextField, Button } from "@mui/material";
 import {
     FoundMistake,
@@ -14,6 +14,7 @@ export default function FoundMistakeForm({
     const [name, setName] = useState<string>("");
     const [email, setEmail] = useState<string>("");
     const [description, setDescription] = useState<string>("");
+    const [btnDirection, setBtnDirection] = useState<"ltr" | "rtl">("ltr");
 
     const { t, direction } = useTrans();
 
@@ -35,6 +36,11 @@ export default function FoundMistakeForm({
                 throw error;
             });
     }
+
+    useEffect(() => {
+        if (direction === "rtl") setBtnDirection("ltr");
+        else setBtnDirection("rtl");
+    }, [direction]);
 
     return (
         <Box
@@ -76,9 +82,11 @@ export default function FoundMistakeForm({
                     onChange={(e) => setDescription(e.target.value)}
                     multiline={true}
                 />
-                <Button variant={"contained"} type="submit">
-                    {t("mistake.send")}
-                </Button>
+                <Box dir={btnDirection}>
+                    <Button variant={"contained"} type="submit">
+                        {t("mistake.send")}
+                    </Button>
+                </Box>
             </Box>
         </Box>
     );
