@@ -32,7 +32,6 @@ export default function Gallary({ filters }: GallaryProps) {
     return (
         <Fragment>
             <Typography variant="h4" align="center" margin={"auto"}>
-                {/* // TODO: trans */}
                 {t("gallary.title")}
             </Typography>
             <Grid container spacing={4} margin={"auto"} marginBottom={"10px"}>
