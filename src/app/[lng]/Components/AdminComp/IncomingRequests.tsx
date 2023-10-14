@@ -55,7 +55,7 @@ export default function IncomingRequests() {
                     variant="h4"
                     color={"black"}
                 >
-                    {t("admin.no_mistaeks")}
+                    {t("admin.no_mistakes")}
                 </Typography>
             )}
         </Fragment>

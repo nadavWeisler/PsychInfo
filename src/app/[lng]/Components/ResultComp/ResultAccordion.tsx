@@ -33,7 +33,7 @@ export default function ResultAccordion({
     const [open, setOpen] = useState<boolean>(false);
     const [isAdmin, setIsAdmin] = useState(false);
 
-    const { t } = useTrans();
+    const { t, direction } = useTrans();
     const { user } = useContext(AuthContext);
 
     useEffect(() => {

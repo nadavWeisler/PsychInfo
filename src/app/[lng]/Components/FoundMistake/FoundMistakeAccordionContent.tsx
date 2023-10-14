@@ -7,7 +7,7 @@ export default function FoundMistakeAccordionContent({
     emailToContact,
     description,
 }: FoundMistakeAccordionContentProps) {
-    const { t } = useTrans();
+    const { t, direction } = useTrans();
 
     return (
         <Box
@@ -17,13 +17,13 @@ export default function FoundMistakeAccordionContent({
                 overflow: "auto",
             }}
         >
-            <Typography sx={{ margin: "10px" }} variant="h6">
+            <Typography dir={direction} sx={{ margin: "10px" }} variant="h6">
                 {t("common.name")}: {name}
             </Typography>
-            <Typography sx={{ margin: "10px" }} variant="h6">
+            <Typography dir={direction} sx={{ margin: "10px" }} variant="h6">
                 {t("common.email")}: {emailToContact}
             </Typography>
-            <Typography sx={{ margin: "10px" }} variant="h6">
+            <Typography dir={direction} sx={{ margin: "10px" }} variant="h6">
                 {t("common.description")}: {description}
             </Typography>
         </Box>

@@ -16,7 +16,7 @@ export default function TagsStep({
     const [selectedTags, setSelectedTags] = useState<Tag[]>([]);
     const [displayTags, setDisplayTags] = useState<string[]>([]);
 
-    const { t } = useTrans();
+    const { t, direction } = useTrans();
 
     useEffect(() => {
         updateSelectedTags(selectedTags);
@@ -37,12 +37,13 @@ export default function TagsStep({
     return (
         <Fragment>
             <Typography
+                dir={direction}
                 sx={{ marginBottom: "20px", marginTop: "20px" }}
                 variant="h4"
             >
                 {t("wizard.choose_tags")}
             </Typography>
-            <Grid container spacing={2}>
+            <Grid dir={direction} container spacing={2}>
                 {tags.map((tag) => (
                     <Grid item key={tag.id}>
                         <Chip
