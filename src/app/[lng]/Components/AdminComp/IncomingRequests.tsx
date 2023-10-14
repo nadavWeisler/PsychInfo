@@ -1,7 +1,7 @@
 "use client";
 import { useState, useEffect, Fragment } from "react";
 import { Content } from "@/app/[lng]/general/interfaces";
-import { Typography } from "@mui/material";
+import { Box, Typography } from "@mui/material";
 import RequestAccordion from "@/app/[lng]/Components/AdminComp/RequestAccordion";
 import { getPendingContent } from "@/app/[lng]/firebase/commands";
 import useTrans from "@/app/[lng]/hooks/useTrans";
@@ -34,7 +34,7 @@ export default function IncomingRequests() {
             </Typography>
             {requests && requests.length > 0 ? (
                 requests.map((request, index) => (
-                    <Fragment key={index}>
+                    <Box key={index} sx={{marginBottom: "10px"}}>
                         <RequestAccordion
                             id={request.id}
                             title={request.title}
@@ -46,7 +46,7 @@ export default function IncomingRequests() {
                             uploader={request.uploader}
                             deleteHandler={() => setIsDelete(!isDelete)}
                         />
-                    </Fragment>
+                    </Box>
                 ))
             ) : (
                 <Typography

@@ -1,5 +1,5 @@
 "use client";
-import { useState, useContext, useEffect, Fragment } from "react";
+import { useState, useContext, useEffect } from "react";
 import { useRouter } from "next/navigation";
 import { onAuthStateChanged, signOut } from "firebase/auth";
 import IncomingRequests from "@/app/[lng]/Components/AdminComp/IncomingRequests";
@@ -67,10 +67,10 @@ export default function AdminPage() {
     }
 
     return user ? (
-        <Fragment>
+        <Box sx={{marginTop: 4}}>
             <Typography
                 color={"black"}
-                variant={"h2"}
+                variant={"h4"}
                 sx={{ textAlign: "center" }}
             >
                 {t("admin.title")}
@@ -97,6 +97,6 @@ export default function AdminPage() {
                     {t("common.logout")}
                 </Button>
             </Box>
-        </Fragment>
+        </Box>
     ) : null;
 }

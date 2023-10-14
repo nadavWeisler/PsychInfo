@@ -1,5 +1,5 @@
 "use client";
-import { Typography, Box, Chip, Link } from "@mui/material";
+import { Typography, Box, Chip, Link, Grid } from "@mui/material";
 import { Content, DisplayLanguages } from "@/app/[lng]/general/interfaces";
 import { ifValidLink, isEmptyOrSpaces } from "@/app/[lng]/general/utils";
 import useTrans from "@/app/[lng]/hooks/useTrans";
@@ -118,7 +118,7 @@ export default function AccordionContent({
                         key={lang}
                         label={
                             DisplayLanguages[
-                                lang as keyof typeof DisplayLanguages
+                            lang as keyof typeof DisplayLanguages
                             ]
                         }
                         variant="outlined"
@@ -139,14 +139,16 @@ export default function AccordionContent({
                 >
                     {t("common.tags")}:
                 </Typography>
-                {tags.map((tag) => (
-                    <Chip
-                        sx={{ margin: "10px" }}
-                        key={tag.id}
-                        label={tag.display}
-                        variant="outlined"
-                    />
-                ))}
+                <Grid spacing={4} marginTop={"10px"}>
+                    {tags.map((tag) => (
+                        <Chip
+                            sx={{ marginRight: "5px", marginTop: "3px" }}
+                            key={tag.id}
+                            label={tag.display}
+                            variant="outlined"
+                        />
+                    ))}
+                </Grid>
             </Box>
             <Box
                 dir={direction}

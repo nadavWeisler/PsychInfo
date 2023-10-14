@@ -34,14 +34,14 @@ export default function ControlPanel({ isDeleteHandler, isDelete }: ControlPanel
                 }}
             >
                 <Button
-                    sx={{ height: "130px", width: "130px", margin: "20px" }}
+                    sx={{ height: "130px", width: "130px", margin: "20px", fontSize: "1.5rem" }}
                     variant={"contained"}
                     onClick={() => setOpenTags(true)}
                 >
                     {t("admin.open_tags")}
                 </Button>
                 <Button
-                    sx={{ height: "130px", width: "130px", margin: "20px" }}
+                    sx={{ height: "130px", width: "130px", margin: "20px", fontSize: "1.5rem" }}
                     variant={"contained"}
                     onClick={() => setOpenOrganization(true)}
                 >
