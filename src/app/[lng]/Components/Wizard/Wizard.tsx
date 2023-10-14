@@ -42,7 +42,7 @@ export default function WizardDialog({
     const [selectedOrgs, setSelectedOrgs] = useState<Organization[]>([]);
     const [selectedLanguages, setSelectedLanguages] = useState<string[]>([]);
 
-    const { t, i18n } = useTrans();
+    const { t, i18n, direction } = useTrans();
     const dispatch = useAppDispatch();
     const router = useRouter();
 
@@ -99,7 +99,7 @@ export default function WizardDialog({
 
     return (
         <Dialog open={open} onClose={onClose} fullWidth>
-            <DialogTitle>{t("wizard.which_info_you_need")}</DialogTitle>
+            <DialogTitle dir={direction}>{t("wizard.which_info_you_need")}</DialogTitle>
             <DialogContent>
                 <Stepper activeStep={activeStep}>
                     {steps.map((label) => (
@@ -110,7 +110,7 @@ export default function WizardDialog({
                 </Stepper>
                 {GetStepContent(activeStep)}
             </DialogContent>
-            <DialogActions>
+            <DialogActions dir={direction}>
                 <Button onClick={onClose}>{t("common.close")}</Button>
                 <Button
                     onClick={() =>

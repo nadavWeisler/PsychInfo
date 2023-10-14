@@ -11,10 +11,11 @@ export default function AccordionContent({
     description,
     languageId,
 }: Content) {
-    const { t } = useTrans();
+    const { t, direction } = useTrans();
 
     return (
         <Box
+            dir={direction}
             sx={{
                 display: "flex",
                 flexDirection: "column",
@@ -23,15 +24,21 @@ export default function AccordionContent({
         >
             {!isEmptyOrSpaces(link) && ifValidLink(link) ? (
                 <Box
+                    dir={direction}
                     sx={{
                         display: "flex",
                         flexDirection: "row",
                     }}
                 >
-                    <Typography sx={{ margin: "10px" }} variant="h6">
+                    <Typography
+                        dir={direction}
+                        sx={{ margin: "10px" }}
+                        variant="h6"
+                    >
                         {t("common.link")}:
                     </Typography>
                     <Link
+                        dir={direction}
                         margin={"15px"}
                         href={link}
                         target="_blank"
@@ -46,15 +53,21 @@ export default function AccordionContent({
                 </Box>
             ) : (
                 <Box
+                    dir={direction}
                     sx={{
                         display: "flex",
                         flexDirection: "row",
                     }}
                 >
-                    <Typography sx={{ margin: "10px" }} variant="h6">
+                    <Typography
+                        dir={direction}
+                        sx={{ margin: "10px" }}
+                        variant="h6"
+                    >
                         {t("common.link")}:
                     </Typography>
                     <Typography
+                        dir={direction}
                         sx={{ margin: "10px", color: "red" }}
                         variant="h6"
                     >
@@ -63,12 +76,17 @@ export default function AccordionContent({
                 </Box>
             )}
             <Box
+                dir={direction}
                 sx={{
                     display: "flex",
                     flexDirection: "row",
                 }}
             >
-                <Typography sx={{ margin: "10px" }} variant="h6">
+                <Typography
+                    dir={direction}
+                    sx={{ margin: "10px" }}
+                    variant="h6"
+                >
                     {t("common.organization")}:&nbsp;
                 </Typography>
                 {[organization].map((org) => (
@@ -81,12 +99,17 @@ export default function AccordionContent({
                 ))}
             </Box>
             <Box
+                dir={direction}
                 sx={{
                     display: "flex",
                     flexDirection: "row",
                 }}
             >
-                <Typography sx={{ margin: "10px" }} variant="h6">
+                <Typography
+                    dir={direction}
+                    sx={{ margin: "10px" }}
+                    variant="h6"
+                >
                     {t("common.language")}:
                 </Typography>
                 {[languageId].map((lang) => (
@@ -103,12 +126,17 @@ export default function AccordionContent({
                 ))}
             </Box>
             <Box
+                dir={direction}
                 sx={{
                     display: "flex",
                     flexDirection: "row",
                 }}
             >
-                <Typography sx={{ margin: "10px" }} variant="h6">
+                <Typography
+                    dir={direction}
+                    sx={{ margin: "10px" }}
+                    variant="h6"
+                >
                     {t("common.tags")}:
                 </Typography>
                 {tags.map((tag) => (
@@ -121,15 +149,24 @@ export default function AccordionContent({
                 ))}
             </Box>
             <Box
+                dir={direction}
                 sx={{
                     display: "flex",
                     flexDirection: "row",
                 }}
             >
-                <Typography sx={{ margin: "10px" }} variant="h6">
+                <Typography
+                    dir={direction}
+                    sx={{ margin: "10px" }}
+                    variant="h6"
+                >
                     {t("common.description")}:
                 </Typography>
-                <Typography sx={{ margin: "10px" }} variant="h6">
+                <Typography
+                    dir={direction}
+                    sx={{ margin: "10px" }}
+                    variant="h6"
+                >
                     {description}
                 </Typography>
             </Box>

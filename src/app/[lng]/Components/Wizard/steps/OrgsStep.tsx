@@ -16,7 +16,7 @@ export default function OrgsStep({
     const [selectedOrgs, setSelectedOrgs] = useState<Organization[]>([]);
     const [displayOrgs, setDisplayOrgs] = useState<string[]>([]);
 
-    const { t } = useTrans();
+    const { t, direction } = useTrans();
 
     useEffect(() => {
         updateSelectedOrganizations(selectedOrgs);
@@ -37,12 +37,13 @@ export default function OrgsStep({
     return (
         <Fragment>
             <Typography
+            dir={direction}
                 sx={{ marginBottom: "20px", marginTop: "20px" }}
                 variant="h4"
             >
                 {t("wizard.choose_organizations")}
             </Typography>
-            <Grid container spacing={2}>
+            <Grid dir={direction} container spacing={2}>
                 {organizations.map((organization) => (
                     <Grid item key={organization.id}>
                         <Chip

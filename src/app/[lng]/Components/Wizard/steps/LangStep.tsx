@@ -11,7 +11,7 @@ export default function LangStep({ updateSelectedLangs }: LangStepProps): ReactE
     const [selectedLangs, setSelectedLangs] = useState<string[]>([]);
     const [displayLangs, setDisplayLangs] = useState<string[]>([]);
 
-    const { t } = useTrans();
+    const { t, direction } = useTrans();
 
     const handleChoice = (lang: string) => {
         if (selectedLangs.includes(lang)) {
@@ -32,12 +32,13 @@ export default function LangStep({ updateSelectedLangs }: LangStepProps): ReactE
     return (
         <Fragment>
             <Typography
+            dir={direction}
                 sx={{ marginBottom: "20px", marginTop: "20px" }}
                 variant="h4"
             >
                 {t("wizard.choose_langueges")}
             </Typography>
-            <Grid container spacing={2}>
+            <Grid  dir={direction} container spacing={2}>
                 {Object.keys(DisplayLanguages).map((lang) => (
                     <Grid item key={lang}>
                         <Chip
