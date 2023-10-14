@@ -1,14 +1,13 @@
 import { Typography, Box } from "@mui/material";
-import { FoundMistakeAccordionContentProps } from "../../general/interfaces";
-import { useParams } from "next/navigation";
-import { LocaleTypes } from "@/i18n/settings";
-import { useTranslation } from "@/i18n/client";
+import { FoundMistakeAccordionContentProps } from "@/app/[lng]/general/interfaces";
+import useTrans from "@/app/[lng]/hooks/useTrans";
 
-export default function FoundMistakeAccordionContent({ name, emailToContact, description }:
-    FoundMistakeAccordionContentProps) {
-
-    const locale = useParams()?.locale as LocaleTypes;
-    const { t } = useTranslation(locale, "translation");
+export default function FoundMistakeAccordionContent({
+    name,
+    emailToContact,
+    description,
+}: FoundMistakeAccordionContentProps) {
+    const { t } = useTrans();
 
     return (
         <Box
@@ -29,4 +28,4 @@ export default function FoundMistakeAccordionContent({ name, emailToContact, des
             </Typography>
         </Box>
     );
-};
+}

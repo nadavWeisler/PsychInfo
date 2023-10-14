@@ -1,24 +1,21 @@
 "use client";
-import { useState, useEffect, FormEvent, Fragment } from "react";
-import { Box, TextField, Button, Container, CssBaseline } from "@mui/material";
-import { useTranslation } from "@/i18n/client";
-import { FoundMistake, FoundMistakeFormProps } from "@/app/[lng]/general/interfaces";
-import { useParams } from "next/navigation";
-import { LocaleTypes } from "@/i18n/settings";
+import { useState, FormEvent } from "react";
+import { Box, TextField, Button } from "@mui/material";
+import {
+    FoundMistake,
+    FoundMistakeFormProps,
+} from "@/app/[lng]/general/interfaces";
 import { postMistakes } from "@/app/[lng]/firebase/commands";
+import useTrans from "@/app/[lng]/hooks/useTrans";
 
-export default function FoundMistakeForm({ isSentHandler }: FoundMistakeFormProps) {
+export default function FoundMistakeForm({
+    isSentHandler,
+}: FoundMistakeFormProps) {
     const [name, setName] = useState<string>("");
     const [email, setEmail] = useState<string>("");
     const [description, setDescription] = useState<string>("");
-    const [direction, setDirection] = useState<"ltr" | "rtl">("rtl");
 
-    const { lng } = useParams();
-    const { t, i18n } = useTranslation(lng as LocaleTypes, "translation");
-
-    useEffect(() => {
-        setDirection(i18n.dir());
-    }, [i18n.language]);
+    const { t, direction } = useTrans();
 
     async function handleSubmit(e: FormEvent<HTMLFormElement>): Promise<void> {
         e.preventDefault();
@@ -37,7 +34,7 @@ export default function FoundMistakeForm({ isSentHandler }: FoundMistakeFormProp
                 console.log(error);
                 throw error;
             });
-    };
+    }
 
     return (
         <Box
@@ -54,7 +51,7 @@ export default function FoundMistakeForm({ isSentHandler }: FoundMistakeFormProp
                     margin="normal"
                     fullWidth
                     id="name"
-                    label={t("email.name")}
+                    label={t("mistake.name")}
                     name="name"
                     autoFocus
                     onChange={(e) => setName(e.target.value)}
@@ -63,7 +60,7 @@ export default function FoundMistakeForm({ isSentHandler }: FoundMistakeFormProp
                     margin="normal"
                     fullWidth
                     id="email"
-                    label={t("email.email")}
+                    label={t("mistake.email")}
                     name="email"
                     autoFocus
                     onChange={(e) => setEmail(e.target.value)}
@@ -73,16 +70,16 @@ export default function FoundMistakeForm({ isSentHandler }: FoundMistakeFormProp
                     margin="normal"
                     fullWidth
                     id="description"
-                    label={t("email.description")}
+                    label={t("mistake.description")}
                     name="description"
                     autoFocus
                     onChange={(e) => setDescription(e.target.value)}
                     multiline={true}
                 />
                 <Button variant={"contained"} type="submit">
-                    {t("email.send")}
+                    {t("mistake.send")}
                 </Button>
             </Box>
         </Box>
     );
-};
+}

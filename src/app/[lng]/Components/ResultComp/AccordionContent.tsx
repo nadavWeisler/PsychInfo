@@ -1,59 +1,74 @@
-import { Typography, Box, TextField, FormControl, InputLabel, Grid, Chip, Link } from "@mui/material";
+"use client";
+import { Typography, Box, Chip, Link } from "@mui/material";
 import { Content, DisplayLanguages } from "@/app/[lng]/general/interfaces";
 import { ifValidLink, isEmptyOrSpaces } from "@/app/[lng]/general/utils";
-import { useParams } from "next/navigation";
-import { LocaleTypes } from "@/i18n/settings";
-import { useTranslation } from "@/i18n/client";
+import useTrans from "@/app/[lng]/hooks/useTrans";
 
-export default function AccordionContent({ link, tags, organization, description, languageId }: Content) {
-    const locale = useParams()?.locale as LocaleTypes;
-    const { t } = useTranslation(locale, "translation");
+export default function AccordionContent({
+    link,
+    tags,
+    organization,
+    description,
+    languageId,
+}: Content) {
+    const { t } = useTrans();
 
     return (
-        <Box sx={{
-            display: "flex",
-            flexDirection: "column",
-            overflow: "auto"
-        }}>
-            {
-                (!isEmptyOrSpaces(link) && ifValidLink(link)) ?
-                    <Box sx={{
-                        display: "flex",
-                        flexDirection: "row",
-                    }}>
-                        <Typography sx={{ margin: "10px" }} variant="h6">
-                            {t("common.link")}:
-                        </Typography>
-                        <Link
-                            margin={"15px"}
-                            href={link}
-                            target="_blank"
-                            rel="noopener"
-                            sx={{
-                                color: "blue",
-                                textDecoration: "underline",
-                            }}
-                        >
-                            {link}
-                        </Link>
-                    </Box> :
-                    <Box sx={{
-                        display: "flex",
-                        flexDirection: "row",
-                    }}>
-                        <Typography sx={{ margin: "10px" }} variant="h6">
-                            {t("common.link")}:
-                        </Typography>
-                        <Typography sx={{ margin: "10px", color: "red" }} variant="h6">
-                            {t("common.invalid_link")} - {link}
-                        </Typography>
-                    </Box>
-            }
-            <Box sx={{
+        <Box
+            sx={{
                 display: "flex",
-                flexDirection: "row",
-            }}>
-                <Typography sx={{ margin: "10px", }} variant="h6">
+                flexDirection: "column",
+                overflow: "auto",
+            }}
+        >
+            {!isEmptyOrSpaces(link) && ifValidLink(link) ? (
+                <Box
+                    sx={{
+                        display: "flex",
+                        flexDirection: "row",
+                    }}
+                >
+                    <Typography sx={{ margin: "10px" }} variant="h6">
+                        {t("common.link")}:
+                    </Typography>
+                    <Link
+                        margin={"15px"}
+                        href={link}
+                        target="_blank"
+                        rel="noopener"
+                        sx={{
+                            color: "blue",
+                            textDecoration: "underline",
+                        }}
+                    >
+                        {link}
+                    </Link>
+                </Box>
+            ) : (
+                <Box
+                    sx={{
+                        display: "flex",
+                        flexDirection: "row",
+                    }}
+                >
+                    <Typography sx={{ margin: "10px" }} variant="h6">
+                        {t("common.link")}:
+                    </Typography>
+                    <Typography
+                        sx={{ margin: "10px", color: "red" }}
+                        variant="h6"
+                    >
+                        {t("common.invalid_link")} - {link}
+                    </Typography>
+                </Box>
+            )}
+            <Box
+                sx={{
+                    display: "flex",
+                    flexDirection: "row",
+                }}
+            >
+                <Typography sx={{ margin: "10px" }} variant="h6">
                     {t("common.organization")}:&nbsp;
                 </Typography>
                 {[organization].map((org) => (
@@ -65,10 +80,12 @@ export default function AccordionContent({ link, tags, organization, description
                     />
                 ))}
             </Box>
-            <Box sx={{
-                display: "flex",
-                flexDirection: "row",
-            }}>
+            <Box
+                sx={{
+                    display: "flex",
+                    flexDirection: "row",
+                }}
+            >
                 <Typography sx={{ margin: "10px" }} variant="h6">
                     {t("common.language")}:
                 </Typography>
@@ -76,15 +93,21 @@ export default function AccordionContent({ link, tags, organization, description
                     <Chip
                         sx={{ margin: "10px" }}
                         key={lang}
-                        label={DisplayLanguages[lang as keyof typeof DisplayLanguages]}
+                        label={
+                            DisplayLanguages[
+                                lang as keyof typeof DisplayLanguages
+                            ]
+                        }
                         variant="outlined"
                     />
                 ))}
             </Box>
-            <Box sx={{
-                display: "flex",
-                flexDirection: "row",
-            }}>
+            <Box
+                sx={{
+                    display: "flex",
+                    flexDirection: "row",
+                }}
+            >
                 <Typography sx={{ margin: "10px" }} variant="h6">
                     {t("common.tags")}:
                 </Typography>
@@ -97,10 +120,12 @@ export default function AccordionContent({ link, tags, organization, description
                     />
                 ))}
             </Box>
-            <Box sx={{
-                display: "flex",
-                flexDirection: "row",
-            }}>
+            <Box
+                sx={{
+                    display: "flex",
+                    flexDirection: "row",
+                }}
+            >
                 <Typography sx={{ margin: "10px" }} variant="h6">
                     {t("common.description")}:
                 </Typography>
@@ -108,6 +133,6 @@ export default function AccordionContent({ link, tags, organization, description
                     {description}
                 </Typography>
             </Box>
-        </Box >
+        </Box>
     );
-};
+}

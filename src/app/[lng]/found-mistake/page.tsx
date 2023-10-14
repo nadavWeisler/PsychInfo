@@ -1,21 +1,13 @@
 "use client";
-import { useState, Fragment, useEffect, ReactElement } from "react";
+import { useState, Fragment, ReactElement } from "react";
 import { Typography } from "@mui/material";
 import FoundMistakeForm from "@/app/[lng]/Components/FoundMistake/FoundMistakeForm";
-import { useParams } from "next/navigation";
-import { useTranslation } from "@/i18n/client";
-import { LocaleTypes } from "@/i18n/settings";
+import useTrans from "@/app/[lng]/hooks/useTrans";
 
 export default function FoundMistakePage(): ReactElement {
-    const [direction, setDirection] = useState<"ltr" | "rtl">("rtl");
     const [isSent, setIsSent] = useState<boolean>(false);
 
-    const { lng } = useParams();
-    const { t, i18n } = useTranslation(lng as LocaleTypes, "translation");
-
-    useEffect(() => {
-        setDirection(i18n.dir());
-    }, [i18n.language]);
+    const { t, direction } = useTrans();
 
     return (
         <Fragment>
@@ -26,7 +18,7 @@ export default function FoundMistakePage(): ReactElement {
                 variant={"h4"}
                 dir={direction}
             >
-                {t("email.greeting")}
+                {t("mistake.greeting")}
             </Typography>
 
             <FoundMistakeForm isSentHandler={() => setIsSent(true)} />
@@ -39,9 +31,9 @@ export default function FoundMistakePage(): ReactElement {
                     variant={"h4"}
                     dir={direction}
                 >
-                    {t("email.form_sent")}
+                    {t("mistake.form_sent")}
                 </Typography>
             )}
         </Fragment>
     );
-};
+}

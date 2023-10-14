@@ -2,30 +2,19 @@
 import { Content, Filter, Operator } from "@/app/[lng]/general/interfaces";
 import { getContent } from "@/app/[lng]/firebase/commands";
 import { pagesActions } from "@/store/pagesSlice";
-import {
-    Card,
-    CardContent,
-    CardMedia,
-    Container,
-    Grid,
-    Typography,
-} from "@mui/material";
+import { Card, CardContent, CardMedia, Grid, Typography } from "@mui/material";
 import { useRouter } from "next/navigation";
-import { useDispatch } from "react-redux";
-import { useParams } from "next/navigation";
-import { LocaleTypes } from "@/i18n/settings";
-import { useTranslation } from "@/i18n/client";
+import { useAppDispatch } from "@/app/[lng]/hooks/redux";
 import { Fragment } from "react";
+import useTrans from "@/app/[lng]/hooks/useTrans";
 
 interface GallaryProps {
     filters: Filter[];
 }
 
 export default function Gallary({ filters }: GallaryProps) {
-    const locale = useParams()?.locale as LocaleTypes;
-    const { t, i18n } = useTranslation(locale, "translation");
-
-    const dispatch = useDispatch();
+    const { t, i18n } = useTrans();
+    const dispatch = useAppDispatch();
     const router = useRouter();
 
     async function handleChoice(filter: Filter) {
@@ -38,11 +27,12 @@ export default function Gallary({ filters }: GallaryProps) {
 
         dispatch(pagesActions.UploadContent({ content: results }));
         router.push(`${i18n.language}/results`);
-    };
+    }
 
     return (
         <Fragment>
             <Typography variant="h4" align="center" margin={"auto"}>
+                {/* // TODO: trans */}
                 {t("gallary.title")}
             </Typography>
             <Grid container spacing={4} margin={"auto"} marginBottom={"10px"}>
@@ -57,7 +47,7 @@ export default function Gallary({ filters }: GallaryProps) {
                                 cursor: "pointer",
                                 transition: "box-shadow 0.3s",
                                 "&:hover": {
-                                    boxShadow: "0 6px 8px rgba(0, 0, 0, 0.5)"
+                                    boxShadow: "0 6px 8px rgba(0, 0, 0, 0.5)",
                                 },
                             }}
                             onClick={() => handleChoice(filter)}
@@ -71,10 +61,7 @@ export default function Gallary({ filters }: GallaryProps) {
                                 image={filter.img}
                             />
                             <CardContent sx={{ flexGrow: 1 }}>
-                                <Typography
-                                    gutterBottom
-                                    variant="h4"
-                                >
+                                <Typography gutterBottom variant="h4">
                                     {filter.title}
                                 </Typography>
                                 <Typography>{filter.description}</Typography>

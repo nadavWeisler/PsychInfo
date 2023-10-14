@@ -14,20 +14,25 @@ import {
     deletePendingContent,
     createContent,
 } from "@/app/[lng]/firebase/commands";
-import { useParams } from "next/navigation";
-import { LocaleTypes } from "@/i18n/settings";
-import { useTranslation } from "@/i18n/client";
+import useTrans from "@/app/[lng]/hooks/useTrans";
 
-export default function RequestAccordion({ id, title, link, tags, organization, description,
-    languageId, uploader, deleteHandler }: RequestAccordionProps) {
-        
-    const locale = useParams()?.locale as LocaleTypes;
-    const { t } = useTranslation(locale, "translation");
+export default function RequestAccordion({
+    id,
+    title,
+    link,
+    tags,
+    organization,
+    description,
+    languageId,
+    uploader,
+    deleteHandler,
+}: RequestAccordionProps) {
+    const { t } = useTrans();
 
     async function deleteRequest(): Promise<void> {
         await deletePendingContent(title);
         deleteHandler();
-    };
+    }
 
     async function aproveRequest(): Promise<void> {
         const content: Content = {
@@ -38,12 +43,12 @@ export default function RequestAccordion({ id, title, link, tags, organization, 
             description,
             languageId,
             uploader,
-            id
+            id,
         };
         await createContent(content);
         deletePendingContent(title);
         deleteHandler();
-    };
+    }
 
     return (
         <Box
@@ -94,4 +99,4 @@ export default function RequestAccordion({ id, title, link, tags, organization, 
             </Accordion>
         </Box>
     );
-};
+}

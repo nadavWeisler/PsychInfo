@@ -1,16 +1,17 @@
 import { useState, useEffect, Fragment, ReactElement } from "react";
 import { Chip, Grid, Typography } from "@mui/material";
-import { useTranslation } from "react-i18next";
 import { DisplayLanguages } from "@/app/[lng]/general/interfaces";
+import useTrans from "@/app/[lng]/hooks/useTrans";
 
 interface LangStepProps {
     updateSelectedLangs: (newTags: string[]) => void;
 }
 
 export default function LangStep({ updateSelectedLangs }: LangStepProps): ReactElement {
-    const { t } = useTranslation();
     const [selectedLangs, setSelectedLangs] = useState<string[]>([]);
     const [displayLangs, setDisplayLangs] = useState<string[]>([]);
+
+    const { t } = useTrans();
 
     const handleChoice = (lang: string) => {
         if (selectedLangs.includes(lang)) {

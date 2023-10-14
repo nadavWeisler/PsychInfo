@@ -29,11 +29,12 @@ import TagsStep from "@/app/[lng]/Components/Wizard/steps/TagsStep";
 import OrgsStep from "@/app/[lng]/Components/Wizard/steps/OrgsStep";
 import ErrorStep from "@/app/[lng]/Components/Wizard/steps/ErrorStep";
 import LangStep from "@/app/[lng]/Components/Wizard/steps/LangStep";
-import { useParams } from "next/navigation";
-import { LocaleTypes } from "@/i18n/settings";
-import { useTranslation } from "@/i18n/client";
+import useTrans from "@/app/[lng]/hooks/useTrans";
 
-export default function WizardDialog({ open, onClose }: WizardDialogProps): ReactElement {
+export default function WizardDialog({
+    open,
+    onClose,
+}: WizardDialogProps): ReactElement {
     const [activeStep, setActiveStep] = useState<number>(0);
     const [tags, setTags] = useState<Tag[]>([]);
     const [organizations, setOrganizations] = useState<Organization[]>([]);
@@ -41,9 +42,7 @@ export default function WizardDialog({ open, onClose }: WizardDialogProps): Reac
     const [selectedOrgs, setSelectedOrgs] = useState<Organization[]>([]);
     const [selectedLanguages, setSelectedLanguages] = useState<string[]>([]);
 
-    const locale = useParams()?.locale as LocaleTypes;
-    const { t, i18n } = useTranslation(locale, "translation");
-
+    const { t, i18n } = useTrans();
     const dispatch = useAppDispatch();
     const router = useRouter();
 
@@ -57,7 +56,7 @@ export default function WizardDialog({ open, onClose }: WizardDialogProps): Reac
         dispatch(pagesActions.UploadContent({ content: results }));
         onClose();
         router.replace(`${i18n.language}/results`);
-    };
+    }
 
     useEffect(() => {
         getAllTags(true, i18n.language).then((res) => setTags(res));
@@ -72,15 +71,25 @@ export default function WizardDialog({ open, onClose }: WizardDialogProps): Reac
     function GetStepContent(step: number) {
         switch (step) {
             case 0:
-                return <TagsStep tags={tags} updateSelectedTags={setSelectedTags} />;
+                return (
+                    <TagsStep
+                        tags={tags}
+                        updateSelectedTags={setSelectedTags}
+                    />
+                );
             case 1:
-                return <OrgsStep organizations={organizations} updateSelectedOrganizations={setSelectedOrgs} />;
+                return (
+                    <OrgsStep
+                        organizations={organizations}
+                        updateSelectedOrganizations={setSelectedOrgs}
+                    />
+                );
             case 2:
                 return <LangStep updateSelectedLangs={setSelectedLanguages} />;
             default:
                 return <ErrorStep errorMsg={t("wizard.invalid_step")} />;
         }
-    };
+    }
 
     const steps: string[] = [
         t("common.tags"),
@@ -103,12 +112,19 @@ export default function WizardDialog({ open, onClose }: WizardDialogProps): Reac
             </DialogContent>
             <DialogActions>
                 <Button onClick={onClose}>{t("common.close")}</Button>
-                <Button onClick={() => setActiveStep((prevActiveStep) => prevActiveStep - 1)} disabled={activeStep === 0}>
+                <Button
+                    onClick={() =>
+                        setActiveStep((prevActiveStep) => prevActiveStep - 1)
+                    }
+                    disabled={activeStep === 0}
+                >
                     {t("common.back")}
                 </Button>
                 <Button
                     variant={"contained"}
-                    onClick={() => setActiveStep((prevActiveStep) => prevActiveStep + 1)}
+                    onClick={() =>
+                        setActiveStep((prevActiveStep) => prevActiveStep + 1)
+                    }
                     disabled={activeStep === 2}
                 >
                     {t("common.next")}
@@ -125,4 +141,4 @@ export default function WizardDialog({ open, onClose }: WizardDialogProps): Reac
             </DialogActions>
         </Dialog>
     );
-};
+}

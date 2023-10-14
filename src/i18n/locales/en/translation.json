@@ -1,41 +1,49 @@
 {
     "common": {
-        "app_name": "psychological information",
-        "next": "הבא",
-        "back": "חזור",
-        "submit": "שלח",
-        "create": "צור",
-        "cancel": "ביטול",
-        "close": "סגירה",
-        "save": "שמירה",
-        "edit": "עריכה",
-        "delete": "מחיקה",
-        "add": "הוספה",
-        "search": "חיפוש",
-        "loading": "טוען...",
-        "title": "כותרת",
-        "description": "תיאור",
-        "content": "תוכן",
-        "organization": "ארגון",
-        "tag": "תגית",
-        "tags": "תגיות",
-        "link": "קישור",
-        "links": "קישורים",
-        "uploader": "מעלה",
-        "language": "שפה",
-        "languages": "שפות",
-        "start": "התחלה",
-        "choose": "בחר",
-        "organizations": "ארגונים",
-        "no_data": "אין נתונים",
-        "enter": "הכנס",
-        "click": "לחץ",
-        "share": "שתף",
-        "hello": "Hello"
+        "app_name": "Psychological information",
+        "next": "Next",
+        "back": "Baack",
+        "submit": "Submit",
+        "create": "Create",
+        "cancel": "Cancel",
+        "close": "Close",
+        "save": "Save",
+        "edit": "Edit",
+        "delete": "Delete",
+        "add": "Add",
+        "search": "Search",
+        "loading": "Loading...",
+        "title": "Title",
+        "content": "Content",
+        "organization": "Organization",
+        "tag": "Tag",
+        "tags": "Tags",
+        "link": "Link",
+        "links": "Links",
+        "uploader": "Uploader",
+        "language": "Language",
+        "languages": "Languages",
+        "start": "Start",
+        "choose": "Choose",
+        "organizations": "Organizations",
+        "no_data": "No data",
+        "enter": "Enter",
+        "click": "Click",
+        "share": "Share",
+        "hello": "Hello",
+        "login": "Login",
+        "logout": "Logout",
+        "reported_mistake": "Reported mistake",
+        "personalize": "Personalize",
+        "name": "Name",
+        "email": "Email",
+        "password": "Password",
+        "description": "Description",
+        "invalid_link": "Invalid link"
     },
     "errors": {
-        "error_occured": "אירעה שגיאה",
-        "invalid_data_type": "סוג נתונים לא תקין"
+        "error_occured": "An error occurred",
+        "invalid_data_type": "Invalid data type"
     },
     "welcome": {
         "title": "Accessible mental health content in times of emergency",
@@ -45,26 +53,29 @@
         "subtitle2": "You are welcome to try the personalisation process through the button below, or enter the recommended topics shown on this page"
     },
     "add_string": {
-        "enter_id": "הכנס זיהוי",
-        "enter_display": "הכנס תצוגה"
+        "enter_id": "Enter ID",
+        "enter_display": "Enter display",
+        "enter_language": "Enter language"
     },
     "wizard": {
-        "which_info_you_need": "איזה מידע אתה צריך?",
-        "choose_organizations": "בחר ארגונים",
-        "choose_tags": "בחר תגיות",
-        "choose_langueges": "בחר שפות"
+        "which_info_you_need": "What information do you need?",
+        "choose_organizations": "Choose organizations",
+        "choose_tags": "Choose tags",
+        "choose_langueges": "Choose languages",
+        "invalid_step": "Invalid step"
     },
     "upload": {
-        "title": "העלאת תוכן חדש",
-        "create_new_organization": "צור ארגון חדש",
-        "create_new_tag": "צור תגית חדשה",
-        "create_new_language": "צור שפה חדשה"
+        "title": "Upload new content",
+        "create_new_organization": "Create new organization",
+        "create_new_tag": "Create new tag",
+        "create_new_language": "Create new language",
+        "submit_success": "The content was sent successfully, and will be reviewed by the site administrators"
     },
     "results": {
-        "title": "תוצאות"
+        "title": "Results"
     },
     "gallary": {
-        "title": "נושאים נבחרים"
+        "title": "Topics"
     },
     "navbar": {
         "admin_log_in": "admin? login",
@@ -72,12 +83,19 @@
         "upload_content": "upload content",
         "found_mistake": "found a mistake?"
     },
-    "email": {
+    "mistake": {
         "name": "Full name (not required)",
         "email": "Email (not required)",
         "description": "Description of the mistake",
         "send": "Send",
         "greeting": "If you found a mistake in the content of the site, please fill out the form below. Thank you for your help!",
         "form_sent": "The form was sent successfully!"
+    },
+    "admin": {
+        "mistakes_requests": "Pending mistakes",
+        "no_mistakes": "No pending mistakes",
+        "waiting_requests": "Pending requests",
+        "no_requests": "No pending requests",
+        "admin_login": "Admin login"
     }
 }

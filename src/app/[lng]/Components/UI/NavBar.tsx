@@ -6,7 +6,6 @@ import {
     Typography,
     Select,
     MenuItem,
-    Container,
     Box,
     IconButton,
     Menu,
@@ -14,13 +13,11 @@ import {
 } from "@mui/material";
 import MenuIcon from "@mui/icons-material/Menu";
 import { User, onAuthStateChanged } from "firebase/auth";
-import { useTranslation } from "@/i18n/client";
 import { auth } from "@/app/[lng]/firebase/app";
 import { AuthContext } from "@/app/[lng]/context/AuthContext";
 import { useWindowWidth } from "@/app/[lng]/hooks/useWidth";
 import { DisplayLanguages, NavBarPage } from "@/app/[lng]/general/interfaces";
-import { useParams } from "next/navigation";
-import { LocaleTypes } from "@/i18n/settings";
+import useTrans from "@/app/[lng]/hooks/useTrans";
 
 export default function Navbar(): React.ReactElement {
     const [openMenu, setOpenMenu] = useState<boolean>(false);
@@ -28,12 +25,10 @@ export default function Navbar(): React.ReactElement {
 
     const width = useWindowWidth();
     const [isMobile, setIsMobile] = useState<boolean>(width <= 768);
-    const [direction, setDirection] = useState<"ltr" | "rtl">("rtl");
 
     const { user } = useContext(AuthContext);
 
-    const locale = useParams()?.locale as LocaleTypes;
-    const { t, i18n } = useTranslation(locale, "translation");
+    const { t, i18n, direction } = useTrans();
 
     useEffect(() => {
         onAuthStateChanged(auth, (user) => {
@@ -44,10 +39,6 @@ export default function Navbar(): React.ReactElement {
     useEffect(() => {
         setIsMobile(width <= 768);
     }, [width]);
-
-    useEffect(() => {
-        setDirection(i18n.dir());
-    }, [i18n.language]);
 
     const pages: NavBarPage[] = [
         { text: t("common.app_name"), url: `/${i18n.language}` },
@@ -85,7 +76,10 @@ export default function Navbar(): React.ReactElement {
                         onClose={() => setOpenMenu(false)}
                     >
                         {pages.map((page, index) => (
-                            <MenuItem key={index} onClick={() => setOpenMenu(false)}>
+                            <MenuItem
+                                key={index}
+                                onClick={() => setOpenMenu(false)}
+                            >
                                 <Fragment>
                                     <Link href={page.url}>
                                         <Typography
@@ -113,7 +107,7 @@ export default function Navbar(): React.ReactElement {
                             <MenuItem key={lang} value={lang}>
                                 {
                                     DisplayLanguages[
-                                    lang as keyof typeof DisplayLanguages
+                                        lang as keyof typeof DisplayLanguages
                                     ]
                                 }
                             </MenuItem>
@@ -124,9 +118,10 @@ export default function Navbar(): React.ReactElement {
         </AppBar>
     );
 
-    const userEmail: string | undefined = authUser?.email?.indexOf("@") !== -1
-        ? authUser?.email?.split("@")[0]
-        : authUser?.email;
+    const userEmail: string | undefined =
+        authUser?.email?.indexOf("@") !== -1
+            ? authUser?.email?.split("@")[0]
+            : authUser?.email;
 
     const greetMsg: React.ReactElement = (
         <Link href={`/${i18n.language}/admin`}>
@@ -185,11 +180,7 @@ export default function Navbar(): React.ReactElement {
                     </Link>
                 </div>
                 <div>
-                    {
-                        (!!authUser && authUser !== null)
-                            ? greetMsg
-                            : adminLink
-                    }
+                    {!!authUser && authUser !== null ? greetMsg : adminLink}
                 </div>
                 <div>
                     <Link href={`/${i18n.language}/found-mistake`}>
@@ -218,7 +209,7 @@ export default function Navbar(): React.ReactElement {
                             <MenuItem key={lang} value={lang}>
                                 {
                                     DisplayLanguages[
-                                    lang as keyof typeof DisplayLanguages
+                                        lang as keyof typeof DisplayLanguages
                                     ]
                                 }
                             </MenuItem>
@@ -229,9 +220,5 @@ export default function Navbar(): React.ReactElement {
         </AppBar>
     );
 
-    return (
-        isMobile ?
-            ResponsiveAppBar :
-            DesktopAppBar
-    );
+    return isMobile ? ResponsiveAppBar : DesktopAppBar;
 }

@@ -32,10 +32,8 @@ import {
     getAllOrganizations,
     getAllTags,
     postPendingContent,
-} from "../firebase/commands";
-import { useParams } from "next/navigation";
-import { LocaleTypes } from "@/i18n/settings";
-import { useTranslation } from "@/i18n/client";
+} from "@/app/[lng]/firebase/commands";
+import useTrans from "@/app/[lng]/hooks/useTrans";
 
 function getSelectStyles(
     obj: string,
@@ -62,22 +60,23 @@ const MenuProps = {
 };
 
 export default function UploadContent() {
-    const locale = useParams()?.locale as LocaleTypes;
-    const { t, i18n } = useTranslation(locale, "translation");
-
     const [tags, setTags] = useState<Tag[]>([]);
     const [organizations, setOrganizations] = useState<Organization[]>([]);
 
     const [selectedTags, setSelectedTags] = useState<string[]>([]);
-    const [selectedOrganization, setSelectedOrganization] = useState<Organization>(EMPTY_ORGANIZATION);
+    const [selectedOrganization, setSelectedOrganization] =
+        useState<Organization>(EMPTY_ORGANIZATION);
     const [selectedLanguage, setSelectedLanguage] = useState<string>("");
 
-    const [otherOrgValue, setOtherOrgValue] = useState<Organization>(EMPTY_ORGANIZATION);
+    const [otherOrgValue, setOtherOrgValue] =
+        useState<Organization>(EMPTY_ORGANIZATION);
     const [otherTagValue, setOtherTagValue] = useState<Tag>(EMPTY_TAG);
 
     const [openAddTagDialog, setOpenAddTagDialog] = useState<boolean>(false);
     const [openAddOrgDialog, setOpenAddOrgDialog] = useState<boolean>(false);
     const [isSubmit, setIsSubmit] = useState<boolean>(false);
+
+    const { t, i18n } = useTrans();
 
     useEffect(() => {
         getAllTags(false, i18n.language).then((allTags: Tag[]) => {
@@ -93,7 +92,9 @@ export default function UploadContent() {
         );
     }, [otherOrgValue]);
 
-    async function handleSubmit(event: FormEvent<HTMLFormElement>): Promise<void> {
+    async function handleSubmit(
+        event: FormEvent<HTMLFormElement>
+    ): Promise<void> {
         event.preventDefault();
         const data = new FormData(event.currentTarget);
         const newContent: ContentDB = {
@@ -109,8 +110,12 @@ export default function UploadContent() {
         setIsSubmit(true);
     }
 
-    function hangleChangeTags(event: SelectChangeEvent<typeof selectedTags>): void {
-        const { target: { value }, } = event;
+    function hangleChangeTags(
+        event: SelectChangeEvent<typeof selectedTags>
+    ): void {
+        const {
+            target: { value },
+        } = event;
         const newTags = tags.filter((tag) => value.includes(tag.display));
         setSelectedTags(newTags.map((tag) => tag.display));
     }
@@ -118,7 +123,9 @@ export default function UploadContent() {
     function hangleChangeOrganization(
         event: SelectChangeEvent<typeof selectedOrganization>
     ): void {
-        const { target: { value }, } = event;
+        const {
+            target: { value },
+        } = event;
         const newOrg = organizations.find((org) => org.id === value);
         if (newOrg) {
             setSelectedOrganization(newOrg);
@@ -163,9 +170,7 @@ export default function UploadContent() {
                 overflow: "auto",
             }}
         >
-            <Typography variant="h4">
-                {t("upload.title")}
-            </Typography>
+            <Typography variant="h4">{t("upload.title")}</Typography>
             <Box component="form" onSubmit={handleSubmit}>
                 <TextField
                     margin="normal"
@@ -241,7 +246,7 @@ export default function UploadContent() {
                         }
                         renderValue={(selected) =>
                             DisplayLanguages[
-                            selected as keyof typeof DisplayLanguages
+                                selected as keyof typeof DisplayLanguages
                             ]
                         }
                     >
@@ -251,15 +256,13 @@ export default function UploadContent() {
                                 value={lang}
                                 style={getSelectStyles(
                                     lang,
-                                    selectedLanguage
-                                        ? [selectedLanguage]
-                                        : [],
+                                    selectedLanguage ? [selectedLanguage] : [],
                                     appTheme
                                 )}
                             >
                                 {
                                     DisplayLanguages[
-                                    lang as keyof typeof DisplayLanguages
+                                        lang as keyof typeof DisplayLanguages
                                     ]
                                 }
                             </MenuItem>
