@@ -58,6 +58,15 @@ export interface ContentState {
     content: Content[];
 }
 
+export interface TagsAndOrgState {
+    tags: Tag[];
+    organizations: Organization[];
+}
+
+export interface OrganizationsState {
+    organization: Organization[];
+}
+
 export interface WelcomeMsgProps {
     lng: LocaleTypes;
     openWizradHandler: () => void;
@@ -113,13 +122,25 @@ export interface FoundMistakeFormProps {
     isSentHandler: () => void;
 }
 
-export interface FoundMistakeAccordionContentProps extends FoundMistake { }
+export interface FoundMistakeAccordionContentProps extends FoundMistake {}
 
 export interface FoundMistakeAccordionProps extends FoundMistakeDB {
     deleteHandler: () => void;
 }
 
-export interface NavBarPage{
+export interface NavBarPage {
     text: string;
     url: string;
+}
+
+export interface ControlPanelProps {
+    isDeleteHandler: () => void;
+    isDelete: boolean;
+}
+
+export interface PopUpListProps extends ControlPanelProps {
+    open: boolean;
+    handleClose: () => void;
+    dataType: "tags" | "organizations";
+    title: string;
 }

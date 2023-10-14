@@ -27,7 +27,7 @@ export default function IncomingMistakes() {
             <Typography
                 sx={{ mt: 3, mb: 5 }}
                 align={"center"}
-                variant="h4"
+                variant="h5"
                 color={"black"}
             >
                 {t("admin.mistakes_requests")}
