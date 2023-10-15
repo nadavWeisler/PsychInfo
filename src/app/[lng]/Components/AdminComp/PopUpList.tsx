@@ -1,5 +1,5 @@
 "use client";
-import { useState, Fragment, useEffect } from "react";
+import { useState, Fragment } from "react";
 import {
     Checkbox,
     IconButton,
@@ -13,10 +13,11 @@ import {
     DialogActions,
     DialogContent,
     Button,
+    Divider,
+    Typography,
 } from "@mui/material";
 import DeleteIcon from "@mui/icons-material/Delete";
 import { Tag, Organization } from "@/app/[lng]/general/interfaces";
-import { getAllTags, getAllOrganizations } from "@/app/[lng]/firebase/commands";
 import useTrans from "@/app/[lng]/hooks/useTrans";
 import { deleteTags, deleteOrganization } from "@/app/[lng]/firebase/commands";
 import { PopUpListProps } from "@/app/[lng]/general/interfaces";
@@ -29,20 +30,18 @@ export default function PopUpList({
     dataType,
     title,
     isDeleteHandler,
-    isDelete,
 }: PopUpListProps) {
+    const { t, direction } = useTrans();
     const [checked, setChecked] = useState<number[]>([]);
-
-    const { t, i18n, direction } = useTrans();
 
     const data: Tag[] | Organization[] =
         dataType === "tags"
             ? (useAppSelector(
-                  (state: RootState) => state.tagsAndOrg.tags
-              ) as Tag[])
+                (state: RootState) => state.tagsAndOrg.tags
+            ) as Tag[])
             : (useAppSelector(
-                  (state: RootState) => state.tagsAndOrg.organizations
-              ) as Organization[]);
+                (state: RootState) => state.tagsAndOrg.organizations
+            ) as Organization[]);
 
     const handleToggle = (value: number) => () => {
         const currentIndex = checked.indexOf(value);
@@ -68,28 +67,28 @@ export default function PopUpList({
     };
 
     return (
-        <Fragment>
-            <Dialog onClose={handleClose} open={open} dir={direction}>
-                <DialogTitle>{title}</DialogTitle>
-                <DialogContent sx={{ width: "100%" }}>
-                    <List
-                        dir={direction}
-                        sx={{
-                            width: "100%",
-                            maxWidth: 360,
-                            bgcolor: "background.paper",
-                        }}
-                    >
-                        {data.length === 0 && (
-                            <ListItem disablePadding>
-                                <ListItemText primary={t("admin.empty_list")} />
-                            </ListItem>
-                        )}
-                        {data.map((value, index) => {
-                            const labelId = `data-label-${value}`;
+        <Dialog onClose={handleClose} open={open} dir={direction}>
+            <DialogTitle>{title}</DialogTitle>
+            <DialogContent sx={{ width: "100%" }}>
+                <List
+                    dir={direction}
+                    sx={{
+                        width: "100%",
+                        maxWidth: 360,
+                        bgcolor: "background.paper",
+                    }}
+                >
+                    {data.length === 0 && (
+                        <ListItem disablePadding>
+                            <ListItemText primary={t("admin.empty_list")} />
+                        </ListItem>
+                    )}
+                    {data.map((value, index) => {
+                        const labelId = `data-label-${value}`;
 
-                            return (
-                                <ListItem key={index} disablePadding>
+                        return (
+                            <Fragment>
+                                <ListItem key={index} disablePadding sx={{ border: "black" }}>
                                     <ListItemButton
                                         role={undefined}
                                         onClick={handleToggle(index)}
@@ -111,32 +110,44 @@ export default function PopUpList({
                                         </ListItemIcon>
                                         <ListItemText
                                             id={labelId}
-                                            primary={`id: ${value.id} 
-                                        display ${value.display}
-                                        name ${value.used}`
-                                                .split("\n")
-                                                .map((str, index) => (
-                                                    <Fragment key={index}>
-                                                        {str}
-                                                        <br />
-                                                    </Fragment>
-                                                ))}
+                                            primary={
+                                                <Fragment>
+                                                    <Typography sx={{ fontWeight: 'bold' }}>
+                                                        ID: <Typography component={"span"}>
+                                                            {value.id}
+                                                        </Typography>
+                                                    </Typography>
+                                                    <Typography sx={{ fontWeight: 'bold' }}>
+                                                        Display: <Typography component={"span"}>
+                                                            {value.display}
+                                                        </Typography>
+                                                    </Typography>
+                                                    <Typography sx={{ fontWeight: 'bold' }}>
+                                                        Used: <Typography component={"span"}>
+                                                            {value.used ? "True" : "False"}
+                                                        </Typography>
+                                                    </Typography>
+                                                </Fragment>
+                                            }
                                         />
                                     </ListItemButton>
                                 </ListItem>
-                            );
-                        })}
-                    </List>
-                    <IconButton onClick={handleDelete} aria-label="delete">
-                        <DeleteIcon />
-                    </IconButton>
-                </DialogContent>
-                <DialogActions>
-                    <Button autoFocus onClick={handleClose}>
-                        {t("common.close")}
-                    </Button>
-                </DialogActions>
-            </Dialog>
-        </Fragment>
+                                <Divider component="li" />
+                            </Fragment>
+
+
+                        );
+                    })}
+                </List>
+                <IconButton onClick={handleDelete} aria-label="delete">
+                    <DeleteIcon />
+                </IconButton>
+            </DialogContent>
+            <DialogActions>
+                <Button autoFocus onClick={handleClose}>
+                    {t("common.close")}
+                </Button>
+            </DialogActions>
+        </Dialog>
     );
 }

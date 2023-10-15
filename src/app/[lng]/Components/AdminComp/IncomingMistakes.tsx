@@ -1,7 +1,7 @@
 "use client";
 import { useState, useEffect, Fragment } from "react";
 import { FoundMistakeDB } from "@/app/[lng]/general/interfaces";
-import { Typography } from "@mui/material";
+import { Box, Typography } from "@mui/material";
 import { getMistakes } from "@/app/[lng]/firebase/commands";
 import FoundMistakeAccordion from "@/app/[lng]/Components/FoundMistake/FoundMistakeAccordion";
 import useTrans from "@/app/[lng]/hooks/useTrans";
@@ -34,7 +34,7 @@ export default function IncomingMistakes() {
             </Typography>
             {mistakes && mistakes.length > 0 ? (
                 mistakes.map((mistake, index) => (
-                    <Fragment key={index}>
+                    <Box key={index} sx={{marginBottom: "10px"}}>
                         <FoundMistakeAccordion
                             id={mistake.id}
                             name={mistake.name}
@@ -43,7 +43,7 @@ export default function IncomingMistakes() {
                             deleteHandler={() => setIsDelete(!isDelete)}
                         />
                         <br />
-                    </Fragment>
+                    </Box>
                 ))
             ) : (
                 <Typography

@@ -39,7 +39,9 @@
         "email": "אימייל",
         "password": "סיסמה",
         "reported_mistake": "דיווח על טעות",
-        "name": "שם"
+        "name": "שם",
+        "yes": "כן",
+        "no": "לא"
     },
     "errors": {
         "error_occured": "אירעה שגיאה",

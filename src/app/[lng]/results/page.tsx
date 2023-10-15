@@ -14,11 +14,7 @@ export default function ResultsPrePage(): ReactElement {
     const { t } = useTrans();
 
     return (
-        <Box
-            sx={{
-                marginTop: 4,
-            }}
-        >
+        <Box sx={{marginTop: 4}}>
             <Typography
                 color={"black"}
                 align="center"
