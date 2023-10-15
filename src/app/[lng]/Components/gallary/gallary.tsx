@@ -24,7 +24,6 @@ export default function Gallary({ filters }: GallaryProps) {
             filter.languages ?? [],
             Operator.AND
         );
-
         dispatch(pagesActions.UploadContent({ content: results }));
         router.push(`${i18n.language}/results`);
     }

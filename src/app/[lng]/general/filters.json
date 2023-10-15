@@ -6,16 +6,27 @@
             "id": "id1",
             "img": "https://images.unsplash.com/photo-1532106753298-e7b431b26dae?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=3742&q=80",
             "languageId": "he",
-            "organizations": [
-                {
-                    "display": "org1",
-                    "id": "org1"
-                }
-            ],
+            "organizations": [],
             "tags": [
                 {
-                    "display": "tag1",
-                    "id": "tag1"
+                    "display": "התמודדות עם אזעקות",
+                    "id": "alarms"
+                },
+                {
+                    "display": "טיפים לעזרה ראשונה נפשית",
+                    "id": "first_aid_mental_health"
+                },
+                {
+                    "display": "התמודדות עם מצב חירום",
+                    "id": "handle_emergency"
+                },
+                {
+                    "display": "התמודדות ראשונית עם טראומה",
+                    "id": "first_traumna"
+                },
+                {
+                    "display": "התמודדות עם אזעקות",
+                    "id": "Dealing with alarms"
                 }
             ]
         },
@@ -25,16 +36,15 @@
             "id": "id2",
             "img": "https://images.unsplash.com/photo-1604881988758-f76ad2f7aac1?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=3871&q=80",
             "languageId": "he",
-            "organizations": [
-                {
-                    "display": "org1",
-                    "id": "org1"
-                }
-            ],
+            "organizations": [],
             "tags": [
                 {
-                    "display": "tag1",
-                    "id": "tag1"
+                    "display": "קווים חמים וצ'אטים לסיוע נפשי",
+                    "id": "hot_line_and_bots"
+                },
+                {
+                    "display": "סיוע מאנשי מקצוע בבריאות הנפש",
+                    "id": "professional_mental_aid"
                 }
             ]
         },
@@ -44,16 +54,23 @@
             "id": "id3",
             "img": "https://images.unsplash.com/photo-1616531770192-6eaea74c2456?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=3870&q=80",
             "languageId": "he",
-            "organizations": [
-                {
-                    "display": "org1",
-                    "id": "org1"
-                }
-            ],
+            "organizations": [],
             "tags": [
                 {
-                    "display": "tag1",
-                    "id": "tag1"
+                    "display": "תעסוקה לילדים",
+                    "id": "kids_active"
+                }, 
+                {
+                    "display": "העשרה אונליין (קורסים, הצגות וכו')",
+                    "id": "online_extra"
+                },
+                {
+                    "display": "פודקאסטים",
+                    "id": "podcasts"
+                },
+                {
+                    "display": "התנדבויות",
+                    "id": "volunteer"
                 }
             ]
         }
