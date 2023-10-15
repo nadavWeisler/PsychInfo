@@ -102,6 +102,7 @@
         "open_tags": "open tags",
         "open_organizations": "open organizations",
         "empty_list": "No items to show",
-        "edit_success": "The item was edited successfully"
+        "edit_success": "The item was edited successfully",
+        "edit_title": "Edit item"
     }
 }

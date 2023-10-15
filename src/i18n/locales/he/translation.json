@@ -104,6 +104,7 @@
         "open_tags": "פתח תגיות",
         "open_organizations": "פתח ארגונים",
         "empty_list": "אין פריטים להצגה",
-        "edit_success": "הפריט עודכן בהצלחה"
+        "edit_success": "הפריט עודכן בהצלחה",
+        "edit_title": "עריכת פריט"
     }
 }
