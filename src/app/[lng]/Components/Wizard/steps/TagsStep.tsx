@@ -1,5 +1,5 @@
-import { useState, useEffect, Fragment, ReactElement } from "react";
-import { Chip, Grid, Typography } from "@mui/material";
+import { useState, useEffect, ReactElement } from "react";
+import { Box, Button, Chip, Grid, Typography } from "@mui/material";
 import { Tag } from "@/app/[lng]/general/interfaces";
 import { GetAllDisplays, ListContainsById } from "@/app/[lng]/general/utils";
 import useTrans from "@/app/[lng]/hooks/useTrans";
@@ -34,15 +34,44 @@ export default function TagsStep({
         }
     }
 
+    function selectAll(): void {
+        setSelectedTags(tags);
+        setDisplayTags(GetAllDisplays(tags));
+    }
+
+    function clearSelection(): void {
+        setSelectedTags([]);
+        setDisplayTags([]);
+    }
+
     return (
-        <Fragment>
-            <Typography
-                dir={direction}
-                sx={{ marginBottom: "20px", marginTop: "20px" }}
-                variant="h4"
-            >
-                {t("wizard.choose_tags")}
-            </Typography>
+        <Box sx={{ display: "flex", flexDirection: "column" }}>
+            <Box
+                sx={{ display: "flex", flexDirection: "row" }}>
+                <Typography
+                    dir={direction}
+                    sx={{ marginBottom: "20px", marginTop: "20px" }}
+                    variant="h4"
+                >
+                    {t("wizard.choose_tags")}
+                </Typography>
+                <Button
+                    dir={direction}
+                    sx={{ margin: "20px" }}
+                    variant="contained"
+                    onClick={selectAll}
+                >
+                    {t("wizard.choose_all")}
+                </Button>
+                <Button
+                    dir={direction}
+                    sx={{ margin: "20px" }}
+                    variant="contained"
+                    onClick={clearSelection}
+                >
+                    {t("wizard.clear")}
+                </Button>
+            </Box>
             <Grid dir={direction} container spacing={2}>
                 {tags.map((tag) => (
                     <Grid item key={tag.id}>
@@ -60,6 +89,6 @@ export default function TagsStep({
                     </Grid>
                 ))}
             </Grid>
-        </Fragment>
+        </Box>
     );
 }

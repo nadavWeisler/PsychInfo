@@ -1,5 +1,5 @@
-import { useState, useEffect, Fragment, ReactElement } from "react";
-import { Chip, Grid, Typography } from "@mui/material";
+import { useState, useEffect, ReactElement } from "react";
+import { Box, Button, Chip, Grid, Typography } from "@mui/material";
 import { DisplayLanguages } from "@/app/[lng]/general/interfaces";
 import useTrans from "@/app/[lng]/hooks/useTrans";
 
@@ -10,13 +10,15 @@ interface LangStepProps {
 export default function LangStep({ updateSelectedLangs }: LangStepProps): ReactElement {
     const [selectedLangs, setSelectedLangs] = useState<string[]>([]);
     const [displayLangs, setDisplayLangs] = useState<string[]>([]);
-
     const { t, direction } = useTrans();
 
-    const handleChoice = (lang: string) => {
+    useEffect(() => {
+        updateSelectedLangs(selectedLangs);
+    }, [selectedLangs]);
+
+    function handleChoice(lang: string): void {
         if (selectedLangs.includes(lang)) {
-            const index = selectedLangs.indexOf(lang);
-            selectedLangs.splice(index, 1);
+            selectedLangs.splice(selectedLangs.indexOf(lang), 1);
             setSelectedLangs([...selectedLangs]);
             setDisplayLangs(selectedLangs.map((currentLang) => DisplayLanguages[currentLang as keyof typeof DisplayLanguages]));
         } else {
@@ -25,20 +27,45 @@ export default function LangStep({ updateSelectedLangs }: LangStepProps): ReactE
         }
     };
 
-    useEffect(() => {
-        updateSelectedLangs(selectedLangs);
-    }, [selectedLangs]);
+    function selectAll(): void {
+        setSelectedLangs(Object.keys(DisplayLanguages));
+        setDisplayLangs(Object.values(DisplayLanguages));
+    };
+
+    function clearSelection(): void {
+        setSelectedLangs([]);
+        setDisplayLangs([]);
+    };
 
     return (
-        <Fragment>
-            <Typography
-            dir={direction}
-                sx={{ marginBottom: "20px", marginTop: "20px" }}
-                variant="h4"
-            >
-                {t("wizard.choose_langueges")}
-            </Typography>
-            <Grid  dir={direction} container spacing={2}>
+        <Box sx={{ display: "flex", flexDirection: "column" }}>
+            <Box
+                sx={{ display: "flex", flexDirection: "row" }}>
+                <Typography
+                    dir={direction}
+                    sx={{ marginBottom: "20px", marginTop: "20px" }}
+                    variant="h4"
+                >
+                    {t("wizard.choose_languages")}
+                </Typography>
+                <Button
+                    dir={direction}
+                    sx={{ margin: "20px" }}
+                    variant="contained"
+                    onClick={selectAll}
+                >
+                    {t("wizard.choose_all")}
+                </Button>
+                <Button
+                    dir={direction}
+                    sx={{ margin: "20px" }}
+                    variant="contained"
+                    onClick={clearSelection}
+                >
+                    {t("wizard.clear")}
+                </Button>
+            </Box>
+            <Grid dir={direction} container spacing={2}>
                 {Object.keys(DisplayLanguages).map((lang) => (
                     <Grid item key={lang}>
                         <Chip
@@ -53,6 +80,6 @@ export default function LangStep({ updateSelectedLangs }: LangStepProps): ReactE
                     </Grid>
                 ))}
             </Grid>
-        </Fragment>
-    );  
+        </Box>
+    );
 }

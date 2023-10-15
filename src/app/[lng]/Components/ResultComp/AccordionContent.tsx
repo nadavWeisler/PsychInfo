@@ -22,7 +22,7 @@ export default function AccordionContent({
                 overflow: "auto",
             }}
         >
-            {!isEmptyOrSpaces(link) && ifValidLink(link) ? (
+            {!isEmptyOrSpaces(link) && ifValidLink(link) && (
                 <Box
                     dir={direction}
                     sx={{
@@ -50,29 +50,6 @@ export default function AccordionContent({
                     >
                         {link}
                     </Link>
-                </Box>
-            ) : (
-                <Box
-                    dir={direction}
-                    sx={{
-                        display: "flex",
-                        flexDirection: "row",
-                    }}
-                >
-                    <Typography
-                        dir={direction}
-                        sx={{ margin: "10px" }}
-                        variant="h6"
-                    >
-                        {t("common.link")}:
-                    </Typography>
-                    <Typography
-                        dir={direction}
-                        sx={{ margin: "10px", color: "red" }}
-                        variant="h6"
-                    >
-                        {t("common.invalid_link")} - {link}
-                    </Typography>
                 </Box>
             )}
             <Box

@@ -18,7 +18,7 @@ const inter = Inter({ subsets: ["latin"] });
 
 export const metadata: Metadata = {
     title: "מידע פסיכולוגי",
-    description: "Pshych Info To help you",
+    description: "ריכוז תוכן להתמודדות נפשית בשעת חירום",
 };
 
 export default function RootLayout({
