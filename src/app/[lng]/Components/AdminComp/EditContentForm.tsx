@@ -1,39 +1,33 @@
-"use client";
-import { useState, useEffect, FormEvent } from "react";
+import React, { useState, useEffect, FormEvent } from "react";
 import {
-    Button,
-    CssBaseline,
-    TextField,
     Box,
-    Container,
-    Typography,
-    Chip,
+    Button,
     FormControl,
     InputLabel,
     MenuItem,
-    OutlinedInput,
     Select,
-    SelectChangeEvent,
+    TextField,
+    Typography,
     Theme,
+    Chip,
+    OutlinedInput,
+    SelectChangeEvent,
 } from "@mui/material";
-import { appTheme } from "@/app/[lng]/general/styles";
-import { AddString } from "../Components/addString";
-import {
-    ContentDB,
-    DisplayLanguages,
-    Organization,
-    StringObject,
-    Tag,
-} from "@/app/[lng]/general/interfaces";
-import { EMPTY_ORGANIZATION, EMPTY_TAG } from "@/app/[lng]/general/utils";
-import {
-    createOrganization,
-    createTag,
-    getAllOrganizations,
-    getAllTags,
-    postPendingContent,
-} from "@/app/[lng]/firebase/commands";
 import useTrans from "@/app/[lng]/hooks/useTrans";
+import {
+    getAllTags,
+    getAllOrganizations,
+    updateContent,
+} from "@/app/[lng]/firebase/commands";
+import {
+    EditContentFormProps,
+    Content,
+    Organization,
+    Tag,
+    DisplayLanguages,
+} from "@/app/[lng]/general/interfaces";
+import { appTheme } from "@/app/[lng]/general/styles";
+import { EMPTY_ORGANIZATION, EMPTY_TAG } from "@/app/[lng]/general/utils";
 
 function getSelectStyles(
     obj: string,
@@ -50,6 +44,7 @@ function getSelectStyles(
 
 const ITEM_HEIGHT = 48;
 const ITEM_PADDING_TOP = 8;
+
 const MenuProps = {
     PaperProps: {
         style: {
@@ -59,21 +54,23 @@ const MenuProps = {
     },
 };
 
-export default function UploadContent() {
+export default function EditContentForm({ prevContent }: EditContentFormProps) {
     const [tags, setTags] = useState<Tag[]>([]);
     const [organizations, setOrganizations] = useState<Organization[]>([]);
 
-    const [selectedTags, setSelectedTags] = useState<string[]>([]);
+    const prevTags = prevContent.tags.map((tag) => tag.display);
+
+    const [selectedTags, setSelectedTags] = useState<string[]>(prevTags);
     const [selectedOrganization, setSelectedOrganization] =
-        useState<Organization>(EMPTY_ORGANIZATION);
-    const [selectedLanguage, setSelectedLanguage] = useState<string>("");
+        useState<Organization>(prevContent.organization);
+    const [selectedLanguage, setSelectedLanguage] = useState<string>(
+        prevContent.languageId
+    );
 
     const [otherOrgValue, setOtherOrgValue] =
         useState<Organization>(EMPTY_ORGANIZATION);
     const [otherTagValue, setOtherTagValue] = useState<Tag>(EMPTY_TAG);
 
-    const [openAddTagDialog, setOpenAddTagDialog] = useState<boolean>(false);
-    const [openAddOrgDialog, setOpenAddOrgDialog] = useState<boolean>(false);
     const [isSubmit, setIsSubmit] = useState<boolean>(false);
 
     const { t, i18n } = useTrans();
@@ -97,7 +94,7 @@ export default function UploadContent() {
     ): Promise<void> {
         event.preventDefault();
         const data = new FormData(event.currentTarget);
-        const newContent: ContentDB = {
+        const newContent: Content = {
             title: data.get("title")?.toString() || "",
             description: data.get("description")?.toString() || "",
             link: data.get("link")?.toString() || "",
@@ -105,8 +102,9 @@ export default function UploadContent() {
             organization: selectedOrganization,
             languageId: selectedLanguage,
             uploader: data.get("uploader")?.toString() || "",
+            id: prevContent.id,
         };
-        await postPendingContent(newContent);
+        await updateContent(newContent);
         setIsSubmit(true);
     }
 
@@ -132,34 +130,6 @@ export default function UploadContent() {
         }
     }
 
-    async function handleCreateTag(): Promise<void> {
-        if (otherTagValue) {
-            setSelectedTags([...selectedTags, otherTagValue.display]);
-            await createTag(otherTagValue).then(() => {
-                setOtherTagValue(EMPTY_TAG);
-                setOpenAddTagDialog(false);
-            });
-        }
-    }
-
-    async function handleCreateOrg(): Promise<void> {
-        if (otherOrgValue) {
-            setSelectedOrganization(otherOrgValue);
-            await createOrganization(otherOrgValue).then(() => {
-                setOtherOrgValue(EMPTY_ORGANIZATION);
-                setOpenAddOrgDialog(false);
-            });
-        }
-    }
-
-    function setOtherOrganizationInForm(org: StringObject): void {
-        setOtherOrgValue({ ...org, used: false });
-    }
-
-    function setOtherTagInForm(tag: StringObject): void {
-        setOtherTagValue({ ...tag, used: false });
-    }
-
     return (
         <Box
             sx={{
@@ -180,6 +150,7 @@ export default function UploadContent() {
                     label={t("common.title")}
                     name="title"
                     autoFocus
+                    defaultValue={prevContent.title}
                 />
                 <TextField
                     margin="normal"
@@ -189,10 +160,12 @@ export default function UploadContent() {
                     label={t("common.description")}
                     id="description"
                     multiline={true}
+                    defaultValue={prevContent.description}
                 />
                 <FormControl margin="normal" fullWidth required>
                     <InputLabel>{t("common.organization")}</InputLabel>
                     <Select
+                        defaultValue={prevContent.organization}
                         value={selectedOrganization}
                         onChange={hangleChangeOrganization}
                         renderValue={(selected) =>
@@ -216,30 +189,18 @@ export default function UploadContent() {
                         ))}
                     </Select>
                 </FormControl>
-                <Button
-                    variant="outlined"
-                    onClick={() => setOpenAddOrgDialog(true)}
-                >
-                    {t("upload.create_new_organization")}
-                </Button>
-                <AddString
-                    handleCloseDialog={() => setOpenAddOrgDialog(false)}
-                    handleCreate={handleCreateOrg}
-                    inputValue={otherOrgValue}
-                    setInputValue={setOtherOrganizationInForm}
-                    openDialog={openAddOrgDialog}
-                    title={t("upload.create_new_organization")}
-                />
                 <TextField
                     margin="normal"
                     fullWidth
                     name="link"
                     label={t("common.link")}
                     id="link"
+                    defaultValue={prevContent.link}
                 />
                 <FormControl margin="normal" fullWidth required>
                     <InputLabel>{t("common.language")}</InputLabel>
                     <Select
+                        defaultValue={prevContent.languageId}
                         value={selectedLanguage}
                         onChange={(e) =>
                             setSelectedLanguage(e.target.value as string)
@@ -315,20 +276,7 @@ export default function UploadContent() {
                         ))}
                     </Select>
                 </FormControl>
-                <Button
-                    variant="outlined"
-                    onClick={() => setOpenAddTagDialog(true)}
-                >
-                    {t("upload.create_new_tag")}
-                </Button>
-                <AddString
-                    handleCloseDialog={() => setOpenAddTagDialog(false)}
-                    handleCreate={handleCreateTag}
-                    inputValue={otherTagValue}
-                    setInputValue={setOtherTagInForm}
-                    openDialog={openAddTagDialog}
-                    title={t("upload.create_new_tag")}
-                />
+
                 <TextField
                     margin="normal"
                     fullWidth
@@ -336,6 +284,7 @@ export default function UploadContent() {
                     required
                     label={t("common.uploader")}
                     id="uploader"
+                    defaultValue={prevContent.uploader}
                 />
                 <Button
                     type="submit"
@@ -347,9 +296,7 @@ export default function UploadContent() {
                 </Button>
             </Box>
             {isSubmit && (
-                <Typography variant="h5">
-                    {t("upload.submit_success")}
-                </Typography>
+                <Typography variant="h5">{t("admin.edit_success")}</Typography>
             )}
         </Box>
     );

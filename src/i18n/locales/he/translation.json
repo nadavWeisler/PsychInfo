@@ -103,6 +103,7 @@
         "login": "התחבר",
         "open_tags": "פתח תגיות",
         "open_organizations": "פתח ארגונים",
-        "empty_list": "אין פריטים להצגה"
+        "empty_list": "אין פריטים להצגה",
+        "edit_success": "הפריט עודכן בהצלחה"
     }
 }

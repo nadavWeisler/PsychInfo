@@ -468,7 +468,9 @@ export async function deleteTags(id: string) {
 export async function deleteOrganization(id: string) {
     try {
         const snapshot = await get(ref(db, dbPaths.allOrganizations));
-        const organizations: [string, Organization][] = Object.entries(snapshot.val());
+        const organizations: [string, Organization][] = Object.entries(
+            snapshot.val()
+        );
 
         let organizationKey = "";
         for (const [key, value] of organizations) {
@@ -485,6 +487,36 @@ export async function deleteOrganization(id: string) {
             await remove(contentRef);
         } else {
             console.log(`No organizations found with id ${id}`);
+        }
+    } catch (error) {
+        console.error("Error:", error);
+    }
+}
+
+export async function updateContent(content: Content): Promise<void> {
+    try {
+        const snapshot = await get(ref(db, `${dbPaths.validateContent}`));
+        if (snapshot.exists()) {
+            const allContent: [string, Content][] = Object.entries(
+                snapshot.val()
+            );
+            let contentKey = "";
+            for (const [key, value] of allContent) {
+                if (value.id === content.id) {
+                    contentKey = key;
+                    break;
+                }
+            }
+            if (contentKey !== "") {
+                await update(
+                    ref(db, `${dbPaths.validateContent}/${contentKey}`),
+                    content
+                );
+            } else {
+                console.log(`No content found with id ${content.id}`);
+            }
+        } else {
+            console.log(`No content found`);
         }
     } catch (error) {
         console.error("Error:", error);
