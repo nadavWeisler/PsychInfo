@@ -19,6 +19,7 @@ import { auth } from "@/app/[lng]/firebase/app";
 import { AuthContext } from "@/app/[lng]/context/AuthContext";
 import { deleteContent } from "@/app/[lng]/firebase/commands";
 import useTrans from "@/app/[lng]/hooks/useTrans";
+import EditContentDialog from "@/app/[lng]/Components/AdminComp/EditContentDialog";
 
 export default function ResultAccordion({
     id,
@@ -30,10 +31,11 @@ export default function ResultAccordion({
     languageId,
     uploader,
 }: Content) {
-    const [open, setOpen] = useState<boolean>(false);
+    const [openShare, setOpenShare] = useState<boolean>(false);
     const [isAdmin, setIsAdmin] = useState(false);
+    const [openEdit, setOpenEdit] = useState(false);
 
-    const { t, direction } = useTrans();
+    const { t } = useTrans();
     const { user } = useContext(AuthContext);
 
     useEffect(() => {
@@ -48,6 +50,17 @@ export default function ResultAccordion({
 
     const deleteSelectedContent = () => {
         deleteContent(id);
+    };
+
+    const content: Content = {
+        title,
+        link,
+        tags,
+        organization,
+        description,
+        languageId,
+        uploader,
+        id,
     };
 
     return (
@@ -92,28 +105,48 @@ export default function ResultAccordion({
                         sx={{ margin: "auto" }}
                         color={"success"}
                         variant={"contained"}
-                        onClick={() => setOpen(true)}
+                        onClick={() => setOpenShare(true)}
                     >
                         {t("common.share")}
                     </Button>
-                    {isAdmin && (
-                        <Box sx={{ display: "flex", flexDirection: "row" }}>
-                            <Button
-                                sx={{ margin: "auto" }}
-                                color={"error"}
-                                variant={"outlined"}
-                                onClick={deleteSelectedContent}
-                            >
-                                {t("common.delete")}
-                            </Button>
-                        </Box>
-                    )}
+                    <Box sx={{ display: "flex", direction: "row" }}>
+                        {isAdmin && (
+                            <Box sx={{ display: "flex", flexDirection: "row" }}>
+                                <Button
+                                    sx={{ margin: "auto" }}
+                                    color={"primary"}
+                                    variant={"contained"}
+                                    onClick={() => setOpenEdit(true)}
+                                >
+                                    {t("common.edit")}
+                                </Button>
+                            </Box>
+                        )}
+
+                        {isAdmin && (
+                            <Box sx={{ display: "flex", flexDirection: "row" }}>
+                                <Button
+                                    sx={{ margin: "auto" }}
+                                    color={"error"}
+                                    variant={"outlined"}
+                                    onClick={deleteSelectedContent}
+                                >
+                                    {t("common.delete")}
+                                </Button>
+                            </Box>
+                        )}
+                    </Box>
                 </AccordionActions>
             </Accordion>
             <ShareDialog
-                open={open}
-                onClose={() => setOpen(false)}
+                open={openShare}
+                onClose={() => setOpenShare(false)}
                 urlToShare={link}
+            />
+            <EditContentDialog
+                open={openEdit}
+                onClose={() => setOpenEdit(false)}
+                prevContent={content}
             />
         </Box>
     );

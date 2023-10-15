@@ -101,6 +101,7 @@
         "login": "Login",
         "open_tags": "open tags",
         "open_organizations": "open organizations",
-        "empty_list": "No items to show"
+        "empty_list": "No items to show",
+        "edit_success": "The item was edited successfully"
     }
 }

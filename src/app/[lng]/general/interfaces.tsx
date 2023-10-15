@@ -1,6 +1,7 @@
 import { ReactNode } from "react";
 import { User } from "firebase/auth";
 import { LocaleTypes } from "@/i18n/settings";
+import { SelectChangeEvent } from "@mui/material";
 
 export enum Operator {
     AND,
@@ -144,3 +145,11 @@ export interface PopUpListProps extends ControlPanelProps {
     dataType: "tags" | "organizations";
     title: string;
 }
+
+export interface EditContentFormProps {
+    prevContent: Content;
+}
+
+export interface EditContentDialogProps
+    extends WizardDialogProps,
+        EditContentFormProps {}
