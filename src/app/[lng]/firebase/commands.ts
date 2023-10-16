@@ -7,7 +7,7 @@ import {
     update,
     DataSnapshot,
 } from "firebase/database";
-import { db, dbPaths } from "./app";
+import { db, dbPath } from "./app";
 import {
     Content,
     Operator,
@@ -23,7 +23,7 @@ export async function getAllTags(
     langId: string
 ): Promise<Tag[]> {
     try {
-        const snapshot: DataSnapshot = await get(ref(db, dbPaths.allTags));
+        const snapshot: DataSnapshot = await get(ref(db, dbPath.tags));
         if (snapshot.exists()) {
             let tags: Tag[] = Object.values(snapshot.val());
             tags = tags.filter((item) => item.languageId === langId);
@@ -48,7 +48,7 @@ export async function getAllOrganizations(
 ): Promise<Organization[]> {
     try {
         const snapshot: DataSnapshot = await get(
-            ref(db, dbPaths.allOrganizations)
+            ref(db, dbPath.organizations)
         );
         if (snapshot.exists()) {
             let org: Organization[] = Object.values(snapshot.val());
@@ -76,7 +76,7 @@ export async function getContent(
 ): Promise<Content[]> {
     try {
         const snapshot: DataSnapshot = await get(
-            ref(db, dbPaths.validateContent)
+            ref(db, dbPath.validateContent)
         );
         if (snapshot.exists()) {
             const content: Content[] = Object.values(snapshot.val());
@@ -125,7 +125,7 @@ export async function getContent(
 
 export async function createTag(tag: Tag): Promise<void> {
     try {
-        const newTagRef = await push(ref(db, dbPaths.allTags));
+        const newTagRef = await push(ref(db, dbPath.tags));
         return await set(newTagRef, tag);
     } catch (error) {
         console.error("Error:", error);
@@ -138,7 +138,7 @@ export async function createOrganization(
 ): Promise<void> {
     try {
         const newOrganizationRef = await push(
-            ref(db, dbPaths.allOrganizations)
+            ref(db, dbPath.organizations)
         );
         return await set(newOrganizationRef, organization);
     } catch (error) {
@@ -157,8 +157,8 @@ export async function updateUsed(newContent: Content): Promise<void> {
         used: true,
     };
 
-    const tags = await get(ref(db, dbPaths.allTags));
-    const organizations = await get(ref(db, dbPaths.allOrganizations));
+    const tags = await get(ref(db, dbPath.tags));
+    const organizations = await get(ref(db, dbPath.organizations));
 
     const tagPathArray: string[] = [];
     newContent.tags.forEach((tag) => {
@@ -174,7 +174,7 @@ export async function updateUsed(newContent: Content): Promise<void> {
 
     for (let i = 0; i < tagPathArray.length; i++) {
         const tagPath = tagPathArray[i];
-        const tagRef = ref(db, `${dbPaths.allTags}/${tagPath}`);
+        const tagRef = ref(db, `${dbPath.tags}/${tagPath}`);
         try {
             await update(tagRef, newTags[i]);
         } catch (error) {
@@ -185,7 +185,7 @@ export async function updateUsed(newContent: Content): Promise<void> {
 
     try {
         await update(
-            ref(db, `${dbPaths.allOrganizations}/${organizationPath}`),
+            ref(db, `${dbPath.organizations}/${organizationPath}`),
             newOrganization
         );
     } catch (error) {
@@ -196,7 +196,7 @@ export async function updateUsed(newContent: Content): Promise<void> {
 
 export async function createContent(content: Content): Promise<void> {
     try {
-        const snapshot = await get(ref(db, dbPaths.validateContent));
+        const snapshot = await get(ref(db, dbPath.validateContent));
         if (snapshot.exists()) {
             const allContent: Content[] = Object.values(snapshot.val());
             if (allContent.length === 0) {
@@ -205,7 +205,7 @@ export async function createContent(content: Content): Promise<void> {
                     id: "1",
                 };
                 const newContentRef = await push(
-                    ref(db, dbPaths.validateContent)
+                    ref(db, dbPath.validateContent)
                 );
                 await updateUsed(content);
                 return await set(newContentRef, newContent);
@@ -217,7 +217,7 @@ export async function createContent(content: Content): Promise<void> {
                 };
 
                 const newContentRef = await push(
-                    ref(db, dbPaths.validateContent)
+                    ref(db, dbPath.validateContent)
                 );
                 await updateUsed(content);
                 return await set(newContentRef, newContent);
@@ -230,7 +230,7 @@ export async function createContent(content: Content): Promise<void> {
 }
 export async function deleteContent(index: string) {
     try {
-        const snapshot = await get(ref(db, dbPaths.validateContent));
+        const snapshot = await get(ref(db, dbPath.validateContent));
         const allContent: Content[] = snapshot.val();
         let contentKey = "";
         for (const key in allContent) {
@@ -242,7 +242,7 @@ export async function deleteContent(index: string) {
         if (contentKey !== "") {
             const contentRef = ref(
                 db,
-                `${dbPaths.validateContent}/${contentKey}`
+                `${dbPath.validateContent}/${contentKey}`
             );
             await remove(contentRef);
             updateUnusedTags();
@@ -256,12 +256,12 @@ export async function deleteContent(index: string) {
 
 export const updateUnusedTags = async (): Promise<void> => {
     try {
-        const snapshot = await get(ref(db, dbPaths.validateContent));
+        const snapshot = await get(ref(db, dbPath.validateContent));
         if (snapshot.exists()) {
             const allContent: Content[] = Object.values(snapshot.val());
-            const tagSnapshot = await get(ref(db, dbPaths.allTags));
+            const tagSnapshot = await get(ref(db, dbPath.tags));
             const organizationSnapshot = await get(
-                ref(db, dbPaths.allOrganizations)
+                ref(db, dbPath.organizations)
             );
             if (tagSnapshot.exists() && organizationSnapshot.exists()) {
                 const allTagsValues: Tag[] = Object.values(tagSnapshot.val());
@@ -286,7 +286,7 @@ export const updateUnusedTags = async (): Promise<void> => {
                     }
 
                     if (!isUsed) {
-                        const tagRef = ref(db, `${dbPaths.allTags}/${tagKey}`);
+                        const tagRef = ref(db, `${dbPath.tags}/${tagKey}`);
                         if (tagKey !== "") {
                             await update(tagRef, { ...tag, used: false });
                         }
@@ -313,7 +313,7 @@ export const updateUnusedTags = async (): Promise<void> => {
                     if (!isUsed) {
                         const organizationRef = ref(
                             db,
-                            `${dbPaths.allOrganizations}/${organizationKey}`
+                            `${dbPath.organizations}/${organizationKey}`
                         );
                         if (organizationKey !== "") {
                             await update(organizationRef, {
@@ -334,7 +334,7 @@ export const updateUnusedTags = async (): Promise<void> => {
 export const getPendingContent = async (): Promise<Content[]> => {
     try {
         const snapshot: DataSnapshot = await get(
-            ref(db, dbPaths.pendingContent)
+            ref(db, dbPath.pendingContent)
         );
         if (snapshot.exists()) {
             const preContent = Object.values(snapshot.val() || {}) as Array<
@@ -358,7 +358,7 @@ export const getPendingContent = async (): Promise<Content[]> => {
 export const postPendingContent = async (content: ContentDB): Promise<void> => {
     try {
         const newContentRef = await push(
-            ref(db, dbPaths.pendingContent + "/" + content.title)
+            ref(db, dbPath.pendingContent + "/" + content.title)
         );
         return await set(newContentRef, content);
     } catch (error) {
@@ -369,7 +369,7 @@ export const postPendingContent = async (content: ContentDB): Promise<void> => {
 
 export async function deletePendingContent(title: string): Promise<void> {
     try {
-        const contentRef = ref(db, `${dbPaths.pendingContent}/${title}`);
+        const contentRef = ref(db, `${dbPath.pendingContent}/${title}`);
         await remove(contentRef);
     } catch (error) {
         console.error("Error:", error);
@@ -378,7 +378,7 @@ export async function deletePendingContent(title: string): Promise<void> {
 
 export async function getMistakes(): Promise<FoundMistakeDB[]> {
     try {
-        const snapshot = await get(ref(db, dbPaths.foundMistakes));
+        const snapshot = await get(ref(db, dbPath.foundMistakes));
         if (snapshot.exists()) {
             return Object.values(snapshot.val());
         } else {
@@ -399,7 +399,7 @@ export async function postMistakes(content: FoundMistake) {
                 ...content,
                 id: 1,
             };
-            const newContentRef = await push(ref(db, dbPaths.foundMistakes));
+            const newContentRef = await push(ref(db, dbPath.foundMistakes));
             return await update(newContentRef, newContent);
         } else {
             const lastMistake = mistakes[mistakes.length - 1];
@@ -408,7 +408,7 @@ export async function postMistakes(content: FoundMistake) {
                 ...content,
                 id: newId,
             };
-            const newContentRef = await push(ref(db, dbPaths.foundMistakes));
+            const newContentRef = await push(ref(db, dbPath.foundMistakes));
             return await update(newContentRef, newContent);
         }
     } catch (error) {
@@ -419,7 +419,7 @@ export async function postMistakes(content: FoundMistake) {
 
 export async function deletePendingMistake(index: string): Promise<void> {
     try {
-        const snapshot = await get(ref(db, dbPaths.foundMistakes));
+        const snapshot = await get(ref(db, dbPath.foundMistakes));
         const mistakes: FoundMistakeDB[] = snapshot.val();
         let mistakeKey = "";
         for (const key in mistakes) {
@@ -431,7 +431,7 @@ export async function deletePendingMistake(index: string): Promise<void> {
         if (mistakeKey !== "") {
             const contentRef = ref(
                 db,
-                `${dbPaths.foundMistakes}/${mistakeKey}`
+                `${dbPath.foundMistakes}/${mistakeKey}`
             );
             await remove(contentRef);
         } else {
@@ -444,7 +444,7 @@ export async function deletePendingMistake(index: string): Promise<void> {
 
 export async function deleteTags(id: string) {
     try {
-        const snapshot = await get(ref(db, dbPaths.allTags));
+        const snapshot = await get(ref(db, dbPath.tags));
         const tags: [string, Tag][] = Object.entries(snapshot.val());
 
         let tagKey = "";
@@ -455,7 +455,7 @@ export async function deleteTags(id: string) {
             }
         }
         if (tagKey !== "") {
-            const contentRef = ref(db, `${dbPaths.allTags}/${tagKey}`);
+            const contentRef = ref(db, `${dbPath.tags}/${tagKey}`);
             await remove(contentRef);
         } else {
             console.log(`No tags found with id ${id}`);
@@ -467,7 +467,7 @@ export async function deleteTags(id: string) {
 
 export async function deleteOrganization(id: string) {
     try {
-        const snapshot = await get(ref(db, dbPaths.allOrganizations));
+        const snapshot = await get(ref(db, dbPath.organizations));
         const organizations: [string, Organization][] = Object.entries(
             snapshot.val()
         );
@@ -482,7 +482,7 @@ export async function deleteOrganization(id: string) {
         if (organizationKey !== "") {
             const contentRef = ref(
                 db,
-                `${dbPaths.allOrganizations}/${organizationKey}`
+                `${dbPath.organizations}/${organizationKey}`
             );
             await remove(contentRef);
         } else {
@@ -495,7 +495,7 @@ export async function deleteOrganization(id: string) {
 
 export async function updateContent(content: Content): Promise<void> {
     try {
-        const snapshot = await get(ref(db, `${dbPaths.validateContent}`));
+        const snapshot = await get(ref(db, `${dbPath.validateContent}`));
         if (snapshot.exists()) {
             const allContent: [string, Content][] = Object.entries(
                 snapshot.val()
@@ -509,7 +509,7 @@ export async function updateContent(content: Content): Promise<void> {
             }
             if (contentKey !== "") {
                 await update(
-                    ref(db, `${dbPaths.validateContent}/${contentKey}`),
+                    ref(db, `${dbPath.validateContent}/${contentKey}`),
                     content
                 );
             } else {

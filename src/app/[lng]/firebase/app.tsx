@@ -22,17 +22,14 @@ export const app = initializeApp(firebaseConfig);
 
 export const db = getDatabase(app, process.env.NEXT_PUBLIC_DATABASE_URL);
 
-export const dbPaths = {
-    currentEnv: process.env.NEXT_PUBLIC_ENV,
-    allTags: process.env.NEXT_PUBLIC_ENV + "/tags",
-    allOrganizations: process.env.NEXT_PUBLIC_ENV + "/organizations",
+export const dbPath = {
+    tags: process.env.NEXT_PUBLIC_ENV + "/tags",
+    organizations: process.env.NEXT_PUBLIC_ENV + "/organizations",
     content: process.env.NEXT_PUBLIC_ENV + "/content",
-    validateContent: process.env.NEXT_PUBLIC_ENV + "/validateContent",
-    languages: process.env.NEXT_PUBLIC_ENV + "/languages",
     pendingContent: process.env.NEXT_PUBLIC_ENV + "/pendingContent",
-    filters: process.env.NEXT_PUBLIC_ENV + "/filters",
     foundMistakes: process.env.NEXT_PUBLIC_ENV + "/foundMistakes",
-};
+    validateContent: process.env.NEXT_PUBLIC_ENV + "/validateContent",
+}
 
 export const auth = getAuth(app);
 setPersistence(auth, browserLocalPersistence);
