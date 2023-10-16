@@ -97,7 +97,8 @@ export interface AdminSignInFormProps {
     handleSubmit: (e: React.FormEvent<HTMLFormElement>) => void;
 }
 
-export interface RequestAccordionProps extends Content {
+export interface RequestAccordionProps {
+    data: Content;
     deleteHandler: () => void;
 }
 
@@ -153,3 +154,11 @@ export interface EditContentFormProps {
 export interface EditContentDialogProps
     extends WizardDialogProps,
         EditContentFormProps {}
+
+export interface AccordionContentProps {
+    data: Content;
+}
+
+export interface CustomAccordionProps {
+    data: Content[];
+}
