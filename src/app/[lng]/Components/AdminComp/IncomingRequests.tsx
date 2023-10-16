@@ -34,16 +34,9 @@ export default function IncomingRequests() {
             </Typography>
             {requests && requests.length > 0 ? (
                 requests.map((request, index) => (
-                    <Box key={index} sx={{marginBottom: "10px"}}>
+                    <Box key={index} sx={{ marginBottom: "10px" }}>
                         <RequestAccordion
-                            id={request.id}
-                            title={request.title}
-                            link={request.link}
-                            tags={request.tags}
-                            organization={request.organization}
-                            description={request.description}
-                            languageId={request.languageId}
-                            uploader={request.uploader}
+                            data={request}
                             deleteHandler={() => setIsDelete(!isDelete)}
                         />
                     </Box>

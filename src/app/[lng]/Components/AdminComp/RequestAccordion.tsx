@@ -17,36 +17,22 @@ import {
 import useTrans from "@/app/[lng]/hooks/useTrans";
 
 export default function RequestAccordion({
-    id,
-    title,
-    link,
-    tags,
-    organization,
-    description,
-    languageId,
-    uploader,
+    data,
     deleteHandler,
 }: RequestAccordionProps) {
     const { t } = useTrans();
 
     async function deleteRequest(): Promise<void> {
-        await deletePendingContent(title);
+        await deletePendingContent(data.title);
         deleteHandler();
     }
 
     async function aproveRequest(): Promise<void> {
         const content: Content = {
-            title,
-            link,
-            tags,
-            organization,
-            description,
-            languageId,
-            uploader,
-            id,
+            ...data
         };
         await createContent(content);
-        deletePendingContent(title);
+        deletePendingContent(data.title);
         deleteHandler();
     }
 
@@ -65,18 +51,11 @@ export default function RequestAccordion({
                     aria-controls="panel1a-content"
                     id="panel1a-header"
                 >
-                    <Typography>{title}</Typography>
+                    <Typography>{data.title}</Typography>
                 </AccordionSummary>
                 <AccordionDetails>
                     <AccordionContent
-                        id={id}
-                        title={title}
-                        link={link}
-                        tags={tags}
-                        organization={organization}
-                        description={description}
-                        languageId={languageId}
-                        uploader={uploader}
+                        data={data}
                     />
                     <Box sx={{ display: "flex", flexDirection: "row" }}>
                         <Button
