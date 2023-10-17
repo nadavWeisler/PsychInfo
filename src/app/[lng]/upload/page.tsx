@@ -2,10 +2,8 @@
 import { useState, useEffect, FormEvent } from "react";
 import {
     Button,
-    CssBaseline,
     TextField,
     Box,
-    Container,
     Typography,
     Chip,
     FormControl,
@@ -15,7 +13,10 @@ import {
     Select,
     SelectChangeEvent,
     Theme,
+    Snackbar,
+    IconButton,
 } from "@mui/material";
+import CloseIcon from "@mui/icons-material/Close";
 import { appTheme } from "@/app/[lng]/general/styles";
 import { AddString } from "../Components/addString";
 import {
@@ -76,7 +77,7 @@ export default function UploadContent() {
     const [openAddOrgDialog, setOpenAddOrgDialog] = useState<boolean>(false);
     const [isSubmit, setIsSubmit] = useState<boolean>(false);
 
-    const { t, i18n } = useTrans();
+    const { t, i18n, direction } = useTrans();
 
     useEffect(() => {
         getAllTags(false, i18n.language).then((allTags: Tag[]) => {
@@ -159,6 +160,30 @@ export default function UploadContent() {
     function setOtherTagInForm(tag: StringObject): void {
         setOtherTagValue({ ...tag, used: false });
     }
+
+    const handleClose = (
+        event?: React.SyntheticEvent | Event,
+        reason?: string
+    ) => {
+        if (reason === "clickaway") {
+            return;
+        }
+
+        setIsSubmit(false);
+    };
+
+    const action = (
+        <IconButton
+            dir={direction}
+            size="small"
+            aria-label="close"
+            color="inherit"
+            onClick={handleClose}
+            sx={{ width: "auto", position: "absolute", left: 0 }}
+        >
+            <CloseIcon fontSize="small" />
+        </IconButton>
+    );
 
     return (
         <Box
@@ -346,11 +371,14 @@ export default function UploadContent() {
                     {t("common.submit")}
                 </Button>
             </Box>
-            {isSubmit && (
-                <Typography variant="h5">
-                    {t("upload.submit_success")}
-                </Typography>
-            )}
+            <Snackbar
+                anchorOrigin={{ vertical: "top", horizontal: "center" }}
+                open={isSubmit}
+                onClose={handleClose}
+                message={t("upload.submit_success")}
+                autoHideDuration={6000}
+                action={action}
+            />
         </Box>
     );
 }
