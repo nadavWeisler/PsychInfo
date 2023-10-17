@@ -5,7 +5,6 @@ import styles from "@/app/[lng]/Components/ResultComp/Accordion.module.css";
 import { CustomAccordionProps } from "@/app/[lng]/general/interfaces";
 
 export default function CustomAccordion({ data }: CustomAccordionProps) {
-
     const [accordionItems, setAccordionItems] = useState(
         data.map((item) => ({
             title: item.title,
@@ -56,7 +55,10 @@ export default function CustomAccordion({ data }: CustomAccordionProps) {
                                     item.open ? styles.contentTextOpen : ""
                                 }`}
                             >
-                                <AccordionContent data={data[index]} />
+                                <AccordionContent
+                                    data={data[index]}
+                                    request={false}
+                                />
                             </div>
                         </div>
                         <br />

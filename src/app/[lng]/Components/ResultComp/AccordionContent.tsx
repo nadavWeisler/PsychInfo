@@ -11,11 +11,15 @@ import EditContentDialog from "@/app/[lng]/Components/AdminComp/EditContentDialo
 import {
     AccordionContentProps,
     DisplayLanguages,
-    Content,
 } from "@/app/[lng]/general/interfaces";
 import { ifValidLink, isEmptyOrSpaces } from "@/app/[lng]/general/utils";
 
-export default function AccordionContent({ data }: AccordionContentProps) {
+export default function AccordionContent({
+    data,
+    request,
+    deleteRequest,
+    aproveRequest,
+}: AccordionContentProps) {
     const [openShare, setOpenShare] = useState<boolean>(false);
     const [isAdmin, setIsAdmin] = useState(false);
     const [openEdit, setOpenEdit] = useState(false);
@@ -37,6 +41,8 @@ export default function AccordionContent({ data }: AccordionContentProps) {
     const deleteSelectedContent = () => {
         deleteContent(data.id);
     };
+
+    const btnDirrection = direction === "rtl" ? "ltr" : "rtl";
 
     return (
         <div>
@@ -176,17 +182,18 @@ export default function AccordionContent({ data }: AccordionContentProps) {
                     </Typography>
                 </Box>
             </Box>
-
-            <Box sx={{ display: "flex", direction: "row" }}>
-                <Button
-                    sx={{ margin: "auto" }}
-                    color={"success"}
-                    variant={"outlined"}
-                    onClick={() => setOpenShare(true)}
-                >
-                    {t("common.share")}
-                </Button>
-                {isAdmin && (
+            <Box sx={{ display: "flex", direction: "row" }} dir={btnDirrection}>
+                {!request && (
+                    <Button
+                        sx={{ margin: "auto" }}
+                        color={"success"}
+                        variant={"outlined"}
+                        onClick={() => setOpenShare(true)}
+                    >
+                        {t("common.share")}
+                    </Button>
+                )}
+                {isAdmin && !request && (
                     <Box sx={{ display: "flex", flexDirection: "row" }}>
                         <Button
                             sx={{ margin: "auto" }}
@@ -199,7 +206,7 @@ export default function AccordionContent({ data }: AccordionContentProps) {
                     </Box>
                 )}
 
-                {isAdmin && (
+                {isAdmin && !request && (
                     <Box sx={{ display: "flex", flexDirection: "row" }}>
                         <Button
                             sx={{ margin: "auto" }}
@@ -211,7 +218,27 @@ export default function AccordionContent({ data }: AccordionContentProps) {
                         </Button>
                     </Box>
                 )}
+                {isAdmin && request && (
+                    <Box sx={{ display: "flex", flexDirection: "row" }}>
+                        <Button
+                            sx={{ marginLeft: "20px" }}
+                            color={"error"}
+                            variant={"outlined"}
+                            onClick={deleteRequest}
+                        >
+                            {t("common.delete")}
+                        </Button>
+                        <Button
+                            color={"success"}
+                            variant={"outlined"}
+                            onClick={aproveRequest}
+                        >
+                            {t("common.submit")}
+                        </Button>
+                    </Box>
+                )}
             </Box>
+
             <ShareDialog
                 open={openShare}
                 onClose={() => setOpenShare(false)}

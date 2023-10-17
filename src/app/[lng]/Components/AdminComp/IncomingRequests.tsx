@@ -33,14 +33,12 @@ export default function IncomingRequests() {
                 {t("admin.waiting_requests")}
             </Typography>
             {requests && requests.length > 0 ? (
-                requests.map((request, index) => (
-                    <Box key={index} sx={{ marginBottom: "10px" }}>
-                        <RequestAccordion
-                            data={request}
-                            deleteHandler={() => setIsDelete(!isDelete)}
-                        />
-                    </Box>
-                ))
+                <Box sx={{ marginBottom: "10px" }}>
+                    <RequestAccordion
+                        data={requests}
+                        deleteHandler={() => setIsDelete(!isDelete)}
+                    />
+                </Box>
             ) : (
                 <Typography
                     sx={{ mt: 3, mb: 5 }}
@@ -48,7 +46,7 @@ export default function IncomingRequests() {
                     variant="h6"
                     color={"black"}
                 >
-                    {t("admin.no_mistakes")}
+                    {t("admin.no_requests")}
                 </Typography>
             )}
         </Fragment>

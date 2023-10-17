@@ -1,69 +1,71 @@
 "use client";
-import {
-    Accordion,
-    AccordionDetails,
-    AccordionSummary,
-    Typography,
-    Box,
-    Button,
-} from "@mui/material";
-import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
+import { useState } from "react";
+import { Box } from "@mui/material";
 import FoundMistakeAccordionContent from "@/app/[lng]/Components/FoundMistake/FoundMistakeAccordionContent";
 import { FoundMistakeAccordionProps } from "@/app/[lng]/general/interfaces";
-import { deletePendingMistake } from "@/app/[lng]/firebase/commands";
 import useTrans from "@/app/[lng]/hooks/useTrans";
+import styles from "@/app/[lng]/Components/ResultComp/Accordion.module.css";
 
 export default function FoundMistakeAccordion({
-    name,
-    emailToContact,
-    description,
-    id,
     deleteHandler,
+    data,
 }: FoundMistakeAccordionProps) {
-    const { t } = useTrans();
+    const { t, direction } = useTrans();
 
-    async function deleteMistake(): Promise<void> {
-        await deletePendingMistake(id);
-        deleteHandler();
-    }
+    const [accordionItems, setAccordionItems] = useState(
+        data.map((item) => ({
+            name: item.name,
+            emeilToContact: item.emailToContact,
+            description: item.description,
+            id: item.id,
+            open: false,
+        }))
+    );
+
+    const handleClick = (index: number) => {
+        const newAccordion = [...accordionItems];
+        newAccordion[index].open = !newAccordion[index].open;
+        setAccordionItems(newAccordion);
+    };
 
     return (
-        <Box
-            sx={{
-                width: "60%",
-                margin: "auto",
-                justifyContent: "center",
-                alignItems: "center",
-            }}
-        >
-            <Accordion sx={{ backgroundColor: "#42a5f5" }}>
-                <AccordionSummary
-                    expandIcon={<ExpandMoreIcon />}
-                    aria-controls="panel1a-content"
-                    id="panel1a-header"
-                >
-                    <Typography>{`${t(
-                        "common.reported_mistake"
-                    )}: ${id}`}</Typography>
-                </AccordionSummary>
-                <AccordionDetails>
-                    <FoundMistakeAccordionContent
-                        name={name}
-                        emailToContact={emailToContact}
-                        description={description}
-                    />
-                    <Box sx={{ display: "flex", flexDirection: "row" }}>
-                        <Button
-                            sx={{ marginLeft: "20px" }}
-                            color={"error"}
-                            variant={"outlined"}
-                            onClick={deleteMistake}
+        <Box sx={{ margin: "auto" }}>
+            {accordionItems.map((item, index) => (
+                <div key={index}>
+                    <div
+                        className={styles.title}
+                        onClick={() => handleClick(index)}
+                    >
+                        <div className={styles.arrowWrapper}>
+                            <i
+                                className={` ${styles.fa} ${
+                                    styles.faAngleDown
+                                } ${item.open ? styles.rotate : ""}`}
+                            ></i>
+                        </div>
+                        <span className={styles.titleText}>{`${t(
+                            "common.reported_mistake"
+                        )}: ${item.id}`}</span>
+                    </div>
+                    <div
+                        className={`${styles.content} ${
+                            item.open ? styles.contentOpen : ""
+                        }`}
+                    >
+                        <div
+                            className={`${styles.contentText} ${
+                                item.open ? styles.contentTextOpen : ""
+                            }`}
                         >
-                            {t("common.delete")}
-                        </Button>
-                    </Box>
-                </AccordionDetails>
-            </Accordion>
+                            <FoundMistakeAccordionContent
+                                data={data[index]}
+                                deleteHandler={deleteHandler}
+                            />
+                        </div>
+                    </div>
+                    <br />
+                </div>
+            ))}
         </Box>
     );
 }
