@@ -1,17 +1,17 @@
 import { useState, useEffect, ReactElement } from "react";
-import { Box, Button, Chip, Grid, Typography } from "@mui/material";
-import { Organization } from "@/app/[lng]/general/interfaces";
+import { Box, Button, Chip, Grid, Typography, Alert } from "@mui/material";
+import {
+    Organization,
+    OrganizationStepProps,
+} from "@/app/[lng]/general/interfaces";
 import { GetAllDisplays, ListContainsById } from "@/app/[lng]/general/utils";
 import useTrans from "@/app/[lng]/hooks/useTrans";
-
-interface OrganizationStepProps {
-    organizations: Organization[];
-    updateSelectedOrganizations: (organizations: Organization[]) => void;
-}
 
 export default function OrgsStep({
     organizations,
     updateSelectedOrganizations,
+    isError,
+    errorMsg,
 }: OrganizationStepProps): ReactElement {
     const [selectedOrgs, setSelectedOrgs] = useState<Organization[]>([]);
     const [displayOrgs, setDisplayOrgs] = useState<string[]>([]);
@@ -46,8 +46,8 @@ export default function OrgsStep({
 
     return (
         <Box sx={{ display: "flex", flexDirection: "column" }}>
-            <Box
-                sx={{ display: "flex", flexDirection: "row" }}>
+            {isError ? <Alert severity="error">{errorMsg}</Alert> : null}
+            <Box sx={{ display: "flex", flexDirection: "row" }}>
                 <Typography
                     dir={direction}
                     sx={{ marginBottom: "20px", marginTop: "20px" }}

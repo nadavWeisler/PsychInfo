@@ -61,8 +61,13 @@
         "which_info_you_need": "What information do you need?",
         "choose_organizations": "Choose organizations",
         "choose_tags": "Choose tags",
+        "choose_all": "Choose all",
+        "clear": "Clear",
         "choose_langueges": "Choose languages",
-        "invalid_step": "Invalid step"
+        "invalid_step": "Invalid step",
+        "no_tags": "Must choose at least one tag",
+        "no_orgs": "Must choose at least one organization",
+        "no_langs": "Must choose at least one language"
     },
     "upload": {
         "title": "Upload new content",

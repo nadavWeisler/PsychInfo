@@ -169,3 +169,22 @@ export interface AccordionContentProps {
 export interface CustomAccordionProps {
     data: Content[];
 }
+
+interface IsErrorStep {
+    isError: boolean;
+    errorMsg: string;
+}
+
+export interface OrganizationStepProps extends IsErrorStep {
+    organizations: Organization[];
+    updateSelectedOrganizations: (organizations: Organization[]) => void;
+}
+
+export interface TagsStepProps extends IsErrorStep {
+    tags: Tag[];
+    updateSelectedTags: (newTags: Tag[]) => void;
+}
+
+export interface LangStepProps extends IsErrorStep {
+    updateSelectedLangs: (newTags: string[]) => void;
+}

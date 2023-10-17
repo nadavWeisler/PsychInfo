@@ -1,17 +1,14 @@
 import { useState, useEffect, ReactElement } from "react";
-import { Box, Button, Chip, Grid, Typography } from "@mui/material";
-import { Tag } from "@/app/[lng]/general/interfaces";
+import { Box, Button, Chip, Grid, Typography, Alert } from "@mui/material";
+import { Tag, TagsStepProps } from "@/app/[lng]/general/interfaces";
 import { GetAllDisplays, ListContainsById } from "@/app/[lng]/general/utils";
 import useTrans from "@/app/[lng]/hooks/useTrans";
-
-interface TagsStepProps {
-    tags: Tag[];
-    updateSelectedTags: (newTags: Tag[]) => void;
-}
 
 export default function TagsStep({
     tags,
     updateSelectedTags,
+    isError,
+    errorMsg,
 }: TagsStepProps): ReactElement {
     const [selectedTags, setSelectedTags] = useState<Tag[]>([]);
     const [displayTags, setDisplayTags] = useState<string[]>([]);
@@ -46,8 +43,8 @@ export default function TagsStep({
 
     return (
         <Box sx={{ display: "flex", flexDirection: "column" }}>
-            <Box
-                sx={{ display: "flex", flexDirection: "row" }}>
+            {isError ? <Alert severity="error">{errorMsg}</Alert> : null}
+            <Box sx={{ display: "flex", flexDirection: "row" }}>
                 <Typography
                     dir={direction}
                     sx={{ marginBottom: "20px", marginTop: "20px" }}
