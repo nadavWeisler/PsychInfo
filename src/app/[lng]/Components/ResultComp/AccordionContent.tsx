@@ -1,5 +1,5 @@
 "use client";
-import React, { useState, useEffect, useContext, Fragment } from "react";
+import React, { useState, useEffect, useContext, Fragment, use } from "react";
 import { Typography, Box, Chip, Link, Grid, Button } from "@mui/material";
 import ShareDialog from "@/app/[lng]/Components/ResultComp/ShareDialog";
 import { onAuthStateChanged } from "firebase/auth";
@@ -23,6 +23,7 @@ export default function AccordionContent({
     const [openShare, setOpenShare] = useState<boolean>(false);
     const [isAdmin, setIsAdmin] = useState(false);
     const [openEdit, setOpenEdit] = useState(false);
+    const [isDeleted, setIsDeleted] = useState<boolean>(false);
 
     const { t, direction } = useTrans();
 
@@ -42,189 +43,177 @@ export default function AccordionContent({
         deleteContent(data.id);
     };
 
+    useEffect(() => {
+        if (data === undefined) {
+            setIsDeleted(true);
+        } else {
+            setIsDeleted(false);
+        }
+    }, [data]);
+
     const btnDirrection = direction === "rtl" ? "ltr" : "rtl";
     const requestBtnDirrection = request ? btnDirrection : undefined;
 
     return (
-        <div>
-            <Box
-                dir={direction}
-                sx={{
-                    display: "flex",
-                    flexDirection: "column",
-                    overflow: "auto",
-                }}
-            >
-                <Box
-                    dir={direction}
-                    sx={{
-                        display: "flex",
-                        flexDirection: "row",
-                    }}
-                >
-                    <Typography
-                        dir={direction}
-                        sx={{ margin: "10px" }}
-                        variant="h6"
-                    >
-                        {t("common.description")}:
-                    </Typography>
-                    <Typography
-                        dir={direction}
-                        sx={{ margin: "10px" }}
-                        variant="h6"
-                    >
-                        {data.description}
-                    </Typography>
-                </Box>
-                {!isEmptyOrSpaces(data.link) && ifValidLink(data.link) && (
+        <Fragment>
+            {!isDeleted ? (
+                <div>
                     <Box
                         dir={direction}
                         sx={{
                             display: "flex",
-                            flexDirection: "row",
+                            flexDirection: "column",
+                            overflow: "auto",
                         }}
                     >
-                        <Typography
+                        <Box
                             dir={direction}
-                            sx={{ margin: "10px" }}
-                            variant="h6"
-                        >
-                            {t("common.link")}:
-                        </Typography>
-                        <Link
-                            dir={direction}
-                            margin={"15px"}
-                            href={data.link}
-                            target="_blank"
-                            rel="noopener"
                             sx={{
-                                color: "blue",
-                                textDecoration: "underline",
+                                display: "flex",
+                                flexDirection: "row",
                             }}
                         >
-                            {data.link}
-                        </Link>
-                    </Box>
-                )}
-                <Box
-                    dir={direction}
-                    sx={{
-                        display: "flex",
-                        flexDirection: "row",
-                    }}
-                >
-                    <Typography
-                        dir={direction}
-                        sx={{ margin: "10px" }}
-                        variant="h6"
-                    >
-                        {t("common.organization")}:&nbsp;
-                    </Typography>
-                    {[data.organization].map((org) => (
-                        <Chip
-                            sx={{ margin: "10px" }}
-                            key={org.id}
-                            label={org.display}
-                            variant="outlined"
-                        />
-                    ))}
-                </Box>
-                <Box
-                    dir={direction}
-                    sx={{
-                        display: "flex",
-                        flexDirection: "row",
-                    }}
-                >
-                    <Typography
-                        dir={direction}
-                        sx={{ margin: "10px" }}
-                        variant="h6"
-                    >
-                        {t("common.language")}:
-                    </Typography>
-                    {[data.languageId].map((lang) => (
-                        <Chip
-                            sx={{ margin: "10px" }}
-                            key={lang}
-                            label={
-                                DisplayLanguages[
-                                    lang as keyof typeof DisplayLanguages
-                                ]
-                            }
-                            variant="outlined"
-                        />
-                    ))}
-                </Box>
-                <Box
-                    dir={direction}
-                    sx={{
-                        display: "flex",
-                        flexDirection: "row",
-                    }}
-                >
-                    <Typography
-                        dir={direction}
-                        sx={{ margin: "10px" }}
-                        variant="h6"
-                    >
-                        {t("common.tags")}:
-                    </Typography>
-                    <Grid spacing={4} marginTop={"10px"}>
-                        {data.tags.map((tag) => (
-                            <Chip
-                                sx={{ marginRight: "5px", marginTop: "3px" }}
-                                key={tag.id}
-                                label={tag.display}
-                                variant="outlined"
-                            />
-                        ))}
-                    </Grid>
-                </Box>
-            </Box>
-            <Box
-                sx={{ display: "flex", direction: "row" }}
-                dir={requestBtnDirrection}
-            >
-                {!request ? (
-                    <Button
-                        sx={{ margin: "auto" }}
-                        color={"success"}
-                        variant={"outlined"}
-                        onClick={() => setOpenShare(true)}
-                    >
-                        {t("common.share")}
-                    </Button>
-                ) : null}
-                {isAdmin ? (
-                    request ? (
-                        <Box sx={{ display: "flex", flexDirection: "row" }}>
-                            <Button
-                                sx={{ marginLeft: "20px" }}
-                                color={"error"}
-                                variant={"outlined"}
-                                onClick={deleteRequest}
+                            <Typography
+                                dir={direction}
+                                sx={{ margin: "10px" }}
+                                variant="h6"
                             >
-                                {t("common.delete")}
-                            </Button>
+                                {t("common.description")}:
+                            </Typography>
+                            <Typography
+                                dir={direction}
+                                sx={{ margin: "10px" }}
+                                variant="h6"
+                            >
+                                {data.description}
+                            </Typography>
+                        </Box>
+                        {!isEmptyOrSpaces(data.link) &&
+                            ifValidLink(data.link) && (
+                                <Box
+                                    dir={direction}
+                                    sx={{
+                                        display: "flex",
+                                        flexDirection: "row",
+                                    }}
+                                >
+                                    <Typography
+                                        dir={direction}
+                                        sx={{ margin: "10px" }}
+                                        variant="h6"
+                                    >
+                                        {t("common.link")}:
+                                    </Typography>
+                                    <Link
+                                        dir={direction}
+                                        margin={"15px"}
+                                        href={data.link}
+                                        target="_blank"
+                                        rel="noopener"
+                                        sx={{
+                                            color: "blue",
+                                            textDecoration: "underline",
+                                        }}
+                                    >
+                                        {data.link}
+                                    </Link>
+                                </Box>
+                            )}
+                        <Box
+                            dir={direction}
+                            sx={{
+                                display: "flex",
+                                flexDirection: "row",
+                            }}
+                        >
+                            <Typography
+                                dir={direction}
+                                sx={{ margin: "10px" }}
+                                variant="h6"
+                            >
+                                {t("common.organization")}:&nbsp;
+                            </Typography>
+                            {[data.organization].map((org) => (
+                                <Chip
+                                    sx={{ margin: "10px" }}
+                                    key={org.id}
+                                    label={org.display}
+                                    variant="outlined"
+                                />
+                            ))}
+                        </Box>
+                        <Box
+                            dir={direction}
+                            sx={{
+                                display: "flex",
+                                flexDirection: "row",
+                            }}
+                        >
+                            <Typography
+                                dir={direction}
+                                sx={{ margin: "10px" }}
+                                variant="h6"
+                            >
+                                {t("common.language")}:
+                            </Typography>
+                            {[data.languageId].map((lang) => (
+                                <Chip
+                                    sx={{ margin: "10px" }}
+                                    key={lang}
+                                    label={
+                                        DisplayLanguages[
+                                            lang as keyof typeof DisplayLanguages
+                                        ]
+                                    }
+                                    variant="outlined"
+                                />
+                            ))}
+                        </Box>
+                        <Box
+                            dir={direction}
+                            sx={{
+                                display: "flex",
+                                flexDirection: "row",
+                            }}
+                        >
+                            <Typography
+                                dir={direction}
+                                sx={{ margin: "10px" }}
+                                variant="h6"
+                            >
+                                {t("common.tags")}:
+                            </Typography>
+                            <Grid spacing={4} marginTop={"10px"}>
+                                {data.tags.map((tag) => (
+                                    <Chip
+                                        sx={{
+                                            marginRight: "5px",
+                                            marginTop: "3px",
+                                        }}
+                                        key={tag.id}
+                                        label={tag.display}
+                                        variant="outlined"
+                                    />
+                                ))}
+                            </Grid>
+                        </Box>
+                    </Box>
+                    <Box
+                        sx={{ display: "flex", direction: "row" }}
+                        dir={requestBtnDirrection}
+                    >
+                        {!request ? (
                             <Button
+                                sx={{ margin: "auto" }}
                                 color={"success"}
                                 variant={"outlined"}
-                                onClick={aproveRequest}
+                                onClick={() => setOpenShare(true)}
                             >
-                                {t("common.submit")}
+                                {t("common.share")}
                             </Button>
-                        </Box>
-                    ) : (
-                        <Fragment>
-                            <Box
-                                dir={direction}
-                                sx={{
-                                    display: "flex",
-                                    flexDirection: "row",
-                                }}
-                            >
+                        ) : null}
+                        {isAdmin ? (
+                            request ? (
                                 <Box
                                     sx={{
                                         display: "flex",
@@ -232,45 +221,82 @@ export default function AccordionContent({
                                     }}
                                 >
                                     <Button
-                                        sx={{ margin: "auto" }}
-                                        color={"success"}
-                                        variant={"outlined"}
-                                        onClick={() => setOpenEdit(true)}
-                                    >
-                                        {t("common.edit")}
-                                    </Button>
-                                </Box>
-                                <Box
-                                    sx={{
-                                        display: "flex",
-                                        flexDirection: "row",
-                                    }}
-                                >
-                                    <Button
-                                        sx={{ margin: "auto" }}
+                                        sx={{ marginLeft: "20px" }}
                                         color={"error"}
                                         variant={"outlined"}
-                                        onClick={deleteSelectedContent}
+                                        onClick={deleteRequest}
                                     >
                                         {t("common.delete")}
                                     </Button>
+                                    <Button
+                                        color={"success"}
+                                        variant={"outlined"}
+                                        onClick={aproveRequest}
+                                    >
+                                        {t("common.submit")}
+                                    </Button>
                                 </Box>
-                            </Box>
-                        </Fragment>
-                    )
-                ) : null}
-            </Box>
+                            ) : (
+                                <Fragment>
+                                    <Box
+                                        dir={direction}
+                                        sx={{
+                                            display: "flex",
+                                            flexDirection: "row",
+                                        }}
+                                    >
+                                        <Box
+                                            sx={{
+                                                display: "flex",
+                                                flexDirection: "row",
+                                            }}
+                                        >
+                                            <Button
+                                                sx={{ margin: "auto" }}
+                                                color={"success"}
+                                                variant={"outlined"}
+                                                onClick={() =>
+                                                    setOpenEdit(true)
+                                                }
+                                            >
+                                                {t("common.edit")}
+                                            </Button>
+                                        </Box>
+                                        <Box
+                                            sx={{
+                                                display: "flex",
+                                                flexDirection: "row",
+                                            }}
+                                        >
+                                            <Button
+                                                sx={{ margin: "auto" }}
+                                                color={"error"}
+                                                variant={"outlined"}
+                                                onClick={deleteSelectedContent}
+                                            >
+                                                {t("common.delete")}
+                                            </Button>
+                                        </Box>
+                                    </Box>
+                                </Fragment>
+                            )
+                        ) : null}
+                    </Box>
 
-            <ShareDialog
-                open={openShare}
-                onClose={() => setOpenShare(false)}
-                urlToShare={data.link}
-            />
-            <EditContentDialog
-                open={openEdit}
-                onClose={() => setOpenEdit(false)}
-                prevContent={data}
-            />
-        </div>
+                    <ShareDialog
+                        open={openShare}
+                        onClose={() => setOpenShare(false)}
+                        urlToShare={data.link}
+                    />
+                    <EditContentDialog
+                        open={openEdit}
+                        onClose={() => setOpenEdit(false)}
+                        prevContent={data}
+                    />
+                </div>
+            ) : (
+                <Typography>{t("admin.no_content")}</Typography>
+            )}
+        </Fragment>
     );
 }

@@ -44,7 +44,6 @@ export default function RequestAccordion({
     async function aproveRequest(index: number): Promise<void> {
         const content: Content = {
             ...data[index],
-            // id: data[index].id,
         };
         await createContent(content);
         deletePendingContent(data[index].title);

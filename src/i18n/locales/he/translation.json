@@ -107,6 +107,7 @@
         "open_organizations": "פתח ארגונים",
         "empty_list": "אין פריטים להצגה",
         "edit_success": "הפריט עודכן בהצלחה",
-        "edit_title": "עריכת פריט"
+        "edit_title": "עריכת פריט",
+        "no_content": "ללא תוכן"
     }
 }
