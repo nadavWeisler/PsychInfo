@@ -30,6 +30,8 @@ import OrgsStep from "@/app/[lng]/Components/Wizard/steps/OrgsStep";
 import ErrorStep from "@/app/[lng]/Components/Wizard/steps/ErrorStep";
 import LangStep from "@/app/[lng]/Components/Wizard/steps/LangStep";
 import useTrans from "@/app/[lng]/hooks/useTrans";
+import { error } from "console";
+import { set } from "firebase/database";
 
 export default function WizardDialog({
     open,
@@ -41,12 +43,20 @@ export default function WizardDialog({
     const [selectedTags, setSelectedTags] = useState<Tag[]>([]);
     const [selectedOrgs, setSelectedOrgs] = useState<Organization[]>([]);
     const [selectedLanguages, setSelectedLanguages] = useState<string[]>([]);
+    const [isError, setError] = useState<boolean>(false);
+    const [errorMsg, setErrorMsg] = useState<string>("");
 
     const { t, i18n, direction } = useTrans();
     const dispatch = useAppDispatch();
     const router = useRouter();
 
     async function handleSubmit() {
+        const isLangsError = selectedLanguages.length === 0;
+        setError(isLangsError);
+        if (isLangsError) {
+            setErrorMsg(errorMsgArray[activeStep]);
+            return;
+        }
         const results: Content[] = await getContent(
             selectedOrgs,
             selectedTags,
@@ -68,6 +78,38 @@ export default function WizardDialog({
         );
     }, [i18n.language]);
 
+    const errorMsgArray = [
+        t("wizard.no_tags"),
+        t("wizard.no_orgs"),
+        t("wizard.no_langs"),
+    ];
+    const handleNext = () => {
+        switch (activeStep) {
+            case 0:
+                const isTagsError = selectedTags.length === 0;
+                setError(isTagsError);
+                if (isTagsError) {
+                    setErrorMsg(errorMsgArray[activeStep]);
+                    return;
+                }
+                break;
+            case 1:
+                const isOrgsError = selectedOrgs.length === 0;
+                setError(isOrgsError);
+                if (isOrgsError) {
+                    setErrorMsg(errorMsgArray[activeStep]);
+                    return;
+                }
+                break;
+            default:
+                setError(true);
+                setErrorMsg(t("wizard.invalid_step"));
+                return;
+        }
+
+        setActiveStep((prevActiveStep) => prevActiveStep + 1);
+    };
+
     function GetStepContent(step: number) {
         switch (step) {
             case 0:
@@ -75,6 +117,8 @@ export default function WizardDialog({
                     <TagsStep
                         tags={tags}
                         updateSelectedTags={setSelectedTags}
+                        isError={isError}
+                        errorMsg={errorMsg}
                     />
                 );
             case 1:
@@ -82,10 +126,18 @@ export default function WizardDialog({
                     <OrgsStep
                         organizations={organizations}
                         updateSelectedOrganizations={setSelectedOrgs}
+                        isError={isError}
+                        errorMsg={errorMsg}
                     />
                 );
             case 2:
-                return <LangStep updateSelectedLangs={setSelectedLanguages} />;
+                return (
+                    <LangStep
+                        updateSelectedLangs={setSelectedLanguages}
+                        isError={isError}
+                        errorMsg={errorMsg}
+                    />
+                );
             default:
                 return <ErrorStep errorMsg={t("wizard.invalid_step")} />;
         }
@@ -99,7 +151,9 @@ export default function WizardDialog({
 
     return (
         <Dialog open={open} onClose={onClose} fullWidth>
-            <DialogTitle dir={direction}>{t("wizard.which_info_you_need")}</DialogTitle>
+            <DialogTitle dir={direction}>
+                {t("wizard.which_info_you_need")}
+            </DialogTitle>
             <DialogContent>
                 <Stepper activeStep={activeStep}>
                     {steps.map((label) => (
@@ -122,9 +176,7 @@ export default function WizardDialog({
                 </Button>
                 <Button
                     variant={"contained"}
-                    onClick={() =>
-                        setActiveStep((prevActiveStep) => prevActiveStep + 1)
-                    }
+                    onClick={handleNext}
                     disabled={activeStep === 2}
                 >
                     {t("common.next")}
