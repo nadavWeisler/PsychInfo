@@ -1,5 +1,5 @@
 "use client";
-import React, { useState, useEffect, useContext } from "react";
+import React, { useState, useEffect, useContext, Fragment } from "react";
 import { Typography, Box, Chip, Link, Grid, Button } from "@mui/material";
 import ShareDialog from "@/app/[lng]/Components/ResultComp/ShareDialog";
 import { onAuthStateChanged } from "firebase/auth";
@@ -43,6 +43,7 @@ export default function AccordionContent({
     };
 
     const btnDirrection = direction === "rtl" ? "ltr" : "rtl";
+    const requestBtnDirrection = request ? btnDirrection : undefined;
 
     return (
         <div>
@@ -54,6 +55,28 @@ export default function AccordionContent({
                     overflow: "auto",
                 }}
             >
+                <Box
+                    dir={direction}
+                    sx={{
+                        display: "flex",
+                        flexDirection: "row",
+                    }}
+                >
+                    <Typography
+                        dir={direction}
+                        sx={{ margin: "10px" }}
+                        variant="h6"
+                    >
+                        {t("common.description")}:
+                    </Typography>
+                    <Typography
+                        dir={direction}
+                        sx={{ margin: "10px" }}
+                        variant="h6"
+                    >
+                        {data.description}
+                    </Typography>
+                </Box>
                 {!isEmptyOrSpaces(data.link) && ifValidLink(data.link) && (
                     <Box
                         dir={direction}
@@ -159,31 +182,12 @@ export default function AccordionContent({
                         ))}
                     </Grid>
                 </Box>
-                <Box
-                    dir={direction}
-                    sx={{
-                        display: "flex",
-                        flexDirection: "row",
-                    }}
-                >
-                    <Typography
-                        dir={direction}
-                        sx={{ margin: "10px" }}
-                        variant="h6"
-                    >
-                        {t("common.description")}:
-                    </Typography>
-                    <Typography
-                        dir={direction}
-                        sx={{ margin: "10px" }}
-                        variant="h6"
-                    >
-                        {data.description}
-                    </Typography>
-                </Box>
             </Box>
-            <Box sx={{ display: "flex", direction: "row" }} dir={btnDirrection}>
-                {!request && (
+            <Box
+                sx={{ display: "flex", direction: "row" }}
+                dir={requestBtnDirrection}
+            >
+                {!request ? (
                     <Button
                         sx={{ margin: "auto" }}
                         color={"success"}
@@ -192,51 +196,69 @@ export default function AccordionContent({
                     >
                         {t("common.share")}
                     </Button>
-                )}
-                {isAdmin && !request && (
-                    <Box sx={{ display: "flex", flexDirection: "row" }}>
-                        <Button
-                            sx={{ margin: "auto" }}
-                            color={"success"}
-                            variant={"outlined"}
-                            onClick={() => setOpenEdit(true)}
-                        >
-                            {t("common.edit")}
-                        </Button>
-                    </Box>
-                )}
-
-                {isAdmin && !request && (
-                    <Box sx={{ display: "flex", flexDirection: "row" }}>
-                        <Button
-                            sx={{ margin: "auto" }}
-                            color={"error"}
-                            variant={"outlined"}
-                            onClick={deleteSelectedContent}
-                        >
-                            {t("common.delete")}
-                        </Button>
-                    </Box>
-                )}
-                {isAdmin && request && (
-                    <Box sx={{ display: "flex", flexDirection: "row" }}>
-                        <Button
-                            sx={{ marginLeft: "20px" }}
-                            color={"error"}
-                            variant={"outlined"}
-                            onClick={deleteRequest}
-                        >
-                            {t("common.delete")}
-                        </Button>
-                        <Button
-                            color={"success"}
-                            variant={"outlined"}
-                            onClick={aproveRequest}
-                        >
-                            {t("common.submit")}
-                        </Button>
-                    </Box>
-                )}
+                ) : null}
+                {isAdmin ? (
+                    request ? (
+                        <Box sx={{ display: "flex", flexDirection: "row" }}>
+                            <Button
+                                sx={{ marginLeft: "20px" }}
+                                color={"error"}
+                                variant={"outlined"}
+                                onClick={deleteRequest}
+                            >
+                                {t("common.delete")}
+                            </Button>
+                            <Button
+                                color={"success"}
+                                variant={"outlined"}
+                                onClick={aproveRequest}
+                            >
+                                {t("common.submit")}
+                            </Button>
+                        </Box>
+                    ) : (
+                        <Fragment>
+                            <Box
+                                dir={direction}
+                                sx={{
+                                    display: "flex",
+                                    flexDirection: "row",
+                                }}
+                            >
+                                <Box
+                                    sx={{
+                                        display: "flex",
+                                        flexDirection: "row",
+                                    }}
+                                >
+                                    <Button
+                                        sx={{ margin: "auto" }}
+                                        color={"success"}
+                                        variant={"outlined"}
+                                        onClick={() => setOpenEdit(true)}
+                                    >
+                                        {t("common.edit")}
+                                    </Button>
+                                </Box>
+                                <Box
+                                    sx={{
+                                        display: "flex",
+                                        flexDirection: "row",
+                                    }}
+                                >
+                                    <Button
+                                        sx={{ margin: "auto" }}
+                                        color={"error"}
+                                        variant={"outlined"}
+                                        onClick={deleteSelectedContent}
+                                    >
+                                        {t("common.delete")}
+                                    </Button>
+                                </Box>
+                            </Box>
+                        </Fragment>
+                    )
+                ) : null}
             </Box>
 
             <ShareDialog
