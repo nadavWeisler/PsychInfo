@@ -33,19 +33,15 @@ export default function IncomingMistakes() {
                 {t("admin.mistakes_requests")}
             </Typography>
             {mistakes && mistakes.length > 0 ? (
-                mistakes.map((mistake, index) => (
-                    <Box key={index} sx={{marginBottom: "10px"}}>
-                        <FoundMistakeAccordion
-                            id={mistake.id}
-                            name={mistake.name}
-                            emailToContact={mistake.emailToContact}
-                            description={mistake.description}
-                            deleteHandler={() => setIsDelete(!isDelete)}
-                        />
-                        <br />
-                    </Box>
-                ))
+                <Box sx={{ marginBottom: "10px" }}>
+                    <FoundMistakeAccordion
+                        data={mistakes}
+                        deleteHandler={() => setIsDelete(!isDelete)}
+                    />
+                    <br />
+                </Box>
             ) : (
+                // )
                 <Typography
                     sx={{ mt: 3, mb: 5 }}
                     align={"center"}

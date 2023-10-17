@@ -98,7 +98,7 @@ export interface AdminSignInFormProps {
 }
 
 export interface RequestAccordionProps {
-    data: Content;
+    data: Content[];
     deleteHandler: () => void;
 }
 
@@ -124,9 +124,13 @@ export interface FoundMistakeFormProps {
     isSentHandler: () => void;
 }
 
-export interface FoundMistakeAccordionContentProps extends FoundMistake {}
+export interface FoundMistakeAccordionContentProps {
+    data: FoundMistakeDB;
+    deleteHandler: () => void;
+}
 
-export interface FoundMistakeAccordionProps extends FoundMistakeDB {
+export interface FoundMistakeAccordionProps {
+    data: FoundMistakeDB[];
     deleteHandler: () => void;
 }
 
@@ -157,6 +161,9 @@ export interface EditContentDialogProps
 
 export interface AccordionContentProps {
     data: Content;
+    request: boolean;
+    deleteRequest?: () => void;
+    aproveRequest?: () => void;
 }
 
 export interface CustomAccordionProps {
