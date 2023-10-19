@@ -35,7 +35,7 @@ export default function AdminSignInPage() {
     }
 
     return (
-        <Fragment>
+        <>
             <Typography
                 sx={{ mt: 4 }}
                 color={"black"}
@@ -58,6 +58,6 @@ export default function AdminSignInPage() {
             >
                 {isLoading && <CircularProgress />}
             </Box>
-        </Fragment>
+        </>
     );
 }
