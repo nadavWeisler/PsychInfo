@@ -15,6 +15,7 @@ import { useAppDispatch, useAppSelector } from "@/app/[lng]/hooks/redux";
 import { tagsAndOrgActions } from "@/store/tagsAndOrgSlice";
 import { isStateActions } from "@/store/isStateSlice";
 import { RootState } from "@/store";
+import { LocalizationKeys } from "@/i18n/LocalizationKeys";
 
 export default function AdminPage() {
     const [tags, setTags] = useState<Tag[]>([]);
@@ -73,7 +74,7 @@ export default function AdminPage() {
                 variant={"h4"}
                 sx={{ textAlign: "center" }}
             >
-                {t("admin.title")}
+                {t(LocalizationKeys.Admin.Title)}
             </Typography>
             <ControlPanel
                 isDeleteHandler={() => dispatch(isStateActions.setIsDelete())}
@@ -94,7 +95,7 @@ export default function AdminPage() {
                     sx={{ margin: "auto" }}
                     variant={"contained"}
                 >
-                    {t("common.logout")}
+                    {t(LocalizationKeys.Common.Logout)}
                 </Button>
             </Box>
         </Box>

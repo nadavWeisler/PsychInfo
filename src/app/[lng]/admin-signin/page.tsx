@@ -5,6 +5,7 @@ import { Alert, CircularProgress, Typography, Box } from "@mui/material";
 import SigninForm from "@/app/[lng]/Components/AdminComp/SigninForm";
 import { signIn } from "@/app/[lng]/firebase/auth";
 import useTrans from "@/app/[lng]/hooks/useTrans";
+import { LocalizationKeys } from "@/i18n/LocalizationKeys";
 
 export default function AdminSignInPage() {
     const [email, setEmail] = useState<string>("");
@@ -42,7 +43,7 @@ export default function AdminSignInPage() {
                 variant="h4"
                 align="center"
             >
-                {t("admin.admin_login")}
+                {t(LocalizationKeys.Admin.AdminLogin)}
             </Typography>
             {isError && <Alert severity={"error"}>{errorMsg}</Alert>}
             <SigninForm

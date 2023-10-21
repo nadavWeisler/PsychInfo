@@ -18,6 +18,7 @@ import { AuthContext } from "@/app/[lng]/context/AuthContext";
 import { useWindowWidth } from "@/app/[lng]/hooks/useWidth";
 import { DisplayLanguages, NavBarPage } from "@/app/[lng]/general/interfaces";
 import useTrans from "@/app/[lng]/hooks/useTrans";
+import { LocalizationKeys } from "@/i18n/LocalizationKeys";
 
 export default function Navbar(): React.ReactElement {
     const [openMenu, setOpenMenu] = useState<boolean>(false);
@@ -80,7 +81,7 @@ export default function Navbar(): React.ReactElement {
           };
 
     const pages: NavBarPage[] = [
-        { text: t("common.app_name"), url: `/` },
+        { text: t(LocalizationKeys.Common.AppName), url: `/` },
         { text: t("navbar.upload_content"), url: `/${i18n.language}/upload` },
         adminPage,
         {
