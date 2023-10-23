@@ -80,13 +80,15 @@ export default function AccordionContent({
                             >
                                 {t("common.description")}:
                             </Typography>
-                            <Typography
-                                dir={direction}
-                                sx={{ margin: "10px" }}
-                                variant="h6"
-                            >
-                                {data.description}
-                            </Typography>
+                            <Box sx={{ whiteSpace: "pre-wrap" }}>
+                                <Typography
+                                    dir={direction}
+                                    sx={{ margin: "10px" }}
+                                    variant="h6"
+                                >
+                                    {data.description}
+                                </Typography>
+                            </Box>
                         </Box>
                         {!isEmptyOrSpaces(data.link) &&
                             ifValidLink(data.link) && (
