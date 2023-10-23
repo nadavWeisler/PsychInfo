@@ -89,7 +89,8 @@
         "admin_log_in": "אדמין? התחבר",
         "open_menu": "פתח תפריט",
         "upload_content": "העלאת תוכן",
-        "found_mistake": "מצאת טעות?"
+        "found_mistake": "מצאת טעות?",
+        "about_us": "עלינו"
     },
     "mistake": {
         "name": "שם מלא (לא חובה)",
@@ -113,5 +114,9 @@
         "edit_success": "הפריט עודכן בהצלחה",
         "edit_title": "עריכת פריט",
         "no_content": "ללא תוכן"
+    },
+    "about_us": {
+        "title": "קרדיטים",
+        "description": "תודה לכל האנשים שתרמו לאתר זה"
     }
 }

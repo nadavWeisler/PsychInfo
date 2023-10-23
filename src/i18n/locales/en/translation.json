@@ -87,7 +87,8 @@
         "admin_log_in": "admin? login",
         "open_menu": "open menu",
         "upload_content": "upload content",
-        "found_mistake": "found a mistake?"
+        "found_mistake": "found a mistake?",
+        "about_us": "About us"
     },
     "mistake": {
         "name": "Full name (not required)",
@@ -111,5 +112,9 @@
         "edit_success": "The item was edited successfully",
         "edit_title": "Edit item",
         "no_content": "No content"
+    },
+    "about_us": {
+        "title": "Credits",
+        "description": "Thank to all the people who helped us build this website"
     }
 }
