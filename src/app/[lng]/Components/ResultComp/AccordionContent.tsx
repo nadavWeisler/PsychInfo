@@ -1,58 +1,58 @@
-"use client";
-import React, { useState, useEffect, useContext, Fragment, use } from "react";
-import { Typography, Box, Chip, Link, Grid, Button } from "@mui/material";
-import ShareDialog from "@/app/[lng]/Components/ResultComp/ShareDialog";
-import { onAuthStateChanged } from "firebase/auth";
-import { auth } from "@/app/[lng]/firebase/app";
-import { AuthContext } from "@/app/[lng]/context/AuthContext";
-import { deleteContent } from "@/app/[lng]/firebase/commands";
-import useTrans from "@/app/[lng]/hooks/useTrans";
-import EditContentDialog from "@/app/[lng]/Components/AdminComp/EditContentDialog";
+'use client';
+import React, { useState, useEffect, useContext, Fragment, use } from 'react';
+import { Typography, Box, Chip, Link, Grid, Button } from '@mui/material';
+import ShareDialog from '@/app/[lng]/Components/ResultComp/ShareDialog';
+import { onAuthStateChanged } from '@firebase/auth';
+import { auth } from '@/app/[lng]/firebase/app';
+import { AuthContext } from '@/app/[lng]/context/AuthContext';
+import { deleteContent } from '@/app/[lng]/firebase/commands';
+import useTrans from '@/app/[lng]/hooks/useTrans';
+import EditContentDialog from '@/app/[lng]/Components/AdminComp/EditContentDialog';
 import {
-    AccordionContentProps,
-    DisplayLanguages,
-} from "@/app/[lng]/general/interfaces";
-import { ifValidLink, isEmptyOrSpaces } from "@/app/[lng]/general/utils";
+  AccordionContentProps,
+  DisplayLanguages
+} from '@/app/[lng]/general/interfaces';
+import { ifValidLink, isEmptyOrSpaces } from '@/app/[lng]/general/utils';
 
 export default function AccordionContent({
-    data,
-    request,
-    deleteRequest,
-    aproveRequest,
+  data,
+  request,
+  deleteRequest,
+  aproveRequest
 }: AccordionContentProps) {
-    const [openShare, setOpenShare] = useState<boolean>(false);
-    const [isAdmin, setIsAdmin] = useState(false);
-    const [openEdit, setOpenEdit] = useState(false);
-    const [isDeleted, setIsDeleted] = useState<boolean>(false);
+  const [openShare, setOpenShare] = useState<boolean>(false);
+  const [isAdmin, setIsAdmin] = useState(false);
+  const [openEdit, setOpenEdit] = useState(false);
+  const [isDeleted, setIsDeleted] = useState<boolean>(false);
 
-    const { t, direction } = useTrans();
+  const { t, direction } = useTrans();
 
-    const { user } = useContext(AuthContext);
+  const { user } = useContext(AuthContext);
 
-    useEffect(() => {
-        onAuthStateChanged(auth, (user) => {
-            if (!!user) {
-                setIsAdmin(true);
-            } else {
-                setIsAdmin(false);
-            }
-        });
-    }, [user]);
+  useEffect(() => {
+    onAuthStateChanged(auth, (user) => {
+      if (!!user) {
+        setIsAdmin(true);
+      } else {
+        setIsAdmin(false);
+      }
+    });
+  }, [user]);
 
-    const deleteSelectedContent = () => {
-        deleteContent(data.id);
-    };
+  const deleteSelectedContent = () => {
+    deleteContent(data.id);
+  };
 
-    useEffect(() => {
-        if (data === undefined) {
-            setIsDeleted(true);
-        } else {
-            setIsDeleted(false);
-        }
-    }, [data]);
+  useEffect(() => {
+    if (data === undefined) {
+      setIsDeleted(true);
+    } else {
+      setIsDeleted(false);
+    }
+  }, [data]);
 
-    const btnDirrection = direction === "rtl" ? "ltr" : "rtl";
-    const requestBtnDirrection = request ? btnDirrection : undefined;
+  const btnDirrection = direction === 'rtl' ? 'ltr' : 'rtl';
+  const requestBtnDirrection = request ? btnDirrection : undefined;
 
     return (
         <Fragment>
@@ -285,20 +285,20 @@ export default function AccordionContent({
                         ) : null}
                     </Box>
 
-                    <ShareDialog
-                        open={openShare}
-                        onClose={() => setOpenShare(false)}
-                        urlToShare={data.link}
-                    />
-                    <EditContentDialog
-                        open={openEdit}
-                        onClose={() => setOpenEdit(false)}
-                        prevContent={data}
-                    />
-                </div>
-            ) : (
-                <Typography>{t("admin.no_content")}</Typography>
-            )}
-        </Fragment>
-    );
+          <ShareDialog
+            open={openShare}
+            onClose={() => setOpenShare(false)}
+            urlToShare={data.link}
+          />
+          <EditContentDialog
+            open={openEdit}
+            onClose={() => setOpenEdit(false)}
+            prevContent={data}
+          />
+        </div>
+      ) : (
+        <Typography>{t('admin.no_content')}</Typography>
+      )}
+    </Fragment>
+  );
 }
