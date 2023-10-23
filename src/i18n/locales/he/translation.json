@@ -116,7 +116,37 @@
         "no_content": "ללא תוכן"
     },
     "about_us": {
-        "title": "קרדיטים",
+        "title": "עלינו",
         "description": "תודה לכל האנשים שתרמו לאתר זה"
+    },
+    "credits": {
+        "netanel": {
+            "title": "נתנאל חורי, מייסד בית הספר לערבית 'עלה זית' ",
+            "description": "תרגום התוכן לערבית"
+        },
+        "tatiana": {
+            "title": "טטיאנה פיליפובה",
+            "description": "תרגום התוכן לרוסית"
+        },
+        "nadav_w": {
+            "title": "נדב וייסלר",
+            "description": "מייסד האתר ומפתח"
+        },
+        "nadav_p": {
+            "title": "נדב פורת",
+            "description": "מפתח"
+        },
+        "shlomi": {
+            "title": "שלומי שטרית",
+            "description": "מפתח"
+        },
+        "gaia": {
+            "title": "גאיה ארן",
+            "description": "כתיבה, תוכן ואפיון האתר"
+        },
+        "shir": {
+            "title": "שיר ברבי",
+            "description": "ניהול תוכן ואפיון האתר"
+        }
     }
 }
