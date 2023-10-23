@@ -117,7 +117,7 @@ export default function AccordionContent({
                                             textDecoration: "underline",
                                         }}
                                     >
-                                        {data.link}
+                                        {t("common.link_title")}
                                     </Link>
                                 </Box>
                             )}
