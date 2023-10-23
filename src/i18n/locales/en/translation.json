@@ -39,7 +39,8 @@
         "email": "Email",
         "password": "Password",
         "description": "Description",
-        "invalid_link": "Invalid link"
+        "invalid_link": "Invalid link",
+        "link_title": "For the link click here"
     },
     "errors": {
         "error_occured": "An error occurred",

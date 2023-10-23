@@ -41,7 +41,8 @@
         "reported_mistake": "דיווח על טעות",
         "name": "שם",
         "yes": "כן",
-        "no": "לא"
+        "no": "לא",
+        "link_title": "לקישור לחץ כאן"
     },
     "errors": {
         "error_occured": "אירעה שגיאה",
