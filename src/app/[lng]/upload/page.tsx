@@ -34,7 +34,38 @@ import {
     getAllTags,
     postPendingContent,
 } from "@/app/[lng]/firebase/commands";
+import { styled } from "@mui/material/styles";
 import useTrans from "@/app/[lng]/hooks/useTrans";
+import styles from "@/app/[lng]/upload/select.module.css";
+import { ThemeProvider, createTheme } from "@mui/material/styles";
+
+const theme = createTheme({
+    palette: {
+        secondary: {
+            main: "#0f0f0f",
+        },
+    },
+});
+
+const CssTextField = styled(TextField)({
+    "& label.Mui-focused": {
+        color: "#0f0f0f",
+    },
+    "& .MuiInput-underline:after": {
+        borderBottomColor: "#0f0f0f",
+    },
+    "& .MuiOutlinedInput-root": {
+        "& fieldset": {
+            borderColor: "#0f0f0f",
+        },
+        "&:hover fieldset": {
+            borderColor: "#0f0f0f",
+        },
+        "&.Mui-focused fieldset": {
+            borderColor: "#0f0f0f",
+        },
+    },
+});
 
 function getSelectStyles(
     obj: string,
@@ -186,199 +217,209 @@ export default function UploadContent() {
     );
 
     return (
-        <Box
-            sx={{
-                marginTop: 4,
-                display: "flex",
-                flexDirection: "column",
-                alignItems: "center",
-                overflow: "auto",
-            }}
-        >
-            <Typography variant="h4">{t("upload.title")}</Typography>
-            <Box component="form" onSubmit={handleSubmit}>
-                <TextField
-                    margin="normal"
-                    required
-                    fullWidth
-                    id="title"
-                    label={t("common.title")}
-                    name="title"
-                    autoFocus
-                />
-                <TextField
-                    margin="normal"
-                    required
-                    fullWidth
-                    name="description"
-                    label={t("common.description")}
-                    id="description"
-                    multiline={true}
-                />
-                <FormControl margin="normal" fullWidth required>
-                    <InputLabel>{t("common.organization")}</InputLabel>
-                    <Select
-                        value={selectedOrganization}
-                        onChange={hangleChangeOrganization}
-                        renderValue={(selected) =>
-                            (selected as Organization).display
-                        }
+        <ThemeProvider theme={theme}>
+            <Box
+                sx={{
+                    marginTop: 4,
+                    display: "flex",
+                    flexDirection: "column",
+                    alignItems: "center",
+                    overflow: "auto",
+                }}
+            >
+                <Typography variant="h4">{t("upload.title")}</Typography>
+                <Box component="form" onSubmit={handleSubmit}>
+                    <CssTextField
+                        margin="normal"
+                        required
+                        fullWidth
+                        id="title"
+                        label={t("common.title")}
+                        name="title"
+                        autoFocus
+                    />
+                    <CssTextField
+                        margin="normal"
+                        required
+                        fullWidth
+                        name="description"
+                        label={t("common.description")}
+                        id="description"
+                        multiline={true}
+                    />
+                    <FormControl margin="normal" fullWidth required>
+                        <InputLabel>{t("common.organization")}</InputLabel>
+                        <Select
+                            className={styles.select}
+                            color={"secondary"}
+                            value={selectedOrganization}
+                            onChange={hangleChangeOrganization}
+                            renderValue={(selected) =>
+                                (selected as Organization).display
+                            }
+                        >
+                            {organizations.map((org) => (
+                                <MenuItem
+                                    key={org.id}
+                                    value={org.id}
+                                    style={getSelectStyles(
+                                        org.id,
+                                        selectedOrganization
+                                            ? [selectedOrganization.id]
+                                            : [],
+                                        appTheme
+                                    )}
+                                >
+                                    {org.display}
+                                </MenuItem>
+                            ))}
+                        </Select>
+                    </FormControl>
+                    <Button
+                        variant="outlined"
+                        onClick={() => setOpenAddOrgDialog(true)}
                     >
-                        {organizations.map((org) => (
-                            <MenuItem
-                                key={org.id}
-                                value={org.id}
-                                style={getSelectStyles(
-                                    org.id,
-                                    selectedOrganization
-                                        ? [selectedOrganization.id]
-                                        : [],
-                                    appTheme
-                                )}
-                            >
-                                {org.display}
-                            </MenuItem>
-                        ))}
-                    </Select>
-                </FormControl>
-                <Button
-                    variant="outlined"
-                    onClick={() => setOpenAddOrgDialog(true)}
-                >
-                    {t("upload.create_new_organization")}
-                </Button>
-                <AddString
-                    handleCloseDialog={() => setOpenAddOrgDialog(false)}
-                    handleCreate={handleCreateOrg}
-                    inputValue={otherOrgValue}
-                    setInputValue={setOtherOrganizationInForm}
-                    openDialog={openAddOrgDialog}
-                    title={t("upload.create_new_organization")}
-                />
-                <TextField
-                    margin="normal"
-                    fullWidth
-                    name="link"
-                    label={t("common.link")}
-                    id="link"
-                />
-                <FormControl margin="normal" fullWidth required>
-                    <InputLabel>{t("common.language")}</InputLabel>
-                    <Select
-                        value={selectedLanguage}
-                        onChange={(e) =>
-                            setSelectedLanguage(e.target.value as string)
-                        }
-                        renderValue={(selected) =>
-                            DisplayLanguages[
-                                selected as keyof typeof DisplayLanguages
-                            ]
-                        }
+                        {t("upload.create_new_organization")}
+                    </Button>
+                    <AddString
+                        handleCloseDialog={() => setOpenAddOrgDialog(false)}
+                        handleCreate={handleCreateOrg}
+                        inputValue={otherOrgValue}
+                        setInputValue={setOtherOrganizationInForm}
+                        openDialog={openAddOrgDialog}
+                        title={t("upload.create_new_organization")}
+                    />
+                    <CssTextField
+                        margin="normal"
+                        fullWidth
+                        name="link"
+                        label={t("common.link")}
+                        id="link"
+                    />
+                    <FormControl margin="normal" fullWidth required>
+                        <InputLabel>{t("common.language")}</InputLabel>
+                        <Select
+                            className={styles.select}
+                            color={"secondary"}
+                            value={selectedLanguage}
+                            onChange={(e) =>
+                                setSelectedLanguage(e.target.value as string)
+                            }
+                            renderValue={(selected) =>
+                                DisplayLanguages[
+                                    selected as keyof typeof DisplayLanguages
+                                ]
+                            }
+                        >
+                            {Object.keys(DisplayLanguages).map((lang) => (
+                                <MenuItem
+                                    key={lang}
+                                    value={lang}
+                                    style={getSelectStyles(
+                                        lang,
+                                        selectedLanguage
+                                            ? [selectedLanguage]
+                                            : [],
+                                        appTheme
+                                    )}
+                                >
+                                    {
+                                        DisplayLanguages[
+                                            lang as keyof typeof DisplayLanguages
+                                        ]
+                                    }
+                                </MenuItem>
+                            ))}
+                        </Select>
+                    </FormControl>
+                    <FormControl fullWidth required margin="normal">
+                        <InputLabel id="demo-multiple-chip-label">
+                            {t("common.tags")}
+                        </InputLabel>
+                        <Select
+                            className={styles.select}
+                            color={"secondary"}
+                            labelId="demo-multiple-chip-label"
+                            id="demo-multiple-chip"
+                            multiple
+                            value={selectedTags}
+                            onChange={hangleChangeTags}
+                            input={
+                                <OutlinedInput
+                                    id="select-multiple-chip"
+                                    label="Chip"
+                                />
+                            }
+                            renderValue={(selected) => (
+                                <Box
+                                    sx={{
+                                        display: "flex",
+                                        flexWrap: "wrap",
+                                        gap: 0.5,
+                                    }}
+                                >
+                                    {selected.map((value) => (
+                                        <Chip key={value} label={value} />
+                                    ))}
+                                </Box>
+                            )}
+                            MenuProps={MenuProps}
+                        >
+                            {tags.map((tag) => (
+                                <MenuItem
+                                    key={tag.id}
+                                    value={tag.display}
+                                    style={getSelectStyles(
+                                        tag.display,
+                                        selectedTags,
+                                        appTheme
+                                    )}
+                                >
+                                    {tag.display}
+                                </MenuItem>
+                            ))}
+                        </Select>
+                    </FormControl>
+                    <Button
+                        variant="outlined"
+                        onClick={() => setOpenAddTagDialog(true)}
                     >
-                        {Object.keys(DisplayLanguages).map((lang) => (
-                            <MenuItem
-                                key={lang}
-                                value={lang}
-                                style={getSelectStyles(
-                                    lang,
-                                    selectedLanguage ? [selectedLanguage] : [],
-                                    appTheme
-                                )}
-                            >
-                                {
-                                    DisplayLanguages[
-                                        lang as keyof typeof DisplayLanguages
-                                    ]
-                                }
-                            </MenuItem>
-                        ))}
-                    </Select>
-                </FormControl>
-                <FormControl fullWidth required margin="normal">
-                    <InputLabel id="demo-multiple-chip-label">
-                        {t("common.tags")}
-                    </InputLabel>
-                    <Select
-                        labelId="demo-multiple-chip-label"
-                        id="demo-multiple-chip"
-                        multiple
-                        value={selectedTags}
-                        onChange={hangleChangeTags}
-                        input={
-                            <OutlinedInput
-                                id="select-multiple-chip"
-                                label="Chip"
-                            />
-                        }
-                        renderValue={(selected) => (
-                            <Box
-                                sx={{
-                                    display: "flex",
-                                    flexWrap: "wrap",
-                                    gap: 0.5,
-                                }}
-                            >
-                                {selected.map((value) => (
-                                    <Chip key={value} label={value} />
-                                ))}
-                            </Box>
-                        )}
-                        MenuProps={MenuProps}
+                        {t("upload.create_new_tag")}
+                    </Button>
+                    <AddString
+                        handleCloseDialog={() => setOpenAddTagDialog(false)}
+                        handleCreate={handleCreateTag}
+                        inputValue={otherTagValue}
+                        setInputValue={setOtherTagInForm}
+                        openDialog={openAddTagDialog}
+                        title={t("upload.create_new_tag")}
+                    />
+                    <CssTextField
+                        margin="normal"
+                        fullWidth
+                        name="uploader"
+                        required
+                        label={t("common.uploader")}
+                        id="uploader"
+                    />
+                    <Button
+                        type="submit"
+                        fullWidth
+                        variant="contained"
+                        sx={{ mt: 3, mb: 2 }}
                     >
-                        {tags.map((tag) => (
-                            <MenuItem
-                                key={tag.id}
-                                value={tag.display}
-                                style={getSelectStyles(
-                                    tag.display,
-                                    selectedTags,
-                                    appTheme
-                                )}
-                            >
-                                {tag.display}
-                            </MenuItem>
-                        ))}
-                    </Select>
-                </FormControl>
-                <Button
-                    variant="outlined"
-                    onClick={() => setOpenAddTagDialog(true)}
-                >
-                    {t("upload.create_new_tag")}
-                </Button>
-                <AddString
-                    handleCloseDialog={() => setOpenAddTagDialog(false)}
-                    handleCreate={handleCreateTag}
-                    inputValue={otherTagValue}
-                    setInputValue={setOtherTagInForm}
-                    openDialog={openAddTagDialog}
-                    title={t("upload.create_new_tag")}
+                        {t("common.submit")}
+                    </Button>
+                </Box>
+                <Snackbar
+                    anchorOrigin={{ vertical: "top", horizontal: "center" }}
+                    open={isSubmit}
+                    onClose={handleClose}
+                    message={t("upload.submit_success")}
+                    autoHideDuration={6000}
+                    action={action}
                 />
-                <TextField
-                    margin="normal"
-                    fullWidth
-                    name="uploader"
-                    required
-                    label={t("common.uploader")}
-                    id="uploader"
-                />
-                <Button
-                    type="submit"
-                    fullWidth
-                    variant="contained"
-                    sx={{ mt: 3, mb: 2 }}
-                >
-                    {t("common.submit")}
-                </Button>
             </Box>
-            <Snackbar
-                anchorOrigin={{ vertical: "top", horizontal: "center" }}
-                open={isSubmit}
-                onClose={handleClose}
-                message={t("upload.submit_success")}
-                autoHideDuration={6000}
-                action={action}
-            />
-        </Box>
+        </ThemeProvider>
     );
 }

@@ -208,7 +208,7 @@ export default function AccordionContent({
                             <Button
                                 sx={{ margin: "auto" }}
                                 color={"success"}
-                                variant={"outlined"}
+                                variant={"contained"}
                                 onClick={() => setOpenShare(true)}
                             >
                                 {t("common.share")}
@@ -225,14 +225,14 @@ export default function AccordionContent({
                                     <Button
                                         sx={{ marginLeft: "20px" }}
                                         color={"error"}
-                                        variant={"outlined"}
+                                        variant={"contained"}
                                         onClick={deleteRequest}
                                     >
                                         {t("common.delete")}
                                     </Button>
                                     <Button
                                         color={"success"}
-                                        variant={"outlined"}
+                                        variant={"contained"}
                                         onClick={aproveRequest}
                                     >
                                         {t("common.submit")}
@@ -256,7 +256,7 @@ export default function AccordionContent({
                                             <Button
                                                 sx={{ margin: "auto" }}
                                                 color={"success"}
-                                                variant={"outlined"}
+                                                variant={"contained"}
                                                 onClick={() =>
                                                     setOpenEdit(true)
                                                 }
@@ -273,7 +273,7 @@ export default function AccordionContent({
                                             <Button
                                                 sx={{ margin: "auto" }}
                                                 color={"error"}
-                                                variant={"outlined"}
+                                                variant={"contained"}
                                                 onClick={deleteSelectedContent}
                                             >
                                                 {t("common.delete")}
