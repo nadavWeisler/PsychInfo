@@ -34,13 +34,16 @@
         "login": "Login",
         "logout": "Logout",
         "reported_mistake": "Reported mistake",
+        "info_therapist": "Therapist information",
         "personalize": "Personalize",
         "name": "Name",
         "email": "Email",
         "password": "Password",
         "description": "Description",
         "invalid_link": "Invalid link",
-        "link_title": "For the link click here"
+        "link_title": "For the link click here",
+        "tel": "Phone",
+        "profession": "Profession"
     },
     "errors": {
         "error_occured": "An error occurred",
@@ -51,7 +54,8 @@
         "subtitle1": "The purpose of the website is to make available all the important information that has been circling around in recent days about psychological coping in light of the unusual situation we are facing, in a friendly and orderly manner.  There are two ways you can use our database:",
         "list1": "1. Enter each of the given topics and look at the content that appears in them in a concentrated way.",
         "list2": "2. Use our \"personalisation\" function, and by selecting the tags relevant to you, gather all the desired information in a personalized way.",
-        "subtitle2": "You are welcome to try the personalisation process through the button below, or enter the recommended topics shown on this page"
+        "subtitle2": "You are welcome to try the personalisation process through the button below, or enter the recommended topics shown on this page",
+        "therapist": "Therapist? we need you!"
     },
     "add_string": {
         "enter_id": "Enter ID",
@@ -111,7 +115,10 @@
         "empty_list": "No items to show",
         "edit_success": "The item was edited successfully",
         "edit_title": "Edit item",
-        "no_content": "No content"
+        "no_content": "No content",
+        "therapists": "Therapists Information",
+        "no_therapists": "No therapists information",
+        "move_therapists": "Move to therapists information"
     },
     "about_us": {
         "title": "About us      ",
@@ -150,5 +157,14 @@
             "title": "Yotam Aran",
             "description": "Developer"
         }
+    },
+    "register": {
+        "email": "Email",
+        "name": "Name",
+        "tel": "Phone",
+        "profession": "Profession",
+        "title1": "אנו מחפשים אנשי טיפול אשר מעוניינים לאפשר שיחה אחת, חינמית, דרך הזום, למי שצריכה, כדי להקשיב, לתת מקום ואולי קצת כלים שיעזרו בהתמודדות המורכבת.",
+        "title2": "הפרטים שלך יישארו חסויים במערכת וישמשו על מנת שניצור איתך קשר",
+        "submit_success": "Your information sent successfully!"
     }
 }

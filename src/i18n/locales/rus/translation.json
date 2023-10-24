@@ -26,7 +26,10 @@
         "languages": "Языки",
         "start": "Начало",
         "choose": "Выбрать",
-        "organizations": "Организации"
+        "organizations": "Организации",
+        "info_therapist": "Therapist information",
+        "tel": "Phone",
+        "profession": "Profession"
     },
     "errors": {
         "error_occured": "Произошла ошибка",
@@ -37,7 +40,8 @@
         "subtitle1": "Наша цель - сделать поиск этой информации более легким и  доступным. Есть две возможности для использования этой информации",
         "list1": "1. Зайти в каждую из предложенных тем и выбрать ту тему, которая Вас  нтересует.",
         "list 2": "2. Воспользоваться функцией Авторизация, выбрать нужные тэги, которые позволят сорать иформацию, подходящую лично Вам.",
-        "subtitle2": "Приглашаем Вас нажать на кнопку внизу и провести Авторизацию или выбрать подходящие Вам темы, представленные на этой странице."
+        "subtitle2": "Приглашаем Вас нажать на кнопку внизу и провести Авторизацию или выбрать подходящие Вам темы, представленные на этой странице.",
+        "therapist": "Therapist? we need you!"
     },
     "add_string": {
         "enter_id": "Авторизация",
@@ -91,5 +95,19 @@
             "title": "Yotam Aran",
             "description": "Developer"
         }
+    },
+    "register": {
+        "email": "Email",
+        "name": "Name",
+        "tel": "Phone",
+        "profession": "Profession",
+        "title1": "אנו מחפשים אנשי טיפול אשר מעוניינים לאפשר שיחה אחת, חינמית, דרך הזום, למי שצריכה, כדי להקשיב, לתת מקום ואולי קצת כלים שיעזרו בהתמודדות המורכבת.",
+        "title2": "הפרטים שלך יישארו חסויים במערכת וישמשו על מנת שניצור איתך קשר",
+        "submit_success": "Your information sent successfully!"
+    },
+    "admin": {
+        "therapists": "Therapists Information",
+        "no_therapists": "No therapists information",
+        "move_therapists": "Move to therapists information"
     }
 }

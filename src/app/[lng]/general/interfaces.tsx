@@ -195,3 +195,17 @@ export interface RegisterForm {
     tel: string;
     profession: string;
 }
+
+export interface RegisterFormDB extends RegisterForm {
+    id: number;
+}
+
+export interface TherapistsAccordionProps {
+    data: RegisterFormDB[];
+    deleteHandler: () => void;
+}
+
+export interface TherapistsAccordionContentProps {
+    data: RegisterFormDB;
+    deleteHandler: () => void;
+}
