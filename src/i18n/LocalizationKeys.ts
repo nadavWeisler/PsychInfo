@@ -1,4 +1,4 @@
-import { GetCreditsLocalizationKeys } from './CreditsLocalizationKeys';
+import { getCreditsLocalizationKeys } from './CreditsLocalizationKeys';
 
 export class LocalizationKeys {
   static Common = {
@@ -117,13 +117,13 @@ export class LocalizationKeys {
   };
 
   public static readonly Credits = {
-    Netanel: GetCreditsLocalizationKeys('netanel'),
-    Tatiana: GetCreditsLocalizationKeys('tatiana'),
-    Nadav_W: GetCreditsLocalizationKeys('nadav_w'),
-    Nadav_P: GetCreditsLocalizationKeys('nadav_p'),
-    Shlomi: GetCreditsLocalizationKeys('shlomi'),
-    Gaia: GetCreditsLocalizationKeys('gaia'),
-    Shir: GetCreditsLocalizationKeys('shir'),
-    Yotam: GetCreditsLocalizationKeys('yotam')
+    Netanel: getCreditsLocalizationKeys('netanel'),
+    Tatiana: getCreditsLocalizationKeys('tatiana'),
+    Nadav_W: getCreditsLocalizationKeys('nadav_w'),
+    Nadav_P: getCreditsLocalizationKeys('nadav_p'),
+    Shlomi: getCreditsLocalizationKeys('shlomi'),
+    Gaia: getCreditsLocalizationKeys('gaia'),
+    Shir: getCreditsLocalizationKeys('shir'),
+    Yotam: getCreditsLocalizationKeys('yotam')
   };
 }
