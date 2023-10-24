@@ -1,64 +1,65 @@
-'use client';
-import React, { useState, useEffect, useContext, Fragment, use } from 'react';
-import { Typography, Box, Chip, Link, Grid, Button } from '@mui/material';
-import ShareDialog from '@/app/[lng]/Components/ResultComp/ShareDialog';
-import { onAuthStateChanged } from '@firebase/auth';
-import { auth } from '@/app/[lng]/firebase/app';
-import { AuthContext } from '@/app/[lng]/context/AuthContext';
-import { deleteContent } from '@/app/[lng]/firebase/commands';
-import useTrans from '@/app/[lng]/hooks/useTrans';
-import EditContentDialog from '@/app/[lng]/Components/AdminComp/EditContentDialog';
+"use client";
+import React, { useState, useEffect, useContext, Fragment, use } from "react";
+import { Typography, Box, Chip, Link, Grid, Button } from "@mui/material";
+import ShareDialog from "@/app/[lng]/Components/ResultComp/ShareDialog";
+import { onAuthStateChanged } from "@firebase/auth";
+import { auth } from "@/app/[lng]/firebase/app";
+import { AuthContext } from "@/app/[lng]/context/AuthContext";
+import { deleteContent } from "@/app/[lng]/firebase/commands";
+import useTrans from "@/app/[lng]/hooks/useTrans";
+import EditContentDialog from "@/app/[lng]/Components/AdminComp/EditContentDialog";
 import {
-  AccordionContentProps,
-  DisplayLanguages
-} from '@/app/[lng]/general/interfaces';
-import { ifValidLink, isEmptyOrSpaces } from '@/app/[lng]/general/utils';
+    AccordionContentProps,
+    DisplayLanguages,
+} from "@/app/[lng]/general/interfaces";
+import { ifValidLink, isEmptyOrSpaces } from "@/app/[lng]/general/utils";
 
 export default function AccordionContent({
-  data,
-  request,
-  deleteRequest,
-  aproveRequest
+    data,
+    request,
+    deleteRequest,
+    aproveRequest,
 }: AccordionContentProps) {
-  const [openShare, setOpenShare] = useState<boolean>(false);
-  const [isAdmin, setIsAdmin] = useState(false);
-  const [openEdit, setOpenEdit] = useState(false);
-  const [isDeleted, setIsDeleted] = useState<boolean>(false);
+    const [openShare, setOpenShare] = useState<boolean>(false);
+    const [isAdmin, setIsAdmin] = useState(false);
+    const [openEdit, setOpenEdit] = useState(false);
+    const [isDeleted, setIsDeleted] = useState<boolean>(false);
 
-  const { t, direction } = useTrans();
+    const { t, direction } = useTrans();
 
-  const { user } = useContext(AuthContext);
+    const { user } = useContext(AuthContext);
 
-  useEffect(() => {
-    onAuthStateChanged(auth, (user) => {
-      if (!!user) {
-        setIsAdmin(true);
-      } else {
-        setIsAdmin(false);
-      }
-    });
-  }, [user]);
+    useEffect(() => {
+        onAuthStateChanged(auth, (user) => {
+            if (!!user) {
+                setIsAdmin(true);
+            } else {
+                setIsAdmin(false);
+            }
+        });
+    }, [user]);
 
-  const deleteSelectedContent = () => {
-    deleteContent(data.id);
-  };
+    const deleteSelectedContent = () => {
+        deleteContent(data?.id);
+    };
 
-  useEffect(() => {
-    if (data === undefined) {
-      setIsDeleted(true);
-    } else {
-      setIsDeleted(false);
-    }
-  }, [data]);
+    useEffect(() => {
+        if (data === undefined) {
+            setIsDeleted(true);
+        } else {
+            setIsDeleted(false);
+        }
+    }, [data]);
 
-  const btnDirrection = direction === 'rtl' ? 'ltr' : 'rtl';
-  const requestBtnDirrection = request ? btnDirrection : undefined;
+    const btnDirrection = direction === "rtl" ? "ltr" : "rtl";
+    const requestBtnDirrection = request ? btnDirrection : undefined;
 
     return (
-        <Fragment>
+        <>
             {!isDeleted ? (
                 <div>
                     <Box
+                        component={"div"}
                         dir={direction}
                         sx={{
                             display: "flex",
@@ -67,6 +68,7 @@ export default function AccordionContent({
                         }}
                     >
                         <Box
+                            component={"div"}
                             dir={direction}
                             sx={{
                                 display: "flex",
@@ -74,25 +76,31 @@ export default function AccordionContent({
                             }}
                         >
                             <Typography
+                                component={"div"}
                                 dir={direction}
                                 sx={{ margin: "10px" }}
                                 variant="h6"
                             >
                                 {t("common.description")}:
                             </Typography>
-                            <Box sx={{ whiteSpace: "pre-wrap" }}>
+                            <Box
+                                sx={{ whiteSpace: "pre-wrap" }}
+                                component={"div"}
+                            >
                                 <Typography
+                                    component={"div"}
                                     dir={direction}
                                     sx={{ margin: "10px" }}
                                     variant="h6"
                                 >
-                                    {data.description}
+                                    {data?.description}
                                 </Typography>
                             </Box>
                         </Box>
-                        {!isEmptyOrSpaces(data.link) &&
-                            ifValidLink(data.link) && (
+                        {!isEmptyOrSpaces(data?.link) &&
+                            ifValidLink(data?.link) && (
                                 <Box
+                                    component={"div"}
                                     dir={direction}
                                     sx={{
                                         display: "flex",
@@ -100,6 +108,7 @@ export default function AccordionContent({
                                     }}
                                 >
                                     <Typography
+                                        component={"div"}
                                         dir={direction}
                                         sx={{ margin: "10px" }}
                                         variant="h6"
@@ -109,7 +118,7 @@ export default function AccordionContent({
                                     <Link
                                         dir={direction}
                                         margin={"15px"}
-                                        href={data.link}
+                                        href={data?.link}
                                         target="_blank"
                                         rel="noopener"
                                         sx={{
@@ -122,6 +131,7 @@ export default function AccordionContent({
                                 </Box>
                             )}
                         <Box
+                            component={"div"}
                             dir={direction}
                             sx={{
                                 display: "flex",
@@ -129,22 +139,24 @@ export default function AccordionContent({
                             }}
                         >
                             <Typography
+                                component={"div"}
                                 dir={direction}
                                 sx={{ margin: "10px" }}
                                 variant="h6"
                             >
                                 {t("common.organization")}:&nbsp;
                             </Typography>
-                            {[data.organization].map((org) => (
+                            {[data?.organization]?.map((org) => (
                                 <Chip
                                     sx={{ margin: "10px" }}
-                                    key={org.id}
-                                    label={org.display}
+                                    key={org?.id}
+                                    label={org?.display}
                                     variant="outlined"
                                 />
                             ))}
                         </Box>
                         <Box
+                            component={"div"}
                             dir={direction}
                             sx={{
                                 display: "flex",
@@ -152,13 +164,14 @@ export default function AccordionContent({
                             }}
                         >
                             <Typography
+                                component={"div"}
                                 dir={direction}
                                 sx={{ margin: "10px" }}
                                 variant="h6"
                             >
                                 {t("common.language")}:
                             </Typography>
-                            {[data.languageId].map((lang) => (
+                            {[data?.languageId]?.map((lang) => (
                                 <Chip
                                     sx={{ margin: "10px" }}
                                     key={lang}
@@ -172,6 +185,7 @@ export default function AccordionContent({
                             ))}
                         </Box>
                         <Box
+                            component={"div"}
                             dir={direction}
                             sx={{
                                 display: "flex",
@@ -179,14 +193,15 @@ export default function AccordionContent({
                             }}
                         >
                             <Typography
+                                component={"div"}
                                 dir={direction}
                                 sx={{ margin: "10px" }}
                                 variant="h6"
                             >
                                 {t("common.tags")}:
                             </Typography>
-                            <Grid spacing={4} marginTop={"10px"}>
-                                {data.tags.map((tag) => (
+                            <Grid container spacing={4} marginTop={"10px"}>
+                                {data?.tags?.map((tag) => (
                                     <Chip
                                         sx={{
                                             marginRight: "5px",
@@ -201,6 +216,7 @@ export default function AccordionContent({
                         </Box>
                     </Box>
                     <Box
+                        component={"div"}
                         sx={{ display: "flex", direction: "row" }}
                         dir={requestBtnDirrection}
                     >
@@ -217,6 +233,7 @@ export default function AccordionContent({
                         {isAdmin ? (
                             request ? (
                                 <Box
+                                    component={"div"}
                                     sx={{
                                         display: "flex",
                                         flexDirection: "row",
@@ -239,8 +256,9 @@ export default function AccordionContent({
                                     </Button>
                                 </Box>
                             ) : (
-                                <Fragment>
+                                <>
                                     <Box
+                                        component={"div"}
                                         dir={direction}
                                         sx={{
                                             display: "flex",
@@ -248,6 +266,7 @@ export default function AccordionContent({
                                         }}
                                     >
                                         <Box
+                                            component={"div"}
                                             sx={{
                                                 display: "flex",
                                                 flexDirection: "row",
@@ -265,6 +284,7 @@ export default function AccordionContent({
                                             </Button>
                                         </Box>
                                         <Box
+                                            component={"div"}
                                             sx={{
                                                 display: "flex",
                                                 flexDirection: "row",
@@ -280,25 +300,27 @@ export default function AccordionContent({
                                             </Button>
                                         </Box>
                                     </Box>
-                                </Fragment>
+                                </>
                             )
                         ) : null}
                     </Box>
 
-          <ShareDialog
-            open={openShare}
-            onClose={() => setOpenShare(false)}
-            urlToShare={data.link}
-          />
-          <EditContentDialog
-            open={openEdit}
-            onClose={() => setOpenEdit(false)}
-            prevContent={data}
-          />
-        </div>
-      ) : (
-        <Typography>{t('admin.no_content')}</Typography>
-      )}
-    </Fragment>
-  );
+                    <ShareDialog
+                        open={openShare}
+                        onClose={() => setOpenShare(false)}
+                        urlToShare={data?.link}
+                    />
+                    <EditContentDialog
+                        open={openEdit}
+                        onClose={() => setOpenEdit(false)}
+                        prevContent={data}
+                    />
+                </div>
+            ) : (
+                <Typography component={"div"}>
+                    {t("admin.no_content")}
+                </Typography>
+            )}
+        </>
+    );
 }
