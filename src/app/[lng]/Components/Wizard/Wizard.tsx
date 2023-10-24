@@ -32,6 +32,7 @@ import LangStep from '@/app/[lng]/Components/Wizard/steps/LangStep';
 import useTrans from '@/app/[lng]/hooks/useTrans';
 import { error } from 'console';
 import { set } from '@firebase/database';
+import { LocalizationKeys } from '@/i18n/LocalizationKeys';
 
 export default function WizardDialog({
   open,
@@ -79,9 +80,9 @@ export default function WizardDialog({
   }, [i18n.language]);
 
   const errorMsgArray = [
-    t('wizard.no_tags'),
-    t('wizard.no_orgs'),
-    t('wizard.no_langs')
+    t(LocalizationKeys.Wizard.NoTags),
+    t(LocalizationKeys.Wizard.NoOrgs),
+    t(LocalizationKeys.Wizard.NoLangs)
   ];
   const handleNext = () => {
     switch (activeStep) {
@@ -144,9 +145,9 @@ export default function WizardDialog({
   }
 
   const steps: string[] = [
-    t('common.tags'),
-    t('common.organizations'),
-    t('common.languages')
+    t(LocalizationKeys.Common.Tags),
+    t(LocalizationKeys.Common.Organizations),
+    t(LocalizationKeys.Common.Languages)
   ];
 
   return (
