@@ -87,7 +87,8 @@
         "admin_log_in": "admin? login",
         "open_menu": "open menu",
         "upload_content": "upload content",
-        "found_mistake": "found a mistake?"
+        "found_mistake": "found a mistake?",
+        "about_us": "About us"
     },
     "mistake": {
         "name": "Full name (not required)",
@@ -111,5 +112,43 @@
         "edit_success": "The item was edited successfully",
         "edit_title": "Edit item",
         "no_content": "No content"
+    },
+    "about_us": {
+        "title": "About us      ",
+        "description": "Thank to all the people who helped us build this website"
+    },
+    "credits": {
+        "netanel": {
+            "title": "Netanel Huri, Founder of 'Ale Zait' school for Arabic language",
+            "description": "Translated the website to Arabic"
+        },
+        "tatiana": {
+            "title": "Tatiana Philippova",
+            "description": "Translated the website to Russian"
+        },
+        "nadav_w": {
+            "title": "Nadav Weisler",
+            "description": "Founder and developer of the website"
+        },
+        "nadav_p": {
+            "title": "Nadav Porat",
+            "description": "Developer"
+        },
+        "shlomi": {
+            "title": "Shlomi Shitrit",
+            "description": "Developer"
+        },
+        "gaia": {
+            "title": "Gaia Aran",
+            "description": "כתיבה, תוכן ואפיון האתר"
+        },
+        "shir": {
+            "title": "Shir barabi",
+            "description": "ניהול תוכן ואפיון האתר"
+        },
+        "yotam": {
+            "title": "Yotam Aran",
+            "description": "Developer"
+        }
     }
 }
