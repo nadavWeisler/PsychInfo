@@ -53,5 +53,39 @@
         "create_new_organization": "إنشاء منظمة جديدة",
         "create_new_tag": "إنشاء علامة جديدة",
         "create_new_language": "إنشاء لغة جديدة"
+    },
+    "credits": {
+        "netanel": {
+            "title": "نتانئيل حوري، مؤسس مدرسة غصن الزيتون ",
+            "description": "لتعليم اللغة العربية"
+        },
+        "tatiana": {
+            "title": "Tatiana Philippova",
+            "description": "Translated the website to Russian"
+        },
+        "nadav_w": {
+            "title": "Nadav Weisler",
+            "description": "Founder and developer of the website"
+        },
+        "nadav_p": {
+            "title": "Nadav Porat",
+            "description": "Developer"
+        },
+        "shlomi": {
+            "title": "Shlomi Shitrit",
+            "description": "Developer"
+        },
+        "gaia": {
+            "title": "Gaia Aran",
+            "description": "כתיבה, תוכן ואפיון האתר"
+        },
+        "shir": {
+            "title": "Shir barabi",
+            "description": "ניהול תוכן ואפיון האתר"
+        },
+        "yotam": {
+            "title": "Yotam Aran",
+            "description": "Developer"
+        }
     }
 }
