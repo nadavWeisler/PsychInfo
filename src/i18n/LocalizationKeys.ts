@@ -1,5 +1,3 @@
-import { getCreditsLocalizationKeys } from './CreditsLocalizationKeys';
-
 export class LocalizationKeys {
   static Common = {
     AppName: 'common.app_name',
@@ -41,9 +39,13 @@ export class LocalizationKeys {
     Email: 'common.email',
     Password: 'common.password',
     ReportedMistake: 'common.reported_mistake',
+    InfoTherapist: 'common.info_therapist',
     Name: 'common.name',
     Yes: 'common.yes',
-    No: 'common.no'
+    No: 'common.no',
+    LinkTitle: 'common.link_title',
+    Tel: 'common.tel',
+    Profession: 'common.profession'
   };
   static Errors = {
     ErrorOccured: 'errors.error_occured',
@@ -54,7 +56,8 @@ export class LocalizationKeys {
     Subtitle1: 'welcome.subtitle1',
     List1: 'welcome.list1',
     List2: 'welcome.list2',
-    Subtitle2: 'welcome.subtitle2'
+    Subtitle2: 'welcome.subtitle2',
+    Therapist: 'welcome.therapist'
   };
   static AddString = {
     EnterId: 'add_string.enter_id',
@@ -90,7 +93,8 @@ export class LocalizationKeys {
     AdminLogIn: 'navbar.admin_log_in',
     OpenMenu: 'navbar.open_menu',
     UploadContent: 'navbar.upload_content',
-    FoundMistake: 'navbar.found_mistake'
+    FoundMistake: 'navbar.found_mistake',
+    AboutUs: 'navbar.about_us'
   };
   static Mistake = {
     Name: 'mistake.name',
@@ -113,17 +117,56 @@ export class LocalizationKeys {
     EmptyList: 'admin.empty_list',
     EditSuccess: 'admin.edit_success',
     EditTitle: 'admin.edit_title',
-    NoContent: 'admin.no_content'
+    NoContent: 'admin.no_content',
+    Therapists: 'admin.therapists',
+    NoTherapists: 'admin.no_therapists',
+    MoveTherapists: 'admin.move_therapists'
   };
-
-  public static readonly Credits = {
-    Netanel: getCreditsLocalizationKeys('netanel'),
-    Tatiana: getCreditsLocalizationKeys('tatiana'),
-    Nadav_W: getCreditsLocalizationKeys('nadav_w'),
-    Nadav_P: getCreditsLocalizationKeys('nadav_p'),
-    Shlomi: getCreditsLocalizationKeys('shlomi'),
-    Gaia: getCreditsLocalizationKeys('gaia'),
-    Shir: getCreditsLocalizationKeys('shir'),
-    Yotam: getCreditsLocalizationKeys('yotam')
+  static AboutUs = {
+    Title: 'about_us.title',
+    Description: 'about_us.description'
+  };
+  static Credits = {
+    Netanel: {
+      Title: 'credits.netanel.title',
+      Description: 'credits.netanel.description'
+    },
+    Tatiana: {
+      Title: 'credits.tatiana.title',
+      Description: 'credits.tatiana.description'
+    },
+    NadavW: {
+      Title: 'credits.nadav_w.title',
+      Description: 'credits.nadav_w.description'
+    },
+    NadavP: {
+      Title: 'credits.nadav_p.title',
+      Description: 'credits.nadav_p.description'
+    },
+    Shlomi: {
+      Title: 'credits.shlomi.title',
+      Description: 'credits.shlomi.description'
+    },
+    Gaia: {
+      Title: 'credits.gaia.title',
+      Description: 'credits.gaia.description'
+    },
+    Shir: {
+      Title: 'credits.shir.title',
+      Description: 'credits.shir.description'
+    },
+    Yotam: {
+      Title: 'credits.yotam.title',
+      Description: 'credits.yotam.description'
+    }
+  };
+  static Register = {
+    Email: 'register.email',
+    Name: 'register.name',
+    Tel: 'register.tel',
+    Profession: 'register.profession',
+    Title1: 'register.title1',
+    Title2: 'register.title2',
+    SubmitSuccess: 'register.submit_success'
   };
 }

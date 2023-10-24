@@ -19,15 +19,28 @@ if (!fs.existsSync(localizationFilePath)) {
 }
 
 // Function to recursively traverse the JSON structure and generate the class content
-function generateClassContent(obj, currentKey) {
+function generateClassContent(obj, currentKey, depth = 0) {
   let classContent = '';
   for (const key of Object.keys(obj)) {
     const fullKey = currentKey ? `${currentKey}.${key}` : key;
-    if (typeof obj[key] === 'object') {
-      classContent += `        static ${snakeToCamel(key)} = {\n${generateClassContent(obj[key], fullKey)}        }\n`;
-    } else {
-      classContent += `        ${snakeToCamel(key)}: '${fullKey}',\n`;
+
+    const BASE_INDENTATION = '  '
+    const indentation = BASE_INDENTATION + Array.from({ length: depth + 1 }).join(BASE_INDENTATION);
+
+
+    if (typeof obj[key] != 'object') {
+
+      classContent += `${indentation}${snakeToCamel(key)}: '${fullKey}',\n`;
+      continue;
     }
+
+    if (depth > 0) {
+      classContent += `${indentation}${snakeToCamel(key)}: {\n${generateClassContent(obj[key], fullKey, depth + 2)}${indentation}},\n`
+      continue;
+    }
+
+    classContent += `${indentation}static ${snakeToCamel(key)} = {\n${generateClassContent(obj[key], fullKey, depth + 1)}${indentation}}\n`;
+
   }
   return classContent;
 }
