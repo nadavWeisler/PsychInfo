@@ -116,7 +116,7 @@
         "no_content": "ללא תוכן"
     },
     "about_us": {
-        "title": "עלינו",
+        "title": "אודות",
         "description": "תודה לכל האנשים שתרמו לאתר זה"
     },
     "credits": {
@@ -147,6 +147,10 @@
         "shir": {
             "title": "שיר ברבי",
             "description": "ניהול תוכן ואפיון האתר"
+        },
+        "yotam": {
+            "title": "יותם ארן",
+            "description": "מפתח"
         }
     }
 }

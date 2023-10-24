@@ -86,6 +86,10 @@
         "shir": {
             "title": "Shir barabi",
             "description": "ניהול תוכן ואפיון האתר"
+        },
+        "yotam": {
+            "title": "Yotam Aran",
+            "description": "Developer"
         }
     }
 }

@@ -50,14 +50,15 @@ export default function AboutUs() {
             id: 5,
             title: t("credits.shir.title"),
             description: t("credits.shir.description"),
-            imageUrl: "https://source.unsplash.com/random?wallpapers",
+            imageUrl: "https://i.ibb.co/FbvRRPC/shir.jpg",
         },
         {
             // TODO: change to real image and translate
             id: 6,
-            title: " יותם ארן",
-            description: "מפתח",
-            imageUrl: "https://source.unsplash.com/random?wallpapers",
+            title: t("credits.yotam.title"),
+            description: t("credits.yotam.description"),
+            imageUrl:
+                "https://media.licdn.com/dms/image/C4D03AQFMTy-Dfu3CKw/profile-displayphoto-shrink_800_800/0/1643667356760?e=1703721600&v=beta&t=skDopRpiph1z57gaaalTTafNcKZemRbNvVAJctwQLH8",
         },
         {
             id: 7,
@@ -84,7 +85,7 @@ export default function AboutUs() {
                         pb: 6,
                     }}
                 >
-                    <Container maxWidth="sm">
+                    <Container maxWidth="md">
                         <Typography
                             component="h1"
                             variant="h2"
@@ -100,7 +101,75 @@ export default function AboutUs() {
                             color="text.secondary"
                             paragraph
                         >
-                            {t("about_us.description")}
+                            {
+                                "כולנו מתנהלים כעת בתקופה חריגה ומערערת, שאנחנו לא יודעים כמה זמן היא תימשך, ושהתחילה בבת אחת, בהפתעה גמורה."
+                            }
+                        </Typography>
+                        <Typography
+                            variant="h5"
+                            align="center"
+                            color="text.secondary"
+                            paragraph
+                        >
+                            {
+                                "משפט שחוזרים עליו רבות בזמנים אלו, הוא שטראומה היא תגובה נורמלית למצב לא נורמלי. זה בסדר אם אתם מוצפים רגשית, או לא מרגישים מוצפים כלל. זה בסדר גם אם אתם לא מעוניינים לגשת או לחשוב בכלל על התקופה וההתמודדות הכרוכה בה."
+                            }
+                        </Typography>
+                        <Typography
+                            variant="h5"
+                            align="center"
+                            color="text.secondary"
+                            paragraph
+                        >
+                            {
+                                "יחד עם זאת, מי שירצה לחפש מידע על התמודדות נפשית בימים אלו, ימצא הצפה מבהילה ולפרקים מתנגשת או בלתי ניתנת לתיעדוף, של מידע באינטרנט בכלל וברשתות החברתיות בפרט. המצב הנוכחי הביא לכך שאנשי מקצוע רבים וטובים הציעו את עזרתם, הפיצו מהידע שלהם על בריאות נפשית בזמנים טראומטיים, ושחררו תוכן רב מסוגים שונים ולצרכים שונים."
+                            }
+                        </Typography>
+                        <Typography
+                            variant="h5"
+                            align="center"
+                            color="text.secondary"
+                            paragraph
+                        >
+                            {
+                                "אנחנו, חבורת מתנדבים רב-תחומית של מתכנתים, מתרגמים, חוקרי פסיכולוגיה ואנשי תוכן, הרגשנו את ההצפה הזו בעצמנו, והחלטנו לנסות לאגד ולאמת את כל התוכן הזה, הפרוס בפנינו, שלפעמים הכמות שלו עשויה להבהיל בפני עצמה."
+                            }
+                        </Typography>
+                        <Typography
+                            variant="h5"
+                            align="center"
+                            color="text.secondary"
+                            paragraph
+                        >
+                            {
+                                "הפלטפורמה שאנחנו בונים ומשפרים ללא הרף נועדה להנגיש לכולנו מידע אמין בלבד על התמודדות נפשית, באופן שיהיה ניתן לסינון, מותאם אישית אליכם, למקום בו המצב הזה תופס אתכם ולתוכן שאתם זקוקים לו."
+                            }
+                        </Typography>
+                        <Typography
+                            variant="h5"
+                            align="center"
+                            color="text.secondary"
+                            paragraph
+                        >
+                            {
+                                "נשמח אם תעלו גם אתם תכנים שאתם נתקלים בהם כדי שהאתר ימשיך להתעדכן כל הזמן בתוכן מדויק ומגוון ככל שניתן. כל העלאה כמובן עוברת את אישורנו לפני כן, לטובת אימות מהימנות המקור."
+                            }
+                        </Typography>
+                        <Typography
+                            variant="h5"
+                            align="center"
+                            color="text.secondary"
+                            paragraph
+                        >
+                            {`אנחנו מקווים שהאתר הזה יוכל לסייע לכם!`}
+                        </Typography>
+                        <Typography
+                            variant="h5"
+                            align="center"
+                            color="text.secondary"
+                            paragraph
+                        >
+                            {"צוות המתנדבים שלנו:"}
                         </Typography>
                     </Container>
                 </Box>
