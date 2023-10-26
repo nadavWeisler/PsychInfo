@@ -52,7 +52,7 @@ export default function ShareDialog({
     ];
 
     return (
-        <Dialog onClose={onClose} open={open}>
+        <Dialog onClose={onClose} open={open} sx={{ zIndex: 3000 }}>
             <DialogContent>
                 <DialogTitle>{t("common.share")}</DialogTitle>
                 <Grid container spacing={2}>
