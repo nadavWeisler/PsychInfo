@@ -91,7 +91,7 @@ export default function Navbar(): React.ReactElement {
         { text: t("navbar.about_us"), url: `/${i18n.language}/about-us` },
     ];
 
-    const ResponsiveAppBar: React.ReactElement = (
+    const MobileAppBar: React.ReactElement = (
         <AppBar position="static">
             <Toolbar disableGutters>
                 <Box sx={{ flexGrow: 0, direction: direction }}>
@@ -102,7 +102,7 @@ export default function Navbar(): React.ReactElement {
                         <MenuIcon />
                     </IconButton>
                     <Menu
-                        sx={{ mt: "45px" }}
+                        sx={{ mt: "45px", zIndex: 3000 }}
                         id="menu-appbar"
                         anchorOrigin={{
                             vertical: "top",
@@ -243,5 +243,5 @@ export default function Navbar(): React.ReactElement {
         </AppBar>
     );
 
-    return isMobile ? ResponsiveAppBar : DesktopAppBar;
+    return isMobile ? MobileAppBar : DesktopAppBar;
 }
