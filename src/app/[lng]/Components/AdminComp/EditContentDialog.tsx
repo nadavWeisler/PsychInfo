@@ -17,7 +17,7 @@ export default function EditContentDialog({
 }: EditContentDialogProps) {
     const { t } = useTrans();
     return (
-        <Dialog open={open} onClose={onClose}>
+        <Dialog open={open} onClose={onClose} sx={{ zIndex: 3000 }}>
             <DialogTitle>{t("admin.edit_title")}</DialogTitle>
             <DialogContent>
                 <EditContentForm prevContent={prevContent} />
