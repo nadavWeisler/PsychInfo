@@ -67,7 +67,7 @@ export default function PopUpList({
     };
 
     return (
-        <Dialog onClose={handleClose} open={open} dir={direction}>
+        <Dialog onClose={handleClose} open={open} dir={direction} sx={{ zIndex: 3000 }}>
             <DialogTitle>{title}</DialogTitle>
             <DialogContent sx={{ width: "100%" }}>
                 <List
