@@ -17,7 +17,7 @@
 }
 
 .title {
-    height: 45px;
+    height: auto;
     width: auto;
     background-color: rgba(0, 0, 0, 0.4);
     color: #ffddcc;
@@ -36,6 +36,7 @@
 
 .titleText {
     margin-left: 10px;
+    word-wrap: break-word;
 }
 
 .title:hover {
