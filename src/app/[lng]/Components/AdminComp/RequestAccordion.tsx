@@ -52,7 +52,7 @@ export default function RequestAccordion({
 
     return (
         <>
-            <Box sx={{ margin: "auto" }}>
+            <Box sx={{ margin: "auto" }} component={"div"}>
                 {accordionItems.map((item, index) => (
                     <div key={index}>
                         <div
@@ -93,31 +93,5 @@ export default function RequestAccordion({
                 ))}
             </Box>
         </>
-        // <Box
-        //     sx={{
-        //         width: "60%",
-        //         margin: "auto",
-        //         justifyContent: "center",
-        //         alignItems: "center",
-        //     }}
-        // >
-        //     <Accordion sx={{ backgroundColor: "#42a5f5" }}>
-        //         <AccordionSummary
-        //             expandIcon={<ExpandMoreIcon />}
-        //             aria-controls="panel1a-content"
-        //             id="panel1a-header"
-        //         >
-        //             <Typography>{data.title}</Typography>
-        //         </AccordionSummary>
-        //         <AccordionDetails>
-        //             <AccordionContent
-        //                 data={data}
-        //                 request={true}
-        //                 deleteRequest={deleteRequest}
-        //                 aproveRequest={aproveRequest}
-        //             />
-        //         </AccordionDetails>
-        //     </Accordion>
-        // </Box>
     );
 }

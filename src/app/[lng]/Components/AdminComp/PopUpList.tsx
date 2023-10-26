@@ -87,8 +87,8 @@ export default function PopUpList({
                         const labelId = `data-label-${value}`;
 
                         return (
-                            <Fragment>
-                                <ListItem key={index} disablePadding sx={{ border: "black" }}>
+                            <Fragment key={index}>
+                                <ListItem  disablePadding sx={{ border: "black" }}>
                                     <ListItemButton
                                         role={undefined}
                                         onClick={handleToggle(index)}
