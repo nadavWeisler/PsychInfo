@@ -19,6 +19,7 @@ import { useWindowWidth } from "@/app/[lng]/hooks/useWidth";
 import { DisplayLanguages, NavBarPage } from "@/app/[lng]/general/interfaces";
 import useTrans from "@/app/[lng]/hooks/useTrans";
 import { LocalizationKeys } from "@/i18n/LocalizationKeys";
+import useScroll from "@/app/[lng]/hooks/useScroll";
 
 export default function Navbar(): React.ReactElement {
     const [openMenu, setOpenMenu] = useState<boolean>(false);
@@ -26,8 +27,6 @@ export default function Navbar(): React.ReactElement {
 
     const width = useWindowWidth();
     const [isMobile, setIsMobile] = useState<boolean>(width <= 768);
-    const [isScrolling, setIsScrolling] = useState(false);
-    const [scrollListenerAttached, setScrollListenerAttached] = useState(false);
 
     const { user } = useContext(AuthContext);
 
@@ -93,34 +92,7 @@ export default function Navbar(): React.ReactElement {
         { text: t("navbar.about_us"), url: `/${i18n.language}/about-us` },
     ];
 
-    useEffect(() => {
-        if (openMenu) {
-            setOpenMenu(false);
-        }
-    }, [window.scrollY]);
-
-    const handleScroll = () => {
-        setIsScrolling(true);
-        const scrollTimeout = setTimeout(() => {
-            setIsScrolling(false);
-        }, 250);
-        clearTimeout(scrollTimeout);
-    };
-
-    useEffect(() => {
-        if (isMobile && openMenu) {
-          if (!scrollListenerAttached) {
-            const handleScroll = () => {
-              setOpenMenu(false);
-              window.removeEventListener('scroll', handleScroll);
-              setScrollListenerAttached(false);
-            };
-    
-            window.addEventListener('scroll', handleScroll);
-            setScrollListenerAttached(true);
-          }
-        }
-      }, [isMobile, openMenu, scrollListenerAttached]);
+    useScroll(openMenu, setOpenMenu, isMobile);
 
     const MobileAppBar: React.ReactElement = (
         <AppBar position="static">
