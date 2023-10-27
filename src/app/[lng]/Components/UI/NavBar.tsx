@@ -19,6 +19,7 @@ import { useWindowWidth } from "@/app/[lng]/hooks/useWidth";
 import { DisplayLanguages, NavBarPage } from "@/app/[lng]/general/interfaces";
 import useTrans from "@/app/[lng]/hooks/useTrans";
 import { LocalizationKeys } from "@/i18n/LocalizationKeys";
+import useScroll from "@/app/[lng]/hooks/useScroll";
 
 export default function Navbar(): React.ReactElement {
     const [openMenu, setOpenMenu] = useState<boolean>(false);
@@ -90,6 +91,8 @@ export default function Navbar(): React.ReactElement {
         },
         { text: t("navbar.about_us"), url: `/${i18n.language}/about-us` },
     ];
+
+    useScroll(openMenu, setOpenMenu, isMobile);
 
     const MobileAppBar: React.ReactElement = (
         <AppBar position="static">
