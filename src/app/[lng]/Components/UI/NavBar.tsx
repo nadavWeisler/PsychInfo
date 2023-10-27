@@ -10,6 +10,7 @@ import {
     IconButton,
     Menu,
     Link,
+    Avatar,
 } from "@mui/material";
 import MenuIcon from "@mui/icons-material/Menu";
 import { User, onAuthStateChanged } from "@firebase/auth";
@@ -82,7 +83,6 @@ export default function Navbar(): React.ReactElement {
           };
 
     const pages: NavBarPage[] = [
-        { text: t(LocalizationKeys.Common.AppName), url: `/` },
         { text: t("navbar.upload_content"), url: `/${i18n.language}/upload` },
         adminPage,
         {
@@ -119,6 +119,22 @@ export default function Navbar(): React.ReactElement {
                         open={openMenu}
                         onClose={() => setOpenMenu(false)}
                     >
+                        <MenuItem onClick={() => setOpenMenu(false)}>
+                            <Link>
+                                <IconButton
+                                    href="/"
+                                    size="small"
+                                    sx={{ ml: 2 }}
+                                >
+                                    <img
+                                        src="https://i.ibb.co/HKcWrgn/pic-modified-modified-new.png"
+                                        alt="logo"
+                                        style={{ marginLeft: "8px" }}
+                                    />
+                                    {t(LocalizationKeys.Common.AppName)}
+                                </IconButton>
+                            </Link>
+                        </MenuItem>
                         {pages.map((page, index) => (
                             <MenuItem
                                 key={index}
@@ -173,14 +189,15 @@ export default function Navbar(): React.ReactElement {
                 }}
             >
                 <div>
-                    <Link href="/">
-                        <Typography
-                            variant="h6"
-                            component="div"
-                            sx={{ cursor: "pointer", color: "white" }}
-                        >
+                    <Link>
+                        <IconButton href="/" size="small" sx={{ ml: 2 }}>
+                            <img
+                                src="https://i.ibb.co/HKcWrgn/pic-modified-modified-new.png"
+                                alt="logo"
+                                style={{ marginLeft: "8px" }}
+                            />
                             {t("common.app_name")}
-                        </Typography>
+                        </IconButton>
                     </Link>
                 </div>
                 <div>
