@@ -18,18 +18,14 @@ import {
 } from "@mui/material";
 import CloseIcon from "@mui/icons-material/Close";
 import { appTheme } from "@/app/[lng]/general/styles";
-import { AddString } from "../Components/addString";
 import {
     ContentDB,
     DisplayLanguages,
     Organization,
-    StringObject,
     Tag,
 } from "@/app/[lng]/general/interfaces";
-import { EMPTY_ORGANIZATION, EMPTY_TAG } from "@/app/[lng]/general/utils";
+import { EMPTY_ORGANIZATION } from "@/app/[lng]/general/utils";
 import {
-    createOrganization,
-    createTag,
     getAllOrganizations,
     getAllTags,
     postPendingContent,
@@ -99,13 +95,6 @@ export default function UploadContent() {
     const [selectedOrganization, setSelectedOrganization] =
         useState<Organization>(EMPTY_ORGANIZATION);
     const [selectedLanguage, setSelectedLanguage] = useState<string>("");
-
-    const [otherOrgValue, setOtherOrgValue] =
-        useState<Organization>(EMPTY_ORGANIZATION);
-    const [otherTagValue, setOtherTagValue] = useState<Tag>(EMPTY_TAG);
-
-    const [openAddTagDialog, setOpenAddTagDialog] = useState<boolean>(false);
-    const [openAddOrgDialog, setOpenAddOrgDialog] = useState<boolean>(false);
     const [isSubmit, setIsSubmit] = useState<boolean>(false);
 
     const { t, i18n, direction } = useTrans();
@@ -114,7 +103,7 @@ export default function UploadContent() {
         getAllTags(false, i18n.language).then((allTags: Tag[]) => {
             setTags(allTags);
         });
-    }, [otherTagValue]);
+    }, []);
 
     useEffect(() => {
         getAllOrganizations(false, i18n.language).then(
@@ -122,7 +111,7 @@ export default function UploadContent() {
                 setOrganizations(allOrgs);
             }
         );
-    }, [otherOrgValue]);
+    }, []);
 
     async function handleSubmit(
         event: FormEvent<HTMLFormElement>
@@ -162,34 +151,6 @@ export default function UploadContent() {
         if (newOrg) {
             setSelectedOrganization(newOrg);
         }
-    }
-
-    async function handleCreateTag(): Promise<void> {
-        if (otherTagValue) {
-            setSelectedTags([...selectedTags, otherTagValue.display]);
-            await createTag(otherTagValue).then(() => {
-                setOtherTagValue(EMPTY_TAG);
-                setOpenAddTagDialog(false);
-            });
-        }
-    }
-
-    async function handleCreateOrg(): Promise<void> {
-        if (otherOrgValue) {
-            setSelectedOrganization(otherOrgValue);
-            await createOrganization(otherOrgValue).then(() => {
-                setOtherOrgValue(EMPTY_ORGANIZATION);
-                setOpenAddOrgDialog(false);
-            });
-        }
-    }
-
-    function setOtherOrganizationInForm(org: StringObject): void {
-        setOtherOrgValue({ ...org, used: false });
-    }
-
-    function setOtherTagInForm(tag: StringObject): void {
-        setOtherTagValue({ ...tag, used: false });
     }
 
     const handleClose = (
@@ -275,20 +236,6 @@ export default function UploadContent() {
                             ))}
                         </Select>
                     </FormControl>
-                    <Button
-                        variant="outlined"
-                        onClick={() => setOpenAddOrgDialog(true)}
-                    >
-                        {t("upload.create_new_organization")}
-                    </Button>
-                    <AddString
-                        handleCloseDialog={() => setOpenAddOrgDialog(false)}
-                        handleCreate={handleCreateOrg}
-                        inputValue={otherOrgValue}
-                        setInputValue={setOtherOrganizationInForm}
-                        openDialog={openAddOrgDialog}
-                        title={t("upload.create_new_organization")}
-                    />
                     <CssTextField
                         margin="normal"
                         fullWidth
@@ -380,20 +327,6 @@ export default function UploadContent() {
                             ))}
                         </Select>
                     </FormControl>
-                    <Button
-                        variant="outlined"
-                        onClick={() => setOpenAddTagDialog(true)}
-                    >
-                        {t("upload.create_new_tag")}
-                    </Button>
-                    <AddString
-                        handleCloseDialog={() => setOpenAddTagDialog(false)}
-                        handleCreate={handleCreateTag}
-                        inputValue={otherTagValue}
-                        setInputValue={setOtherTagInForm}
-                        openDialog={openAddTagDialog}
-                        title={t("upload.create_new_tag")}
-                    />
                     <CssTextField
                         margin="normal"
                         fullWidth
