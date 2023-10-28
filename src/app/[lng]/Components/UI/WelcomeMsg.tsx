@@ -2,17 +2,12 @@
 import { Typography, Button, Box, Container } from "@mui/material";
 import { WelcomeMsgProps } from "@/app/[lng]/general/interfaces";
 import useTrans from "@/app/[lng]/hooks/useTrans";
-import { useRouter } from "next/navigation";
 
 export default function WelcomeMsg({
     lng,
     openWizradHandler,
 }: WelcomeMsgProps): React.ReactElement {
-    const { t, i18n, direction } = useTrans();
-    const router = useRouter();
-    const therapistHandler = () => {
-        router.replace(`/${i18n.language}/register-therapist`);
-    };
+    const { t, direction } = useTrans();
 
     return (
         <Box margin={"20px"}>
@@ -69,18 +64,7 @@ export default function WelcomeMsg({
                     textAlign: "center",
                     marginTop: "50px",
                 }}
-            >
-                <Button
-                    sx={{
-                        fontSize: "20px",
-                    }}
-                    variant="contained"
-                    color="primary"
-                    onClick={therapistHandler}
-                >
-                    {t("welcome.therapist")}
-                </Button>
-            </Container>
+            ></Container>
         </Box>
     );
 }

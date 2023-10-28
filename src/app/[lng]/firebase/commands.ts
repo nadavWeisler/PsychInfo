@@ -16,8 +16,6 @@ import {
     FoundMistakeDB,
     FoundMistake,
     ContentDB,
-    RegisterForm,
-    RegisterFormDB,
 } from "@/app/[lng]/general/interfaces";
 
 export async function getAllTags(
@@ -512,69 +510,6 @@ export async function updateContent(content: Content): Promise<void> {
             }
         } else {
             console.log(`No content found`);
-        }
-    } catch (error) {
-        console.error("Error:", error);
-    }
-}
-
-export async function getTherapist(): Promise<RegisterFormDB[]> {
-    try {
-        const snapshot = await get(ref(db, dbPath.therapist));
-        if (snapshot.exists()) {
-            return Object.values(snapshot.val());
-        } else {
-            console.log("No data available");
-            return [];
-        }
-    } catch (error) {
-        console.error("Error:", error);
-        throw error;
-    }
-}
-
-export async function postTherapist(data: RegisterForm) {
-    try {
-        const therapists = await getTherapist();
-        if (therapists.length === 0) {
-            const newTherapists = {
-                ...data,
-                id: 1,
-            };
-            const newTherapistRef = await push(ref(db, dbPath.therapist));
-            return await update(newTherapistRef, newTherapists);
-        } else {
-            const lastTherapist = therapists[therapists.length - 1];
-            const newId = lastTherapist.id + 1;
-            const newTherapist = {
-                ...data,
-                id: newId,
-            };
-            const newTherapistRef = await push(ref(db, dbPath.therapist));
-            return await update(newTherapistRef, newTherapist);
-        }
-    } catch (error) {
-        console.error("Error:", error);
-        throw error;
-    }
-}
-
-export async function deleteTherapist(index: number): Promise<void> {
-    try {
-        const snapshot = await get(ref(db, dbPath.therapist));
-        const therapists: RegisterFormDB[] = snapshot.val();
-        let therapistKey = "";
-        for (const key in therapists) {
-            if (therapists[key].id === index) {
-                therapistKey = key;
-                break;
-            }
-        }
-        if (therapistKey !== "") {
-            const contentRef = ref(db, `${dbPath.therapist}/${therapistKey}`);
-            await remove(contentRef);
-        } else {
-            console.log(`No therapist found with id ${index}`);
         }
     } catch (error) {
         console.error("Error:", error);
