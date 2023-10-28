@@ -6,7 +6,7 @@ const Custom404 = () => {
     const router = useRouter();
 
     useEffect(() => {
-        router.push("/");
+        router.replace("/he/home-page");
     }, []);
 
     return (
