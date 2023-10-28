@@ -185,27 +185,25 @@ export default function AboutUs() {
                                         flexDirection: "column",
                                     }}
                                 >
-                                    <CardActionArea>
-                                        <CardMedia
-                                            sx={{
-                                                pt: "100.00%",
-                                            }}
-                                            component="div"
-                                            image={card.imageUrl}
-                                        />
-                                        <CardContent sx={{ flexGrow: 1 }}>
-                                            <Typography
-                                                gutterBottom
-                                                variant="h5"
-                                                component="h2"
-                                            >
-                                                {card.title}
-                                            </Typography>
-                                            <Typography>
-                                                {card.description}
-                                            </Typography>
-                                        </CardContent>
-                                    </CardActionArea>
+                                    <CardMedia
+                                        sx={{
+                                            pt: "100.00%",
+                                        }}
+                                        component="div"
+                                        image={card.imageUrl}
+                                    />
+                                    <CardContent sx={{ flexGrow: 1 }}>
+                                        <Typography
+                                            gutterBottom
+                                            variant="h5"
+                                            component="h2"
+                                        >
+                                            {card.title}
+                                        </Typography>
+                                        <Typography>
+                                            {card.description}
+                                        </Typography>
+                                    </CardContent>
                                 </Card>
                             </Grid>
                         ))}
