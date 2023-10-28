@@ -29,7 +29,17 @@ export default function AdminSignInPage() {
             router.replace(`/${i18n.language}/admin`);
         } catch (err: any) {
             setIsError(true);
-            setErrorMsg(err.message);
+            switch (err.code) {
+                case "auth/invalid-email":
+                    setErrorMsg(t("sign_in.invalid_email"));
+                    break;
+                case "auth/invalid-login-credentials":
+                    setErrorMsg(t("sign_in.invalid_cred"));
+                    break;
+                default:
+                    setErrorMsg(t("sign_in.general_error"));
+                    break;
+            }
         } finally {
             setIsLoading(false);
         }

@@ -166,5 +166,10 @@
         "title1": "אנו מחפשים אנשי טיפול אשר מעוניינים לאפשר שיחה אחת, חינמית, דרך הזום, למי שצריכה, כדי להקשיב, לתת מקום ואולי קצת כלים שיעזרו בהתמודדות המורכבת.",
         "title2": "הפרטים שלך יישארו חסויים במערכת וישמשו על מנת שניצור איתך קשר",
         "submit_success": "Your information sent successfully!"
+    },
+    "sign_in": {
+        "invalid_email": "Invalid email address, please enter valid email",
+        "invalid_cred": "Please check your email and password, one of them is inncorrect",
+        "general_error": "Something went wrong, please try again"
     }
 }
