@@ -188,24 +188,3 @@ export interface TagsStepProps extends IsErrorStep {
 export interface LangStepProps extends IsErrorStep {
     updateSelectedLangs: (newTags: string[]) => void;
 }
-
-export interface RegisterForm {
-    name: string;
-    email: string;
-    tel: string;
-    profession: string;
-}
-
-export interface RegisterFormDB extends RegisterForm {
-    id: number;
-}
-
-export interface TherapistsAccordionProps {
-    data: RegisterFormDB[];
-    deleteHandler: () => void;
-}
-
-export interface TherapistsAccordionContentProps {
-    data: RegisterFormDB;
-    deleteHandler: () => void;
-}
