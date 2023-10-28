@@ -14,7 +14,7 @@ export default function WelcomeMsg({
         router.replace(`/${i18n.language}/register-therapist`);
     };
 
-    return (    
+    return (
         <Box margin={"20px"}>
             <Typography
                 dir={direction}
@@ -33,38 +33,15 @@ export default function WelcomeMsg({
                 color={"black"}
                 variant="h6"
                 component="div"
+                textAlign={"justify"}
                 gutterBottom
             >
-                {t("welcome.subtitle1")}
-            </Typography>
-            <Typography
-                dir={direction}
-                margin={"normal"}
-                color={"black"}
-                variant="h6"
-                component="div"
-                gutterBottom
-            >
+                {`${t("welcome.subtitle1")}`}
+                <br />
                 {t("welcome.list1")}
-            </Typography>
-            <Typography
-                dir={direction}
-                margin={"normal"}
-                color={"black"}
-                variant="h6"
-                component="div"
-                gutterBottom
-            >
+                <br />
                 {t("welcome.list2")}
-            </Typography>
-            <Typography
-                dir={direction}
-                margin={"normal"}
-                color={"black"}
-                variant="h6"
-                component="div"
-                gutterBottom
-            >
+                <br />
                 {t("welcome.subtitle2")}
             </Typography>
             <Box
