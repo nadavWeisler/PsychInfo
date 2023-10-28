@@ -122,7 +122,7 @@ export default function Navbar(): React.ReactElement {
                         <MenuItem onClick={() => setOpenMenu(false)}>
                             <Link>
                                 <IconButton
-                                    href="/"
+                                    href={`/${i18n.language}/home-page`}
                                     size="small"
                                     sx={{ ml: 2 }}
                                 >
@@ -185,12 +185,16 @@ export default function Navbar(): React.ReactElement {
                     display: "flex",
                     justifyContent: "space-evenly",
                     alignItems: "center",
-                    direction: direction, // Force left-to-right direction
+                    direction: direction,
                 }}
             >
                 <div>
                     <Link>
-                        <IconButton href="/" size="small" sx={{ ml: 2 }}>
+                        <IconButton
+                            href={`/${i18n.language}/home-page`}
+                            size="small"
+                            sx={{ ml: 2 }}
+                        >
                             <img
                                 src="https://i.ibb.co/HKcWrgn/pic-modified-modified-new.png"
                                 alt="logo"

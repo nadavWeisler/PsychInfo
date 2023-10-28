@@ -4,7 +4,6 @@ import { WelcomeMsgProps } from "@/app/[lng]/general/interfaces";
 import useTrans from "@/app/[lng]/hooks/useTrans";
 
 export default function WelcomeMsg({
-    lng,
     openWizradHandler,
 }: WelcomeMsgProps): React.ReactElement {
     const { t, direction } = useTrans();
