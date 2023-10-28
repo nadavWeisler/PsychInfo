@@ -28,8 +28,7 @@ export default function AboutUs() {
             id: 2,
             title: t("credits.shlomi.title"),
             description: t("credits.shlomi.description"),
-            imageUrl:
-                "https://scontent.ftlv5-1.fna.fbcdn.net/v/t39.30808-6/395428223_10228627431285283_4333855945652097004_n.jpg?_nc_cat=109&ccb=1-7&_nc_sid=5f2048&_nc_ohc=dysAv2UOzR4AX8hqpJj&_nc_oc=AQmjSXzhiFjbaxbvmY7mnrl9Q1swje81ehI9y8nU2ex_BnsNW1Lfnx_GR8U27Iqk0Ug&_nc_ht=scontent.ftlv5-1.fna&oh=00_AfB_R49L5fBWTe1sS8mbzCxRXS3mKTSD4MxPmJKvG2o4yg&oe=653B9CCD",
+            imageUrl: "https://i.ibb.co/YjZkfHZ/shlomi.jpg",
         },
         {
             id: 3,
@@ -46,14 +45,12 @@ export default function AboutUs() {
                 "https://media.licdn.com/dms/image/D4D03AQG6GVjshybq6g/profile-displayphoto-shrink_400_400/0/1672679569607?e=1703721600&v=beta&t=Q_suFXMwBzJqbQczaIg1Fk3PSkk1b39H72JScQ0iY1Y",
         },
         {
-            // TODO: add image
             id: 5,
             title: t("credits.shir.title"),
             description: t("credits.shir.description"),
             imageUrl: "https://i.ibb.co/FbvRRPC/shir.jpg",
         },
         {
-            // TODO: change to real image and translate
             id: 6,
             title: t("credits.yotam.title"),
             description: t("credits.yotam.description"),
@@ -64,8 +61,7 @@ export default function AboutUs() {
             id: 7,
             title: t("credits.netanel.title"),
             description: t("credits.netanel.description"),
-            imageUrl:
-                "https://scontent.ftlv5-1.fna.fbcdn.net/v/t39.30808-6/376914750_24785073707758843_6922480204138489649_n.jpg?_nc_cat=103&ccb=1-7&_nc_sid=5f2048&_nc_ohc=1tYqaV3ttQUAX8qiefl&_nc_ht=scontent.ftlv5-1.fna&oh=00_AfD858kXlsRvv-99P2Nikc28b9fU0ycEfR4Rn_odj7Yjgg&oe=653C19EE",
+            imageUrl: "https://i.ibb.co/WBLYHc6/netanel.jpg",
         },
         {
             id: 8,
