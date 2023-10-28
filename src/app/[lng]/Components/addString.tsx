@@ -10,7 +10,11 @@ import {
     Select,
     TextField,
 } from "@mui/material";
-import { DisplayLanguages, Organization, Tag } from "../general/interfaces";
+import {
+    DisplayLanguages,
+    Organization,
+    Tag,
+} from "@/app/[lng]/general/interfaces";
 import { ReactElement } from "react";
 import useTrans from "@/app/[lng]/hooks/useTrans";
 
@@ -34,7 +38,11 @@ export const AddString = ({
     const { t } = useTrans();
 
     return (
-        <Dialog open={openDialog} onClose={handleCloseDialog}>
+        <Dialog
+            open={openDialog}
+            onClose={handleCloseDialog}
+            sx={{ zIndex: 4000 }}
+        >
             <DialogTitle>{title}</DialogTitle>
             <DialogContent>
                 <TextField
@@ -65,6 +73,9 @@ export const AddString = ({
                 <FormControl margin="dense" fullWidth required>
                     <InputLabel>{t("add_string.enter_language")}</InputLabel>
                     <Select
+                        MenuProps={{
+                            style: { zIndex: 4001 },
+                        }}
                         variant="outlined"
                         value={
                             DisplayLanguages[
