@@ -6,7 +6,7 @@ import {
     remove,
     update,
     DataSnapshot,
-} from "firebase/database";
+} from "@firebase/database";
 import { db, dbPath } from "./app";
 import {
     Content,
@@ -47,9 +47,7 @@ export async function getAllOrganizations(
     langId: string
 ): Promise<Organization[]> {
     try {
-        const snapshot: DataSnapshot = await get(
-            ref(db, dbPath.organizations)
-        );
+        const snapshot: DataSnapshot = await get(ref(db, dbPath.organizations));
         if (snapshot.exists()) {
             let org: Organization[] = Object.values(snapshot.val());
             org = org.filter((item) => item.languageId === langId);
@@ -137,9 +135,7 @@ export async function createOrganization(
     organization: Organization
 ): Promise<void> {
     try {
-        const newOrganizationRef = await push(
-            ref(db, dbPath.organizations)
-        );
+        const newOrganizationRef = await push(ref(db, dbPath.organizations));
         return await set(newOrganizationRef, organization);
     } catch (error) {
         console.error("Error:", error);
@@ -429,10 +425,7 @@ export async function deletePendingMistake(index: string): Promise<void> {
             }
         }
         if (mistakeKey !== "") {
-            const contentRef = ref(
-                db,
-                `${dbPath.foundMistakes}/${mistakeKey}`
-            );
+            const contentRef = ref(db, `${dbPath.foundMistakes}/${mistakeKey}`);
             await remove(contentRef);
         } else {
             console.log(`No mistake found with id ${index}`);

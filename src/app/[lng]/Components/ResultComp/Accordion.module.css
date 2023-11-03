@@ -16,17 +16,8 @@
     );
 }
 
-/* .accordion {
-    box-shadow: 0px 13px 23px -13px rgba(0, 0, 0, 0.5);
-    width: 420px;
-    background-color: transparent;
-    margin: auto;
-    margin-top: 50px;
-   
-} */
-
 .title {
-    height: 45px;
+    height: auto;
     width: auto;
     background-color: rgba(0, 0, 0, 0.4);
     color: #ffddcc;
@@ -41,11 +32,11 @@
     border-radius: 4px;
     margin-top: 2px;
     transition: all 0.2s ease-in;
-    
 }
 
 .titleText {
     margin-left: 10px;
+    word-wrap: break-word;
 }
 
 .title:hover {

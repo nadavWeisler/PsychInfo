@@ -6,8 +6,17 @@
             "id": "id1",
             "img": "https://images.unsplash.com/photo-1532106753298-e7b431b26dae?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=3742&q=80",
             "languageId": "he",
-            "organizations": [],
+            "organizations": [
+                {
+                    "display": "test",
+                    "id": "test"
+                }
+            ],
             "tags": [
+                {
+                    "display": "test",
+                    "id": "test"
+                },
                 {
                     "display": "התמודדות עם אזעקות",
                     "id": "alarms"
@@ -59,7 +68,7 @@
                 {
                     "display": "תעסוקה לילדים",
                     "id": "kids_active"
-                }, 
+                },
                 {
                     "display": "העשרה אונליין (קורסים, הצגות וכו')",
                     "id": "online_extra"

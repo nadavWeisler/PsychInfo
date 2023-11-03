@@ -5,6 +5,7 @@ import { Alert, CircularProgress, Typography, Box } from "@mui/material";
 import SigninForm from "@/app/[lng]/Components/AdminComp/SigninForm";
 import { signIn } from "@/app/[lng]/firebase/auth";
 import useTrans from "@/app/[lng]/hooks/useTrans";
+import { LocalizationKeys } from "@/i18n/LocalizationKeys";
 
 export default function AdminSignInPage() {
     const [email, setEmail] = useState<string>("");
@@ -28,7 +29,17 @@ export default function AdminSignInPage() {
             router.replace(`/${i18n.language}/admin`);
         } catch (err: any) {
             setIsError(true);
-            setErrorMsg(err.message);
+            switch (err.code) {
+                case "auth/invalid-email":
+                    setErrorMsg(t("sign_in.invalid_email"));
+                    break;
+                case "auth/invalid-login-credentials":
+                    setErrorMsg(t("sign_in.invalid_cred"));
+                    break;
+                default:
+                    setErrorMsg(t("sign_in.general_error"));
+                    break;
+            }
         } finally {
             setIsLoading(false);
         }
@@ -42,7 +53,7 @@ export default function AdminSignInPage() {
                 variant="h4"
                 align="center"
             >
-                {t("admin.admin_login")}
+                {t(LocalizationKeys.Admin.AdminLogin)}
             </Typography>
             {isError && <Alert severity={"error"}>{errorMsg}</Alert>}
             <SigninForm

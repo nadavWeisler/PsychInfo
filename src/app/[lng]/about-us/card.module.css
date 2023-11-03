@@ -1,0 +1,8 @@
+.hoverCard {
+    transition: transform 0.2s; /* Add a smooth transition effect */
+  }
+  
+  .hoverCard:hover {
+    transform: scale(1.05); /* Increase the size when hovering */
+  }
+  

@@ -1,7 +1,5 @@
 import { ReactNode } from "react";
-import { User } from "firebase/auth";
-import { LocaleTypes } from "@/i18n/settings";
-import { SelectChangeEvent } from "@mui/material";
+import { User } from "@firebase/auth";
 
 export enum Operator {
     AND,
@@ -69,7 +67,6 @@ export interface OrganizationsState {
 }
 
 export interface WelcomeMsgProps {
-    lng: LocaleTypes;
     openWizradHandler: () => void;
 }
 

@@ -23,6 +23,10 @@ import { deleteTags, deleteOrganization } from "@/app/[lng]/firebase/commands";
 import { PopUpListProps } from "@/app/[lng]/general/interfaces";
 import { useAppSelector } from "@/app/[lng]/hooks/redux";
 import { RootState } from "@/store";
+import { EMPTY_ORGANIZATION, EMPTY_TAG } from "@/app/[lng]/general/utils";
+import { createOrganization, createTag } from "@/app/[lng]/firebase/commands";
+import { StringObject } from "@/app/[lng]/general/interfaces";
+import { AddString } from "@/app/[lng]/Components/addString";
 
 export default function PopUpList({
     open,
@@ -31,17 +35,24 @@ export default function PopUpList({
     title,
     isDeleteHandler,
 }: PopUpListProps) {
-    const { t, direction } = useTrans();
     const [checked, setChecked] = useState<number[]>([]);
+    const [otherOrgValue, setOtherOrgValue] =
+        useState<Organization>(EMPTY_ORGANIZATION);
+    const [otherTagValue, setOtherTagValue] = useState<Tag>(EMPTY_TAG);
+
+    const [openAddTagDialog, setOpenAddTagDialog] = useState<boolean>(false);
+    const [openAddOrgDialog, setOpenAddOrgDialog] = useState<boolean>(false);
+
+    const { t, direction } = useTrans();
 
     const data: Tag[] | Organization[] =
         dataType === "tags"
             ? (useAppSelector(
-                (state: RootState) => state.tagsAndOrg.tags
-            ) as Tag[])
+                  (state: RootState) => state.tagsAndOrg.tags
+              ) as Tag[])
             : (useAppSelector(
-                (state: RootState) => state.tagsAndOrg.organizations
-            ) as Organization[]);
+                  (state: RootState) => state.tagsAndOrg.organizations
+              ) as Organization[]);
 
     const handleToggle = (value: number) => () => {
         const currentIndex = checked.indexOf(value);
@@ -66,8 +77,65 @@ export default function PopUpList({
         isDeleteHandler();
     };
 
+    async function handleCreateTag(): Promise<void> {
+        if (otherTagValue) {
+            await createTag(otherTagValue).then(() => {
+                setOtherTagValue(EMPTY_TAG);
+                setOpenAddTagDialog(false);
+            });
+        }
+    }
+
+    async function handleCreateOrg(): Promise<void> {
+        if (otherOrgValue) {
+            await createOrganization(otherOrgValue).then(() => {
+                setOtherOrgValue(EMPTY_ORGANIZATION);
+                setOpenAddOrgDialog(false);
+            });
+        }
+    }
+
+    function setOtherOrganizationInForm(org: StringObject): void {
+        setOtherOrgValue({ ...org, used: false });
+    }
+
+    function setOtherTagInForm(tag: StringObject): void {
+        setOtherTagValue({ ...tag, used: false });
+    }
+
+    const AddDialog =
+        dataType === "tags" ? (
+            <AddString
+                handleCloseDialog={() => setOpenAddTagDialog(false)}
+                handleCreate={handleCreateTag}
+                inputValue={otherTagValue}
+                setInputValue={setOtherTagInForm}
+                openDialog={openAddTagDialog}
+                title={t("upload.create_new_tag")}
+            />
+        ) : (
+            <AddString
+                handleCloseDialog={() => setOpenAddOrgDialog(false)}
+                handleCreate={handleCreateOrg}
+                inputValue={otherOrgValue}
+                setInputValue={setOtherOrganizationInForm}
+                openDialog={openAddOrgDialog}
+                title={t("upload.create_new_organization")}
+            />
+        );
+
+    const openAddDialog =
+        dataType === "tags"
+            ? () => setOpenAddTagDialog(true)
+            : () => setOpenAddOrgDialog(true);
+
     return (
-        <Dialog onClose={handleClose} open={open} dir={direction}>
+        <Dialog
+            onClose={handleClose}
+            open={open}
+            dir={direction}
+            sx={{ zIndex: 3000 }}
+        >
             <DialogTitle>{title}</DialogTitle>
             <DialogContent sx={{ width: "100%" }}>
                 <List
@@ -87,8 +155,11 @@ export default function PopUpList({
                         const labelId = `data-label-${value}`;
 
                         return (
-                            <Fragment>
-                                <ListItem key={index} disablePadding sx={{ border: "black" }}>
+                            <Fragment key={index}>
+                                <ListItem
+                                    disablePadding
+                                    sx={{ border: "black" }}
+                                >
                                     <ListItemButton
                                         role={undefined}
                                         onClick={handleToggle(index)}
@@ -112,19 +183,42 @@ export default function PopUpList({
                                             id={labelId}
                                             primary={
                                                 <Fragment>
-                                                    <Typography sx={{ fontWeight: 'bold' }}>
-                                                        ID: <Typography component={"span"}>
+                                                    <Typography
+                                                        sx={{
+                                                            fontWeight: "bold",
+                                                        }}
+                                                    >
+                                                        ID:{" "}
+                                                        <Typography
+                                                            component={"span"}
+                                                        >
                                                             {value.id}
                                                         </Typography>
                                                     </Typography>
-                                                    <Typography sx={{ fontWeight: 'bold' }}>
-                                                        Display: <Typography component={"span"}>
+                                                    <Typography
+                                                        sx={{
+                                                            fontWeight: "bold",
+                                                        }}
+                                                    >
+                                                        Display:{" "}
+                                                        <Typography
+                                                            component={"span"}
+                                                        >
                                                             {value.display}
                                                         </Typography>
                                                     </Typography>
-                                                    <Typography sx={{ fontWeight: 'bold' }}>
-                                                        Used: <Typography component={"span"}>
-                                                            {value.used ? "True" : "False"}
+                                                    <Typography
+                                                        sx={{
+                                                            fontWeight: "bold",
+                                                        }}
+                                                    >
+                                                        Used:{" "}
+                                                        <Typography
+                                                            component={"span"}
+                                                        >
+                                                            {value.used
+                                                                ? "True"
+                                                                : "False"}
                                                         </Typography>
                                                     </Typography>
                                                 </Fragment>
@@ -134,16 +228,18 @@ export default function PopUpList({
                                 </ListItem>
                                 <Divider component="li" />
                             </Fragment>
-
-
                         );
                     })}
                 </List>
                 <IconButton onClick={handleDelete} aria-label="delete">
                     <DeleteIcon />
                 </IconButton>
+                {AddDialog}
             </DialogContent>
             <DialogActions>
+                <Button autoFocus onClick={openAddDialog} variant={"contained"}>
+                    {t("common.add")}
+                </Button>
                 <Button autoFocus onClick={handleClose}>
                     {t("common.close")}
                 </Button>

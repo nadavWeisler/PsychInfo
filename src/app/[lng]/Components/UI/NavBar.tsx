@@ -10,14 +10,17 @@ import {
     IconButton,
     Menu,
     Link,
+    Avatar,
 } from "@mui/material";
 import MenuIcon from "@mui/icons-material/Menu";
-import { User, onAuthStateChanged } from "firebase/auth";
+import { User, onAuthStateChanged } from "@firebase/auth";
 import { auth } from "@/app/[lng]/firebase/app";
 import { AuthContext } from "@/app/[lng]/context/AuthContext";
 import { useWindowWidth } from "@/app/[lng]/hooks/useWidth";
 import { DisplayLanguages, NavBarPage } from "@/app/[lng]/general/interfaces";
 import useTrans from "@/app/[lng]/hooks/useTrans";
+import { LocalizationKeys } from "@/i18n/LocalizationKeys";
+import useScroll from "@/app/[lng]/hooks/useScroll";
 
 export default function Navbar(): React.ReactElement {
     const [openMenu, setOpenMenu] = useState<boolean>(false);
@@ -80,16 +83,18 @@ export default function Navbar(): React.ReactElement {
           };
 
     const pages: NavBarPage[] = [
-        { text: t("common.app_name"), url: `/` },
         { text: t("navbar.upload_content"), url: `/${i18n.language}/upload` },
         adminPage,
         {
             text: t("navbar.found_mistake"),
             url: `/${i18n.language}/found-mistake`,
         },
+        { text: t("navbar.about_us"), url: `/${i18n.language}/about-us` },
     ];
 
-    const ResponsiveAppBar: React.ReactElement = (
+    useScroll(openMenu, setOpenMenu, isMobile);
+
+    const MobileAppBar: React.ReactElement = (
         <AppBar position="static">
             <Toolbar disableGutters>
                 <Box sx={{ flexGrow: 0, direction: direction }}>
@@ -100,7 +105,7 @@ export default function Navbar(): React.ReactElement {
                         <MenuIcon />
                     </IconButton>
                     <Menu
-                        sx={{ mt: "45px" }}
+                        sx={{ mt: "45px", zIndex: 3000 }}
                         id="menu-appbar"
                         anchorOrigin={{
                             vertical: "top",
@@ -114,6 +119,22 @@ export default function Navbar(): React.ReactElement {
                         open={openMenu}
                         onClose={() => setOpenMenu(false)}
                     >
+                        <MenuItem onClick={() => setOpenMenu(false)}>
+                            <Link>
+                                <IconButton
+                                    href={`/${i18n.language}/home-page`}
+                                    size="small"
+                                    sx={{ ml: 2 }}
+                                >
+                                    <img
+                                        src="https://i.ibb.co/HKcWrgn/pic-modified-modified-new.png"
+                                        alt="logo"
+                                        style={{ marginLeft: "8px" }}
+                                    />
+                                    {t(LocalizationKeys.Common.AppName)}
+                                </IconButton>
+                            </Link>
+                        </MenuItem>
                         {pages.map((page, index) => (
                             <MenuItem
                                 key={index}
@@ -164,18 +185,23 @@ export default function Navbar(): React.ReactElement {
                     display: "flex",
                     justifyContent: "space-evenly",
                     alignItems: "center",
-                    direction: direction, // Force left-to-right direction
+                    direction: direction,
                 }}
             >
                 <div>
-                    <Link href="/">
-                        <Typography
-                            variant="h6"
-                            component="div"
-                            sx={{ cursor: "pointer", color: "white" }}
+                    <Link>
+                        <IconButton
+                            href={`/${i18n.language}/home-page`}
+                            size="small"
+                            sx={{ ml: 2 }}
                         >
+                            <img
+                                src="https://i.ibb.co/HKcWrgn/pic-modified-modified-new.png"
+                                alt="logo"
+                                style={{ marginLeft: "8px" }}
+                            />
                             {t("common.app_name")}
-                        </Typography>
+                        </IconButton>
                     </Link>
                 </div>
                 <div>
@@ -200,6 +226,17 @@ export default function Navbar(): React.ReactElement {
                             sx={{ cursor: "pointer", color: "white" }}
                         >
                             {t("navbar.found_mistake")}
+                        </Typography>
+                    </Link>
+                </div>
+                <div>
+                    <Link href={`/${i18n.language}/about-us`}>
+                        <Typography
+                            variant="h6"
+                            component="div"
+                            sx={{ cursor: "pointer", color: "white" }}
+                        >
+                            {t("navbar.about_us")}
                         </Typography>
                     </Link>
                 </div>
@@ -230,5 +267,5 @@ export default function Navbar(): React.ReactElement {
         </AppBar>
     );
 
-    return isMobile ? ResponsiveAppBar : DesktopAppBar;
+    return isMobile ? MobileAppBar : DesktopAppBar;
 }

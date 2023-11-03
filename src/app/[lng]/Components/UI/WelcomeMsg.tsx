@@ -1,13 +1,12 @@
 "use client";
-import { Typography, Button, Box } from "@mui/material";
+import { Typography, Button, Box, Container } from "@mui/material";
 import { WelcomeMsgProps } from "@/app/[lng]/general/interfaces";
 import useTrans from "@/app/[lng]/hooks/useTrans";
 
 export default function WelcomeMsg({
-    lng,
     openWizradHandler,
 }: WelcomeMsgProps): React.ReactElement {
-    const { t, i18n, direction } = useTrans();
+    const { t, direction } = useTrans();
 
     return (
         <Box margin={"20px"}>
@@ -28,38 +27,15 @@ export default function WelcomeMsg({
                 color={"black"}
                 variant="h6"
                 component="div"
+                textAlign={"justify"}
                 gutterBottom
             >
-                {t("welcome.subtitle1")}
-            </Typography>
-            <Typography
-                dir={direction}
-                margin={"normal"}
-                color={"black"}
-                variant="h6"
-                component="div"
-                gutterBottom
-            >
+                {`${t("welcome.subtitle1")}`}
+                <br />
                 {t("welcome.list1")}
-            </Typography>
-            <Typography
-                dir={direction}
-                margin={"normal"}
-                color={"black"}
-                variant="h6"
-                component="div"
-                gutterBottom
-            >
+                <br />
                 {t("welcome.list2")}
-            </Typography>
-            <Typography
-                dir={direction}
-                margin={"normal"}
-                color={"black"}
-                variant="h6"
-                component="div"
-                gutterBottom
-            >
+                <br />
                 {t("welcome.subtitle2")}
             </Typography>
             <Box
@@ -81,6 +57,13 @@ export default function WelcomeMsg({
                     {t("common.start")}
                 </Button>
             </Box>
+            <Container
+                maxWidth={"sm"}
+                sx={{
+                    textAlign: "center",
+                    marginTop: "50px",
+                }}
+            ></Container>
         </Box>
     );
 }
