@@ -65,7 +65,7 @@ export default function WizardDialog({
     );
     dispatch(pagesActions.UploadContent({ content: results }));
     onClose();
-    router.replace(`${i18n.language}/results`);
+    router.replace(`/${i18n.language}/results`);
   }
 
   useEffect(() => {
