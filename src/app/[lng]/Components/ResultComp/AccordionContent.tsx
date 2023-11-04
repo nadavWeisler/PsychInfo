@@ -1,5 +1,5 @@
 "use client";
-import React, { useState, useEffect, useContext, Fragment, use } from "react";
+import React, { useState, useEffect, useContext } from "react";
 import { Typography, Box, Chip, Link, Grid, Button } from "@mui/material";
 import ShareDialog from "@/app/[lng]/Components/ResultComp/ShareDialog";
 import { onAuthStateChanged } from "@firebase/auth";
@@ -76,6 +76,7 @@ export default function AccordionContent({
                             }}
                         >
                             <Typography
+                                data-testid="description-title"
                                 component={"div"}
                                 dir={direction}
                                 sx={{ margin: "10px" }}
@@ -88,6 +89,7 @@ export default function AccordionContent({
                                 component={"div"}
                             >
                                 <Typography
+                                    data-testid="description"
                                     component={"div"}
                                     dir={direction}
                                     sx={{ margin: "10px" }}
@@ -108,6 +110,7 @@ export default function AccordionContent({
                                     }}
                                 >
                                     <Typography
+                                        data-testid="link-title"
                                         component={"div"}
                                         dir={direction}
                                         sx={{ margin: "10px" }}
@@ -116,6 +119,7 @@ export default function AccordionContent({
                                         {t("common.link")}:
                                     </Typography>
                                     <Link
+                                        data-testid="link"
                                         dir={direction}
                                         margin={"15px"}
                                         href={data?.link}
@@ -139,6 +143,7 @@ export default function AccordionContent({
                             }}
                         >
                             <Typography
+                                data-testid="org-title"
                                 component={"div"}
                                 dir={direction}
                                 sx={{ margin: "10px" }}
@@ -148,6 +153,7 @@ export default function AccordionContent({
                             </Typography>
                             {[data?.organization]?.map((org) => (
                                 <Chip
+                                    data-testid="org"
                                     sx={{ margin: "10px" }}
                                     key={org?.id}
                                     label={org?.display}
@@ -164,6 +170,7 @@ export default function AccordionContent({
                             }}
                         >
                             <Typography
+                                data-testid="lang-title"
                                 component={"div"}
                                 dir={direction}
                                 sx={{ margin: "10px" }}
@@ -171,8 +178,9 @@ export default function AccordionContent({
                             >
                                 {t("common.language")}:
                             </Typography>
-                            {[data?.languageId]?.map((lang) => (
+                            {[data?.languageId]?.map((lang, index) => (
                                 <Chip
+                                    data-testid={`lang-${index}`}
                                     sx={{ margin: "10px" }}
                                     key={lang}
                                     label={
@@ -193,6 +201,7 @@ export default function AccordionContent({
                             }}
                         >
                             <Typography
+                                data-testid="tags-title"
                                 component={"div"}
                                 dir={direction}
                                 sx={{ margin: "10px" }}
@@ -201,8 +210,9 @@ export default function AccordionContent({
                                 {t("common.tags")}:
                             </Typography>
                             <Grid container spacing={4} marginTop={"10px"}>
-                                {data?.tags?.map((tag) => (
+                                {data?.tags?.map((tag, index) => (
                                     <Chip
+                                        data-testid={`tags-${index}`}
                                         sx={{
                                             marginRight: "5px",
                                             marginTop: "3px",
@@ -222,6 +232,7 @@ export default function AccordionContent({
                     >
                         {!request ? (
                             <Button
+                                data-testid="share-btn"
                                 sx={{ margin: "auto" }}
                                 color={"success"}
                                 variant={"contained"}
@@ -240,6 +251,7 @@ export default function AccordionContent({
                                     }}
                                 >
                                     <Button
+                                        data-testid="delete-request-btn"
                                         sx={{ marginLeft: "20px" }}
                                         color={"error"}
                                         variant={"contained"}
@@ -248,6 +260,7 @@ export default function AccordionContent({
                                         {t("common.delete")}
                                     </Button>
                                     <Button
+                                        data-testid="submit-btn"
                                         color={"success"}
                                         variant={"contained"}
                                         onClick={aproveRequest}
@@ -273,6 +286,7 @@ export default function AccordionContent({
                                             }}
                                         >
                                             <Button
+                                                data-testid="edit-btn"
                                                 sx={{ margin: "auto" }}
                                                 color={"success"}
                                                 variant={"contained"}
@@ -291,6 +305,7 @@ export default function AccordionContent({
                                             }}
                                         >
                                             <Button
+                                                data-testid="delete-content-btn"
                                                 sx={{ margin: "auto" }}
                                                 color={"error"}
                                                 variant={"contained"}
@@ -305,19 +320,19 @@ export default function AccordionContent({
                         ) : null}
                     </Box>
 
-                    <ShareDialog
+                    <ShareDialog // TODO: add test
                         open={openShare}
                         onClose={() => setOpenShare(false)}
                         urlToShare={data?.link}
                     />
-                    <EditContentDialog
+                    <EditContentDialog // TODO: add test
                         open={openEdit}
                         onClose={() => setOpenEdit(false)}
                         prevContent={data}
                     />
                 </div>
             ) : (
-                <Typography component={"div"}>
+                <Typography data-testid="no-content-typ" component={"div"}>
                     {t("admin.no_content")}
                 </Typography>
             )}
