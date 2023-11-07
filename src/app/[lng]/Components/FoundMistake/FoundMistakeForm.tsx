@@ -7,6 +7,7 @@ import {
 } from "@/app/[lng]/general/interfaces";
 import { postMistakes } from "@/app/[lng]/firebase/commands";
 import useTrans from "@/app/[lng]/hooks/useTrans";
+import { styles } from "@/app/[lng]/Components/FoundMistake/FoundMistakeForm.style";
 
 export default function FoundMistakeForm({
     isSentHandler,
@@ -43,15 +44,7 @@ export default function FoundMistakeForm({
     }, [direction]);
 
     return (
-        <Box
-            sx={{
-                marginTop: 4,
-                display: "flex",
-                flexDirection: "column",
-                alignItems: "center",
-                overflow: "auto",
-            }}
-        >
+        <Box sx={styles.root}>
             <Box component="form" onSubmit={handleSubmit} dir={direction}>
                 <TextField
                     margin="normal"

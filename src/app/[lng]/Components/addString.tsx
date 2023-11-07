@@ -17,6 +17,7 @@ import {
 } from "@/app/[lng]/general/interfaces";
 import { ReactElement } from "react";
 import useTrans from "@/app/[lng]/hooks/useTrans";
+import { styles } from "@/app/[lng]/Components/addString.style";
 
 interface AddStringProps {
     title: string;
@@ -38,11 +39,7 @@ export const AddString = ({
     const { t } = useTrans();
 
     return (
-        <Dialog
-            open={openDialog}
-            onClose={handleCloseDialog}
-            sx={{ zIndex: 4000 }}
-        >
+        <Dialog open={openDialog} onClose={handleCloseDialog} sx={styles.root}>
             <DialogTitle>{title}</DialogTitle>
             <DialogContent>
                 <TextField
@@ -74,7 +71,7 @@ export const AddString = ({
                     <InputLabel>{t("add_string.enter_language")}</InputLabel>
                     <Select
                         MenuProps={{
-                            style: { zIndex: 4001 },
+                            style: styles.selectMenu,
                         }}
                         variant="outlined"
                         value={
@@ -105,14 +102,14 @@ export const AddString = ({
                 <Button
                     onClick={handleCloseDialog}
                     color="primary"
-                    sx={{ margin: "10px" }}
+                    sx={styles.button}
                 >
                     {t("common.cancel")}
                 </Button>
                 <Button
                     onClick={handleCreate}
                     color="primary"
-                    sx={{ margin: "10px" }}
+                    sx={styles.button}
                 >
                     {t("common.create")}
                 </Button>

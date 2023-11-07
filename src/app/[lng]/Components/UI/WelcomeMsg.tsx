@@ -2,6 +2,7 @@
 import { Typography, Button, Box, Container } from "@mui/material";
 import { WelcomeMsgProps } from "@/app/[lng]/general/interfaces";
 import useTrans from "@/app/[lng]/hooks/useTrans";
+import { styles } from "@/app/[lng]/Components/UI/WelcomeMsg.style";
 
 export default function WelcomeMsg({
     openWizradHandler,
@@ -38,18 +39,9 @@ export default function WelcomeMsg({
                 <br />
                 {t("welcome.subtitle2")}
             </Typography>
-            <Box
-                sx={{
-                    textAlign: "center",
-                    marginTop: "20px",
-                }}
-            >
+            <Box sx={styles.box}>
                 <Button
-                    sx={{
-                        width: "100px",
-                        height: "50px",
-                        fontSize: "20px",
-                    }}
+                    sx={styles.button}
                     variant="contained"
                     color="primary"
                     onClick={openWizradHandler}
@@ -57,13 +49,7 @@ export default function WelcomeMsg({
                     {t("common.start")}
                 </Button>
             </Box>
-            <Container
-                maxWidth={"sm"}
-                sx={{
-                    textAlign: "center",
-                    marginTop: "50px",
-                }}
-            ></Container>
+            <Container maxWidth={"sm"} sx={styles.container}></Container>
         </Box>
     );
 }
