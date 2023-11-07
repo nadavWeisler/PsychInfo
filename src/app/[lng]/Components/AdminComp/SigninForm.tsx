@@ -4,6 +4,7 @@ import { Button, TextField, Box } from "@mui/material";
 import { AdminSignInFormProps } from "@/app/[lng]/general/interfaces";
 import { useWindowWidth } from "@/app/[lng]/hooks/useWidth";
 import useTrans from "@/app/[lng]/hooks/useTrans";
+import { styles } from "@/app/[lng]/Components/AdminComp/SigninForm.style";
 
 export default function SigninForm({
     handleSubmit,
@@ -25,7 +26,7 @@ export default function SigninForm({
         <Box
             component="form"
             onSubmit={handleSubmit}
-            sx={{ mt: 1, width: windowWidth, margin: "auto" }}
+            sx={{ ...styles.root, width: windowWidth }}
         >
             <TextField
                 margin="normal"
@@ -54,7 +55,7 @@ export default function SigninForm({
                 type="submit"
                 fullWidth
                 variant="contained"
-                sx={{ mt: 3, mb: 2, mr: marginForBtn, width: "20%" }}
+                sx={{ ...styles.button, mr: marginForBtn }}
             >
                 {t("admin.login")}
             </Button>

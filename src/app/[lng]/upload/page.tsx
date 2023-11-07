@@ -34,6 +34,7 @@ import { styled } from "@mui/material/styles";
 import useTrans from "@/app/[lng]/hooks/useTrans";
 import styles from "@/app/[lng]/upload/select.module.css";
 import { ThemeProvider, createTheme } from "@mui/material/styles";
+import { stylesObj } from "@/app/[lng]/upload/page.style";
 
 const theme = createTheme({
     palette: {
@@ -171,7 +172,7 @@ export default function UploadContent() {
             aria-label="close"
             color="inherit"
             onClick={handleClose}
-            sx={{ width: "auto", position: "absolute", left: 0 }}
+            sx={stylesObj.iconBtn}
         >
             <CloseIcon fontSize="small" />
         </IconButton>
@@ -179,15 +180,7 @@ export default function UploadContent() {
 
     return (
         <ThemeProvider theme={theme}>
-            <Box
-                sx={{
-                    marginTop: 4,
-                    display: "flex",
-                    flexDirection: "column",
-                    alignItems: "center",
-                    overflow: "auto",
-                }}
-            >
+            <Box sx={stylesObj.root}>
                 <Typography variant="h4">{t("upload.title")}</Typography>
                 <Box component="form" onSubmit={handleSubmit}>
                     <CssTextField
@@ -298,13 +291,7 @@ export default function UploadContent() {
                                 />
                             }
                             renderValue={(selected) => (
-                                <Box
-                                    sx={{
-                                        display: "flex",
-                                        flexWrap: "wrap",
-                                        gap: 0.5,
-                                    }}
-                                >
+                                <Box sx={stylesObj.box}>
                                     {selected.map((value) => (
                                         <Chip key={value} label={value} />
                                     ))}
@@ -339,7 +326,7 @@ export default function UploadContent() {
                         type="submit"
                         fullWidth
                         variant="contained"
-                        sx={{ mt: 3, mb: 2 }}
+                        sx={stylesObj.button}
                     >
                         {t("common.submit")}
                     </Button>

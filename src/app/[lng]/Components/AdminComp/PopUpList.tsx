@@ -27,6 +27,7 @@ import { EMPTY_ORGANIZATION, EMPTY_TAG } from "@/app/[lng]/general/utils";
 import { createOrganization, createTag } from "@/app/[lng]/firebase/commands";
 import { StringObject } from "@/app/[lng]/general/interfaces";
 import { AddString } from "@/app/[lng]/Components/addString";
+import { styles } from "@/app/[lng]/Components/AdminComp/PopUpList.style";
 
 export default function PopUpList({
     open,
@@ -134,18 +135,11 @@ export default function PopUpList({
             onClose={handleClose}
             open={open}
             dir={direction}
-            sx={{ zIndex: 3000 }}
+            sx={styles.root}
         >
             <DialogTitle>{title}</DialogTitle>
-            <DialogContent sx={{ width: "100%" }}>
-                <List
-                    dir={direction}
-                    sx={{
-                        width: "100%",
-                        maxWidth: 360,
-                        bgcolor: "background.paper",
-                    }}
-                >
+            <DialogContent sx={styles.content}>
+                <List dir={direction} sx={styles.list}>
                     {data.length === 0 && (
                         <ListItem disablePadding>
                             <ListItemText primary={t("admin.empty_list")} />
@@ -156,10 +150,7 @@ export default function PopUpList({
 
                         return (
                             <Fragment key={index}>
-                                <ListItem
-                                    disablePadding
-                                    sx={{ border: "black" }}
-                                >
+                                <ListItem disablePadding sx={styles.listItem}>
                                     <ListItemButton
                                         role={undefined}
                                         onClick={handleToggle(index)}
@@ -183,36 +174,24 @@ export default function PopUpList({
                                             id={labelId}
                                             primary={
                                                 <Fragment>
-                                                    <Typography
-                                                        sx={{
-                                                            fontWeight: "bold",
-                                                        }}
-                                                    >
-                                                        ID:{" "}
+                                                    <Typography sx={styles.typ}>
+                                                        ID:
                                                         <Typography
                                                             component={"span"}
                                                         >
                                                             {value.id}
                                                         </Typography>
                                                     </Typography>
-                                                    <Typography
-                                                        sx={{
-                                                            fontWeight: "bold",
-                                                        }}
-                                                    >
-                                                        Display:{" "}
+                                                    <Typography sx={styles.typ}>
+                                                        Display:
                                                         <Typography
                                                             component={"span"}
                                                         >
                                                             {value.display}
                                                         </Typography>
                                                     </Typography>
-                                                    <Typography
-                                                        sx={{
-                                                            fontWeight: "bold",
-                                                        }}
-                                                    >
-                                                        Used:{" "}
+                                                    <Typography sx={styles.typ}>
+                                                        Used:
                                                         <Typography
                                                             component={"span"}
                                                         >

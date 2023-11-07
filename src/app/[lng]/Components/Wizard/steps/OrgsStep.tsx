@@ -6,6 +6,7 @@ import {
 } from "@/app/[lng]/general/interfaces";
 import { GetAllDisplays, ListContainsById } from "@/app/[lng]/general/utils";
 import useTrans from "@/app/[lng]/hooks/useTrans";
+import { styles } from "@/app/[lng]/Components/Wizard/steps/OrgsStep.style";
 
 export default function OrgsStep({
     organizations,
@@ -45,19 +46,15 @@ export default function OrgsStep({
     }
 
     return (
-        <Box sx={{ display: "flex", flexDirection: "column" }}>
+        <Box sx={styles.root}>
             {isError ? <Alert severity="error">{errorMsg}</Alert> : null}
-            <Box sx={{ display: "flex", flexDirection: "row" }}>
-                <Typography
-                    dir={direction}
-                    sx={{ marginBottom: "20px", marginTop: "20px" }}
-                    variant="h4"
-                >
+            <Box sx={styles.secondary}>
+                <Typography dir={direction} sx={styles.typ} variant="h4">
                     {t("wizard.choose_organizations")}
                 </Typography>
                 <Button
                     dir={direction}
-                    sx={{ margin: "20px" }}
+                    sx={styles.button}
                     variant="contained"
                     onClick={selectAll}
                 >
@@ -65,7 +62,7 @@ export default function OrgsStep({
                 </Button>
                 <Button
                     dir={direction}
-                    sx={{ margin: "20px" }}
+                    sx={styles.button}
                     variant="contained"
                     onClick={clearSelection}
                 >

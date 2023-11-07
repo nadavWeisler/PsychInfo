@@ -22,6 +22,7 @@ import {
 } from "react-share";
 import { ShareDialogProps } from "@/app/[lng]/general/interfaces";
 import useTrans from "@/app/[lng]/hooks/useTrans";
+import { styles } from "@/app/[lng]/Components/ResultComp/ShareDialog.style";
 
 export default function ShareDialog({
     open,
@@ -52,7 +53,7 @@ export default function ShareDialog({
     ];
 
     return (
-        <Dialog onClose={onClose} open={open} sx={{ zIndex: 3000 }}>
+        <Dialog onClose={onClose} open={open} sx={styles.root}>
             <DialogContent>
                 <DialogTitle>{t("common.share")}</DialogTitle>
                 <Grid container spacing={2}>

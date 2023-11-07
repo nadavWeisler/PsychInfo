@@ -10,7 +10,6 @@ import {
     IconButton,
     Menu,
     Link,
-    Avatar,
 } from "@mui/material";
 import MenuIcon from "@mui/icons-material/Menu";
 import { User, onAuthStateChanged } from "@firebase/auth";
@@ -21,6 +20,7 @@ import { DisplayLanguages, NavBarPage } from "@/app/[lng]/general/interfaces";
 import useTrans from "@/app/[lng]/hooks/useTrans";
 import { LocalizationKeys } from "@/i18n/LocalizationKeys";
 import useScroll from "@/app/[lng]/hooks/useScroll";
+import { styles } from "@/app/[lng]/Components/UI/NavBar.style";
 
 export default function Navbar(): React.ReactElement {
     const [openMenu, setOpenMenu] = useState<boolean>(false);
@@ -50,11 +50,7 @@ export default function Navbar(): React.ReactElement {
 
     const greetMsg: React.ReactElement = (
         <Link href={`/${i18n.language}/admin`}>
-            <Typography
-                variant="h6"
-                component="div"
-                sx={{ cursor: "pointer", color: "white" }}
-            >
+            <Typography variant="h6" component="div" sx={styles.linkTyp}>
                 {t("common.hello")} {userEmail}
             </Typography>
         </Link>
@@ -62,11 +58,7 @@ export default function Navbar(): React.ReactElement {
 
     const adminLink: React.ReactElement = (
         <Link href={`/${i18n.language}/admin-signin`}>
-            <Typography
-                variant="h6"
-                component="div"
-                sx={{ cursor: "pointer", color: "white" }}
-            >
+            <Typography variant="h6" component="div" sx={styles.linkTyp}>
                 {t("navbar.admin_log_in")}
             </Typography>
         </Link>
@@ -97,15 +89,15 @@ export default function Navbar(): React.ReactElement {
     const MobileAppBar: React.ReactElement = (
         <AppBar position="static">
             <Toolbar disableGutters>
-                <Box sx={{ flexGrow: 0, direction: direction }}>
+                <Box sx={{ ...styles.mobileRoot, direction: direction }}>
                     <IconButton
                         onClick={() => setOpenMenu(true)}
-                        sx={{ p: 0, mr: "20px" }}
+                        sx={styles.mobileIconBtn}
                     >
                         <MenuIcon />
                     </IconButton>
                     <Menu
-                        sx={{ mt: "45px", zIndex: 3000 }}
+                        sx={styles.mobileMenu}
                         id="menu-appbar"
                         anchorOrigin={{
                             vertical: "top",
@@ -124,12 +116,12 @@ export default function Navbar(): React.ReactElement {
                                 <IconButton
                                     href={`/${i18n.language}/home-page`}
                                     size="small"
-                                    sx={{ ml: 2 }}
+                                    sx={styles.mobileIconBtnSec}
                                 >
                                     <img
                                         src="https://i.ibb.co/HKcWrgn/pic-modified-modified-new.png"
                                         alt="logo"
-                                        style={{ marginLeft: "8px" }}
+                                        style={styles.img}
                                     />
                                     {t(LocalizationKeys.Common.AppName)}
                                 </IconButton>
@@ -154,14 +146,14 @@ export default function Navbar(): React.ReactElement {
                         ))}
                     </Menu>
                 </Box>
-                <Box sx={{ mr: 30 }}>
+                <Box sx={styles.mobileSecondary}>
                     <Select
                         onChange={(e) =>
                             i18n.changeLanguage(e.target.value as string)
                         }
                         aria-label="change language"
                         value={i18n.language}
-                        sx={{ color: "white" }}
+                        sx={styles.mobileSelect}
                     >
                         {Object.keys(DisplayLanguages).map((lang) => (
                             <MenuItem key={lang} value={lang}>
@@ -182,9 +174,7 @@ export default function Navbar(): React.ReactElement {
         <AppBar position="static">
             <Toolbar
                 sx={{
-                    display: "flex",
-                    justifyContent: "space-evenly",
-                    alignItems: "center",
+                    ...styles.desktopRoot,
                     direction: direction,
                 }}
             >
@@ -193,12 +183,12 @@ export default function Navbar(): React.ReactElement {
                         <IconButton
                             href={`/${i18n.language}/home-page`}
                             size="small"
-                            sx={{ ml: 2 }}
+                            sx={styles.desktopIconBtn}
                         >
                             <img
                                 src="https://i.ibb.co/HKcWrgn/pic-modified-modified-new.png"
                                 alt="logo"
-                                style={{ marginLeft: "8px" }}
+                                style={styles.desktopImg}
                             />
                             {t("common.app_name")}
                         </IconButton>
@@ -209,7 +199,7 @@ export default function Navbar(): React.ReactElement {
                         <Typography
                             variant="h6"
                             component="div"
-                            sx={{ cursor: "pointer", color: "white" }}
+                            sx={styles.desktopTyp}
                         >
                             {t("navbar.upload_content")}
                         </Typography>
@@ -223,7 +213,7 @@ export default function Navbar(): React.ReactElement {
                         <Typography
                             variant="h6"
                             component="div"
-                            sx={{ cursor: "pointer", color: "white" }}
+                            sx={styles.desktopTyp}
                         >
                             {t("navbar.found_mistake")}
                         </Typography>
@@ -234,7 +224,7 @@ export default function Navbar(): React.ReactElement {
                         <Typography
                             variant="h6"
                             component="div"
-                            sx={{ cursor: "pointer", color: "white" }}
+                            sx={styles.desktopTyp}
                         >
                             {t("navbar.about_us")}
                         </Typography>
@@ -248,9 +238,7 @@ export default function Navbar(): React.ReactElement {
                         }
                         aria-label="change language"
                         value={i18n.language || "he"}
-                        sx={{
-                            color: "white",
-                        }}
+                        sx={styles.desktopSelect}
                     >
                         {Object.keys(DisplayLanguages).map((lang) => (
                             <MenuItem key={lang} value={lang}>
