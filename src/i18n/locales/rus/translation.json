@@ -89,11 +89,15 @@
         },
         "shir": {
             "title": "Shir barabi",
-            "description": "ניהול תוכן ואפיון האתר"
+            "description": "מייסדת האתר, אחראית ניהול תוכן ואפיון האתר"
         },
         "yotam": {
             "title": "Yotam Aran",
             "description": "Developer"
+        },
+        "ana": {
+            "title": "Anna Koren",
+            "description": "Developer and QA lead"
         }
     },
     "register": {
