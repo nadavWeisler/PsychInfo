@@ -29,7 +29,8 @@
         "organizations": "المنظمات",
         "info_therapist": "Therapist information",
         "tel": "Phone",
-        "profession": "Profession"
+        "profession": "Profession",
+        "not_required": "Not required"
     },
     "errors": {
         "error_occurred": "حدث خطأ",

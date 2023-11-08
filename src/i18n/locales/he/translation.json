@@ -45,7 +45,8 @@
         "no": "לא",
         "link_title": "לקישור לחץ כאן",
         "tel": "טלפון",
-        "profession": "מומחיות"
+        "profession": "מומחיות",
+        "not_required": "לא חובה"
     },
     "errors": {
         "error_occured": "אירעה שגיאה",
