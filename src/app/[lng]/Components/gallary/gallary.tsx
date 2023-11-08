@@ -19,10 +19,10 @@ export default function Gallary({ filters }: GallaryProps) {
 
     async function handleChoice(filter: Filter) {
         const results: Content[] = await getContent(
-            filter.organizations ?? [],
             filter.tags ?? [],
             filter.languages ?? [],
-            Operator.AND
+            Operator.AND,
+            filter.organizations ?? []
         );
         dispatch(pagesActions.UploadContent({ content: results }));
         router.push(`${i18n.language}/results`);

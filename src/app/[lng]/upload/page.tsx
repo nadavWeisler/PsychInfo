@@ -94,7 +94,7 @@ export default function UploadContent() {
 
     const [selectedTags, setSelectedTags] = useState<string[]>([]);
     const [selectedOrganization, setSelectedOrganization] =
-        useState<Organization>(EMPTY_ORGANIZATION);
+        useState<Organization | null>(EMPTY_ORGANIZATION);
     const [selectedLanguage, setSelectedLanguage] = useState<string>("");
     const [isSubmit, setIsSubmit] = useState<boolean>(false);
 
@@ -124,7 +124,7 @@ export default function UploadContent() {
             description: data.get("description")?.toString() || "",
             link: data.get("link")?.toString() || "",
             tags: tags.filter((tag) => selectedTags.includes(tag.display)),
-            organization: selectedOrganization,
+            organization: selectedOrganization as Organization,
             languageId: selectedLanguage,
             uploader: data.get("uploader")?.toString() || "",
         };
@@ -201,12 +201,18 @@ export default function UploadContent() {
                         id="description"
                         multiline={true}
                     />
-                    <FormControl margin="normal" fullWidth required>
-                        <InputLabel>{t("common.organization")}</InputLabel>
+                    <FormControl margin="normal" fullWidth>
+                        <InputLabel>{`${t("common.organization")} (${t(
+                            "common.not_required"
+                        )})`}</InputLabel>
                         <Select
                             className={styles.select}
                             color={"secondary"}
-                            value={selectedOrganization}
+                            value={
+                                selectedOrganization === EMPTY_ORGANIZATION
+                                    ? null
+                                    : selectedOrganization
+                            }
                             onChange={hangleChangeOrganization}
                             renderValue={(selected) =>
                                 (selected as Organization).display

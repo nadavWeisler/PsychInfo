@@ -43,7 +43,8 @@
         "invalid_link": "Invalid link",
         "link_title": "For the link click here",
         "tel": "Phone",
-        "profession": "Profession"
+        "profession": "Profession",
+        "not_required": "Not required"
     },
     "errors": {
         "error_occured": "An error occurred",
