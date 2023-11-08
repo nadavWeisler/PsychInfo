@@ -22,6 +22,9 @@ export const styles = {
     },
     mobileSecondary: {
         mr: 30,
+        position: "fixed",
+        left: 0,
+        ml: 2,
     },
     mobileSelect: {
         color: "white",
