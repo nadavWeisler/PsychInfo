@@ -11,6 +11,7 @@ import {
 } from "@mui/material";
 import useTrans from "@/app/[lng]/hooks/useTrans";
 import styles from "@/app/[lng]/about-us/card.module.css";
+import { stylesObj } from "@/app/[lng]/about-us/page.style";
 
 export default function AboutUs() {
     const { t } = useTrans();
@@ -80,12 +81,7 @@ export default function AboutUs() {
         <>
             <CssBaseline />
             <main>
-                <Box
-                    sx={{
-                        pt: 8,
-                        pb: 6,
-                    }}
-                >
+                <Box sx={stylesObj.root}>
                     <Container maxWidth="md">
                         <Typography
                             component="h1"
@@ -174,26 +170,20 @@ export default function AboutUs() {
                         </Typography>
                     </Container>
                 </Box>
-                <Container sx={{ py: 8 }} maxWidth="md">
+                <Container sx={stylesObj.container} maxWidth="md">
                     <Grid container spacing={4}>
                         {cards.map((card) => (
                             <Grid item key={card.id} xs={12} sm={6} md={4}>
                                 <Card
                                     className={styles.hoverCard}
-                                    sx={{
-                                        height: "100%",
-                                        display: "flex",
-                                        flexDirection: "column",
-                                    }}
+                                    sx={stylesObj.card}
                                 >
                                     <CardMedia
-                                        sx={{
-                                            pt: "100.00%",
-                                        }}
+                                        sx={stylesObj.cardMedia}
                                         component="div"
                                         image={card.imageUrl}
                                     />
-                                    <CardContent sx={{ flexGrow: 1 }}>
+                                    <CardContent sx={stylesObj.cardContent}>
                                         <Typography
                                             gutterBottom
                                             variant="h5"

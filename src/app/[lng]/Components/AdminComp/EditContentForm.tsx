@@ -28,6 +28,7 @@ import {
 } from "@/app/[lng]/general/interfaces";
 import { appTheme } from "@/app/[lng]/general/styles";
 import { EMPTY_ORGANIZATION, EMPTY_TAG } from "@/app/[lng]/general/utils";
+import { styles } from "@/app/[lng]/Components/AdminComp/EditContentForm.style";
 
 function getSelectStyles(
     obj: string,
@@ -131,15 +132,7 @@ export default function EditContentForm({ prevContent }: EditContentFormProps) {
     }
 
     return (
-        <Box
-            sx={{
-                marginTop: 4,
-                display: "flex",
-                flexDirection: "column",
-                alignItems: "center",
-                overflow: "auto",
-            }}
-        >
+        <Box sx={styles.root}>
             <Typography variant="h4">{t("upload.title")}</Typography>
             <Box component="form" onSubmit={handleSubmit}>
                 <TextField

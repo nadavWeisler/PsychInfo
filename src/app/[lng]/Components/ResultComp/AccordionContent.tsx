@@ -13,6 +13,7 @@ import {
     DisplayLanguages,
 } from "@/app/[lng]/general/interfaces";
 import { ifValidLink, isEmptyOrSpaces } from "@/app/[lng]/general/utils";
+import { styles } from "@/app/[lng]/Components/ResultComp/AccordionContent.style";
 
 export default function AccordionContent({
     data,
@@ -58,39 +59,21 @@ export default function AccordionContent({
         <>
             {!isDeleted ? (
                 <div>
-                    <Box
-                        component={"div"}
-                        dir={direction}
-                        sx={{
-                            display: "flex",
-                            flexDirection: "column",
-                            overflow: "auto",
-                        }}
-                    >
-                        <Box
-                            component={"div"}
-                            dir={direction}
-                            sx={{
-                                display: "flex",
-                                flexDirection: "row",
-                            }}
-                        >
+                    <Box component={"div"} dir={direction} sx={styles.root}>
+                        <Box component={"div"} dir={direction} sx={styles.box}>
                             <Typography
                                 component={"div"}
                                 dir={direction}
-                                sx={{ margin: "10px" }}
+                                sx={styles.typ}
                                 variant="h6"
                             >
                                 {t("common.description")}:
                             </Typography>
-                            <Box
-                                sx={{ whiteSpace: "pre-wrap" }}
-                                component={"div"}
-                            >
+                            <Box sx={styles.boxSecondary} component={"div"}>
                                 <Typography
                                     component={"div"}
                                     dir={direction}
-                                    sx={{ margin: "10px" }}
+                                    sx={styles.typ}
                                     variant="h6"
                                 >
                                     {data?.description}
@@ -102,15 +85,12 @@ export default function AccordionContent({
                                 <Box
                                     component={"div"}
                                     dir={direction}
-                                    sx={{
-                                        display: "flex",
-                                        flexDirection: "row",
-                                    }}
+                                    sx={styles.box}
                                 >
                                     <Typography
                                         component={"div"}
                                         dir={direction}
-                                        sx={{ margin: "10px" }}
+                                        sx={styles.typ}
                                         variant="h6"
                                     >
                                         {t("common.link")}:
@@ -121,59 +101,42 @@ export default function AccordionContent({
                                         href={data?.link}
                                         target="_blank"
                                         rel="noopener"
-                                        sx={{
-                                            color: "blue",
-                                            textDecoration: "underline",
-                                        }}
+                                        sx={styles.link}
                                     >
                                         {t("common.link_title")}
                                     </Link>
                                 </Box>
                             )}
-                        <Box
-                            component={"div"}
-                            dir={direction}
-                            sx={{
-                                display: "flex",
-                                flexDirection: "row",
-                            }}
-                        >
+                        <Box component={"div"} dir={direction} sx={styles.box}>
                             <Typography
                                 component={"div"}
                                 dir={direction}
-                                sx={{ margin: "10px" }}
+                                sx={styles.typ}
                                 variant="h6"
                             >
                                 {t("common.organization")}:&nbsp;
                             </Typography>
                             {[data?.organization]?.map((org) => (
                                 <Chip
-                                    sx={{ margin: "10px" }}
+                                    sx={styles.chip}
                                     key={org?.id}
                                     label={org?.display}
                                     variant="outlined"
                                 />
                             ))}
                         </Box>
-                        <Box
-                            component={"div"}
-                            dir={direction}
-                            sx={{
-                                display: "flex",
-                                flexDirection: "row",
-                            }}
-                        >
+                        <Box component={"div"} dir={direction} sx={styles.box}>
                             <Typography
                                 component={"div"}
                                 dir={direction}
-                                sx={{ margin: "10px" }}
+                                sx={styles.typ}
                                 variant="h6"
                             >
                                 {t("common.language")}:
                             </Typography>
                             {[data?.languageId]?.map((lang) => (
                                 <Chip
-                                    sx={{ margin: "10px" }}
+                                    sx={styles.chip}
                                     key={lang}
                                     label={
                                         DisplayLanguages[
@@ -184,18 +147,11 @@ export default function AccordionContent({
                                 />
                             ))}
                         </Box>
-                        <Box
-                            component={"div"}
-                            dir={direction}
-                            sx={{
-                                display: "flex",
-                                flexDirection: "row",
-                            }}
-                        >
+                        <Box component={"div"} dir={direction} sx={styles.box}>
                             <Typography
                                 component={"div"}
                                 dir={direction}
-                                sx={{ margin: "10px" }}
+                                sx={styles.typ}
                                 variant="h6"
                             >
                                 {t("common.tags")}:
@@ -203,10 +159,7 @@ export default function AccordionContent({
                             <Grid container spacing={4} marginTop={"10px"}>
                                 {data?.tags?.map((tag) => (
                                     <Chip
-                                        sx={{
-                                            marginRight: "5px",
-                                            marginTop: "3px",
-                                        }}
+                                        sx={styles.chipSecondary}
                                         key={tag.id}
                                         label={tag.display}
                                         variant="outlined"
@@ -217,12 +170,12 @@ export default function AccordionContent({
                     </Box>
                     <Box
                         component={"div"}
-                        sx={{ display: "flex", direction: "row" }}
+                        sx={styles.box}
                         dir={requestBtnDirrection}
                     >
                         {!request ? (
                             <Button
-                                sx={{ margin: "auto" }}
+                                sx={styles.button}
                                 color={"success"}
                                 variant={"contained"}
                                 onClick={() => setOpenShare(true)}
@@ -232,15 +185,9 @@ export default function AccordionContent({
                         ) : null}
                         {isAdmin ? (
                             request ? (
-                                <Box
-                                    component={"div"}
-                                    sx={{
-                                        display: "flex",
-                                        flexDirection: "row",
-                                    }}
-                                >
+                                <Box component={"div"} sx={styles.box}>
                                     <Button
-                                        sx={{ marginLeft: "20px" }}
+                                        sx={styles.buttonSecondary}
                                         color={"error"}
                                         variant={"contained"}
                                         onClick={deleteRequest}
@@ -260,18 +207,9 @@ export default function AccordionContent({
                                     <Box
                                         component={"div"}
                                         dir={direction}
-                                        sx={{
-                                            display: "flex",
-                                            flexDirection: "row",
-                                        }}
+                                        sx={styles.box}
                                     >
-                                        <Box
-                                            component={"div"}
-                                            sx={{
-                                                display: "flex",
-                                                flexDirection: "row",
-                                            }}
-                                        >
+                                        <Box component={"div"} sx={styles.box}>
                                             <Button
                                                 sx={{ margin: "auto" }}
                                                 color={"success"}
@@ -283,13 +221,7 @@ export default function AccordionContent({
                                                 {t("common.edit")}
                                             </Button>
                                         </Box>
-                                        <Box
-                                            component={"div"}
-                                            sx={{
-                                                display: "flex",
-                                                flexDirection: "row",
-                                            }}
-                                        >
+                                        <Box component={"div"} sx={styles.box}>
                                             <Button
                                                 sx={{ margin: "auto" }}
                                                 color={"error"}
