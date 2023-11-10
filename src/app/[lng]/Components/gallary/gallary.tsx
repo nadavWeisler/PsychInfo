@@ -26,7 +26,7 @@ export default function Gallary({ filters }: GallaryProps) {
             filter.organizations ?? []
         );
         dispatch(pagesActions.UploadContent({ content: results }));
-        router.push(`${i18n.language}/results`);
+        router.push(`/${i18n.language}/results`);
     }
 
     return (
