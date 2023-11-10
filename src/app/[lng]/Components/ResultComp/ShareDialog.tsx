@@ -23,6 +23,7 @@ import {
 import { ShareDialogProps } from "@/app/[lng]/general/interfaces";
 import useTrans from "@/app/[lng]/hooks/useTrans";
 import { styles } from "@/app/[lng]/Components/ResultComp/ShareDialog.style";
+import { LocalizationKeys } from "@/i18n/LocalizationKeys";
 
 export default function ShareDialog({
     open,
