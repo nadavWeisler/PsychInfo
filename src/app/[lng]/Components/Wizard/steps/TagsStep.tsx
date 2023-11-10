@@ -4,6 +4,7 @@ import { Tag, TagsStepProps } from "@/app/[lng]/general/interfaces";
 import { GetAllDisplays, ListContainsById } from "@/app/[lng]/general/utils";
 import useTrans from "@/app/[lng]/hooks/useTrans";
 import { styles } from "@/app/[lng]/Components/Wizard/steps/TagsStep.style";
+import { LocalizationKeys } from "@/i18n/LocalizationKeys";
 
 export default function TagsStep({
     tags,
@@ -47,7 +48,7 @@ export default function TagsStep({
             {isError ? <Alert severity="error">{errorMsg}</Alert> : null}
             <Box sx={styles.secondary}>
                 <Typography dir={direction} sx={styles.typ} variant="h4">
-                    {t("wizard.choose_tags")}
+                    {t(LocalizationKeys.Wizard.ChooseTags)}
                 </Typography>
                 <Button
                     dir={direction}
@@ -55,7 +56,7 @@ export default function TagsStep({
                     variant="contained"
                     onClick={selectAll}
                 >
-                    {t("wizard.choose_all")}
+                    {t(LocalizationKeys.Wizard.ChooseAll)}
                 </Button>
                 <Button
                     dir={direction}
@@ -63,7 +64,7 @@ export default function TagsStep({
                     variant="contained"
                     onClick={clearSelection}
                 >
-                    {t("wizard.clear")}
+                    {t(LocalizationKeys.Wizard.Clear)}
                 </Button>
             </Box>
             <Grid dir={direction} container spacing={2}>

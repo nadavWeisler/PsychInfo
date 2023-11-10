@@ -6,6 +6,7 @@ import {
 } from "@/app/[lng]/general/interfaces";
 import useTrans from "@/app/[lng]/hooks/useTrans";
 import { styles } from "@/app/[lng]/Components/Wizard/steps/LangStep.style";
+import { LocalizationKeys } from "@/i18n/LocalizationKeys";
 
 export default function LangStep({
     updateSelectedLangs,
@@ -28,7 +29,7 @@ export default function LangStep({
                 selectedLangs.map(
                     (currentLang) =>
                         DisplayLanguages[
-                            currentLang as keyof typeof DisplayLanguages
+                        currentLang as keyof typeof DisplayLanguages
                         ]
                 )
             );
@@ -56,7 +57,7 @@ export default function LangStep({
             {isError ? <Alert severity="error">{errorMsg}</Alert> : null}
             <Box sx={styles.secondary}>
                 <Typography dir={direction} sx={styles.typ} variant="h4">
-                    {t("wizard.choose_languages")}
+                    {t(LocalizationKeys.Wizard.ChooseLanguages)}
                 </Typography>
                 <Button
                     dir={direction}
@@ -64,7 +65,7 @@ export default function LangStep({
                     variant="contained"
                     onClick={selectAll}
                 >
-                    {t("wizard.choose_all")}
+                    {t(LocalizationKeys.Wizard.ChooseAll)}
                 </Button>
                 <Button
                     dir={direction}
@@ -72,7 +73,7 @@ export default function LangStep({
                     variant="contained"
                     onClick={clearSelection}
                 >
-                    {t("wizard.clear")}
+                    {t(LocalizationKeys.Wizard.Clear)}
                 </Button>
             </Box>
             <Grid dir={direction} container spacing={2}>
@@ -82,7 +83,7 @@ export default function LangStep({
                             key={lang}
                             label={
                                 DisplayLanguages[
-                                    lang as keyof typeof DisplayLanguages
+                                lang as keyof typeof DisplayLanguages
                                 ]
                             }
                             onClick={() => handleChoice(lang)}

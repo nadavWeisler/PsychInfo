@@ -6,6 +6,7 @@ import RequestAccordion from "@/app/[lng]/Components/AdminComp/RequestAccordion"
 import { getPendingContent } from "@/app/[lng]/firebase/commands";
 import useTrans from "@/app/[lng]/hooks/useTrans";
 import { styles } from "@/app/[lng]/Components/AdminComp/IncomingRequests.style";
+import { LocalizationKeys } from "@/i18n/LocalizationKeys";
 
 export default function IncomingRequests() {
     const [requests, setRequests] = useState<Content[]>([]);
@@ -31,7 +32,7 @@ export default function IncomingRequests() {
                 variant="h5"
                 color={"black"}
             >
-                {t("admin.waiting_requests")}
+                {t(LocalizationKeys.Admin.WaitingRequests)}
             </Typography>
             {requests && requests.length > 0 ? (
                 <Box sx={styles.box}>
@@ -47,7 +48,7 @@ export default function IncomingRequests() {
                     variant="h6"
                     color={"black"}
                 >
-                    {t("admin.no_requests")}
+                    {t(LocalizationKeys.Admin.NoRequests)}
                 </Typography>
             )}
         </>
