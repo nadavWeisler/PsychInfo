@@ -18,6 +18,7 @@ import {
 import { ReactElement } from "react";
 import useTrans from "@/app/[lng]/hooks/useTrans";
 import { styles } from "@/app/[lng]/Components/addString.style";
+import { LocalizationKeys } from "@/i18n/LocalizationKeys";
 
 interface AddStringProps {
     title: string;
@@ -46,7 +47,7 @@ export const AddString = ({
                     required
                     margin="dense"
                     fullWidth
-                    label={t("add_string.enter_id")}
+                    label={t(LocalizationKeys.AddString.EnterId)}
                     variant="outlined"
                     value={inputValue.id}
                     onChange={(e) =>
@@ -57,7 +58,7 @@ export const AddString = ({
                     required
                     margin="dense"
                     fullWidth
-                    label={t("add_string.enter_display")}
+                    label={t(LocalizationKeys.AddString.EnterDisplay)}
                     variant="outlined"
                     value={inputValue.display}
                     onChange={(e) =>
@@ -68,7 +69,7 @@ export const AddString = ({
                     }
                 />
                 <FormControl margin="dense" fullWidth required>
-                    <InputLabel>{t("add_string.enter_language")}</InputLabel>
+                    <InputLabel>{t(LocalizationKeys.AddString.EnterLanguage)}</InputLabel>
                     <Select
                         MenuProps={{
                             style: styles.selectMenu,
@@ -104,14 +105,14 @@ export const AddString = ({
                     color="primary"
                     sx={styles.button}
                 >
-                    {t("common.cancel")}
+                    {t(LocalizationKeys.Common.Cancel)}
                 </Button>
                 <Button
                     onClick={handleCreate}
                     color="primary"
                     sx={styles.button}
                 >
-                    {t("common.create")}
+                    {t(LocalizationKeys.Common.Create)}
                 </Button>
             </DialogActions>
         </Dialog>

@@ -32,13 +32,13 @@ export default function AdminSignInPage() {
             setIsError(true);
             switch (err.code) {
                 case "auth/invalid-email":
-                    setErrorMsg(t("sign_in.invalid_email"));
+                    setErrorMsg(t(LocalizationKeys.SignIn.InvalidEmail));
                     break;
                 case "auth/invalid-login-credentials":
-                    setErrorMsg(t("sign_in.invalid_cred"));
+                    setErrorMsg(t(LocalizationKeys.SignIn.InvalidCred));
                     break;
                 default:
-                    setErrorMsg(t("sign_in.general_error"));
+                    setErrorMsg(t(LocalizationKeys.SignIn.GeneralError));
                     break;
             }
         } finally {

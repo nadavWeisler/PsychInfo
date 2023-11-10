@@ -14,6 +14,7 @@ import {
 } from "@/app/[lng]/general/interfaces";
 import { ifValidLink, isEmptyOrSpaces } from "@/app/[lng]/general/utils";
 import { styles } from "@/app/[lng]/Components/ResultComp/AccordionContent.style";
+import { LocalizationKeys } from "@/i18n/LocalizationKeys";
 
 export default function AccordionContent({
     data,
@@ -67,7 +68,7 @@ export default function AccordionContent({
                                 sx={styles.typ}
                                 variant="h6"
                             >
-                                {t("common.description")}:
+                                {t(LocalizationKeys.Common.Description)}:
                             </Typography>
                             <Box sx={styles.boxSecondary} component={"div"}>
                                 <Typography
@@ -93,7 +94,7 @@ export default function AccordionContent({
                                         sx={styles.typ}
                                         variant="h6"
                                     >
-                                        {t("common.link")}:
+                                        {t(LocalizationKeys.Common.Link)}:
                                     </Typography>
                                     <Link
                                         dir={direction}
@@ -103,7 +104,7 @@ export default function AccordionContent({
                                         rel="noopener"
                                         sx={styles.link}
                                     >
-                                        {t("common.link_title")}
+                                        {t(LocalizationKeys.Common.LinkTitle)}
                                     </Link>
                                 </Box>
                             )}
@@ -114,7 +115,7 @@ export default function AccordionContent({
                                 sx={styles.typ}
                                 variant="h6"
                             >
-                                {t("common.organization")}:&nbsp;
+                                {t(LocalizationKeys.Common.Organization)}:&nbsp;
                             </Typography>
                             {[data?.organization]?.map((org) => (
                                 <Chip
@@ -132,7 +133,7 @@ export default function AccordionContent({
                                 sx={styles.typ}
                                 variant="h6"
                             >
-                                {t("common.language")}:
+                                {t(LocalizationKeys.Common.Language)}:
                             </Typography>
                             {[data?.languageId]?.map((lang) => (
                                 <Chip
@@ -154,7 +155,7 @@ export default function AccordionContent({
                                 sx={styles.typ}
                                 variant="h6"
                             >
-                                {t("common.tags")}:
+                                {t(LocalizationKeys.Common.Tags)}:
                             </Typography>
                             <Grid container spacing={4} marginTop={"10px"}>
                                 {data?.tags?.map((tag) => (
@@ -180,7 +181,7 @@ export default function AccordionContent({
                                 variant={"contained"}
                                 onClick={() => setOpenShare(true)}
                             >
-                                {t("common.share")}
+                                {t(LocalizationKeys.Common.Share)}
                             </Button>
                         ) : null}
                         {isAdmin ? (
@@ -192,14 +193,14 @@ export default function AccordionContent({
                                         variant={"contained"}
                                         onClick={deleteRequest}
                                     >
-                                        {t("common.delete")}
+                                        {t(LocalizationKeys.Common.Delete)}
                                     </Button>
                                     <Button
                                         color={"success"}
                                         variant={"contained"}
                                         onClick={aproveRequest}
                                     >
-                                        {t("common.submit")}
+                                        {t(LocalizationKeys.Common.Submit)}
                                     </Button>
                                 </Box>
                             ) : (
@@ -218,7 +219,7 @@ export default function AccordionContent({
                                                     setOpenEdit(true)
                                                 }
                                             >
-                                                {t("common.edit")}
+                                                {t(LocalizationKeys.Common.Edit)}
                                             </Button>
                                         </Box>
                                         <Box component={"div"} sx={styles.box}>
@@ -228,7 +229,7 @@ export default function AccordionContent({
                                                 variant={"contained"}
                                                 onClick={deleteSelectedContent}
                                             >
-                                                {t("common.delete")}
+                                                {t(LocalizationKeys.Common.Delete)}
                                             </Button>
                                         </Box>
                                     </Box>
@@ -250,7 +251,7 @@ export default function AccordionContent({
                 </div>
             ) : (
                 <Typography component={"div"}>
-                    {t("admin.no_content")}
+                    {t(LocalizationKeys.Admin.NoContent)}
                 </Typography>
             )}
         </>

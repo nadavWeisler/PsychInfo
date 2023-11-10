@@ -28,6 +28,7 @@ import { createOrganization, createTag } from "@/app/[lng]/firebase/commands";
 import { StringObject } from "@/app/[lng]/general/interfaces";
 import { AddString } from "@/app/[lng]/Components/addString";
 import { styles } from "@/app/[lng]/Components/AdminComp/PopUpList.style";
+import { LocalizationKeys } from "@/i18n/LocalizationKeys";
 
 export default function PopUpList({
     open,
@@ -112,7 +113,7 @@ export default function PopUpList({
                 inputValue={otherTagValue}
                 setInputValue={setOtherTagInForm}
                 openDialog={openAddTagDialog}
-                title={t("upload.create_new_tag")}
+                title={t(LocalizationKeys.Upload.CreateNewTag)}
             />
         ) : (
             <AddString
@@ -121,7 +122,7 @@ export default function PopUpList({
                 inputValue={otherOrgValue}
                 setInputValue={setOtherOrganizationInForm}
                 openDialog={openAddOrgDialog}
-                title={t("upload.create_new_organization")}
+                title={t(LocalizationKeys.Upload.CreateNewOrganization)}
             />
         );
 
@@ -142,7 +143,7 @@ export default function PopUpList({
                 <List dir={direction} sx={styles.list}>
                     {data.length === 0 && (
                         <ListItem disablePadding>
-                            <ListItemText primary={t("admin.empty_list")} />
+                            <ListItemText primary={t(LocalizationKeys.Admin.EmptyList)} />
                         </ListItem>
                     )}
                     {data.map((value, index) => {
@@ -217,10 +218,10 @@ export default function PopUpList({
             </DialogContent>
             <DialogActions>
                 <Button autoFocus onClick={openAddDialog} variant={"contained"}>
-                    {t("common.add")}
+                    {t(LocalizationKeys.Common.Add)}
                 </Button>
                 <Button autoFocus onClick={handleClose}>
-                    {t("common.close")}
+                    {t(LocalizationKeys.Common.Close)}
                 </Button>
             </DialogActions>
         </Dialog>

@@ -6,6 +6,7 @@ import { useAppSelector } from "@/app/[lng]/hooks/redux";
 import { RootState } from "@/store";
 import useTrans from "@/app/[lng]/hooks/useTrans";
 import CustomAccordion from "@/app/[lng]/Components/ResultComp/CustomAccordion";
+import { LocalizationKeys } from "@/i18n/LocalizationKeys";
 
 export default function ResultsPrePage(): ReactElement {
     const results: Content[] = useAppSelector(
@@ -21,7 +22,7 @@ export default function ResultsPrePage(): ReactElement {
                 variant="h4"
                 margin={"normal"}
             >
-                {t("results.title")}
+                {t(LocalizationKeys.Results.Title)}
             </Typography>
             <Box
                 sx={{

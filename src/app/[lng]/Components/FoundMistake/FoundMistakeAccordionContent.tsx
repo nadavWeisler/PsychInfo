@@ -3,6 +3,7 @@ import { FoundMistakeAccordionContentProps } from "@/app/[lng]/general/interface
 import useTrans from "@/app/[lng]/hooks/useTrans";
 import { deletePendingMistake } from "@/app/[lng]/firebase/commands";
 import { styles } from "@/app/[lng]/Components/FoundMistake/FoundMistakeAccordionContent.style";
+import { LocalizationKeys } from "@/i18n/LocalizationKeys";
 
 export default function FoundMistakeAccordionContent({
     deleteHandler,
@@ -20,13 +21,13 @@ export default function FoundMistakeAccordionContent({
     return (
         <Box dir={btnDirrection} sx={styles.root}>
             <Typography dir={direction} sx={styles.typ} variant="h6">
-                {t("common.name")}: {data.name}
+                {t(LocalizationKeys.Common.Name)}: {data.name}
             </Typography>
             <Typography dir={direction} sx={styles.typ} variant="h6">
-                {t("common.email")}: {data.emailToContact}
+                {t(LocalizationKeys.Common.Email)}: {data.emailToContact}
             </Typography>
             <Typography dir={direction} sx={styles.typ} variant="h6">
-                {t("common.description")}: {data.description}
+                {t(LocalizationKeys.Common.Description)}: {data.description}
             </Typography>
 
             <Box sx={styles.box}>
@@ -36,7 +37,7 @@ export default function FoundMistakeAccordionContent({
                     variant={"outlined"}
                     onClick={deleteMistake}
                 >
-                    {t("common.delete")}
+                    {t(LocalizationKeys.Common.Delete)}
                 </Button>
             </Box>
         </Box>

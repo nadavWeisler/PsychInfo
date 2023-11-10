@@ -5,6 +5,7 @@ import { AdminSignInFormProps } from "@/app/[lng]/general/interfaces";
 import { useWindowWidth } from "@/app/[lng]/hooks/useWidth";
 import useTrans from "@/app/[lng]/hooks/useTrans";
 import { styles } from "@/app/[lng]/Components/AdminComp/SigninForm.style";
+import { LocalizationKeys } from "@/i18n/LocalizationKeys";
 
 export default function SigninForm({
     handleSubmit,
@@ -33,7 +34,7 @@ export default function SigninForm({
                 required
                 fullWidth
                 id="email"
-                label={t("common.email")}
+                label={t(LocalizationKeys.Common.Email)}
                 name="email"
                 autoComplete="email"
                 autoFocus
@@ -44,7 +45,7 @@ export default function SigninForm({
                 required
                 fullWidth
                 name="password"
-                label={t("common.password")}
+                label={t(LocalizationKeys.Common.Password)}
                 type="password"
                 id="password"
                 autoComplete="current-password"
@@ -57,7 +58,7 @@ export default function SigninForm({
                 variant="contained"
                 sx={{ ...styles.button, mr: marginForBtn }}
             >
-                {t("admin.login")}
+                {t(LocalizationKeys.Admin.Login)}
             </Button>
         </Box>
     );

@@ -6,6 +6,7 @@ import { Button, Box } from "@mui/material";
 import useTrans from "@/app/[lng]/hooks/useTrans";
 import { ControlPanelProps } from "@/app/[lng]/general/interfaces";
 import { styles } from "@/app/[lng]/Components/AdminComp/ControlPanel.style";
+import { LocalizationKeys } from "@/i18n/LocalizationKeys";
 
 export default function ControlPanel({
     isDeleteHandler,
@@ -23,7 +24,7 @@ export default function ControlPanel({
                 open={openTags}
                 handleClose={() => setOpenTags(false)}
                 dataType="tags"
-                title={t("common.tags")}
+                title={t(LocalizationKeys.Common.Tags)}
                 isDeleteHandler={isDeleteHandler}
                 isDelete={isDelete}
             />
@@ -31,7 +32,7 @@ export default function ControlPanel({
                 open={openOrganization}
                 handleClose={() => setOpenOrganization(false)}
                 dataType="organizations"
-                title={t("common.organizations")}
+                title={t(LocalizationKeys.Common.Organizations)}
                 isDeleteHandler={isDeleteHandler}
                 isDelete={isDelete}
             />
@@ -41,15 +42,15 @@ export default function ControlPanel({
                     variant={"contained"}
                     onClick={() => setOpenTags(true)}
                 >
-                    {t("admin.open_tags")}
+                    {t(LocalizationKeys.Admin.OpenTags)}
                 </Button>
                 <Button
                     sx={styles.button}
                     variant={"contained"}
                     onClick={() => setOpenOrganization(true)}
                 >
-                    {t("admin.open_organizations")}
-                </Button>
+                    {t(LocalizationKeys.Admin.OpenOrganizations)}
+=                </Button>
                 <Button
                     sx={styles.button}
                     variant={"contained"}
@@ -57,7 +58,7 @@ export default function ControlPanel({
                         router.replace(`/${i18n.language}/therapists-info`)
                     }
                 >
-                    {t("admin.move_therapists")}
+                    {t(LocalizationKeys.Admin.MoveTherapists)}
                 </Button>
             </Box>
         </Box>

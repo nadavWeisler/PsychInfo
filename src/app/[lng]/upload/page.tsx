@@ -35,6 +35,7 @@ import useTrans from "@/app/[lng]/hooks/useTrans";
 import styles from "@/app/[lng]/upload/select.module.css";
 import { ThemeProvider, createTheme } from "@mui/material/styles";
 import { stylesObj } from "@/app/[lng]/upload/page.style";
+import { LocalizationKeys } from "@/i18n/LocalizationKeys";
 
 const theme = createTheme({
     palette: {
@@ -181,14 +182,14 @@ export default function UploadContent() {
     return (
         <ThemeProvider theme={theme}>
             <Box sx={stylesObj.root}>
-                <Typography variant="h4">{t("upload.title")}</Typography>
+                <Typography variant="h4">{t(LocalizationKeys.Upload.Title)}</Typography>
                 <Box component="form" onSubmit={handleSubmit}>
                     <CssTextField
                         margin="normal"
                         required
                         fullWidth
                         id="title"
-                        label={t("common.title")}
+                        label={t(LocalizationKeys.Common.Title)}
                         name="title"
                         autoFocus
                     />
@@ -197,12 +198,12 @@ export default function UploadContent() {
                         required
                         fullWidth
                         name="description"
-                        label={t("common.description")}
+                        label={t(LocalizationKeys.Common.Description)}
                         id="description"
                         multiline={true}
                     />
                     <FormControl margin="normal" fullWidth>
-                        <InputLabel>{`${t("common.organization")} (${t(
+                        <InputLabel>{`${t(LocalizationKeys.Common.Organization)} (${t(
                             "common.not_required"
                         )})`}</InputLabel>
                         <Select
@@ -239,11 +240,11 @@ export default function UploadContent() {
                         margin="normal"
                         fullWidth
                         name="link"
-                        label={t("common.link")}
+                        label={t(LocalizationKeys.Common.Link)}
                         id="link"
                     />
                     <FormControl margin="normal" fullWidth required>
-                        <InputLabel>{t("common.language")}</InputLabel>
+                        <InputLabel>{t(LocalizationKeys.Common.Language)}</InputLabel>
                         <Select
                             className={styles.select}
                             color={"secondary"}
@@ -280,7 +281,7 @@ export default function UploadContent() {
                     </FormControl>
                     <FormControl fullWidth required margin="normal">
                         <InputLabel id="demo-multiple-chip-label">
-                            {t("common.tags")}
+                            {t(LocalizationKeys.Common.Tags)}
                         </InputLabel>
                         <Select
                             className={styles.select}
@@ -325,7 +326,7 @@ export default function UploadContent() {
                         fullWidth
                         name="uploader"
                         required
-                        label={t("common.uploader")}
+                        label={t(LocalizationKeys.Common.Uploader)}
                         id="uploader"
                     />
                     <Button
@@ -334,14 +335,14 @@ export default function UploadContent() {
                         variant="contained"
                         sx={stylesObj.button}
                     >
-                        {t("common.submit")}
+                        {t(LocalizationKeys.Common.Submit)}
                     </Button>
                 </Box>
                 <Snackbar
                     anchorOrigin={{ vertical: "top", horizontal: "center" }}
                     open={isSubmit}
                     onClose={handleClose}
-                    message={t("upload.submit_success")}
+                    message={t(LocalizationKeys.Upload.SubmitSuccess)}
                     autoHideDuration={6000}
                     action={action}
                 />

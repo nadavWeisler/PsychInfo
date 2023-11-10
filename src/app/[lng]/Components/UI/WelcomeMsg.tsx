@@ -3,6 +3,7 @@ import { Typography, Button, Box, Container } from "@mui/material";
 import { WelcomeMsgProps } from "@/app/[lng]/general/interfaces";
 import useTrans from "@/app/[lng]/hooks/useTrans";
 import { styles } from "@/app/[lng]/Components/UI/WelcomeMsg.style";
+import { LocalizationKeys } from "@/i18n/LocalizationKeys";
 
 export default function WelcomeMsg({
     openWizradHandler,
@@ -20,7 +21,7 @@ export default function WelcomeMsg({
                 gutterBottom
                 textAlign={"center"}
             >
-                {t("welcome.title")}
+                {t(LocalizationKeys.Welcome.Title)}
             </Typography>
             <Typography
                 dir={direction}
@@ -31,13 +32,13 @@ export default function WelcomeMsg({
                 textAlign={"justify"}
                 gutterBottom
             >
-                {`${t("welcome.subtitle1")}`}
+                {`${t(LocalizationKeys.Welcome.Subtitle1)}`}
                 <br />
-                {t("welcome.list1")}
+                {t(LocalizationKeys.Welcome.List1)}
                 <br />
-                {t("welcome.list2")}
+                {t(LocalizationKeys.Welcome.List2)}
                 <br />
-                {t("welcome.subtitle2")}
+                {t(LocalizationKeys.Welcome.Subtitle2)}
             </Typography>
             <Box sx={styles.box}>
                 <Button
@@ -46,7 +47,7 @@ export default function WelcomeMsg({
                     color="primary"
                     onClick={openWizradHandler}
                 >
-                    {t("common.start")}
+                    {t(LocalizationKeys.Common.Start)}
                 </Button>
             </Box>
             <Container maxWidth={"sm"} sx={styles.container}></Container>

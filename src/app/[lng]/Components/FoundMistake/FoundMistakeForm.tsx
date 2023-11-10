@@ -8,6 +8,7 @@ import {
 import { postMistakes } from "@/app/[lng]/firebase/commands";
 import useTrans from "@/app/[lng]/hooks/useTrans";
 import { styles } from "@/app/[lng]/Components/FoundMistake/FoundMistakeForm.style";
+import { LocalizationKeys } from "@/i18n/LocalizationKeys";
 
 export default function FoundMistakeForm({
     isSentHandler,
@@ -50,7 +51,7 @@ export default function FoundMistakeForm({
                     margin="normal"
                     fullWidth
                     id="name"
-                    label={t("mistake.name")}
+                    label={t(LocalizationKeys.Mistake.Name)}
                     name="name"
                     autoFocus
                     onChange={(e) => setName(e.target.value)}
@@ -59,7 +60,7 @@ export default function FoundMistakeForm({
                     margin="normal"
                     fullWidth
                     id="email"
-                    label={t("mistake.email")}
+                    label={t(LocalizationKeys.Mistake.Email)}
                     name="email"
                     autoFocus
                     onChange={(e) => setEmail(e.target.value)}
@@ -69,7 +70,7 @@ export default function FoundMistakeForm({
                     margin="normal"
                     fullWidth
                     id="description"
-                    label={t("mistake.description")}
+                    label={t(LocalizationKeys.Mistake.Description)}
                     name="description"
                     autoFocus
                     onChange={(e) => setDescription(e.target.value)}
@@ -77,7 +78,7 @@ export default function FoundMistakeForm({
                 />
                 <Box dir={btnDirection}>
                     <Button variant={"contained"} type="submit">
-                        {t("mistake.send")}
+                        {t(LocalizationKeys.Mistake.Send)}
                     </Button>
                 </Box>
             </Box>
