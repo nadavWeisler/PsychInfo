@@ -7,6 +7,7 @@ import { useRouter } from "next/navigation";
 import { useAppDispatch } from "@/app/[lng]/hooks/redux";
 import useTrans from "@/app/[lng]/hooks/useTrans";
 import { styles } from "@/app/[lng]/Components/gallary/gallary.style";
+import { LocalizationKeys } from "@/i18n/LocalizationKeys";
 
 interface GallaryProps {
     filters: Filter[];
@@ -31,7 +32,7 @@ export default function Gallary({ filters }: GallaryProps) {
     return (
         <>
             <Typography variant="h4" align="center" margin={"auto"}>
-                {t("gallary.title")}
+                {t(LocalizationKeys.Gallary.Title)}
             </Typography>
             <Grid container spacing={4} margin={"auto"} marginBottom={"10px"}>
                 {filters.map((filter) => (

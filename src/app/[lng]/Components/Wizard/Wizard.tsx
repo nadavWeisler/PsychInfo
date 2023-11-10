@@ -24,6 +24,7 @@ import TagsStep from "@/app/[lng]/Components/Wizard/steps/TagsStep";
 import ErrorStep from "@/app/[lng]/Components/Wizard/steps/ErrorStep";
 import LangStep from "@/app/[lng]/Components/Wizard/steps/LangStep";
 import useTrans from "@/app/[lng]/hooks/useTrans";
+import { LocalizationKeys } from "@/i18n/LocalizationKeys";
 
 export default function WizardDialog({
     open,
@@ -62,9 +63,9 @@ export default function WizardDialog({
     }, [i18n.language]);
 
     const errorMsgArray = [
-        t("wizard.no_tags"),
-        t("wizard.no_orgs"),
-        t("wizard.no_langs"),
+        t(LocalizationKeys.Wizard.NoTags),
+        t(LocalizationKeys.Wizard.NoOrgs),
+        t(LocalizationKeys.Wizard.NoLangs),
     ];
     const handleNext = () => {
         switch (activeStep) {
@@ -78,7 +79,7 @@ export default function WizardDialog({
                 break;
             default:
                 setError(true);
-                setErrorMsg(t("wizard.invalid_step"));
+                setErrorMsg(t(LocalizationKeys.Wizard.InvalidStep));
                 return;
         }
 
@@ -105,20 +106,20 @@ export default function WizardDialog({
                     />
                 );
             default:
-                return <ErrorStep errorMsg={t("wizard.invalid_step")} />;
+                return <ErrorStep errorMsg={t(LocalizationKeys.Wizard.InvalidStep)} />;
         }
     }
 
     const steps: string[] = [
-        t("common.tags"),
-        t("common.organizations"),
-        t("common.languages"),
+        t(LocalizationKeys.Common.Tags),
+        t(LocalizationKeys.Common.Organizations),
+        t(LocalizationKeys.Common.Languages),
     ];
 
     return (
         <Dialog open={open} onClose={onClose} fullWidth>
             <DialogTitle dir={direction}>
-                {t("wizard.which_info_you_need")}
+                {t(LocalizationKeys.Wizard.WhichInfoYouNeed)}
             </DialogTitle>
             <DialogContent>
                 <Stepper activeStep={activeStep}>
@@ -131,21 +132,21 @@ export default function WizardDialog({
                 {GetStepContent(activeStep)}
             </DialogContent>
             <DialogActions dir={direction}>
-                <Button onClick={onClose}>{t("common.close")}</Button>
+                <Button onClick={onClose}>{t(LocalizationKeys.Common.Close)}</Button>
                 <Button
                     onClick={() =>
                         setActiveStep((prevActiveStep) => prevActiveStep - 1)
                     }
                     disabled={activeStep === 0}
                 >
-                    {t("common.back")}
+                    {t(LocalizationKeys.Common.Back)}
                 </Button>
                 <Button
                     variant={"contained"}
                     onClick={handleNext}
                     disabled={activeStep === 1}
                 >
-                    {t("common.next")}
+                    {t(LocalizationKeys.Common.Next)}
                 </Button>
                 {activeStep === 1 ? (
                     <Button
@@ -153,7 +154,7 @@ export default function WizardDialog({
                         color={"primary"}
                         onClick={handleSubmit}
                     >
-                        {t("common.submit")}
+                        {t(LocalizationKeys.Common.Submit)}
                     </Button>
                 ) : null}
             </DialogActions>

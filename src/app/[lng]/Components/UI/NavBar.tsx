@@ -51,7 +51,7 @@ export default function Navbar(): React.ReactElement {
     const greetMsg: React.ReactElement = (
         <Link href={`/${i18n.language}/admin`}>
             <Typography variant="h6" component="div" sx={styles.linkTyp}>
-                {t("common.hello")} {userEmail}
+                {t(LocalizationKeys.Common.Hello)} {userEmail}
             </Typography>
         </Link>
     );
@@ -59,29 +59,29 @@ export default function Navbar(): React.ReactElement {
     const adminLink: React.ReactElement = (
         <Link href={`/${i18n.language}/admin-signin`}>
             <Typography variant="h6" component="div" sx={styles.linkTyp}>
-                {t("navbar.admin_log_in")}
+                {t(LocalizationKeys.Navbar.AdminLogIn)}
             </Typography>
         </Link>
     );
 
     const adminPage = !authUser
         ? {
-              text: t("navbar.admin_log_in"),
-              url: `/${i18n.language}/admin-signin`,
-          }
+            text: t(LocalizationKeys.Navbar.AdminLogIn),
+            url: `/${i18n.language}/admin-signin`,
+        }
         : {
-              text: t("common.hello") + " " + userEmail,
-              url: `/${i18n.language}/admin`,
-          };
+            text: t(LocalizationKeys.Common.Hello) + " " + userEmail,
+            url: `/${i18n.language}/admin`,
+        };
 
     const pages: NavBarPage[] = [
-        { text: t("navbar.upload_content"), url: `/${i18n.language}/upload` },
+        { text: t(LocalizationKeys.Navbar.UploadContent), url: `/${i18n.language}/upload` },
         adminPage,
         {
-            text: t("navbar.found_mistake"),
+            text: t(LocalizationKeys.Navbar.FoundMistake),
             url: `/${i18n.language}/found-mistake`,
         },
-        { text: t("navbar.about_us"), url: `/${i18n.language}/about-us` },
+        { text: t(LocalizationKeys.Navbar.AboutUs), url: `/${i18n.language}/about-us` },
     ];
 
     useScroll(openMenu, setOpenMenu, isMobile);
@@ -128,16 +128,10 @@ export default function Navbar(): React.ReactElement {
                             </Link>
                         </MenuItem>
                         {pages.map((page, index) => (
-                            <MenuItem
-                                key={index}
-                                onClick={() => setOpenMenu(false)}
-                            >
+                            <MenuItem key={index} onClick={() => setOpenMenu(false)}>
                                 <Fragment>
                                     <Link href={page.url}>
-                                        <Typography
-                                            textAlign="center"
-                                            component="div"
-                                        >
+                                        <Typography textAlign="center" component="div">
                                             {page.text}
                                         </Typography>
                                     </Link>
@@ -157,11 +151,7 @@ export default function Navbar(): React.ReactElement {
                     >
                         {Object.keys(DisplayLanguages).map((lang) => (
                             <MenuItem key={lang} value={lang}>
-                                {
-                                    DisplayLanguages[
-                                        lang as keyof typeof DisplayLanguages
-                                    ]
-                                }
+                                {DisplayLanguages[lang as keyof typeof DisplayLanguages]}
                             </MenuItem>
                         ))}
                     </Select>
@@ -190,7 +180,7 @@ export default function Navbar(): React.ReactElement {
                                 alt="logo"
                                 style={styles.desktopImg}
                             />
-                            {t("common.app_name")}
+                            {t(LocalizationKeys.Common.AppName)}
                         </IconButton>
                     </Link>
                 </div>
@@ -201,7 +191,7 @@ export default function Navbar(): React.ReactElement {
                             component="div"
                             sx={styles.desktopTyp}
                         >
-                            {t("navbar.upload_content")}
+                            {t(LocalizationKeys.Navbar.UploadContent)}
                         </Typography>
                     </Link>
                 </div>
@@ -215,7 +205,7 @@ export default function Navbar(): React.ReactElement {
                             component="div"
                             sx={styles.desktopTyp}
                         >
-                            {t("navbar.found_mistake")}
+                            {t(LocalizationKeys.Navbar.FoundMistake)}
                         </Typography>
                     </Link>
                 </div>
@@ -226,27 +216,21 @@ export default function Navbar(): React.ReactElement {
                             component="div"
                             sx={styles.desktopTyp}
                         >
-                            {t("navbar.about_us")}
+                            {t(LocalizationKeys.Navbar.AboutUs)}
                         </Typography>
                     </Link>
                 </div>
 
                 <div>
                     <Select
-                        onChange={(e) =>
-                            i18n.changeLanguage(e.target.value as string)
-                        }
+                        onChange={(e) => i18n.changeLanguage(e.target.value as string)}
                         aria-label="change language"
                         value={i18n.language || "he"}
                         sx={styles.desktopSelect}
                     >
                         {Object.keys(DisplayLanguages).map((lang) => (
                             <MenuItem key={lang} value={lang}>
-                                {
-                                    DisplayLanguages[
-                                        lang as keyof typeof DisplayLanguages
-                                    ]
-                                }
+                                {DisplayLanguages[lang as keyof typeof DisplayLanguages]}
                             </MenuItem>
                         ))}
                     </Select>
