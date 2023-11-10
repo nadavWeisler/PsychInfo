@@ -1,7 +1,6 @@
 import "./globals.css";
 import type { Metadata } from "next";
 import { Inter } from "next/font/google";
-import Navbar from "@/app/[lng]/Components/UI/NavBar";
 import AuthProvider from "@/app/[lng]/context/AuthContext";
 import { ThemeProvider } from "@mui/material/styles";
 import { appTheme } from "./[lng]/general/styles";
@@ -9,10 +8,14 @@ import { Providers } from "@/store/provider";
 import { dir } from "i18next";
 import { locales } from "@/i18n/settings";
 import { Container } from "@mui/material";
+import dynamic from "next/dynamic";
 
 export async function generateStaticParams() {
     return locales.map((lng) => ({ lng }));
 }
+const NavbarNoSSr = dynamic(() => import("./[lng]/Components/UI/NavBar"), {
+    ssr: false,
+});
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -32,7 +35,7 @@ export default function RootLayout({
         <html lang={lng} dir={dir(lng)}>
             <body className={inter.className}>
                 <ThemeProvider theme={appTheme}>
-                    <Navbar />
+                    <NavbarNoSSr />
                     <Container component="main" maxWidth="md">
                         <AuthProvider>
                             <Providers>{children}</Providers>

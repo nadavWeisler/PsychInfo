@@ -67,10 +67,10 @@ export async function getAllOrganizations(
 }
 
 export async function getContent(
-    organizations: Organization[],
     tags: Tag[],
     Languages: string[],
-    operator: Operator
+    operator: Operator,
+    organizations: Organization[] | null = null
 ): Promise<Content[]> {
     try {
         const snapshot: DataSnapshot = await get(
@@ -82,13 +82,15 @@ export async function getContent(
                 let org = false;
                 let tag = false;
                 let lang = false;
-                if (organizations.length > 0) {
-                    org = organizations.some(
-                        (organization) =>
-                            item.organization.id === organization.id
-                    );
-                } else {
-                    org = true;
+                if (organizations !== null) {
+                    if (organizations.length > 0) {
+                        org = organizations.some(
+                            (organization) =>
+                                item.organization.id === organization.id
+                        );
+                    } else {
+                        org = true;
+                    }
                 }
                 if (tags.length > 0) {
                     tag = tags.some((tag) =>
@@ -104,8 +106,13 @@ export async function getContent(
                 } else {
                     lang = true;
                 }
-                if (operator === Operator.AND) {
+                if (operator === Operator.AND && organizations !== null) {
                     return org && tag && lang;
+                } else if (
+                    operator === Operator.AND &&
+                    organizations === null
+                ) {
+                    return tag && lang;
                 } else {
                     return org || tag || lang;
                 }

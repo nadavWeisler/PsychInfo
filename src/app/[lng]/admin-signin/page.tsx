@@ -6,6 +6,7 @@ import SigninForm from "@/app/[lng]/Components/AdminComp/SigninForm";
 import { signIn } from "@/app/[lng]/firebase/auth";
 import useTrans from "@/app/[lng]/hooks/useTrans";
 import { LocalizationKeys } from "@/i18n/LocalizationKeys";
+import { styles } from "@/app/[lng]/admin-signin/page.style";
 
 export default function AdminSignInPage() {
     const [email, setEmail] = useState<string>("");
@@ -31,13 +32,13 @@ export default function AdminSignInPage() {
             setIsError(true);
             switch (err.code) {
                 case "auth/invalid-email":
-                    setErrorMsg(t("sign_in.invalid_email"));
+                    setErrorMsg(t(LocalizationKeys.SignIn.InvalidEmail));
                     break;
                 case "auth/invalid-login-credentials":
-                    setErrorMsg(t("sign_in.invalid_cred"));
+                    setErrorMsg(t(LocalizationKeys.SignIn.InvalidCred));
                     break;
                 default:
-                    setErrorMsg(t("sign_in.general_error"));
+                    setErrorMsg(t(LocalizationKeys.SignIn.GeneralError));
                     break;
             }
         } finally {
@@ -48,7 +49,7 @@ export default function AdminSignInPage() {
     return (
         <>
             <Typography
-                sx={{ mt: 4 }}
+                sx={styles.typ}
                 color={"black"}
                 variant="h4"
                 align="center"
@@ -61,14 +62,7 @@ export default function AdminSignInPage() {
                 emailHandler={(e) => setEmail(e.target.value)}
                 handleSubmit={handleSubmit}
             />
-            <Box
-                sx={{
-                    display: "flex",
-                    justifyContent: "center",
-                }}
-            >
-                {isLoading && <CircularProgress />}
-            </Box>
+            <Box sx={styles.box}>{isLoading && <CircularProgress />}</Box>
         </>
     );
 }

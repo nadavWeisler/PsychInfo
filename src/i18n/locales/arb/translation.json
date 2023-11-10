@@ -29,7 +29,8 @@
         "organizations": "المنظمات",
         "info_therapist": "Therapist information",
         "tel": "Phone",
-        "profession": "Profession"
+        "profession": "Profession",
+        "not_required": "Not required"
     },
     "errors": {
         "error_occurred": "حدث خطأ",
@@ -85,11 +86,15 @@
         },
         "shir": {
             "title": "Shir barabi",
-            "description": "ניהול תוכן ואפיון האתר"
+            "description": "מייסדת האתר, אחראית ניהול תוכן ואפיון האתר"
         },
         "yotam": {
             "title": "Yotam Aran",
             "description": "Developer"
+        },
+        "ana": {
+            "title": "Anna Koren",
+            "description": "Developer and QA lead"
         }
     },
     "register": {

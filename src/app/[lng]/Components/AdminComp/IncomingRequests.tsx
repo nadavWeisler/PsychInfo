@@ -1,10 +1,12 @@
 "use client";
-import { useState, useEffect, Fragment } from "react";
+import { useState, useEffect } from "react";
 import { Content } from "@/app/[lng]/general/interfaces";
 import { Box, Typography } from "@mui/material";
 import RequestAccordion from "@/app/[lng]/Components/AdminComp/RequestAccordion";
 import { getPendingContent } from "@/app/[lng]/firebase/commands";
 import useTrans from "@/app/[lng]/hooks/useTrans";
+import { styles } from "@/app/[lng]/Components/AdminComp/IncomingRequests.style";
+import { LocalizationKeys } from "@/i18n/LocalizationKeys";
 
 export default function IncomingRequests() {
     const [requests, setRequests] = useState<Content[]>([]);
@@ -23,17 +25,17 @@ export default function IncomingRequests() {
     }, [isDelete]);
 
     return (
-        <Fragment>
+        <>
             <Typography
-                sx={{ mt: 3, mb: 5 }}
+                sx={styles.typ}
                 align={"center"}
                 variant="h5"
                 color={"black"}
             >
-                {t("admin.waiting_requests")}
+                {t(LocalizationKeys.Admin.WaitingRequests)}
             </Typography>
             {requests && requests.length > 0 ? (
-                <Box sx={{ marginBottom: "10px" }}>
+                <Box sx={styles.box}>
                     <RequestAccordion
                         data={requests}
                         deleteHandler={() => setIsDelete(!isDelete)}
@@ -41,14 +43,14 @@ export default function IncomingRequests() {
                 </Box>
             ) : (
                 <Typography
-                    sx={{ mt: 3, mb: 5 }}
+                    sx={styles.typ}
                     align={"center"}
                     variant="h6"
                     color={"black"}
                 >
-                    {t("admin.no_requests")}
+                    {t(LocalizationKeys.Admin.NoRequests)}
                 </Typography>
             )}
-        </Fragment>
+        </>
     );
 }

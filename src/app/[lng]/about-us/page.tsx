@@ -8,10 +8,11 @@ import {
     Box,
     Typography,
     Container,
-    CardActionArea,
 } from "@mui/material";
 import useTrans from "@/app/[lng]/hooks/useTrans";
 import styles from "@/app/[lng]/about-us/card.module.css";
+import { stylesObj } from "@/app/[lng]/about-us/page.style";
+import { LocalizationKeys } from "@/i18n/LocalizationKeys";
 
 export default function AboutUs() {
     const { t } = useTrans();
@@ -19,54 +20,60 @@ export default function AboutUs() {
     const cards = [
         {
             id: 1,
-            title: t("credits.nadav_w.title"),
-            description: t("credits.nadav_w.description"),
+            title: t(LocalizationKeys.Credits.Shir.Title),
+            description: t(LocalizationKeys.Credits.Shir.Description),
+            imageUrl: "https://i.ibb.co/FbvRRPC/shir.jpg",
+        },
+        {
+            id: 2,
+            title: t(LocalizationKeys.Credits.NadavW.Title),
+            description: t(LocalizationKeys.Credits.NadavW.Description),
             imageUrl:
                 "https://media.licdn.com/dms/image/C4D03AQE_P3IHLL6trQ/profile-displayphoto-shrink_800_800/0/1615991285399?e=1703721600&v=beta&t=Wli5uAAS8XqpjSelNVZA6tEMtFr_cgKhMoXLk_OJtPg",
         },
         {
-            id: 2,
-            title: t("credits.shlomi.title"),
-            description: t("credits.shlomi.description"),
+            id: 3,
+            title: t(LocalizationKeys.Credits.Shlomi.Title),
+            description: t(LocalizationKeys.Credits.Shlomi.Description),
             imageUrl: "https://i.ibb.co/YjZkfHZ/shlomi.jpg",
         },
         {
-            id: 3,
-            title: t("credits.nadav_p.title"),
-            description: t("credits.nadav_p.description"),
+            id: 4,
+            title: t(LocalizationKeys.Credits.NadavP.Title),
+            description: t(LocalizationKeys.Credits.NadavP.Description),
             imageUrl:
                 "https://media.licdn.com/dms/image/C4D03AQEuJZ1UkM-Emw/profile-displayphoto-shrink_800_800/0/1572158793894?e=1703721600&v=beta&t=YE8_KRYCLddjUlblqDK9ELJ1id7OMDj55jfMWBYJQZQ",
         },
         {
-            id: 4,
-            title: t("credits.gaia.title"),
-            description: t("credits.gaia.description"),
+            id: 5,
+            title: t(LocalizationKeys.Credits.Gaia.Title),
+            description: t(LocalizationKeys.Credits.Gaia.Description),
             imageUrl:
                 "https://media.licdn.com/dms/image/D4D03AQG6GVjshybq6g/profile-displayphoto-shrink_400_400/0/1672679569607?e=1703721600&v=beta&t=Q_suFXMwBzJqbQczaIg1Fk3PSkk1b39H72JScQ0iY1Y",
         },
         {
-            id: 5,
-            title: t("credits.shir.title"),
-            description: t("credits.shir.description"),
-            imageUrl: "https://i.ibb.co/FbvRRPC/shir.jpg",
+            id: 6,
+            title: t(LocalizationKeys.Credits.Ana.Title),
+            description: t(LocalizationKeys.Credits.Ana.Description),
+            imageUrl: "https://source.unsplash.com/random?wallpapers",
         },
         {
-            id: 6,
-            title: t("credits.yotam.title"),
-            description: t("credits.yotam.description"),
+            id: 7,
+            title: t(LocalizationKeys.Credits.Yotam.Title),
+            description: t(LocalizationKeys.Credits.Yotam.Description),
             imageUrl:
                 "https://media.licdn.com/dms/image/C4D03AQFMTy-Dfu3CKw/profile-displayphoto-shrink_800_800/0/1643667356760?e=1703721600&v=beta&t=skDopRpiph1z57gaaalTTafNcKZemRbNvVAJctwQLH8",
         },
         {
-            id: 7,
-            title: t("credits.netanel.title"),
-            description: t("credits.netanel.description"),
+            id: 8,
+            title: t(LocalizationKeys.Credits.Netanel.Title),
+            description: t(LocalizationKeys.Credits.Netanel.Description),
             imageUrl: "https://i.ibb.co/WBLYHc6/netanel.jpg",
         },
         {
-            id: 8,
-            title: t("credits.tatiana.title"),
-            description: t("credits.tatiana.description"),
+            id: 9,
+            title: t(LocalizationKeys.Credits.Tatiana.Title),
+            description: t(LocalizationKeys.Credits.Tatiana.Description),
             imageUrl: "https://source.unsplash.com/random?wallpapers",
         },
     ];
@@ -75,12 +82,7 @@ export default function AboutUs() {
         <>
             <CssBaseline />
             <main>
-                <Box
-                    sx={{
-                        pt: 8,
-                        pb: 6,
-                    }}
-                >
+                <Box sx={stylesObj.root}>
                     <Container maxWidth="md">
                         <Typography
                             component="h1"
@@ -89,7 +91,7 @@ export default function AboutUs() {
                             color="text.primary"
                             gutterBottom
                         >
-                            {t("about_us.title")}
+                            {t(LocalizationKeys.AboutUs.Title)}
                         </Typography>
                         <Typography
                             variant="h5"
@@ -169,26 +171,20 @@ export default function AboutUs() {
                         </Typography>
                     </Container>
                 </Box>
-                <Container sx={{ py: 8 }} maxWidth="md">
+                <Container sx={stylesObj.container} maxWidth="md">
                     <Grid container spacing={4}>
                         {cards.map((card) => (
                             <Grid item key={card.id} xs={12} sm={6} md={4}>
                                 <Card
                                     className={styles.hoverCard}
-                                    sx={{
-                                        height: "100%",
-                                        display: "flex",
-                                        flexDirection: "column",
-                                    }}
+                                    sx={stylesObj.card}
                                 >
                                     <CardMedia
-                                        sx={{
-                                            pt: "100.00%",
-                                        }}
+                                        sx={stylesObj.cardMedia}
                                         component="div"
                                         image={card.imageUrl}
                                     />
-                                    <CardContent sx={{ flexGrow: 1 }}>
+                                    <CardContent sx={stylesObj.cardContent}>
                                         <Typography
                                             gutterBottom
                                             variant="h5"

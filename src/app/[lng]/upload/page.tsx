@@ -34,6 +34,8 @@ import { styled } from "@mui/material/styles";
 import useTrans from "@/app/[lng]/hooks/useTrans";
 import styles from "@/app/[lng]/upload/select.module.css";
 import { ThemeProvider, createTheme } from "@mui/material/styles";
+import { stylesObj } from "@/app/[lng]/upload/page.style";
+import { LocalizationKeys } from "@/i18n/LocalizationKeys";
 
 const theme = createTheme({
     palette: {
@@ -93,7 +95,7 @@ export default function UploadContent() {
 
     const [selectedTags, setSelectedTags] = useState<string[]>([]);
     const [selectedOrganization, setSelectedOrganization] =
-        useState<Organization>(EMPTY_ORGANIZATION);
+        useState<Organization | null>(EMPTY_ORGANIZATION);
     const [selectedLanguage, setSelectedLanguage] = useState<string>("");
     const [isSubmit, setIsSubmit] = useState<boolean>(false);
 
@@ -123,7 +125,7 @@ export default function UploadContent() {
             description: data.get("description")?.toString() || "",
             link: data.get("link")?.toString() || "",
             tags: tags.filter((tag) => selectedTags.includes(tag.display)),
-            organization: selectedOrganization,
+            organization: selectedOrganization as Organization,
             languageId: selectedLanguage,
             uploader: data.get("uploader")?.toString() || "",
         };
@@ -171,7 +173,7 @@ export default function UploadContent() {
             aria-label="close"
             color="inherit"
             onClick={handleClose}
-            sx={{ width: "auto", position: "absolute", left: 0 }}
+            sx={stylesObj.iconBtn}
         >
             <CloseIcon fontSize="small" />
         </IconButton>
@@ -179,23 +181,15 @@ export default function UploadContent() {
 
     return (
         <ThemeProvider theme={theme}>
-            <Box
-                sx={{
-                    marginTop: 4,
-                    display: "flex",
-                    flexDirection: "column",
-                    alignItems: "center",
-                    overflow: "auto",
-                }}
-            >
-                <Typography variant="h4">{t("upload.title")}</Typography>
+            <Box sx={stylesObj.root}>
+                <Typography variant="h4">{t(LocalizationKeys.Upload.Title)}</Typography>
                 <Box component="form" onSubmit={handleSubmit}>
                     <CssTextField
                         margin="normal"
                         required
                         fullWidth
                         id="title"
-                        label={t("common.title")}
+                        label={t(LocalizationKeys.Common.Title)}
                         name="title"
                         autoFocus
                     />
@@ -204,16 +198,22 @@ export default function UploadContent() {
                         required
                         fullWidth
                         name="description"
-                        label={t("common.description")}
+                        label={t(LocalizationKeys.Common.Description)}
                         id="description"
                         multiline={true}
                     />
-                    <FormControl margin="normal" fullWidth required>
-                        <InputLabel>{t("common.organization")}</InputLabel>
+                    <FormControl margin="normal" fullWidth>
+                        <InputLabel>{`${t(LocalizationKeys.Common.Organization)} (${t(
+                            "common.not_required"
+                        )})`}</InputLabel>
                         <Select
                             className={styles.select}
                             color={"secondary"}
-                            value={selectedOrganization}
+                            value={
+                                selectedOrganization === EMPTY_ORGANIZATION
+                                    ? null
+                                    : selectedOrganization
+                            }
                             onChange={hangleChangeOrganization}
                             renderValue={(selected) =>
                                 (selected as Organization).display
@@ -240,11 +240,11 @@ export default function UploadContent() {
                         margin="normal"
                         fullWidth
                         name="link"
-                        label={t("common.link")}
+                        label={t(LocalizationKeys.Common.Link)}
                         id="link"
                     />
                     <FormControl margin="normal" fullWidth required>
-                        <InputLabel>{t("common.language")}</InputLabel>
+                        <InputLabel>{t(LocalizationKeys.Common.Language)}</InputLabel>
                         <Select
                             className={styles.select}
                             color={"secondary"}
@@ -281,7 +281,7 @@ export default function UploadContent() {
                     </FormControl>
                     <FormControl fullWidth required margin="normal">
                         <InputLabel id="demo-multiple-chip-label">
-                            {t("common.tags")}
+                            {t(LocalizationKeys.Common.Tags)}
                         </InputLabel>
                         <Select
                             className={styles.select}
@@ -298,13 +298,7 @@ export default function UploadContent() {
                                 />
                             }
                             renderValue={(selected) => (
-                                <Box
-                                    sx={{
-                                        display: "flex",
-                                        flexWrap: "wrap",
-                                        gap: 0.5,
-                                    }}
-                                >
+                                <Box sx={stylesObj.box}>
                                     {selected.map((value) => (
                                         <Chip key={value} label={value} />
                                     ))}
@@ -332,23 +326,23 @@ export default function UploadContent() {
                         fullWidth
                         name="uploader"
                         required
-                        label={t("common.uploader")}
+                        label={t(LocalizationKeys.Common.Uploader)}
                         id="uploader"
                     />
                     <Button
                         type="submit"
                         fullWidth
                         variant="contained"
-                        sx={{ mt: 3, mb: 2 }}
+                        sx={stylesObj.button}
                     >
-                        {t("common.submit")}
+                        {t(LocalizationKeys.Common.Submit)}
                     </Button>
                 </Box>
                 <Snackbar
                     anchorOrigin={{ vertical: "top", horizontal: "center" }}
                     open={isSubmit}
                     onClose={handleClose}
-                    message={t("upload.submit_success")}
+                    message={t(LocalizationKeys.Upload.SubmitSuccess)}
                     autoHideDuration={6000}
                     action={action}
                 />

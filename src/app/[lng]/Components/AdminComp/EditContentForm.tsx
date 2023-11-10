@@ -28,6 +28,8 @@ import {
 } from "@/app/[lng]/general/interfaces";
 import { appTheme } from "@/app/[lng]/general/styles";
 import { EMPTY_ORGANIZATION, EMPTY_TAG } from "@/app/[lng]/general/utils";
+import { styles } from "@/app/[lng]/Components/AdminComp/EditContentForm.style";
+import { LocalizationKeys } from "@/i18n/LocalizationKeys";
 
 function getSelectStyles(
     obj: string,
@@ -131,23 +133,15 @@ export default function EditContentForm({ prevContent }: EditContentFormProps) {
     }
 
     return (
-        <Box
-            sx={{
-                marginTop: 4,
-                display: "flex",
-                flexDirection: "column",
-                alignItems: "center",
-                overflow: "auto",
-            }}
-        >
-            <Typography variant="h4">{t("upload.title")}</Typography>
+        <Box sx={styles.root}>
+            <Typography variant="h4">{t(LocalizationKeys.Upload.Title)}</Typography>
             <Box component="form" onSubmit={handleSubmit}>
                 <TextField
                     margin="normal"
                     required
                     fullWidth
                     id="title"
-                    label={t("common.title")}
+                    label={t(LocalizationKeys.Common.Title)}
                     name="title"
                     autoFocus
                     defaultValue={prevContent.title}
@@ -157,13 +151,13 @@ export default function EditContentForm({ prevContent }: EditContentFormProps) {
                     required
                     fullWidth
                     name="description"
-                    label={t("common.description")}
+                    label={t(LocalizationKeys.Common.Description)}
                     id="description"
                     multiline={true}
                     defaultValue={prevContent.description}
                 />
                 <FormControl margin="normal" fullWidth required>
-                    <InputLabel>{t("common.organization")}</InputLabel>
+                    <InputLabel>{t(LocalizationKeys.Common.Organization)}</InputLabel>
                     <Select
                         defaultValue={prevContent.organization}
                         value={selectedOrganization}
@@ -193,12 +187,12 @@ export default function EditContentForm({ prevContent }: EditContentFormProps) {
                     margin="normal"
                     fullWidth
                     name="link"
-                    label={t("common.link")}
+                    label={t(LocalizationKeys.Common.Link)}
                     id="link"
                     defaultValue={prevContent.link}
                 />
                 <FormControl margin="normal" fullWidth required>
-                    <InputLabel>{t("common.language")}</InputLabel>
+                    <InputLabel>{t(LocalizationKeys.Common.Language)}</InputLabel>
                     <Select
                         defaultValue={prevContent.languageId}
                         value={selectedLanguage}
@@ -232,7 +226,7 @@ export default function EditContentForm({ prevContent }: EditContentFormProps) {
                 </FormControl>
                 <FormControl fullWidth required margin="normal">
                     <InputLabel id="demo-multiple-chip-label">
-                        {t("common.tags")}
+                        {t(LocalizationKeys.Common.Tags)}
                     </InputLabel>
                     <Select
                         labelId="demo-multiple-chip-label"
@@ -282,7 +276,7 @@ export default function EditContentForm({ prevContent }: EditContentFormProps) {
                     fullWidth
                     name="uploader"
                     required
-                    label={t("common.uploader")}
+                    label={t(LocalizationKeys.Common.Uploader)}
                     id="uploader"
                     defaultValue={prevContent.uploader}
                 />
@@ -292,11 +286,11 @@ export default function EditContentForm({ prevContent }: EditContentFormProps) {
                     variant="contained"
                     sx={{ mt: 3, mb: 2 }}
                 >
-                    {t("common.submit")}
+                    {t(LocalizationKeys.Common.Submit)}
                 </Button>
             </Box>
             {isSubmit && (
-                <Typography variant="h5">{t("admin.edit_success")}</Typography>
+                <Typography variant="h5">{t(LocalizationKeys.Admin.EditSuccess)}</Typography>
             )}
         </Box>
     );
