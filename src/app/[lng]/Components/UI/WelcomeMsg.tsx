@@ -29,16 +29,34 @@ export default function WelcomeMsg({
                 color={"black"}
                 variant="h6"
                 component="div"
+                textAlign={"center"}
+                gutterBottom
+            >
+                <i>
+                    {`${t(LocalizationKeys.Welcome.Start1)}`}
+                    <br />
+                    {`${t(LocalizationKeys.Welcome.Start2)}`}
+                    <br />
+                    {`${t(LocalizationKeys.Welcome.Start3)}`}
+                </i>
+            </Typography>
+            <Typography
+                dir={direction}
+                margin={"normal"}
+                color={"black"}
+                variant="h6"
+                component="div"
                 textAlign={"justify"}
                 gutterBottom
             >
-                {`${t(LocalizationKeys.Welcome.Subtitle1)}`}
+                {`${t(LocalizationKeys.Welcome.Main1)}`}
                 <br />
-                {t(LocalizationKeys.Welcome.List1)}
+                {`${t(LocalizationKeys.Welcome.Main2)}`}
                 <br />
-                {t(LocalizationKeys.Welcome.List2)}
                 <br />
-                {t(LocalizationKeys.Welcome.Subtitle2)}
+                {`${t(LocalizationKeys.Welcome.End1)}`}
+                <br />
+                {`${t(LocalizationKeys.Welcome.End2)}`}
             </Typography>
             <Box sx={styles.box}>
                 <Button
