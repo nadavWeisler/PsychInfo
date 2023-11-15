@@ -15,6 +15,7 @@ import {
     Theme,
     Snackbar,
     IconButton,
+    FormLabel,
 } from "@mui/material";
 import CloseIcon from "@mui/icons-material/Close";
 import { appTheme } from "@/app/[lng]/general/styles";
@@ -184,28 +185,36 @@ export default function UploadContent() {
             <Box sx={stylesObj.root}>
                 <Typography variant="h4">{t(LocalizationKeys.Upload.Title)}</Typography>
                 <Box component="form" onSubmit={handleSubmit}>
-                    <CssTextField
+                    <FormControl
+                        required
+                        key={LocalizationKeys.Common.Title}
+                        fullWidth
                         margin="normal"
+                    >
+                        <FormLabel >
+                            {t(LocalizationKeys.Common.Title)}
+                        </FormLabel>
+                        <CssTextField required id="title" name="title" autoFocus />
+                    </FormControl>
+                    <FormControl
+                        key={LocalizationKeys.Common.Description}
                         required
                         fullWidth
-                        id="title"
-                        label={t(LocalizationKeys.Common.Title)}
-                        name="title"
-                        autoFocus
-                    />
-                    <CssTextField
                         margin="normal"
-                        required
+                    >
+                        <FormLabel>
+                            {t(LocalizationKeys.Common.Description)}
+                        </FormLabel>
+                        <CssTextField required name="description" id="description" multiline />
+                    </FormControl>
+                    <FormControl
+                        key={LocalizationKeys.Common.Organization}
+                        margin="normal"
                         fullWidth
-                        name="description"
-                        label={t(LocalizationKeys.Common.Description)}
-                        id="description"
-                        multiline={true}
-                    />
-                    <FormControl margin="normal" fullWidth>
-                        <InputLabel>{`${t(LocalizationKeys.Common.Organization)} (${t(
-                            "common.not_required"
-                        )})`}</InputLabel>
+                    >
+                        <FormLabel>
+                            {t(LocalizationKeys.Common.Organization)}
+                        </FormLabel>
                         <Select
                             className={styles.select}
                             color={"secondary"}
@@ -236,15 +245,28 @@ export default function UploadContent() {
                             ))}
                         </Select>
                     </FormControl>
-                    <CssTextField
+                    <FormControl
+                        key={LocalizationKeys.Common.Link}
                         margin="normal"
                         fullWidth
-                        name="link"
-                        label={t(LocalizationKeys.Common.Link)}
-                        id="link"
-                    />
-                    <FormControl margin="normal" fullWidth required>
-                        <InputLabel>{t(LocalizationKeys.Common.Language)}</InputLabel>
+                    >
+                        <FormLabel>
+                            {t(LocalizationKeys.Common.Link)}
+                        </FormLabel>
+                        <CssTextField
+                            name="link"
+                            id="link"
+                        />
+                    </FormControl>
+                    <FormControl
+                        key={LocalizationKeys.Common.Language}
+                        margin="normal"
+                        fullWidth
+                        required
+                    >
+                        <FormLabel>
+                            {t(LocalizationKeys.Common.Language)}
+                        </FormLabel>
                         <Select
                             className={styles.select}
                             color={"secondary"}
@@ -254,7 +276,7 @@ export default function UploadContent() {
                             }
                             renderValue={(selected) =>
                                 DisplayLanguages[
-                                    selected as keyof typeof DisplayLanguages
+                                selected as keyof typeof DisplayLanguages
                                 ]
                             }
                         >
@@ -272,22 +294,25 @@ export default function UploadContent() {
                                 >
                                     {
                                         DisplayLanguages[
-                                            lang as keyof typeof DisplayLanguages
+                                        lang as keyof typeof DisplayLanguages
                                         ]
                                     }
                                 </MenuItem>
                             ))}
                         </Select>
                     </FormControl>
-                    <FormControl fullWidth required margin="normal">
-                        <InputLabel id="demo-multiple-chip-label">
+                    <FormControl
+                        key={LocalizationKeys.Common.Tags}
+                        fullWidth
+                        required
+                        margin="normal"
+                    >
+                        <FormLabel>
                             {t(LocalizationKeys.Common.Tags)}
-                        </InputLabel>
+                        </FormLabel>
                         <Select
                             className={styles.select}
                             color={"secondary"}
-                            labelId="demo-multiple-chip-label"
-                            id="demo-multiple-chip"
                             multiple
                             value={selectedTags}
                             onChange={hangleChangeTags}
@@ -321,14 +346,19 @@ export default function UploadContent() {
                             ))}
                         </Select>
                     </FormControl>
-                    <CssTextField
+                    <FormControl key={LocalizationKeys.Common.Uploader}
                         margin="normal"
                         fullWidth
-                        name="uploader"
                         required
-                        label={t(LocalizationKeys.Common.Uploader)}
-                        id="uploader"
-                    />
+                    >
+                        <FormLabel>
+                            {t(LocalizationKeys.Common.Uploader)}
+                        </FormLabel>
+                        <CssTextField
+                            name="uploader"
+                            id="uploader"
+                        />
+                    </FormControl>
                     <Button
                         type="submit"
                         fullWidth
