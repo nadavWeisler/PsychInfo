@@ -58,13 +58,6 @@ export default function AboutUs() {
             imageUrl: "https://source.unsplash.com/random?wallpapers",
         },
         {
-            id: 7,
-            title: t(LocalizationKeys.Credits.Yotam.Title),
-            description: t(LocalizationKeys.Credits.Yotam.Description),
-            imageUrl:
-                "https://media.licdn.com/dms/image/C4D03AQFMTy-Dfu3CKw/profile-displayphoto-shrink_800_800/0/1643667356760?e=1703721600&v=beta&t=skDopRpiph1z57gaaalTTafNcKZemRbNvVAJctwQLH8",
-        },
-        {
             id: 8,
             title: t(LocalizationKeys.Credits.Netanel.Title),
             description: t(LocalizationKeys.Credits.Netanel.Description),
