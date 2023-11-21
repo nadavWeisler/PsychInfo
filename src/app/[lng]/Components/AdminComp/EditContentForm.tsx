@@ -60,14 +60,12 @@ export default function EditContentForm({ prevContent }: EditContentFormProps) {
     const [tags, setTags] = useState<Tag[]>([]);
     const [organizations, setOrganizations] = useState<Organization[]>([]);
 
-    const prevTags = prevContent.tags.map((tag) => tag.display);
+    const prevTags = prevContent.tags.map((tag) => tag.id);
 
     const [selectedTags, setSelectedTags] = useState<string[]>(prevTags);
     const [selectedOrganization, setSelectedOrganization] =
         useState<Organization>(prevContent.organization);
-    const [selectedLanguage, setSelectedLanguage] = useState<string>(
-        prevContent.languageId
-    );
+    const [selectedLanguage, setSelectedLanguage] = useState<string>(prevContent.languageId);
 
     const [otherOrgValue, setOtherOrgValue] =
         useState<Organization>(EMPTY_ORGANIZATION);
@@ -75,32 +73,30 @@ export default function EditContentForm({ prevContent }: EditContentFormProps) {
 
     const [isSubmit, setIsSubmit] = useState<boolean>(false);
 
-    const { t, i18n } = useTrans();
+    const { t } = useTrans();
 
     useEffect(() => {
-        getAllTags(false, i18n.language).then((allTags: Tag[]) => {
+        getAllTags(false).then((allTags: Tag[]) => {
             setTags(allTags);
         });
     }, [otherTagValue]);
 
     useEffect(() => {
-        getAllOrganizations(false, i18n.language).then(
+        getAllOrganizations(false).then(
             (allOrgs: Organization[]) => {
                 setOrganizations(allOrgs);
             }
         );
     }, [otherOrgValue]);
 
-    async function handleSubmit(
-        event: FormEvent<HTMLFormElement>
-    ): Promise<void> {
+    async function handleSubmit(event: FormEvent<HTMLFormElement>): Promise<void> {
         event.preventDefault();
         const data = new FormData(event.currentTarget);
         const newContent: Content = {
             title: data.get("title")?.toString() || "",
             description: data.get("description")?.toString() || "",
             link: data.get("link")?.toString() || "",
-            tags: tags.filter((tag) => selectedTags.includes(tag.display)),
+            tags: tags.filter((tag) => selectedTags.includes(tag.id)),
             organization: selectedOrganization,
             languageId: selectedLanguage,
             uploader: data.get("uploader")?.toString() || "",
@@ -116,8 +112,8 @@ export default function EditContentForm({ prevContent }: EditContentFormProps) {
         const {
             target: { value },
         } = event;
-        const newTags = tags.filter((tag) => value.includes(tag.display));
-        setSelectedTags(newTags.map((tag) => tag.display));
+        const newTags = tags.filter((tag) => value.includes(tag.id));
+        setSelectedTags(newTags.map((tag) => tag.id));
     }
 
     function hangleChangeOrganization(
@@ -163,7 +159,7 @@ export default function EditContentForm({ prevContent }: EditContentFormProps) {
                         value={selectedOrganization}
                         onChange={hangleChangeOrganization}
                         renderValue={(selected) =>
-                            (selected as Organization).display
+                            (selected as Organization).id
                         }
                     >
                         {organizations.map((org) => (
@@ -178,7 +174,7 @@ export default function EditContentForm({ prevContent }: EditContentFormProps) {
                                     appTheme
                                 )}
                             >
-                                {org.display}
+                                {org.id}
                             </MenuItem>
                         ))}
                     </Select>
@@ -201,7 +197,7 @@ export default function EditContentForm({ prevContent }: EditContentFormProps) {
                         }
                         renderValue={(selected) =>
                             DisplayLanguages[
-                                selected as keyof typeof DisplayLanguages
+                            selected as keyof typeof DisplayLanguages
                             ]
                         }
                     >
@@ -217,7 +213,7 @@ export default function EditContentForm({ prevContent }: EditContentFormProps) {
                             >
                                 {
                                     DisplayLanguages[
-                                        lang as keyof typeof DisplayLanguages
+                                    lang as keyof typeof DisplayLanguages
                                     ]
                                 }
                             </MenuItem>
@@ -258,14 +254,14 @@ export default function EditContentForm({ prevContent }: EditContentFormProps) {
                         {tags.map((tag) => (
                             <MenuItem
                                 key={tag.id}
-                                value={tag.display}
+                                value={tag.id}
                                 style={getSelectStyles(
-                                    tag.display,
+                                    tag.id,
                                     selectedTags,
                                     appTheme
                                 )}
                             >
-                                {tag.display}
+                                {tag.id}
                             </MenuItem>
                         ))}
                     </Select>

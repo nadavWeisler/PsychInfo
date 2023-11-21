@@ -1,4 +1,5 @@
 import {
+    DisplayLanguages,
     Filter,
     Organization,
     Tag,
@@ -8,22 +9,26 @@ export function ListContainsById(StringObjectList: Tag[] | Organization[], id: s
     return StringObjectList.some((item) => item.id === id);
 }
 
-export function GetAllDisplays(StringObjectList: Tag[] | Organization[]): string[] {
-    return StringObjectList.map((item) => item.display);
+export function GetAllDisplays(StringObjectList: Tag[] | Organization[], languageId: string): string[] {
+    return StringObjectList.map((item) => getStringObjectDisplay(item, languageId));
 }
 
 export const EMPTY_TAG: Tag = {
     id: "",
-    display: "",
+    heDisplay: "",
+    enDisplay: "",
+    arbDisplay: "",
+    rusDisplay: "",
     used: false,
-    languageId: "",
 };
 
 export const EMPTY_ORGANIZATION: Organization = {
     id: "",
-    display: "",
+    heDisplay: "",
+    enDisplay: "",
+    arbDisplay: "",
+    rusDisplay: "",
     used: false,
-    languageId: "",
 };
 
 export function GetFilters(): Filter[] {
@@ -39,5 +44,21 @@ export function isEmptyOrSpaces(str: string): boolean {
 export function ifValidLink(url: string): boolean {
     const urlPattern = /^(https?|ftp):\/\/[^\s/$.?#].[^\s]*$/i;
     return urlPattern.test(url);
+}
+
+export function getStringObjectDisplay(object: Tag | Organization, languageId: string): string {
+    console.log(object);
+    switch (languageId) {
+        case "he":
+            return object.heDisplay;
+        case "en":
+            return object.enDisplay;
+        case "arb":
+            return object.arbDisplay;
+        case "rus":
+            return object.rusDisplay;
+        default:
+            return object.heDisplay
+    }
 }
 

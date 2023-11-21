@@ -1,7 +1,7 @@
 import { useState, useEffect, ReactElement } from "react";
 import { Box, Button, Chip, Grid, Typography, Alert } from "@mui/material";
 import { Tag, TagsStepProps } from "@/app/[lng]/general/interfaces";
-import { GetAllDisplays, ListContainsById } from "@/app/[lng]/general/utils";
+import { GetAllDisplays, ListContainsById, getStringObjectDisplay } from "@/app/[lng]/general/utils";
 import useTrans from "@/app/[lng]/hooks/useTrans";
 import { styles } from "@/app/[lng]/Components/Wizard/steps/TagsStep.style";
 import { LocalizationKeys } from "@/i18n/LocalizationKeys";
@@ -15,7 +15,7 @@ export default function TagsStep({
     const [selectedTags, setSelectedTags] = useState<Tag[]>([]);
     const [displayTags, setDisplayTags] = useState<string[]>([]);
 
-    const { t, direction } = useTrans();
+    const { t, direction, i18n } = useTrans();
 
     useEffect(() => {
         updateSelectedTags(selectedTags);
@@ -26,16 +26,16 @@ export default function TagsStep({
             const index = selectedTags.indexOf(tag);
             selectedTags.splice(index, 1);
             setSelectedTags([...selectedTags]);
-            setDisplayTags(GetAllDisplays(selectedTags));
+            setDisplayTags(GetAllDisplays(selectedTags, i18n.language));
         } else {
             setSelectedTags([...selectedTags, tag]);
-            setDisplayTags([...displayTags, tag.display]);
+            setDisplayTags([...displayTags, getStringObjectDisplay(tag, i18n.language)]);
         }
     }
 
     function selectAll(): void {
         setSelectedTags(tags);
-        setDisplayTags(GetAllDisplays(tags));
+        setDisplayTags(GetAllDisplays(tags, i18n.language));
     }
 
     function clearSelection(): void {
@@ -72,7 +72,7 @@ export default function TagsStep({
                     <Grid item key={tag.id}>
                         <Chip
                             key={tag.id}
-                            label={tag.display}
+                            label={getStringObjectDisplay(tag, i18n.language)}
                             onClick={() => handleChoice(tag)}
                             variant={
                                 ListContainsById(selectedTags, tag.id)

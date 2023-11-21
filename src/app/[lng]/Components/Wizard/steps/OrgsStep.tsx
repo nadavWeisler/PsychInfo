@@ -1,10 +1,7 @@
 import { useState, useEffect, ReactElement } from "react";
 import { Box, Button, Chip, Grid, Typography, Alert } from "@mui/material";
-import {
-    Organization,
-    OrganizationStepProps,
-} from "@/app/[lng]/general/interfaces";
-import { GetAllDisplays, ListContainsById } from "@/app/[lng]/general/utils";
+import { Organization, OrganizationStepProps } from "@/app/[lng]/general/interfaces";
+import { GetAllDisplays, ListContainsById, getStringObjectDisplay } from "@/app/[lng]/general/utils";
 import useTrans from "@/app/[lng]/hooks/useTrans";
 import { styles } from "@/app/[lng]/Components/Wizard/steps/OrgsStep.style";
 import { LocalizationKeys } from "@/i18n/LocalizationKeys";
@@ -18,7 +15,7 @@ export default function OrgsStep({
     const [selectedOrgs, setSelectedOrgs] = useState<Organization[]>([]);
     const [displayOrgs, setDisplayOrgs] = useState<string[]>([]);
 
-    const { t, direction } = useTrans();
+    const { t, direction, i18n } = useTrans();
 
     useEffect(() => {
         updateSelectedOrganizations(selectedOrgs);
@@ -29,16 +26,16 @@ export default function OrgsStep({
             const index = selectedOrgs.indexOf(org);
             selectedOrgs.splice(index, 1);
             setSelectedOrgs([...selectedOrgs]);
-            setDisplayOrgs(GetAllDisplays(selectedOrgs));
+            setDisplayOrgs(GetAllDisplays(selectedOrgs, i18n.language));
         } else {
             setSelectedOrgs([...selectedOrgs, org]);
-            setDisplayOrgs([...displayOrgs, org.display]);
+            setDisplayOrgs([...displayOrgs, getStringObjectDisplay(org, i18n.language)]);
         }
     }
 
     function selectAll() {
         setSelectedOrgs(organizations);
-        setDisplayOrgs(GetAllDisplays(organizations));
+        setDisplayOrgs(GetAllDisplays(organizations, i18n.language));
     }
 
     function clearSelection() {
@@ -75,7 +72,7 @@ export default function OrgsStep({
                     <Grid item key={organization.id}>
                         <Chip
                             key={organization.id}
-                            label={organization.display}
+                            label={getStringObjectDisplay(organization, i18n.language)}
                             onClick={() => handleChoice(organization)}
                             variant={
                                 ListContainsById(selectedOrgs, organization.id)

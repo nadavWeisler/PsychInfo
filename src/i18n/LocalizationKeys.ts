@@ -65,6 +65,10 @@ export class LocalizationKeys {
         static AddString = {
         EnterId: 'add_string.enter_id',
         EnterDisplay: 'add_string.enter_display',
+        EnterHeDisplay: 'add_string.enter_he_display',
+        EnterEnDisplay: 'add_string.enter_en_display',
+        EnterArbDisplay: 'add_string.enter_arb_display',
+        EnterRusDisplay: 'add_string.enter_rus_display',
         EnterLanguage: 'add_string.enter_language',
         }
         static Wizard = {

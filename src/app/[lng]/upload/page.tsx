@@ -7,7 +7,6 @@ import {
     Typography,
     Chip,
     FormControl,
-    InputLabel,
     MenuItem,
     OutlinedInput,
     Select,
@@ -103,13 +102,13 @@ export default function UploadContent() {
     const { t, i18n, direction } = useTrans();
 
     useEffect(() => {
-        getAllTags(false, i18n.language).then((allTags: Tag[]) => {
+        getAllTags(false).then((allTags: Tag[]) => {
             setTags(allTags);
         });
     }, []);
 
     useEffect(() => {
-        getAllOrganizations(false, i18n.language).then(
+        getAllOrganizations(false).then(
             (allOrgs: Organization[]) => {
                 setOrganizations(allOrgs);
             }
@@ -125,7 +124,7 @@ export default function UploadContent() {
             title: data.get("title")?.toString() || "",
             description: data.get("description")?.toString() || "",
             link: data.get("link")?.toString() || "",
-            tags: tags.filter((tag) => selectedTags.includes(tag.display)),
+            tags: tags.filter((tag) => selectedTags.includes(tag.id)),
             organization: selectedOrganization as Organization,
             languageId: selectedLanguage,
             uploader: data.get("uploader")?.toString() || "",
@@ -140,8 +139,8 @@ export default function UploadContent() {
         const {
             target: { value },
         } = event;
-        const newTags = tags.filter((tag) => value.includes(tag.display));
-        setSelectedTags(newTags.map((tag) => tag.display));
+        const newTags = tags.filter((tag) => value.includes(tag.id));
+        setSelectedTags(newTags.map((tag) => tag.id));
     }
 
     function hangleChangeOrganization(
@@ -225,7 +224,7 @@ export default function UploadContent() {
                             }
                             onChange={hangleChangeOrganization}
                             renderValue={(selected) =>
-                                (selected as Organization).display
+                                (selected as Organization).id
                             }
                         >
                             {organizations.map((org) => (
@@ -240,7 +239,7 @@ export default function UploadContent() {
                                         appTheme
                                     )}
                                 >
-                                    {org.display}
+                                    {org.id}
                                 </MenuItem>
                             ))}
                         </Select>
@@ -334,14 +333,14 @@ export default function UploadContent() {
                             {tags.map((tag) => (
                                 <MenuItem
                                     key={tag.id}
-                                    value={tag.display}
+                                    value={tag.id}
                                     style={getSelectStyles(
-                                        tag.display,
+                                        tag.id,
                                         selectedTags,
                                         appTheme
                                     )}
                                 >
-                                    {tag.display}
+                                    {tag.id}
                                 </MenuItem>
                             ))}
                         </Select>

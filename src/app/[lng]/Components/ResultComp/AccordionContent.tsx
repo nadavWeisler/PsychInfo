@@ -8,11 +8,8 @@ import { AuthContext } from "@/app/[lng]/context/AuthContext";
 import { deleteContent } from "@/app/[lng]/firebase/commands";
 import useTrans from "@/app/[lng]/hooks/useTrans";
 import EditContentDialog from "@/app/[lng]/Components/AdminComp/EditContentDialog";
-import {
-    AccordionContentProps,
-    DisplayLanguages,
-} from "@/app/[lng]/general/interfaces";
-import { ifValidLink, isEmptyOrSpaces } from "@/app/[lng]/general/utils";
+import { AccordionContentProps, DisplayLanguages } from "@/app/[lng]/general/interfaces";
+import { getStringObjectDisplay, ifValidLink, isEmptyOrSpaces } from "@/app/[lng]/general/utils";
 import { styles } from "@/app/[lng]/Components/ResultComp/AccordionContent.style";
 import { LocalizationKeys } from "@/i18n/LocalizationKeys";
 
@@ -27,7 +24,7 @@ export default function AccordionContent({
     const [openEdit, setOpenEdit] = useState(false);
     const [isDeleted, setIsDeleted] = useState<boolean>(false);
 
-    const { t, direction } = useTrans();
+    const { t, direction, i18n } = useTrans();
 
     const { user } = useContext(AuthContext);
 
@@ -121,7 +118,7 @@ export default function AccordionContent({
                                 <Chip
                                     sx={styles.chip}
                                     key={org?.id}
-                                    label={org?.display}
+                                    label={getStringObjectDisplay(org, i18n.language)}
                                     variant="outlined"
                                 />
                             ))}
@@ -141,7 +138,7 @@ export default function AccordionContent({
                                     key={lang}
                                     label={
                                         DisplayLanguages[
-                                            lang as keyof typeof DisplayLanguages
+                                        lang as keyof typeof DisplayLanguages
                                         ]
                                     }
                                     variant="outlined"
@@ -162,7 +159,7 @@ export default function AccordionContent({
                                     <Chip
                                         sx={styles.chipSecondary}
                                         key={tag.id}
-                                        label={tag.display}
+                                        label={getStringObjectDisplay(tag, i18n.language)}
                                         variant="outlined"
                                     />
                                 ))}

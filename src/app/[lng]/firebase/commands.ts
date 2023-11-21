@@ -18,15 +18,11 @@ import {
     ContentDB,
 } from "@/app/[lng]/general/interfaces";
 
-export async function getAllTags(
-    used: boolean,
-    langId: string
-): Promise<Tag[]> {
+export async function getAllTags(used: boolean): Promise<Tag[]> {
     try {
         const snapshot: DataSnapshot = await get(ref(db, dbPath.tags));
         if (snapshot.exists()) {
             let tags: Tag[] = Object.values(snapshot.val());
-            tags = tags.filter((item) => item.languageId === langId);
             if (used) {
                 return Object.values(tags).filter((item) => item.used === used);
             } else {
@@ -42,15 +38,11 @@ export async function getAllTags(
     }
 }
 
-export async function getAllOrganizations(
-    used: boolean,
-    langId: string
-): Promise<Organization[]> {
+export async function getAllOrganizations(used: boolean): Promise<Organization[]> {
     try {
         const snapshot: DataSnapshot = await get(ref(db, dbPath.organizations));
         if (snapshot.exists()) {
             let org: Organization[] = Object.values(snapshot.val());
-            org = org.filter((item) => item.languageId === langId);
             if (used) {
                 return Object.values(org).filter((item) => item.used === used);
             } else {
@@ -231,6 +223,7 @@ export async function createContent(content: Content): Promise<void> {
         throw error;
     }
 }
+
 export async function deleteContent(index: string) {
     try {
         const snapshot = await get(ref(db, dbPath.validateContent));
@@ -517,6 +510,31 @@ export async function updateContent(content: Content): Promise<void> {
             }
         } else {
             console.log(`No content found`);
+        }
+    } catch (error) {
+        console.error("Error:", error);
+    }
+}
+
+export async function updateTag(tag: Tag): Promise<void> {
+    try {
+        const snapshot = await get(ref(db, `${dbPath.tags}`));
+        if (snapshot.exists()) {
+            const allTags: [string, Tag][] = Object.entries(snapshot.val());
+            let tagKey = "";
+            for (const [key, value] of allTags) {
+                if (value.id === tag.id) {
+                    tagKey = key;
+                    break;
+                }
+            }
+            if (tagKey !== "") {
+                await update(ref(db, `${dbPath.tags}/${tagKey}`), tag);
+            } else {
+                console.log(`No tag found with id ${tag.id}`);
+            }
+        } else {
+            console.log(`No tag found`);
         }
     } catch (error) {
         console.error("Error:", error);

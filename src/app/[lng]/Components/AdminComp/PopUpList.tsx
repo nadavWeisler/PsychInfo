@@ -38,10 +38,8 @@ export default function PopUpList({
     isDeleteHandler,
 }: PopUpListProps) {
     const [checked, setChecked] = useState<number[]>([]);
-    const [otherOrgValue, setOtherOrgValue] =
-        useState<Organization>(EMPTY_ORGANIZATION);
+    const [otherOrgValue, setOtherOrgValue] = useState<Organization>(EMPTY_ORGANIZATION);
     const [otherTagValue, setOtherTagValue] = useState<Tag>(EMPTY_TAG);
-
     const [openAddTagDialog, setOpenAddTagDialog] = useState<boolean>(false);
     const [openAddOrgDialog, setOpenAddOrgDialog] = useState<boolean>(false);
 
@@ -49,12 +47,8 @@ export default function PopUpList({
 
     const data: Tag[] | Organization[] =
         dataType === "tags"
-            ? (useAppSelector(
-                  (state: RootState) => state.tagsAndOrg.tags
-              ) as Tag[])
-            : (useAppSelector(
-                  (state: RootState) => state.tagsAndOrg.organizations
-              ) as Organization[]);
+            ? (useAppSelector((state: RootState) => state.tagsAndOrg.tags) as Tag[])
+            : (useAppSelector((state: RootState) => state.tagsAndOrg.organizations) as Organization[]);
 
     const handleToggle = (value: number) => () => {
         const currentIndex = checked.indexOf(value);
@@ -188,7 +182,7 @@ export default function PopUpList({
                                                         <Typography
                                                             component={"span"}
                                                         >
-                                                            {value.display}
+                                                            {value.id}
                                                         </Typography>
                                                     </Typography>
                                                     <Typography sx={styles.typ}>

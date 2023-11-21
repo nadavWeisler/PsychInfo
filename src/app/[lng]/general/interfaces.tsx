@@ -21,8 +21,11 @@ export const DisplayLanguages = {
 
 export interface StringObject {
     id: string;
-    display: string;
-    languageId: string;
+    heDisplay: string;
+    enDisplay: string;
+    arbDisplay: string;
+    rusDisplay: string;
+    used: boolean;
 }
 
 export interface ContentDB {
@@ -39,13 +42,9 @@ export interface Content extends ContentDB {
     id: string;
 }
 
-export interface Tag extends StringObject {
-    used: boolean;
-}
+export interface Tag extends StringObject { }
 
-export interface Organization extends StringObject {
-    used: boolean;
-}
+export interface Organization extends StringObject { }
 
 export interface PagesSliceInitialState {
     tags: Tag[];
@@ -154,7 +153,7 @@ export interface EditContentFormProps {
 
 export interface EditContentDialogProps
     extends WizardDialogProps,
-        EditContentFormProps {}
+    EditContentFormProps { }
 
 export interface AccordionContentProps {
     data: Content;

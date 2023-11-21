@@ -65,6 +65,10 @@
     "add_string": {
         "enter_id": "הכנס זיהוי",
         "enter_display": "הכנס תצוגה",
+        "enter_he_display": "הכנס תצוגה בעברית",
+        "enter_en_display": "הכנס תצוגה באנגלית",
+        "enter_arb_display": "הכנס תצוגה בערבית",
+        "enter_rus_display": "הכנס תצוגה ברוסית",
         "enter_language": "הכנס שפה"
     },
     "wizard": {

@@ -8,6 +8,7 @@
     "start": "next start",
     "lint": "next lint",
     "locals": "node scripts/generateLocals.js",
+    "migreate": "node scripts/migretion2.0.ts",
     "local-dev": "npm run locals && npm run dev",
     "full-dev": "npm run locals && npm run build && npm run dev"
   },

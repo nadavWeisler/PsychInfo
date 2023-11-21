@@ -1,9 +1,10 @@
 "use client";
 import { Typography, Button, Box, Container } from "@mui/material";
-import { WelcomeMsgProps } from "@/app/[lng]/general/interfaces";
+import { Organization, Tag, WelcomeMsgProps } from "@/app/[lng]/general/interfaces";
 import useTrans from "@/app/[lng]/hooks/useTrans";
 import { styles } from "@/app/[lng]/Components/UI/WelcomeMsg.style";
 import { LocalizationKeys } from "@/i18n/LocalizationKeys";
+import { getAllOrganizations, getAllTags, updateTag } from "../../firebase/commands";
 
 export default function WelcomeMsg({
     openWizradHandler,

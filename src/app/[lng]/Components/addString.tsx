@@ -5,13 +5,10 @@ import {
     DialogContent,
     DialogTitle,
     FormControl,
-    InputLabel,
-    MenuItem,
-    Select,
+    FormLabel,
     TextField,
 } from "@mui/material";
 import {
-    DisplayLanguages,
     Organization,
     Tag,
 } from "@/app/[lng]/general/interfaces";
@@ -43,60 +40,102 @@ export const AddString = ({
         <Dialog open={openDialog} onClose={handleCloseDialog} sx={styles.root}>
             <DialogTitle>{title}</DialogTitle>
             <DialogContent>
-                <TextField
-                    required
+                <FormControl
+                    key={LocalizationKeys.AddString.EnterId}
                     margin="dense"
                     fullWidth
-                    label={t(LocalizationKeys.AddString.EnterId)}
-                    variant="outlined"
-                    value={inputValue.id}
-                    onChange={(e) =>
-                        setInputValue({ ...inputValue, id: e.target.value })
-                    }
-                />
-                <TextField
                     required
-                    margin="dense"
-                    fullWidth
-                    label={t(LocalizationKeys.AddString.EnterDisplay)}
-                    variant="outlined"
-                    value={inputValue.display}
-                    onChange={(e) =>
-                        setInputValue({
-                            ...inputValue,
-                            display: e.target.value,
-                        })
-                    }
-                />
-                <FormControl margin="dense" fullWidth required>
-                    <InputLabel>{t(LocalizationKeys.AddString.EnterLanguage)}</InputLabel>
-                    <Select
-                        MenuProps={{
-                            style: styles.selectMenu,
-                        }}
+                >
+                    <FormLabel>
+                        {t(LocalizationKeys.AddString.EnterId)}
+                    </FormLabel>
+                    <TextField
                         variant="outlined"
-                        value={
-                            DisplayLanguages[
-                                inputValue.languageId as keyof typeof DisplayLanguages
-                            ]
+                        value={inputValue.id}
+                        onChange={(e) =>
+                            setInputValue({ ...inputValue, id: e.target.value })
                         }
+                    />
+                </FormControl>
+                <FormControl
+                    key={LocalizationKeys.AddString.EnterEnDisplay}
+                    margin="dense"
+                    fullWidth
+                    required
+                >
+                    <FormLabel>
+                        {t(LocalizationKeys.AddString.EnterHeDisplay)}
+                    </FormLabel>
+                    <TextField
+                        variant="outlined"
+                        value={inputValue.heDisplay}
                         onChange={(e) =>
                             setInputValue({
                                 ...inputValue,
-                                languageId: e.target.value,
+                                heDisplay: e.target.value,
                             })
                         }
-                    >
-                        {Object.keys(DisplayLanguages).map((lang) => (
-                            <MenuItem key={lang} value={lang}>
-                                {
-                                    DisplayLanguages[
-                                        lang as keyof typeof DisplayLanguages
-                                    ]
-                                }
-                            </MenuItem>
-                        ))}
-                    </Select>
+                    />
+                </FormControl>
+                <FormControl
+                    key={LocalizationKeys.AddString.EnterEnDisplay}
+                    margin="dense"
+                    fullWidth
+                    required
+                >
+                    <FormLabel>
+                        {t(LocalizationKeys.AddString.EnterEnDisplay)}
+                    </FormLabel>
+                    <TextField
+                        variant="outlined"
+                        value={inputValue.enDisplay}
+                        onChange={(e) =>
+                            setInputValue({
+                                ...inputValue,
+                                enDisplay: e.target.value,
+                            })
+                        }
+                    />
+                </FormControl>
+                <FormControl
+                    key={LocalizationKeys.AddString.EnterArbDisplay}
+                    margin="dense"
+                    fullWidth
+                    required
+                >
+                    <FormLabel>
+                        {t(LocalizationKeys.AddString.EnterArbDisplay)}
+                    </FormLabel>
+                    <TextField
+                        variant="outlined"
+                        value={inputValue.arbDisplay}
+                        onChange={(e) =>
+                            setInputValue({
+                                ...inputValue,
+                                arbDisplay: e.target.value,
+                            })
+                        }
+                    />
+                </FormControl>
+                <FormControl
+                    key={LocalizationKeys.AddString.EnterRusDisplay}
+                    margin="dense"
+                    fullWidth
+                    required
+                >
+                    <FormLabel>
+                        {t(LocalizationKeys.AddString.EnterRusDisplay)}
+                    </FormLabel>
+                    <TextField
+                        variant="outlined"
+                        value={inputValue.rusDisplay}
+                        onChange={(e) =>
+                            setInputValue({
+                                ...inputValue,
+                                rusDisplay: e.target.value,
+                            })
+                        }
+                    />
                 </FormControl>
             </DialogContent>
             <DialogActions>
