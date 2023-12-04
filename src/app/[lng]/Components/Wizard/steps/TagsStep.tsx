@@ -3,6 +3,8 @@ import { Box, Button, Chip, Grid, Typography, Alert } from "@mui/material";
 import { Tag, TagsStepProps } from "@/app/[lng]/general/interfaces";
 import { GetAllDisplays, ListContainsById } from "@/app/[lng]/general/utils";
 import useTrans from "@/app/[lng]/hooks/useTrans";
+import { styles } from "@/app/[lng]/Components/Wizard/steps/TagsStep.style";
+import { LocalizationKeys } from "@/i18n/LocalizationKeys";
 
 export default function TagsStep({
     tags,
@@ -42,31 +44,27 @@ export default function TagsStep({
     }
 
     return (
-        <Box sx={{ display: "flex", flexDirection: "column" }}>
+        <Box sx={styles.root}>
             {isError ? <Alert severity="error">{errorMsg}</Alert> : null}
-            <Box sx={{ display: "flex", flexDirection: "row" }}>
-                <Typography
-                    dir={direction}
-                    sx={{ marginBottom: "20px", marginTop: "20px" }}
-                    variant="h4"
-                >
-                    {t("wizard.choose_tags")}
+            <Box sx={styles.secondary}>
+                <Typography dir={direction} sx={styles.typ} variant="h4">
+                    {t(LocalizationKeys.Wizard.ChooseTags)}
                 </Typography>
                 <Button
                     dir={direction}
-                    sx={{ margin: "20px" }}
+                    sx={styles.button}
                     variant="contained"
                     onClick={selectAll}
                 >
-                    {t("wizard.choose_all")}
+                    {t(LocalizationKeys.Wizard.ChooseAll)}
                 </Button>
                 <Button
                     dir={direction}
-                    sx={{ margin: "20px" }}
+                    sx={styles.button}
                     variant="contained"
                     onClick={clearSelection}
                 >
-                    {t("wizard.clear")}
+                    {t(LocalizationKeys.Wizard.Clear)}
                 </Button>
             </Box>
             <Grid dir={direction} container spacing={2}>

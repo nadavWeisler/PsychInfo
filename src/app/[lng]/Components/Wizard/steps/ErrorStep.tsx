@@ -1,6 +1,7 @@
 import { Fragment } from "react";
 import { Typography } from "@mui/material";
 import useTrans from "@/app/[lng]/hooks/useTrans";
+import { LocalizationKeys } from "@/i18n/LocalizationKeys";
 
 interface ErrorStepProps {
     errorMsg: string;
@@ -12,8 +13,8 @@ export default function ErrorStep({
     const { t } = useTrans();
     return (
         <Fragment>
-            <Typography data-testid="typ1">{t("errors.error_occured")}</Typography>
-            <Typography data-testid="typ2">{errorMsg}</Typography>
+            <Typography>{t(LocalizationKeys.Errors.ErrorOccured)}</Typography>
+            <Typography>{errorMsg}</Typography>
         </Fragment>
     );
 }

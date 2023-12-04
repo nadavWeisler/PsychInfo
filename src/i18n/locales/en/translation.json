@@ -43,7 +43,8 @@
         "invalid_link": "Invalid link",
         "link_title": "For the link click here",
         "tel": "Phone",
-        "profession": "Profession"
+        "profession": "Profession",
+        "not_required": "Not required"
     },
     "errors": {
         "error_occured": "An error occurred",
@@ -150,11 +151,15 @@
         },
         "shir": {
             "title": "Shir barabi",
-            "description": "ניהול תוכן ואפיון האתר"
+            "description": "מייסדת האתר, אחראית ניהול תוכן ואפיון האתר"
         },
         "yotam": {
             "title": "Yotam Aran",
             "description": "Developer"
+        },
+        "ana": {
+            "title": "Anna Koren",
+            "description": "Developer and QA lead"
         }
     },
     "register": {
@@ -163,7 +168,7 @@
         "tel": "Phone",
         "profession": "Profession",
         "title1": "אנו מחפשים אנשי טיפול אשר מעוניינים לאפשר שיחה אחת, חינמית, דרך הזום, למי שצריכה, כדי להקשיב, לתת מקום ואולי קצת כלים שיעזרו בהתמודדות המורכבת.",
-        "title2": "הפרטים שלך יישארו חסויים במערכת וישמשו על מנת שניצור איתך קשר",
+        "title2": "YOYOYOהפרטים שלך יישארו חסויים במערכת וישמשו על מנת שניצור איתך קשר",
         "submit_success": "Your information sent successfully!"
     },
     "sign_in": {

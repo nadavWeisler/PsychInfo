@@ -10,7 +10,6 @@ import {
     IconButton,
     Menu,
     Link,
-    Avatar,
 } from "@mui/material";
 import MenuIcon from "@mui/icons-material/Menu";
 import { User, onAuthStateChanged } from "@firebase/auth";
@@ -21,6 +20,7 @@ import { DisplayLanguages, NavBarPage } from "@/app/[lng]/general/interfaces";
 import useTrans from "@/app/[lng]/hooks/useTrans";
 import { LocalizationKeys } from "@/i18n/LocalizationKeys";
 import useScroll from "@/app/[lng]/hooks/useScroll";
+import { styles } from "@/app/[lng]/Components/UI/NavBar.style";
 
 export default function Navbar(): React.ReactElement {
     const [openMenu, setOpenMenu] = useState<boolean>(false);
@@ -50,46 +50,38 @@ export default function Navbar(): React.ReactElement {
 
     const greetMsg: React.ReactElement = (
         <Link href={`/${i18n.language}/admin`}>
-            <Typography
-                variant="h6"
-                component="div"
-                sx={{ cursor: "pointer", color: "white" }}
-            >
-                {t("common.hello")} {userEmail}
+            <Typography variant="h6" component="div" sx={styles.linkTyp}>
+                {t(LocalizationKeys.Common.Hello)} {userEmail}
             </Typography>
         </Link>
     );
 
     const adminLink: React.ReactElement = (
         <Link href={`/${i18n.language}/admin-signin`}>
-            <Typography
-                variant="h6"
-                component="div"
-                sx={{ cursor: "pointer", color: "white" }}
-            >
-                {t("navbar.admin_log_in")}
+            <Typography variant="h6" component="div" sx={styles.linkTyp}>
+                {t(LocalizationKeys.Navbar.AdminLogIn)}
             </Typography>
         </Link>
     );
 
     const adminPage = !authUser
         ? {
-              text: t("navbar.admin_log_in"),
-              url: `/${i18n.language}/admin-signin`,
-          }
+            text: t(LocalizationKeys.Navbar.AdminLogIn),
+            url: `/${i18n.language}/admin-signin`,
+        }
         : {
-              text: t("common.hello") + " " + userEmail,
-              url: `/${i18n.language}/admin`,
-          };
+            text: t(LocalizationKeys.Common.Hello) + " " + userEmail,
+            url: `/${i18n.language}/admin`,
+        };
 
     const pages: NavBarPage[] = [
-        { text: t("navbar.upload_content"), url: `/${i18n.language}/upload` },
+        { text: t(LocalizationKeys.Navbar.UploadContent), url: `/${i18n.language}/upload` },
         adminPage,
         {
-            text: t("navbar.found_mistake"),
+            text: t(LocalizationKeys.Navbar.FoundMistake),
             url: `/${i18n.language}/found-mistake`,
         },
-        { text: t("navbar.about_us"), url: `/${i18n.language}/about-us` },
+        { text: t(LocalizationKeys.Navbar.AboutUs), url: `/${i18n.language}/about-us` },
     ];
 
     useScroll(openMenu, setOpenMenu, isMobile);
@@ -97,15 +89,15 @@ export default function Navbar(): React.ReactElement {
     const MobileAppBar: React.ReactElement = (
         <AppBar position="static">
             <Toolbar disableGutters>
-                <Box sx={{ flexGrow: 0, direction: direction }}>
+                <Box sx={{ ...styles.mobileRoot, direction: direction }}>
                     <IconButton
                         onClick={() => setOpenMenu(true)}
-                        sx={{ p: 0, mr: "20px" }}
+                        sx={styles.mobileIconBtn}
                     >
                         <MenuIcon />
                     </IconButton>
                     <Menu
-                        sx={{ mt: "45px", zIndex: 3000 }}
+                        sx={styles.mobileMenu}
                         id="menu-appbar"
                         anchorOrigin={{
                             vertical: "top",
@@ -124,28 +116,22 @@ export default function Navbar(): React.ReactElement {
                                 <IconButton
                                     href={`/${i18n.language}/home-page`}
                                     size="small"
-                                    sx={{ ml: 2 }}
+                                    sx={styles.mobileIconBtnSec}
                                 >
                                     <img
                                         src="https://i.ibb.co/HKcWrgn/pic-modified-modified-new.png"
                                         alt="logo"
-                                        style={{ marginLeft: "8px" }}
+                                        style={styles.img}
                                     />
                                     {t(LocalizationKeys.Common.AppName)}
                                 </IconButton>
                             </Link>
                         </MenuItem>
                         {pages.map((page, index) => (
-                            <MenuItem
-                                key={index}
-                                onClick={() => setOpenMenu(false)}
-                            >
+                            <MenuItem key={index} onClick={() => setOpenMenu(false)}>
                                 <Fragment>
                                     <Link href={page.url}>
-                                        <Typography
-                                            textAlign="center"
-                                            component="div"
-                                        >
+                                        <Typography textAlign="center" component="div">
                                             {page.text}
                                         </Typography>
                                     </Link>
@@ -154,22 +140,18 @@ export default function Navbar(): React.ReactElement {
                         ))}
                     </Menu>
                 </Box>
-                <Box sx={{ mr: 30 }}>
+                <Box sx={styles.mobileSecondary}>
                     <Select
                         onChange={(e) =>
                             i18n.changeLanguage(e.target.value as string)
                         }
                         aria-label="change language"
                         value={i18n.language}
-                        sx={{ color: "white" }}
+                        sx={styles.mobileSelect}
                     >
                         {Object.keys(DisplayLanguages).map((lang) => (
                             <MenuItem key={lang} value={lang}>
-                                {
-                                    DisplayLanguages[
-                                        lang as keyof typeof DisplayLanguages
-                                    ]
-                                }
+                                {DisplayLanguages[lang as keyof typeof DisplayLanguages]}
                             </MenuItem>
                         ))}
                     </Select>
@@ -182,9 +164,7 @@ export default function Navbar(): React.ReactElement {
         <AppBar position="static">
             <Toolbar
                 sx={{
-                    display: "flex",
-                    justifyContent: "space-evenly",
-                    alignItems: "center",
+                    ...styles.desktopRoot,
                     direction: direction,
                 }}
             >
@@ -193,14 +173,14 @@ export default function Navbar(): React.ReactElement {
                         <IconButton
                             href={`/${i18n.language}/home-page`}
                             size="small"
-                            sx={{ ml: 2 }}
+                            sx={styles.desktopIconBtn}
                         >
                             <img
                                 src="https://i.ibb.co/HKcWrgn/pic-modified-modified-new.png"
                                 alt="logo"
-                                style={{ marginLeft: "8px" }}
+                                style={styles.desktopImg}
                             />
-                            {t("common.app_name")}
+                            {t(LocalizationKeys.Common.AppName)}
                         </IconButton>
                     </Link>
                 </div>
@@ -209,9 +189,9 @@ export default function Navbar(): React.ReactElement {
                         <Typography
                             variant="h6"
                             component="div"
-                            sx={{ cursor: "pointer", color: "white" }}
+                            sx={styles.desktopTyp}
                         >
-                            {t("navbar.upload_content")}
+                            {t(LocalizationKeys.Navbar.UploadContent)}
                         </Typography>
                     </Link>
                 </div>
@@ -223,9 +203,9 @@ export default function Navbar(): React.ReactElement {
                         <Typography
                             variant="h6"
                             component="div"
-                            sx={{ cursor: "pointer", color: "white" }}
+                            sx={styles.desktopTyp}
                         >
-                            {t("navbar.found_mistake")}
+                            {t(LocalizationKeys.Navbar.FoundMistake)}
                         </Typography>
                     </Link>
                 </div>
@@ -234,31 +214,23 @@ export default function Navbar(): React.ReactElement {
                         <Typography
                             variant="h6"
                             component="div"
-                            sx={{ cursor: "pointer", color: "white" }}
+                            sx={styles.desktopTyp}
                         >
-                            {t("navbar.about_us")}
+                            {t(LocalizationKeys.Navbar.AboutUs)}
                         </Typography>
                     </Link>
                 </div>
 
                 <div>
                     <Select
-                        onChange={(e) =>
-                            i18n.changeLanguage(e.target.value as string)
-                        }
+                        onChange={(e) => i18n.changeLanguage(e.target.value as string)}
                         aria-label="change language"
                         value={i18n.language || "he"}
-                        sx={{
-                            color: "white",
-                        }}
+                        sx={styles.desktopSelect}
                     >
                         {Object.keys(DisplayLanguages).map((lang) => (
                             <MenuItem key={lang} value={lang}>
-                                {
-                                    DisplayLanguages[
-                                        lang as keyof typeof DisplayLanguages
-                                    ]
-                                }
+                                {DisplayLanguages[lang as keyof typeof DisplayLanguages]}
                             </MenuItem>
                         ))}
                     </Select>

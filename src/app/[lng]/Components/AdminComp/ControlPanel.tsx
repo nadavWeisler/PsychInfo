@@ -5,6 +5,8 @@ import PopUpList from "@/app/[lng]/Components/AdminComp/PopUpList";
 import { Button, Box } from "@mui/material";
 import useTrans from "@/app/[lng]/hooks/useTrans";
 import { ControlPanelProps } from "@/app/[lng]/general/interfaces";
+import { styles } from "@/app/[lng]/Components/AdminComp/ControlPanel.style";
+import { LocalizationKeys } from "@/i18n/LocalizationKeys";
 
 export default function ControlPanel({
     isDeleteHandler,
@@ -15,15 +17,14 @@ export default function ControlPanel({
 
     const router = useRouter();
     const { t, i18n } = useTrans();
-    
 
     return (
-        <Box sx={{ display: "flex", direction: "row" }}>
+        <Box sx={styles.root}>
             <PopUpList
                 open={openTags}
                 handleClose={() => setOpenTags(false)}
                 dataType="tags"
-                title={t("common.tags")}
+                title={t(LocalizationKeys.Common.Tags)}
                 isDeleteHandler={isDeleteHandler}
                 isDelete={isDelete}
             />
@@ -31,50 +32,33 @@ export default function ControlPanel({
                 open={openOrganization}
                 handleClose={() => setOpenOrganization(false)}
                 dataType="organizations"
-                title={t("common.organizations")}
+                title={t(LocalizationKeys.Common.Organizations)}
                 isDeleteHandler={isDeleteHandler}
                 isDelete={isDelete}
             />
-            <Box
-                sx={{
-                    margin: "auto",
-                }}
-            >
+            <Box sx={styles.secondary}>
                 <Button
-                    sx={{
-                        height: "130px",
-                        width: "130px",
-                        margin: "20px",
-                        fontSize: "1.5rem",
-                    }}
+                    sx={styles.button}
                     variant={"contained"}
                     onClick={() => setOpenTags(true)}
                 >
-                    {t("admin.open_tags")}
+                    {t(LocalizationKeys.Admin.OpenTags)}
                 </Button>
                 <Button
-                    sx={{
-                        height: "130px",
-                        width: "130px",
-                        margin: "20px",
-                        fontSize: "1.5rem",
-                    }}
+                    sx={styles.button}
                     variant={"contained"}
                     onClick={() => setOpenOrganization(true)}
                 >
-                    {t("admin.open_organizations")}
-                </Button>
+                    {t(LocalizationKeys.Admin.OpenOrganizations)}
+=                </Button>
                 <Button
-                    sx={{
-                        height: "130px",
-                        width: "130px",
-                        margin: "20px",
-                        fontSize: "1.5rem",
-                    }}
+                    sx={styles.button}
                     variant={"contained"}
-                    onClick={() => router.replace(`/${i18n.language}/therapists-info`)}
+                    onClick={() =>
+                        router.replace(`/${i18n.language}/therapists-info`)
+                    }
                 >
-                    {t("admin.move_therapists")}
+                    {t(LocalizationKeys.Admin.MoveTherapists)}
                 </Button>
             </Box>
         </Box>

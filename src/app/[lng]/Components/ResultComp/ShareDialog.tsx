@@ -22,6 +22,8 @@ import {
 } from "react-share";
 import { ShareDialogProps } from "@/app/[lng]/general/interfaces";
 import useTrans from "@/app/[lng]/hooks/useTrans";
+import { styles } from "@/app/[lng]/Components/ResultComp/ShareDialog.style";
+import { LocalizationKeys } from "@/i18n/LocalizationKeys";
 
 export default function ShareDialog({
     open,
@@ -52,9 +54,9 @@ export default function ShareDialog({
     ];
 
     return (
-        <Dialog onClose={onClose} open={open} sx={{ zIndex: 3000 }}>
+        <Dialog onClose={onClose} open={open} sx={styles.root}>
             <DialogContent>
-                <DialogTitle>{t("common.share")}</DialogTitle>
+                <DialogTitle>{t(LocalizationKeys.Common.Share)}</DialogTitle>
                 <Grid container spacing={2}>
                     {shareBtns.map((btn, index) => (
                         <Grid item xs={6} sm={6} md={4} key={index}>
@@ -65,7 +67,7 @@ export default function ShareDialog({
             </DialogContent>
             <DialogActions>
                 <Button variant={"contained"} onClick={onClose}>
-                    {t("common.close")}
+                    {t(LocalizationKeys.Common.Close)}
                 </Button>
             </DialogActions>
         </Dialog>

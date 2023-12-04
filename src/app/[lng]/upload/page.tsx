@@ -15,6 +15,7 @@ import {
     Theme,
     Snackbar,
     IconButton,
+    FormLabel,
 } from "@mui/material";
 import CloseIcon from "@mui/icons-material/Close";
 import { appTheme } from "@/app/[lng]/general/styles";
@@ -34,34 +35,12 @@ import { styled } from "@mui/material/styles";
 import useTrans from "@/app/[lng]/hooks/useTrans";
 import styles from "@/app/[lng]/upload/select.module.css";
 import { ThemeProvider, createTheme } from "@mui/material/styles";
+import { stylesObj } from "@/app/[lng]/upload/page.style";
+import { LocalizationKeys } from "@/i18n/LocalizationKeys";
 
-const theme = createTheme({
-    palette: {
-        secondary: {
-            main: "#0f0f0f",
-        },
-    },
-});
+const theme = createTheme(stylesObj.theme);
 
-const CssTextField = styled(TextField)({
-    "& label.Mui-focused": {
-        color: "#0f0f0f",
-    },
-    "& .MuiInput-underline:after": {
-        borderBottomColor: "#0f0f0f",
-    },
-    "& .MuiOutlinedInput-root": {
-        "& fieldset": {
-            borderColor: "#0f0f0f",
-        },
-        "&:hover fieldset": {
-            borderColor: "#0f0f0f",
-        },
-        "&.Mui-focused fieldset": {
-            borderColor: "#0f0f0f",
-        },
-    },
-});
+const CssTextField = styled(TextField)(stylesObj.textField);
 
 function getSelectStyles(
     obj: string,
@@ -76,14 +55,9 @@ function getSelectStyles(
     };
 }
 
-const ITEM_HEIGHT = 48;
-const ITEM_PADDING_TOP = 8;
 const MenuProps = {
     PaperProps: {
-        style: {
-            maxHeight: ITEM_HEIGHT * 4.5 + ITEM_PADDING_TOP,
-            width: 250,
-        },
+        style: stylesObj.menu,
     },
 };
 
@@ -93,7 +67,7 @@ export default function UploadContent() {
 
     const [selectedTags, setSelectedTags] = useState<string[]>([]);
     const [selectedOrganization, setSelectedOrganization] =
-        useState<Organization>(EMPTY_ORGANIZATION);
+        useState<Organization | null>(EMPTY_ORGANIZATION);
     const [selectedLanguage, setSelectedLanguage] = useState<string>("");
     const [isSubmit, setIsSubmit] = useState<boolean>(false);
 
@@ -123,7 +97,7 @@ export default function UploadContent() {
             description: data.get("description")?.toString() || "",
             link: data.get("link")?.toString() || "",
             tags: tags.filter((tag) => selectedTags.includes(tag.display)),
-            organization: selectedOrganization,
+            organization: selectedOrganization as Organization,
             languageId: selectedLanguage,
             uploader: data.get("uploader")?.toString() || "",
         };
@@ -171,7 +145,7 @@ export default function UploadContent() {
             aria-label="close"
             color="inherit"
             onClick={handleClose}
-            sx={{ width: "auto", position: "absolute", left: 0 }}
+            sx={stylesObj.iconBtn}
         >
             <CloseIcon fontSize="small" />
         </IconButton>
@@ -179,41 +153,59 @@ export default function UploadContent() {
 
     return (
         <ThemeProvider theme={theme}>
-            <Box
-                sx={{
-                    marginTop: 4,
-                    display: "flex",
-                    flexDirection: "column",
-                    alignItems: "center",
-                    overflow: "auto",
-                }}
-            >
-                <Typography variant="h4">{t("upload.title")}</Typography>
+            <Box sx={stylesObj.root}>
+                <Typography variant="h4">
+                    {t(LocalizationKeys.Upload.Title)}
+                </Typography>
                 <Box component="form" onSubmit={handleSubmit}>
-                    <CssTextField
+                    <FormControl
+                        required
+                        key={LocalizationKeys.Common.Title}
+                        fullWidth
                         margin="normal"
+                    >
+                        <FormLabel>
+                            {t(LocalizationKeys.Common.Title)}
+                        </FormLabel>
+                        <CssTextField
+                            required
+                            id="title"
+                            name="title"
+                            autoFocus
+                        />
+                    </FormControl>
+                    <FormControl
+                        key={LocalizationKeys.Common.Description}
                         required
                         fullWidth
-                        id="title"
-                        label={t("common.title")}
-                        name="title"
-                        autoFocus
-                    />
-                    <CssTextField
                         margin="normal"
-                        required
+                    >
+                        <FormLabel>
+                            {t(LocalizationKeys.Common.Description)}
+                        </FormLabel>
+                        <CssTextField
+                            required
+                            name="description"
+                            id="description"
+                            multiline
+                        />
+                    </FormControl>
+                    <FormControl
+                        key={LocalizationKeys.Common.Organization}
+                        margin="normal"
                         fullWidth
-                        name="description"
-                        label={t("common.description")}
-                        id="description"
-                        multiline={true}
-                    />
-                    <FormControl margin="normal" fullWidth required>
-                        <InputLabel>{t("common.organization")}</InputLabel>
+                    >
+                        <FormLabel>
+                            {t(LocalizationKeys.Common.Organization)}
+                        </FormLabel>
                         <Select
                             className={styles.select}
                             color={"secondary"}
-                            value={selectedOrganization}
+                            value={
+                                selectedOrganization === EMPTY_ORGANIZATION
+                                    ? null
+                                    : selectedOrganization
+                            }
                             onChange={hangleChangeOrganization}
                             renderValue={(selected) =>
                                 (selected as Organization).display
@@ -236,15 +228,23 @@ export default function UploadContent() {
                             ))}
                         </Select>
                     </FormControl>
-                    <CssTextField
+                    <FormControl
+                        key={LocalizationKeys.Common.Link}
                         margin="normal"
                         fullWidth
-                        name="link"
-                        label={t("common.link")}
-                        id="link"
-                    />
-                    <FormControl margin="normal" fullWidth required>
-                        <InputLabel>{t("common.language")}</InputLabel>
+                    >
+                        <FormLabel>{t(LocalizationKeys.Common.Link)}</FormLabel>
+                        <CssTextField name="link" id="link" />
+                    </FormControl>
+                    <FormControl
+                        key={LocalizationKeys.Common.Language}
+                        margin="normal"
+                        fullWidth
+                        required
+                    >
+                        <FormLabel>
+                            {t(LocalizationKeys.Common.Language)}
+                        </FormLabel>
                         <Select
                             className={styles.select}
                             color={"secondary"}
@@ -279,15 +279,16 @@ export default function UploadContent() {
                             ))}
                         </Select>
                     </FormControl>
-                    <FormControl fullWidth required margin="normal">
-                        <InputLabel id="demo-multiple-chip-label">
-                            {t("common.tags")}
-                        </InputLabel>
+                    <FormControl
+                        key={LocalizationKeys.Common.Tags}
+                        fullWidth
+                        required
+                        margin="normal"
+                    >
+                        <FormLabel>{t(LocalizationKeys.Common.Tags)}</FormLabel>
                         <Select
                             className={styles.select}
                             color={"secondary"}
-                            labelId="demo-multiple-chip-label"
-                            id="demo-multiple-chip"
                             multiple
                             value={selectedTags}
                             onChange={hangleChangeTags}
@@ -298,13 +299,7 @@ export default function UploadContent() {
                                 />
                             }
                             renderValue={(selected) => (
-                                <Box
-                                    sx={{
-                                        display: "flex",
-                                        flexWrap: "wrap",
-                                        gap: 0.5,
-                                    }}
-                                >
+                                <Box sx={stylesObj.box}>
                                     {selected.map((value) => (
                                         <Chip key={value} label={value} />
                                     ))}
@@ -327,28 +322,30 @@ export default function UploadContent() {
                             ))}
                         </Select>
                     </FormControl>
-                    <CssTextField
+                    <FormControl
+                        key={LocalizationKeys.Common.Uploader}
                         margin="normal"
                         fullWidth
-                        name="uploader"
                         required
-                        label={t("common.uploader")}
-                        id="uploader"
-                    />
+                    >
+                        <FormLabel>
+                            {t(LocalizationKeys.Common.Uploader)}
+                        </FormLabel>
+                        <CssTextField name="uploader" id="uploader" />
+                    </FormControl>
                     <Button
                         type="submit"
-                        fullWidth
                         variant="contained"
-                        sx={{ mt: 3, mb: 2 }}
+                        sx={stylesObj.button}
                     >
-                        {t("common.submit")}
+                        {t(LocalizationKeys.Common.Submit)}
                     </Button>
                 </Box>
                 <Snackbar
                     anchorOrigin={{ vertical: "top", horizontal: "center" }}
                     open={isSubmit}
                     onClose={handleClose}
-                    message={t("upload.submit_success")}
+                    message={t(LocalizationKeys.Upload.SubmitSuccess)}
                     autoHideDuration={6000}
                     action={action}
                 />
