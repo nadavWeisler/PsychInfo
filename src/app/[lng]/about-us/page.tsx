@@ -67,7 +67,7 @@ export default function AboutUs() {
             id: 9,
             title: t(LocalizationKeys.Credits.Tatiana.Title),
             description: t(LocalizationKeys.Credits.Tatiana.Description),
-            imageUrl: "https://source.unsplash.com/random?wallpapers",
+            imageUrl: "https://source.unsplash.com/random",
         },
     ];
 
