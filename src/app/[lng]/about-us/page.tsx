@@ -25,7 +25,7 @@ export default function AboutUs() {
             title: t(LocalizationKeys.Credits.Shir.Title),
             description: t(LocalizationKeys.Credits.Shir.Description),
             imageUrl: "https://i.ibb.co/FbvRRPC/shir.jpg",
-            linkedin: "https://www.linkedin.com/",
+            linkedin: "",
         },
         {
             id: 2,
@@ -63,7 +63,7 @@ export default function AboutUs() {
             title: t(LocalizationKeys.Credits.Ana.Title),
             description: t(LocalizationKeys.Credits.Ana.Description),
             imageUrl: "https://source.unsplash.com/random?wallpapers",
-            linkedin: "https://www.linkedin.com/",
+            linkedin: "",
         },
         {
             id: 8,
