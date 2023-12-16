@@ -8,11 +8,13 @@ import {
     Box,
     Typography,
     Container,
+    IconButton,
 } from "@mui/material";
 import useTrans from "@/app/[lng]/hooks/useTrans";
 import styles from "@/app/[lng]/about-us/card.module.css";
 import { stylesObj } from "@/app/[lng]/about-us/page.style";
 import { LocalizationKeys } from "@/i18n/LocalizationKeys";
+import LinkedInIcon from "@mui/icons-material/LinkedIn";
 
 export default function AboutUs() {
     const { t } = useTrans();
@@ -23,6 +25,7 @@ export default function AboutUs() {
             title: t(LocalizationKeys.Credits.Shir.Title),
             description: t(LocalizationKeys.Credits.Shir.Description),
             imageUrl: "https://i.ibb.co/FbvRRPC/shir.jpg",
+            linkedin: "https://www.linkedin.com/",
         },
         {
             id: 2,
@@ -30,12 +33,14 @@ export default function AboutUs() {
             description: t(LocalizationKeys.Credits.NadavW.Description),
             imageUrl:
                 "https://media.licdn.com/dms/image/C4D03AQE_P3IHLL6trQ/profile-displayphoto-shrink_800_800/0/1615991285399?e=1703721600&v=beta&t=Wli5uAAS8XqpjSelNVZA6tEMtFr_cgKhMoXLk_OJtPg",
+            linkedin: "https://www.linkedin.com/in/nadav-weisler/",
         },
         {
             id: 3,
             title: t(LocalizationKeys.Credits.Shlomi.Title),
             description: t(LocalizationKeys.Credits.Shlomi.Description),
             imageUrl: "https://i.ibb.co/YjZkfHZ/shlomi.jpg",
+            linkedin: "https://www.linkedin.com/in/shlomi-shitrit-31b839223/",
         },
         {
             id: 4,
@@ -43,6 +48,7 @@ export default function AboutUs() {
             description: t(LocalizationKeys.Credits.NadavP.Description),
             imageUrl:
                 "https://media.licdn.com/dms/image/C4D03AQEuJZ1UkM-Emw/profile-displayphoto-shrink_800_800/0/1572158793894?e=1703721600&v=beta&t=YE8_KRYCLddjUlblqDK9ELJ1id7OMDj55jfMWBYJQZQ",
+            linkedin: "https://www.linkedin.com/in/nadav-porat-126805b1/",
         },
         {
             id: 5,
@@ -50,24 +56,28 @@ export default function AboutUs() {
             description: t(LocalizationKeys.Credits.Gaia.Description),
             imageUrl:
                 "https://media.licdn.com/dms/image/D4D03AQG6GVjshybq6g/profile-displayphoto-shrink_400_400/0/1672679569607?e=1703721600&v=beta&t=Q_suFXMwBzJqbQczaIg1Fk3PSkk1b39H72JScQ0iY1Y",
+            linkedin: "https://www.linkedin.com/in/gaya-aran/",
         },
         {
             id: 6,
             title: t(LocalizationKeys.Credits.Ana.Title),
             description: t(LocalizationKeys.Credits.Ana.Description),
             imageUrl: "https://source.unsplash.com/random?wallpapers",
+            linkedin: "https://www.linkedin.com/",
         },
         {
             id: 8,
             title: t(LocalizationKeys.Credits.Netanel.Title),
             description: t(LocalizationKeys.Credits.Netanel.Description),
             imageUrl: "https://i.ibb.co/WBLYHc6/netanel.jpg",
+            linkedin: "",
         },
         {
             id: 9,
             title: t(LocalizationKeys.Credits.Tatiana.Title),
             description: t(LocalizationKeys.Credits.Tatiana.Description),
             imageUrl: "https://source.unsplash.com/random",
+            linkedin: "",
         },
     ];
 
@@ -132,6 +142,11 @@ export default function AboutUs() {
                                         >
                                             {card.title}
                                         </Typography>
+                                        {card.linkedin !== "" ? (
+                                            <IconButton href={card.linkedin}>
+                                                <LinkedInIcon />
+                                            </IconButton>
+                                        ) : null}
                                         <Typography>
                                             {card.description}
                                         </Typography>
