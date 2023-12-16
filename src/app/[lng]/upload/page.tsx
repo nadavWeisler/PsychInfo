@@ -24,7 +24,10 @@ import {
     Organization,
     Tag,
 } from "@/app/[lng]/general/interfaces";
-import { EMPTY_ORGANIZATION } from "@/app/[lng]/general/utils";
+import {
+    EMPTY_ORGANIZATION,
+    getStringObjectDisplay,
+} from "@/app/[lng]/general/utils";
 import {
     getAllOrganizations,
     getAllTags,
@@ -108,11 +111,9 @@ export default function UploadContent() {
     }, []);
 
     useEffect(() => {
-        getAllOrganizations(false).then(
-            (allOrgs: Organization[]) => {
-                setOrganizations(allOrgs);
-            }
-        );
+        getAllOrganizations(false).then((allOrgs: Organization[]) => {
+            setOrganizations(allOrgs);
+        });
     }, []);
 
     async function handleSubmit(
@@ -182,7 +183,9 @@ export default function UploadContent() {
     return (
         <ThemeProvider theme={theme}>
             <Box sx={stylesObj.root}>
-                <Typography variant="h4">{t(LocalizationKeys.Upload.Title)}</Typography>
+                <Typography variant="h4">
+                    {t(LocalizationKeys.Upload.Title)}
+                </Typography>
                 <Box component="form" onSubmit={handleSubmit}>
                     <FormControl
                         required
@@ -190,10 +193,15 @@ export default function UploadContent() {
                         fullWidth
                         margin="normal"
                     >
-                        <FormLabel >
+                        <FormLabel>
                             {t(LocalizationKeys.Common.Title)}
                         </FormLabel>
-                        <CssTextField required id="title" name="title" autoFocus />
+                        <CssTextField
+                            required
+                            id="title"
+                            name="title"
+                            autoFocus
+                        />
                     </FormControl>
                     <FormControl
                         key={LocalizationKeys.Common.Description}
@@ -204,7 +212,12 @@ export default function UploadContent() {
                         <FormLabel>
                             {t(LocalizationKeys.Common.Description)}
                         </FormLabel>
-                        <CssTextField required name="description" id="description" multiline />
+                        <CssTextField
+                            required
+                            name="description"
+                            id="description"
+                            multiline
+                        />
                     </FormControl>
                     <FormControl
                         key={LocalizationKeys.Common.Organization}
@@ -239,7 +252,7 @@ export default function UploadContent() {
                                         appTheme
                                     )}
                                 >
-                                    {org.id}
+                                    {getStringObjectDisplay(org, i18n.language)}
                                 </MenuItem>
                             ))}
                         </Select>
@@ -249,13 +262,8 @@ export default function UploadContent() {
                         margin="normal"
                         fullWidth
                     >
-                        <FormLabel>
-                            {t(LocalizationKeys.Common.Link)}
-                        </FormLabel>
-                        <CssTextField
-                            name="link"
-                            id="link"
-                        />
+                        <FormLabel>{t(LocalizationKeys.Common.Link)}</FormLabel>
+                        <CssTextField name="link" id="link" />
                     </FormControl>
                     <FormControl
                         key={LocalizationKeys.Common.Language}
@@ -275,7 +283,7 @@ export default function UploadContent() {
                             }
                             renderValue={(selected) =>
                                 DisplayLanguages[
-                                selected as keyof typeof DisplayLanguages
+                                    selected as keyof typeof DisplayLanguages
                                 ]
                             }
                         >
@@ -293,7 +301,7 @@ export default function UploadContent() {
                                 >
                                     {
                                         DisplayLanguages[
-                                        lang as keyof typeof DisplayLanguages
+                                            lang as keyof typeof DisplayLanguages
                                         ]
                                     }
                                 </MenuItem>
@@ -306,9 +314,7 @@ export default function UploadContent() {
                         required
                         margin="normal"
                     >
-                        <FormLabel>
-                            {t(LocalizationKeys.Common.Tags)}
-                        </FormLabel>
+                        <FormLabel>{t(LocalizationKeys.Common.Tags)}</FormLabel>
                         <Select
                             className={styles.select}
                             color={"secondary"}
@@ -340,12 +346,13 @@ export default function UploadContent() {
                                         appTheme
                                     )}
                                 >
-                                    {tag.id}
+                                    {getStringObjectDisplay(tag, i18n.language)}
                                 </MenuItem>
                             ))}
                         </Select>
                     </FormControl>
-                    <FormControl key={LocalizationKeys.Common.Uploader}
+                    <FormControl
+                        key={LocalizationKeys.Common.Uploader}
                         margin="normal"
                         fullWidth
                         required
@@ -353,10 +360,7 @@ export default function UploadContent() {
                         <FormLabel>
                             {t(LocalizationKeys.Common.Uploader)}
                         </FormLabel>
-                        <CssTextField
-                            name="uploader"
-                            id="uploader"
-                        />
+                        <CssTextField name="uploader" id="uploader" />
                     </FormControl>
                     <Button
                         type="submit"

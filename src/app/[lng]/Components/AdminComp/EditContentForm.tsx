@@ -27,7 +27,11 @@ import {
     DisplayLanguages,
 } from "@/app/[lng]/general/interfaces";
 import { appTheme } from "@/app/[lng]/general/styles";
-import { EMPTY_ORGANIZATION, EMPTY_TAG } from "@/app/[lng]/general/utils";
+import {
+    EMPTY_ORGANIZATION,
+    EMPTY_TAG,
+    getStringObjectDisplay,
+} from "@/app/[lng]/general/utils";
 import { styles } from "@/app/[lng]/Components/AdminComp/EditContentForm.style";
 import { LocalizationKeys } from "@/i18n/LocalizationKeys";
 
@@ -44,13 +48,13 @@ function getSelectStyles(
     };
 }
 
-const ITEM_HEIGHT = 48;
-const ITEM_PADDING_TOP = 8;
-
-const MenuProps = {
+const menuPropsZindex = {
+    style: {
+        zIndex: 5000,
+    },
     PaperProps: {
         style: {
-            maxHeight: ITEM_HEIGHT * 4.5 + ITEM_PADDING_TOP,
+            maxHeight: 48 * 4.5 + 8,
             width: 250,
         },
     },
@@ -65,7 +69,9 @@ export default function EditContentForm({ prevContent }: EditContentFormProps) {
     const [selectedTags, setSelectedTags] = useState<string[]>(prevTags);
     const [selectedOrganization, setSelectedOrganization] =
         useState<Organization>(prevContent.organization);
-    const [selectedLanguage, setSelectedLanguage] = useState<string>(prevContent.languageId);
+    const [selectedLanguage, setSelectedLanguage] = useState<string>(
+        prevContent.languageId
+    );
 
     const [otherOrgValue, setOtherOrgValue] =
         useState<Organization>(EMPTY_ORGANIZATION);
@@ -73,23 +79,23 @@ export default function EditContentForm({ prevContent }: EditContentFormProps) {
 
     const [isSubmit, setIsSubmit] = useState<boolean>(false);
 
-    const { t } = useTrans();
+    const { t, i18n } = useTrans();
 
     useEffect(() => {
         getAllTags(false).then((allTags: Tag[]) => {
             setTags(allTags);
         });
-    }, [otherTagValue]);
+    }, []);
 
     useEffect(() => {
-        getAllOrganizations(false).then(
-            (allOrgs: Organization[]) => {
-                setOrganizations(allOrgs);
-            }
-        );
+        getAllOrganizations(false).then((allOrgs: Organization[]) => {
+            setOrganizations(allOrgs);
+        });
     }, [otherOrgValue]);
 
-    async function handleSubmit(event: FormEvent<HTMLFormElement>): Promise<void> {
+    async function handleSubmit(
+        event: FormEvent<HTMLFormElement>
+    ): Promise<void> {
         event.preventDefault();
         const data = new FormData(event.currentTarget);
         const newContent: Content = {
@@ -130,7 +136,9 @@ export default function EditContentForm({ prevContent }: EditContentFormProps) {
 
     return (
         <Box sx={styles.root}>
-            <Typography variant="h4">{t(LocalizationKeys.Upload.Title)}</Typography>
+            <Typography variant="h4">
+                {t(LocalizationKeys.Upload.Title)}
+            </Typography>
             <Box component="form" onSubmit={handleSubmit}>
                 <TextField
                     margin="normal"
@@ -153,10 +161,13 @@ export default function EditContentForm({ prevContent }: EditContentFormProps) {
                     defaultValue={prevContent.description}
                 />
                 <FormControl margin="normal" fullWidth required>
-                    <InputLabel>{t(LocalizationKeys.Common.Organization)}</InputLabel>
+                    <InputLabel>
+                        {t(LocalizationKeys.Common.Organization)}
+                    </InputLabel>
                     <Select
                         defaultValue={prevContent.organization}
                         value={selectedOrganization}
+                        MenuProps={menuPropsZindex}
                         onChange={hangleChangeOrganization}
                         renderValue={(selected) =>
                             (selected as Organization).id
@@ -174,7 +185,7 @@ export default function EditContentForm({ prevContent }: EditContentFormProps) {
                                     appTheme
                                 )}
                             >
-                                {org.id}
+                                {getStringObjectDisplay(org, i18n.language)}
                             </MenuItem>
                         ))}
                     </Select>
@@ -188,16 +199,19 @@ export default function EditContentForm({ prevContent }: EditContentFormProps) {
                     defaultValue={prevContent.link}
                 />
                 <FormControl margin="normal" fullWidth required>
-                    <InputLabel>{t(LocalizationKeys.Common.Language)}</InputLabel>
+                    <InputLabel>
+                        {t(LocalizationKeys.Common.Language)}
+                    </InputLabel>
                     <Select
                         defaultValue={prevContent.languageId}
                         value={selectedLanguage}
                         onChange={(e) =>
                             setSelectedLanguage(e.target.value as string)
                         }
+                        MenuProps={menuPropsZindex}
                         renderValue={(selected) =>
                             DisplayLanguages[
-                            selected as keyof typeof DisplayLanguages
+                                selected as keyof typeof DisplayLanguages
                             ]
                         }
                     >
@@ -213,7 +227,7 @@ export default function EditContentForm({ prevContent }: EditContentFormProps) {
                             >
                                 {
                                     DisplayLanguages[
-                                    lang as keyof typeof DisplayLanguages
+                                        lang as keyof typeof DisplayLanguages
                                     ]
                                 }
                             </MenuItem>
@@ -230,6 +244,7 @@ export default function EditContentForm({ prevContent }: EditContentFormProps) {
                         multiple
                         value={selectedTags}
                         onChange={hangleChangeTags}
+                        MenuProps={menuPropsZindex}
                         input={
                             <OutlinedInput
                                 id="select-multiple-chip"
@@ -249,7 +264,6 @@ export default function EditContentForm({ prevContent }: EditContentFormProps) {
                                 ))}
                             </Box>
                         )}
-                        MenuProps={MenuProps}
                     >
                         {tags.map((tag) => (
                             <MenuItem
@@ -261,7 +275,7 @@ export default function EditContentForm({ prevContent }: EditContentFormProps) {
                                     appTheme
                                 )}
                             >
-                                {tag.id}
+                                {getStringObjectDisplay(tag, i18n.language)}
                             </MenuItem>
                         ))}
                     </Select>
@@ -286,7 +300,9 @@ export default function EditContentForm({ prevContent }: EditContentFormProps) {
                 </Button>
             </Box>
             {isSubmit && (
-                <Typography variant="h5">{t(LocalizationKeys.Admin.EditSuccess)}</Typography>
+                <Typography variant="h5">
+                    {t(LocalizationKeys.Admin.EditSuccess)}
+                </Typography>
             )}
         </Box>
     );

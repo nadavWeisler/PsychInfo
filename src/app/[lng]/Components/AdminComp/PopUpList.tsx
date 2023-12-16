@@ -23,7 +23,11 @@ import { deleteTags, deleteOrganization } from "@/app/[lng]/firebase/commands";
 import { PopUpListProps } from "@/app/[lng]/general/interfaces";
 import { useAppSelector } from "@/app/[lng]/hooks/redux";
 import { RootState } from "@/store";
-import { EMPTY_ORGANIZATION, EMPTY_TAG } from "@/app/[lng]/general/utils";
+import {
+    EMPTY_ORGANIZATION,
+    EMPTY_TAG,
+    getStringObjectDisplay,
+} from "@/app/[lng]/general/utils";
 import { createOrganization, createTag } from "@/app/[lng]/firebase/commands";
 import { StringObject } from "@/app/[lng]/general/interfaces";
 import { AddString } from "@/app/[lng]/Components/addString";
@@ -38,17 +42,22 @@ export default function PopUpList({
     isDeleteHandler,
 }: PopUpListProps) {
     const [checked, setChecked] = useState<number[]>([]);
-    const [otherOrgValue, setOtherOrgValue] = useState<Organization>(EMPTY_ORGANIZATION);
+    const [otherOrgValue, setOtherOrgValue] =
+        useState<Organization>(EMPTY_ORGANIZATION);
     const [otherTagValue, setOtherTagValue] = useState<Tag>(EMPTY_TAG);
     const [openAddTagDialog, setOpenAddTagDialog] = useState<boolean>(false);
     const [openAddOrgDialog, setOpenAddOrgDialog] = useState<boolean>(false);
 
-    const { t, direction } = useTrans();
+    const { t, direction, i18n } = useTrans();
 
     const data: Tag[] | Organization[] =
         dataType === "tags"
-            ? (useAppSelector((state: RootState) => state.tagsAndOrg.tags) as Tag[])
-            : (useAppSelector((state: RootState) => state.tagsAndOrg.organizations) as Organization[]);
+            ? (useAppSelector(
+                  (state: RootState) => state.tagsAndOrg.tags
+              ) as Tag[])
+            : (useAppSelector(
+                  (state: RootState) => state.tagsAndOrg.organizations
+              ) as Organization[]);
 
     const handleToggle = (value: number) => () => {
         const currentIndex = checked.indexOf(value);
@@ -137,7 +146,9 @@ export default function PopUpList({
                 <List dir={direction} sx={styles.list}>
                     {data.length === 0 && (
                         <ListItem disablePadding>
-                            <ListItemText primary={t(LocalizationKeys.Admin.EmptyList)} />
+                            <ListItemText
+                                primary={t(LocalizationKeys.Admin.EmptyList)}
+                            />
                         </ListItem>
                     )}
                     {data.map((value, index) => {
@@ -178,11 +189,47 @@ export default function PopUpList({
                                                         </Typography>
                                                     </Typography>
                                                     <Typography sx={styles.typ}>
-                                                        Display:
+                                                        He Display:
                                                         <Typography
                                                             component={"span"}
                                                         >
-                                                            {value.id}
+                                                            {getStringObjectDisplay(
+                                                                value,
+                                                                "he"
+                                                            )}
+                                                        </Typography>
+                                                    </Typography>
+                                                    <Typography sx={styles.typ}>
+                                                        En Display:
+                                                        <Typography
+                                                            component={"span"}
+                                                        >
+                                                            {getStringObjectDisplay(
+                                                                value,
+                                                                "en"
+                                                            )}
+                                                        </Typography>
+                                                    </Typography>
+                                                    <Typography sx={styles.typ}>
+                                                        Arb Display:
+                                                        <Typography
+                                                            component={"span"}
+                                                        >
+                                                            {getStringObjectDisplay(
+                                                                value,
+                                                                "arb"
+                                                            )}
+                                                        </Typography>
+                                                    </Typography>
+                                                    <Typography sx={styles.typ}>
+                                                        Rus Display:
+                                                        <Typography
+                                                            component={"span"}
+                                                        >
+                                                            {getStringObjectDisplay(
+                                                                value,
+                                                                "rus    "
+                                                            )}
                                                         </Typography>
                                                     </Typography>
                                                     <Typography sx={styles.typ}>

@@ -59,7 +59,7 @@ export default function WizardDialog({
     }
 
     useEffect(() => {
-        getAllTags(true, i18n.language).then((res) => setTags(res));
+        getAllTags(true).then((res) => setTags(res));
     }, [i18n.language]);
 
     const errorMsgArray = [
@@ -106,7 +106,11 @@ export default function WizardDialog({
                     />
                 );
             default:
-                return <ErrorStep errorMsg={t(LocalizationKeys.Wizard.InvalidStep)} />;
+                return (
+                    <ErrorStep
+                        errorMsg={t(LocalizationKeys.Wizard.InvalidStep)}
+                    />
+                );
         }
     }
 
@@ -132,7 +136,9 @@ export default function WizardDialog({
                 {GetStepContent(activeStep)}
             </DialogContent>
             <DialogActions dir={direction}>
-                <Button onClick={onClose}>{t(LocalizationKeys.Common.Close)}</Button>
+                <Button onClick={onClose}>
+                    {t(LocalizationKeys.Common.Close)}
+                </Button>
                 <Button
                     onClick={() =>
                         setActiveStep((prevActiveStep) => prevActiveStep - 1)
