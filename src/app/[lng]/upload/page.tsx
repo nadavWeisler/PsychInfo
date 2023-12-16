@@ -152,204 +152,192 @@ export default function UploadContent() {
     );
 
     return (
-        <ThemeProvider theme={theme}>
-            <Box sx={stylesObj.root}>
-                <Typography variant="h4">
-                    {t(LocalizationKeys.Upload.Title)}
-                </Typography>
-                <Box component="form" onSubmit={handleSubmit}>
-                    <FormControl
+        <Box sx={stylesObj.root}>
+            <Typography
+                margin={"normal"}
+                color={"black"}
+                variant="h4"
+                component="div"
+                gutterBottom
+                textAlign={"center"}
+            >
+                {t(LocalizationKeys.Upload.Title)}
+            </Typography>
+            <Box component="form" onSubmit={handleSubmit}>
+                <FormControl
+                    required
+                    key={LocalizationKeys.Common.Title}
+                    fullWidth
+                    margin="normal"
+                >
+                    <FormLabel>{t(LocalizationKeys.Common.Title)}</FormLabel>
+                    <CssTextField required id="title" name="title" autoFocus />
+                </FormControl>
+                <FormControl
+                    key={LocalizationKeys.Common.Description}
+                    required
+                    fullWidth
+                    margin="normal"
+                >
+                    <FormLabel>
+                        {t(LocalizationKeys.Common.Description)}
+                    </FormLabel>
+                    <CssTextField
                         required
-                        key={LocalizationKeys.Common.Title}
-                        fullWidth
-                        margin="normal"
+                        name="description"
+                        id="description"
+                        multiline
+                    />
+                </FormControl>
+                <FormControl
+                    key={LocalizationKeys.Common.Organization}
+                    margin="normal"
+                    fullWidth
+                >
+                    <FormLabel>
+                        {t(LocalizationKeys.Common.Organization)}
+                    </FormLabel>
+                    <Select
+                        className={styles.select}
+                        color={"secondary"}
+                        value={
+                            selectedOrganization === EMPTY_ORGANIZATION
+                                ? null
+                                : selectedOrganization
+                        }
+                        onChange={hangleChangeOrganization}
+                        renderValue={(selected) =>
+                            (selected as Organization).display
+                        }
                     >
-                        <FormLabel>
-                            {t(LocalizationKeys.Common.Title)}
-                        </FormLabel>
-                        <CssTextField
-                            required
-                            id="title"
-                            name="title"
-                            autoFocus
-                        />
-                    </FormControl>
-                    <FormControl
-                        key={LocalizationKeys.Common.Description}
-                        required
-                        fullWidth
-                        margin="normal"
+                        {organizations.map((org) => (
+                            <MenuItem
+                                key={org.id}
+                                value={org.id}
+                                style={getSelectStyles(
+                                    org.id,
+                                    selectedOrganization
+                                        ? [selectedOrganization.id]
+                                        : [],
+                                    appTheme
+                                )}
+                            >
+                                {org.display}
+                            </MenuItem>
+                        ))}
+                    </Select>
+                </FormControl>
+                <FormControl
+                    key={LocalizationKeys.Common.Link}
+                    margin="normal"
+                    fullWidth
+                >
+                    <FormLabel>{t(LocalizationKeys.Common.Link)}</FormLabel>
+                    <CssTextField name="link" id="link" />
+                </FormControl>
+                <FormControl
+                    key={LocalizationKeys.Common.Language}
+                    margin="normal"
+                    fullWidth
+                    required
+                >
+                    <FormLabel>{t(LocalizationKeys.Common.Language)}</FormLabel>
+                    <Select
+                        className={styles.select}
+                        color={"secondary"}
+                        value={selectedLanguage}
+                        onChange={(e) =>
+                            setSelectedLanguage(e.target.value as string)
+                        }
+                        renderValue={(selected) =>
+                            DisplayLanguages[
+                                selected as keyof typeof DisplayLanguages
+                            ]
+                        }
                     >
-                        <FormLabel>
-                            {t(LocalizationKeys.Common.Description)}
-                        </FormLabel>
-                        <CssTextField
-                            required
-                            name="description"
-                            id="description"
-                            multiline
-                        />
-                    </FormControl>
-                    <FormControl
-                        key={LocalizationKeys.Common.Organization}
-                        margin="normal"
-                        fullWidth
+                        {Object.keys(DisplayLanguages).map((lang) => (
+                            <MenuItem
+                                key={lang}
+                                value={lang}
+                                style={getSelectStyles(
+                                    lang,
+                                    selectedLanguage ? [selectedLanguage] : [],
+                                    appTheme
+                                )}
+                            >
+                                {
+                                    DisplayLanguages[
+                                        lang as keyof typeof DisplayLanguages
+                                    ]
+                                }
+                            </MenuItem>
+                        ))}
+                    </Select>
+                </FormControl>
+                <FormControl
+                    key={LocalizationKeys.Common.Tags}
+                    fullWidth
+                    required
+                    margin="normal"
+                >
+                    <FormLabel>{t(LocalizationKeys.Common.Tags)}</FormLabel>
+                    <Select
+                        className={styles.select}
+                        color={"secondary"}
+                        multiple
+                        value={selectedTags}
+                        onChange={hangleChangeTags}
+                        input={
+                            <OutlinedInput
+                                id="select-multiple-chip"
+                                label="Chip"
+                            />
+                        }
+                        renderValue={(selected) => (
+                            <Box sx={stylesObj.box}>
+                                {selected.map((value) => (
+                                    <Chip key={value} label={value} />
+                                ))}
+                            </Box>
+                        )}
+                        MenuProps={MenuProps}
                     >
-                        <FormLabel>
-                            {t(LocalizationKeys.Common.Organization)}
-                        </FormLabel>
-                        <Select
-                            className={styles.select}
-                            color={"secondary"}
-                            value={
-                                selectedOrganization === EMPTY_ORGANIZATION
-                                    ? null
-                                    : selectedOrganization
-                            }
-                            onChange={hangleChangeOrganization}
-                            renderValue={(selected) =>
-                                (selected as Organization).display
-                            }
-                        >
-                            {organizations.map((org) => (
-                                <MenuItem
-                                    key={org.id}
-                                    value={org.id}
-                                    style={getSelectStyles(
-                                        org.id,
-                                        selectedOrganization
-                                            ? [selectedOrganization.id]
-                                            : [],
-                                        appTheme
-                                    )}
-                                >
-                                    {org.display}
-                                </MenuItem>
-                            ))}
-                        </Select>
-                    </FormControl>
-                    <FormControl
-                        key={LocalizationKeys.Common.Link}
-                        margin="normal"
-                        fullWidth
-                    >
-                        <FormLabel>{t(LocalizationKeys.Common.Link)}</FormLabel>
-                        <CssTextField name="link" id="link" />
-                    </FormControl>
-                    <FormControl
-                        key={LocalizationKeys.Common.Language}
-                        margin="normal"
-                        fullWidth
-                        required
-                    >
-                        <FormLabel>
-                            {t(LocalizationKeys.Common.Language)}
-                        </FormLabel>
-                        <Select
-                            className={styles.select}
-                            color={"secondary"}
-                            value={selectedLanguage}
-                            onChange={(e) =>
-                                setSelectedLanguage(e.target.value as string)
-                            }
-                            renderValue={(selected) =>
-                                DisplayLanguages[
-                                    selected as keyof typeof DisplayLanguages
-                                ]
-                            }
-                        >
-                            {Object.keys(DisplayLanguages).map((lang) => (
-                                <MenuItem
-                                    key={lang}
-                                    value={lang}
-                                    style={getSelectStyles(
-                                        lang,
-                                        selectedLanguage
-                                            ? [selectedLanguage]
-                                            : [],
-                                        appTheme
-                                    )}
-                                >
-                                    {
-                                        DisplayLanguages[
-                                            lang as keyof typeof DisplayLanguages
-                                        ]
-                                    }
-                                </MenuItem>
-                            ))}
-                        </Select>
-                    </FormControl>
-                    <FormControl
-                        key={LocalizationKeys.Common.Tags}
-                        fullWidth
-                        required
-                        margin="normal"
-                    >
-                        <FormLabel>{t(LocalizationKeys.Common.Tags)}</FormLabel>
-                        <Select
-                            className={styles.select}
-                            color={"secondary"}
-                            multiple
-                            value={selectedTags}
-                            onChange={hangleChangeTags}
-                            input={
-                                <OutlinedInput
-                                    id="select-multiple-chip"
-                                    label="Chip"
-                                />
-                            }
-                            renderValue={(selected) => (
-                                <Box sx={stylesObj.box}>
-                                    {selected.map((value) => (
-                                        <Chip key={value} label={value} />
-                                    ))}
-                                </Box>
-                            )}
-                            MenuProps={MenuProps}
-                        >
-                            {tags.map((tag) => (
-                                <MenuItem
-                                    key={tag.id}
-                                    value={tag.display}
-                                    style={getSelectStyles(
-                                        tag.display,
-                                        selectedTags,
-                                        appTheme
-                                    )}
-                                >
-                                    {tag.display}
-                                </MenuItem>
-                            ))}
-                        </Select>
-                    </FormControl>
-                    <FormControl
-                        key={LocalizationKeys.Common.Uploader}
-                        margin="normal"
-                        fullWidth
-                        required
-                    >
-                        <FormLabel>
-                            {t(LocalizationKeys.Common.Uploader)}
-                        </FormLabel>
-                        <CssTextField name="uploader" id="uploader" />
-                    </FormControl>
-                    <Button
-                        type="submit"
-                        variant="contained"
-                        sx={stylesObj.button}
-                    >
-                        {t(LocalizationKeys.Common.Submit)}
-                    </Button>
-                </Box>
-                <Snackbar
-                    anchorOrigin={{ vertical: "top", horizontal: "center" }}
-                    open={isSubmit}
-                    onClose={handleClose}
-                    message={t(LocalizationKeys.Upload.SubmitSuccess)}
-                    autoHideDuration={6000}
-                    action={action}
-                />
+                        {tags.map((tag) => (
+                            <MenuItem
+                                key={tag.id}
+                                value={tag.display}
+                                style={getSelectStyles(
+                                    tag.display,
+                                    selectedTags,
+                                    appTheme
+                                )}
+                            >
+                                {tag.display}
+                            </MenuItem>
+                        ))}
+                    </Select>
+                </FormControl>
+                <FormControl
+                    key={LocalizationKeys.Common.Uploader}
+                    margin="normal"
+                    fullWidth
+                    required
+                >
+                    <FormLabel>{t(LocalizationKeys.Common.Uploader)}</FormLabel>
+                    <CssTextField name="uploader" id="uploader" />
+                </FormControl>
+                <Button type="submit" variant="contained" sx={stylesObj.button}>
+                    {t(LocalizationKeys.Common.Submit)}
+                </Button>
             </Box>
-        </ThemeProvider>
+            <Snackbar
+                anchorOrigin={{ vertical: "top", horizontal: "center" }}
+                open={isSubmit}
+                onClose={handleClose}
+                message={t(LocalizationKeys.Upload.SubmitSuccess)}
+                autoHideDuration={6000}
+                action={action}
+            />
+        </Box>
     );
 }
