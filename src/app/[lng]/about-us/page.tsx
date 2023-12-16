@@ -102,6 +102,7 @@ export default function AboutUs() {
                                 key={index}
                                 variant="h5"
                                 align="center"
+                                sx={stylesObj.text}
                                 color="text.primary"
                                 paragraph
                             >
