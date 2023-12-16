@@ -4,6 +4,7 @@ import { Typography, Box } from "@mui/material";
 import { Content } from "@/app/[lng]/general/interfaces";
 import { useAppSelector } from "@/app/[lng]/hooks/redux";
 import { RootState } from "@/store";
+import { styles } from "@/app/[lng]/results/page.style";
 import useTrans from "@/app/[lng]/hooks/useTrans";
 import CustomAccordion from "@/app/[lng]/Components/ResultComp/CustomAccordion";
 import { LocalizationKeys } from "@/i18n/LocalizationKeys";
@@ -24,7 +25,7 @@ export default function ResultsPrePage(): ReactElement {
             >
                 {t(LocalizationKeys.Results.Title)}
             </Typography>
-            {results ? (
+            {results && results.length > 0 ? (
                 <Box sx={{ mt: "5%" }}>
                     <CustomAccordion data={results} />
                 </Box>
@@ -32,8 +33,9 @@ export default function ResultsPrePage(): ReactElement {
                 <Typography
                     color={"black"}
                     align="center"
-                    variant="h4"
+                    variant="h5"
                     margin={"normal"}
+                    sx={styles.noResultTyp}
                 >
                     {t(LocalizationKeys.Results.NoResults)}
                 </Typography>
