@@ -32,6 +32,10 @@
         "profession": "Profession",
         "not_required": "Not required"
     },
+    "results": {
+        "title": "Results",
+        "no_results": "No matching results, please try again"
+    },
     "errors": {
         "error_occured": "Произошла ошибка",
         "invalid_data_type": "Данные неподходящего вида"

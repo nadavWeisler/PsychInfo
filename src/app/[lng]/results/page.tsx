@@ -24,16 +24,19 @@ export default function ResultsPrePage(): ReactElement {
             >
                 {t(LocalizationKeys.Results.Title)}
             </Typography>
-            <Box
-                sx={{
-                    display: "flex",
-                    justifyContent: "center",
-                }}
-            ></Box>
-            {results && (
+            {results ? (
                 <Box sx={{ mt: "5%" }}>
                     <CustomAccordion data={results} />
                 </Box>
+            ) : (
+                <Typography
+                    color={"black"}
+                    align="center"
+                    variant="h4"
+                    margin={"normal"}
+                >
+                    {t(LocalizationKeys.Results.NoResults)}
+                </Typography>
             )}
         </Box>
     );

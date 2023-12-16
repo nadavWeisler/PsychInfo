@@ -50,7 +50,7 @@ export default function ControlPanel({
                     onClick={() => setOpenOrganization(true)}
                 >
                     {t(LocalizationKeys.Admin.OpenOrganizations)}
-=                </Button>
+                </Button>
                 <Button
                     sx={styles.button}
                     variant={"contained"}
