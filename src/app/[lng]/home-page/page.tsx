@@ -10,22 +10,13 @@ import store from "@/store";
 
 export default function HomePage() {
     const [open, setOpen] = useState(false);
-
-    const openWizradHandler = () => {
-        setOpen(true);
-    };
-
-    const closeWizradHandler = () => {
-        setOpen(false);
-    };
-
     const filters: Filter[] = GetFilters();
 
     return (
         <>
             <Provider store={store}>
-                <WelcomeMsg openWizradHandler={openWizradHandler} />
-                <Wizrad open={open} onClose={closeWizradHandler} />
+                <WelcomeMsg openWizradHandler={() => setOpen(true)} />
+                <Wizrad open={open} onClose={() => setOpen(false)} />
                 <Gallary filters={filters} />
             </Provider>
         </>
