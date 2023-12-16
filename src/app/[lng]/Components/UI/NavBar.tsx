@@ -10,7 +10,9 @@ import {
     IconButton,
     Menu,
     Link,
+    Icon,
 } from "@mui/material";
+import AccountCircleIcon from "@mui/icons-material/AccountCircle";
 import MenuIcon from "@mui/icons-material/Menu";
 import { User, onAuthStateChanged } from "@firebase/auth";
 import { auth } from "@/app/[lng]/firebase/app";
@@ -57,31 +59,36 @@ export default function Navbar(): React.ReactElement {
     );
 
     const adminLink: React.ReactElement = (
-        <Link href={`/${i18n.language}/admin-signin`}>
-            <Typography variant="h6" component="div" sx={styles.linkTyp}>
-                {t(LocalizationKeys.Navbar.AdminLogIn)}
+        <IconButton href={`/${i18n.language}/admin-signin`}>
+            <AccountCircleIcon sx={styles.desktopAdminIcon} />
+        </IconButton>
+    );
+
+    const adminPage = !authUser ? (
+        <IconButton href={`/${i18n.language}/admin-signin`}>
+            <AccountCircleIcon sx={styles.desktopAdminIcon} />
+        </IconButton>
+    ) : (
+        <Link href={`/${i18n.language}/admin`}>
+            <Typography textAlign="center" component="div">
+                {t(LocalizationKeys.Common.Hello) + " " + userEmail}
             </Typography>
         </Link>
     );
 
-    const adminPage = !authUser
-        ? {
-            text: t(LocalizationKeys.Navbar.AdminLogIn),
-            url: `/${i18n.language}/admin-signin`,
-        }
-        : {
-            text: t(LocalizationKeys.Common.Hello) + " " + userEmail,
-            url: `/${i18n.language}/admin`,
-        };
-
     const pages: NavBarPage[] = [
-        { text: t(LocalizationKeys.Navbar.UploadContent), url: `/${i18n.language}/upload` },
-        adminPage,
+        {
+            text: t(LocalizationKeys.Navbar.UploadContent),
+            url: `/${i18n.language}/upload`,
+        },
         {
             text: t(LocalizationKeys.Navbar.FoundMistake),
             url: `/${i18n.language}/found-mistake`,
         },
-        { text: t(LocalizationKeys.Navbar.AboutUs), url: `/${i18n.language}/about-us` },
+        {
+            text: t(LocalizationKeys.Navbar.AboutUs),
+            url: `/${i18n.language}/about-us`,
+        },
     ];
 
     useScroll(openMenu, setOpenMenu, isMobile);
@@ -128,16 +135,25 @@ export default function Navbar(): React.ReactElement {
                             </Link>
                         </MenuItem>
                         {pages.map((page, index) => (
-                            <MenuItem key={index} onClick={() => setOpenMenu(false)}>
+                            <MenuItem
+                                key={index}
+                                onClick={() => setOpenMenu(false)}
+                            >
                                 <Fragment>
                                     <Link href={page.url}>
-                                        <Typography textAlign="center" component="div">
+                                        <Typography
+                                            textAlign="center"
+                                            component="div"
+                                        >
                                             {page.text}
                                         </Typography>
                                     </Link>
                                 </Fragment>
                             </MenuItem>
                         ))}
+                        <MenuItem onClick={() => setOpenMenu(false)}>
+                            {adminPage}
+                        </MenuItem>
                     </Menu>
                 </Box>
                 <Box sx={styles.mobileSecondary}>
@@ -151,7 +167,11 @@ export default function Navbar(): React.ReactElement {
                     >
                         {Object.keys(DisplayLanguages).map((lang) => (
                             <MenuItem key={lang} value={lang}>
-                                {DisplayLanguages[lang as keyof typeof DisplayLanguages]}
+                                {
+                                    DisplayLanguages[
+                                        lang as keyof typeof DisplayLanguages
+                                    ]
+                                }
                             </MenuItem>
                         ))}
                     </Select>
@@ -196,9 +216,6 @@ export default function Navbar(): React.ReactElement {
                     </Link>
                 </div>
                 <div>
-                    {!!authUser && authUser !== null ? greetMsg : adminLink}
-                </div>
-                <div>
                     <Link href={`/${i18n.language}/found-mistake`}>
                         <Typography
                             variant="h6"
@@ -220,17 +237,25 @@ export default function Navbar(): React.ReactElement {
                         </Typography>
                     </Link>
                 </div>
-
+                <div>
+                    {!!authUser && authUser !== null ? greetMsg : adminLink}
+                </div>
                 <div>
                     <Select
-                        onChange={(e) => i18n.changeLanguage(e.target.value as string)}
+                        onChange={(e) =>
+                            i18n.changeLanguage(e.target.value as string)
+                        }
                         aria-label="change language"
                         value={i18n.language || "he"}
                         sx={styles.desktopSelect}
                     >
                         {Object.keys(DisplayLanguages).map((lang) => (
                             <MenuItem key={lang} value={lang}>
-                                {DisplayLanguages[lang as keyof typeof DisplayLanguages]}
+                                {
+                                    DisplayLanguages[
+                                        lang as keyof typeof DisplayLanguages
+                                    ]
+                                }
                             </MenuItem>
                         ))}
                     </Select>
