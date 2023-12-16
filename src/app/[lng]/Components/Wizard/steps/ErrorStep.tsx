@@ -7,7 +7,9 @@ interface ErrorStepProps {
     errorMsg: string;
 }
 
-export default function ErrorStep({ errorMsg }: ErrorStepProps): React.ReactElement {
+export default function ErrorStep({
+    errorMsg,
+}: ErrorStepProps): React.ReactElement {
     const { t } = useTrans();
     return (
         <Fragment>
@@ -15,4 +17,4 @@ export default function ErrorStep({ errorMsg }: ErrorStepProps): React.ReactElem
             <Typography>{errorMsg}</Typography>
         </Fragment>
     );
-};
+}

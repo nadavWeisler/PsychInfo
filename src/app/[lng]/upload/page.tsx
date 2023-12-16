@@ -40,33 +40,9 @@ import { ThemeProvider, createTheme } from "@mui/material/styles";
 import { stylesObj } from "@/app/[lng]/upload/page.style";
 import { LocalizationKeys } from "@/i18n/LocalizationKeys";
 
-const theme = createTheme({
-    palette: {
-        secondary: {
-            main: "#0f0f0f",
-        },
-    },
-});
+const theme = createTheme(stylesObj.theme);
 
-const CssTextField = styled(TextField)({
-    "& label.Mui-focused": {
-        color: "#0f0f0f",
-    },
-    "& .MuiInput-underline:after": {
-        borderBottomColor: "#0f0f0f",
-    },
-    "& .MuiOutlinedInput-root": {
-        "& fieldset": {
-            borderColor: "#0f0f0f",
-        },
-        "&:hover fieldset": {
-            borderColor: "#0f0f0f",
-        },
-        "&.Mui-focused fieldset": {
-            borderColor: "#0f0f0f",
-        },
-    },
-});
+const CssTextField = styled(TextField)(stylesObj.textField);
 
 function getSelectStyles(
     obj: string,
@@ -81,14 +57,9 @@ function getSelectStyles(
     };
 }
 
-const ITEM_HEIGHT = 48;
-const ITEM_PADDING_TOP = 8;
 const MenuProps = {
     PaperProps: {
-        style: {
-            maxHeight: ITEM_HEIGHT * 4.5 + ITEM_PADDING_TOP,
-            width: 250,
-        },
+        style: stylesObj.menu,
     },
 };
 
@@ -364,7 +335,6 @@ export default function UploadContent() {
                     </FormControl>
                     <Button
                         type="submit"
-                        fullWidth
                         variant="contained"
                         sx={stylesObj.button}
                     >

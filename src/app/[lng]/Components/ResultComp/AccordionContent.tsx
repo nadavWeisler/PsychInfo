@@ -1,5 +1,5 @@
 "use client";
-import React, { useState, useEffect, useContext, Fragment, use } from "react";
+import React, { useState, useEffect, useContext } from "react";
 import { Typography, Box, Chip, Link, Grid, Button } from "@mui/material";
 import ShareDialog from "@/app/[lng]/Components/ResultComp/ShareDialog";
 import { onAuthStateChanged } from "@firebase/auth";
@@ -60,6 +60,7 @@ export default function AccordionContent({
                     <Box component={"div"} dir={direction} sx={styles.root}>
                         <Box component={"div"} dir={direction} sx={styles.box}>
                             <Typography
+                                data-testid="description-title"
                                 component={"div"}
                                 dir={direction}
                                 sx={styles.typ}
@@ -69,6 +70,7 @@ export default function AccordionContent({
                             </Typography>
                             <Box sx={styles.boxSecondary} component={"div"}>
                                 <Typography
+                                    data-testid="description"
                                     component={"div"}
                                     dir={direction}
                                     sx={styles.typ}
@@ -86,6 +88,7 @@ export default function AccordionContent({
                                     sx={styles.box}
                                 >
                                     <Typography
+                                        data-testid="link-title"
                                         component={"div"}
                                         dir={direction}
                                         sx={styles.typ}
@@ -94,6 +97,7 @@ export default function AccordionContent({
                                         {t(LocalizationKeys.Common.Link)}:
                                     </Typography>
                                     <Link
+                                        data-testid="link"
                                         dir={direction}
                                         margin={"15px"}
                                         href={data?.link}
@@ -107,6 +111,7 @@ export default function AccordionContent({
                             )}
                         <Box component={"div"} dir={direction} sx={styles.box}>
                             <Typography
+                                data-testid="org-title"
                                 component={"div"}
                                 dir={direction}
                                 sx={styles.typ}
@@ -125,6 +130,7 @@ export default function AccordionContent({
                         </Box>
                         <Box component={"div"} dir={direction} sx={styles.box}>
                             <Typography
+                                data-testid="lang-title"
                                 component={"div"}
                                 dir={direction}
                                 sx={styles.typ}
@@ -132,7 +138,7 @@ export default function AccordionContent({
                             >
                                 {t(LocalizationKeys.Common.Language)}:
                             </Typography>
-                            {[data?.languageId]?.map((lang) => (
+                            {[data?.languageId]?.map((lang, index) => (
                                 <Chip
                                     sx={styles.chip}
                                     key={lang}
@@ -147,6 +153,7 @@ export default function AccordionContent({
                         </Box>
                         <Box component={"div"} dir={direction} sx={styles.box}>
                             <Typography
+                                data-testid="tags-title"
                                 component={"div"}
                                 dir={direction}
                                 sx={styles.typ}
@@ -155,7 +162,7 @@ export default function AccordionContent({
                                 {t(LocalizationKeys.Common.Tags)}:
                             </Typography>
                             <Grid container spacing={4} marginTop={"10px"}>
-                                {data?.tags?.map((tag) => (
+                                {data?.tags?.map((tag, index) => (
                                     <Chip
                                         sx={styles.chipSecondary}
                                         key={tag.id}
@@ -193,6 +200,7 @@ export default function AccordionContent({
                                         {t(LocalizationKeys.Common.Delete)}
                                     </Button>
                                     <Button
+                                        data-testid="submit-btn"
                                         color={"success"}
                                         variant={"contained"}
                                         onClick={aproveRequest}
@@ -209,6 +217,7 @@ export default function AccordionContent({
                                     >
                                         <Box component={"div"} sx={styles.box}>
                                             <Button
+                                                data-testid="edit-btn"
                                                 sx={{ margin: "auto" }}
                                                 color={"success"}
                                                 variant={"contained"}
@@ -221,6 +230,7 @@ export default function AccordionContent({
                                         </Box>
                                         <Box component={"div"} sx={styles.box}>
                                             <Button
+                                                data-testid="delete-content-btn"
                                                 sx={{ margin: "auto" }}
                                                 color={"error"}
                                                 variant={"contained"}
@@ -235,12 +245,12 @@ export default function AccordionContent({
                         ) : null}
                     </Box>
 
-                    <ShareDialog
+                    <ShareDialog // TODO: add test
                         open={openShare}
                         onClose={() => setOpenShare(false)}
                         urlToShare={data?.link}
                     />
-                    <EditContentDialog
+                    <EditContentDialog // TODO: add test
                         open={openEdit}
                         onClose={() => setOpenEdit(false)}
                         prevContent={data}
