@@ -81,6 +81,8 @@ export class LocalizationKeys {
     };
     static Upload = {
         Title: "upload.title",
+        Subtitle1: "upload.subtitle1",
+        Subtitle2: "upload.subtitle2",
         CreateNewOrganization: "upload.create_new_organization",
         CreateNewTag: "upload.create_new_tag",
         CreateNewLanguage: "upload.create_new_language",

@@ -163,6 +163,26 @@ export default function UploadContent() {
             >
                 {t(LocalizationKeys.Upload.Title)}
             </Typography>
+            <Typography
+                margin={"normal"}
+                color={"black"}
+                variant="h5"
+                component="div"
+                gutterBottom
+                textAlign={"center"}
+            >
+                {t(LocalizationKeys.Upload.Subtitle1)}
+            </Typography>
+            <Typography
+                margin={"normal"}
+                color={"black"}
+                variant="h5"
+                component="div"
+                gutterBottom
+                textAlign={"center"}
+            >
+                {t(LocalizationKeys.Upload.Subtitle2)}
+            </Typography>
             <Box component="form" onSubmit={handleSubmit}>
                 <FormControl
                     required

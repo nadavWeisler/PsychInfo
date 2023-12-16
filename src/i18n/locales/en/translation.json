@@ -76,6 +76,8 @@
     },
     "upload": {
         "title": "Upload new content",
+        "subtitle1": "We would be happy to receive new content from anyone who wants to contribute to the site.",
+        "subtitle2": "You are welcome to fill out the form and after approval by a manager the content will be added to the site",
         "create_new_organization": "Create new organization",
         "create_new_tag": "Create new tag",
         "create_new_language": "Create new language",
