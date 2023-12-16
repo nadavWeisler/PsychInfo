@@ -59,6 +59,8 @@
     },
     "upload": {
         "title": "رفع محتوى جديد",
+        "subtitle1": "We would be happy to receive new content from anyone who wants to contribute to the site.",
+        "subtitle2": "You are welcome to fill out the form and after approval by a manager the content will be added to the site",
         "create_new_organization": "إنشاء منظمة جديدة",
         "create_new_tag": "إنشاء علامة جديدة",
         "create_new_language": "إنشاء لغة جديدة"
