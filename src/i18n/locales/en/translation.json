@@ -82,7 +82,8 @@
         "submit_success": "The content was sent successfully, and will be reviewed by the site administrators"
     },
     "results": {
-        "title": "Results"
+        "title": "Results",
+        "no_results": "No matching results, please try again"
     },
     "gallary": {
         "title": "Topics"
