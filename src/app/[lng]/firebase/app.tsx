@@ -1,6 +1,7 @@
 "use client";
 import { initializeApp } from "@firebase/app";
 import { getDatabase } from "@firebase/database";
+import { getStorage } from "firebase/storage";
 import {
     getAuth,
     setPersistence,
@@ -32,5 +33,11 @@ export const dbPath = {
     therapist: process.env.NEXT_PUBLIC_ENV + "/therapist",
 };
 
+export const storagePath = {
+    files: process.env.NEXT_PUBLIC_ENV + "/files",
+};
+
 export const auth = getAuth(app);
 setPersistence(auth, browserLocalPersistence);
+
+export const storage = getStorage(app);

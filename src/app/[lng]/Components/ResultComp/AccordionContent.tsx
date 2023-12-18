@@ -5,7 +5,7 @@ import ShareDialog from "@/app/[lng]/Components/ResultComp/ShareDialog";
 import { onAuthStateChanged } from "@firebase/auth";
 import { auth } from "@/app/[lng]/firebase/app";
 import { AuthContext } from "@/app/[lng]/context/AuthContext";
-import { deleteContent } from "@/app/[lng]/firebase/commands";
+import { deleteContent, getFiles } from "@/app/[lng]/firebase/commands";
 import useTrans from "@/app/[lng]/hooks/useTrans";
 import EditContentDialog from "@/app/[lng]/Components/AdminComp/EditContentDialog";
 import {
@@ -26,6 +26,7 @@ export default function AccordionContent({
     const [isAdmin, setIsAdmin] = useState(false);
     const [openEdit, setOpenEdit] = useState(false);
     const [isDeleted, setIsDeleted] = useState<boolean>(false);
+    const [fileUrl, setFileUrl] = useState<string | null>(null);
 
     const { t, direction } = useTrans();
 
@@ -52,6 +53,14 @@ export default function AccordionContent({
             setIsDeleted(false);
         }
     }, [data]);
+
+    useEffect(() => {
+        if (data?.isFile) {
+            getFiles(data?.title).then((file) => {
+                setFileUrl(file);
+            });
+        }
+    }, [data?.isFile]);
 
     const btnDirrection = direction === "rtl" ? "ltr" : "rtl";
     const requestBtnDirrection = request ? btnDirrection : undefined;
@@ -175,6 +184,21 @@ export default function AccordionContent({
                                 ))}
                             </Grid>
                         </Box>
+                        {data.isFile ? (
+                            <Box
+                                component={"div"}
+                                dir={direction}
+                                sx={styles.box}
+                            >
+                                <img
+                                    data-testid="image"
+                                    src={fileUrl || ""}
+                                    alt={""}
+                                    width="20%"
+                                    height="20%"
+                                />
+                            </Box>
+                        ) : null}
                     </Box>
                     <Box
                         component={"div"}
@@ -228,7 +252,9 @@ export default function AccordionContent({
                                                     setOpenEdit(true)
                                                 }
                                             >
-                                                {t(LocalizationKeys.Common.Edit)}
+                                                {t(
+                                                    LocalizationKeys.Common.Edit
+                                                )}
                                             </Button>
                                         </Box>
                                         <Box component={"div"} sx={styles.box}>
@@ -239,7 +265,10 @@ export default function AccordionContent({
                                                 variant={"contained"}
                                                 onClick={deleteSelectedContent}
                                             >
-                                                {t(LocalizationKeys.Common.Delete)}
+                                                {t(
+                                                    LocalizationKeys.Common
+                                                        .Delete
+                                                )}
                                             </Button>
                                         </Box>
                                     </Box>

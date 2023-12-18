@@ -59,6 +59,7 @@
     },
     "upload": {
         "title": "Загрузка новых данных",
+        "image": "Image",
         "subtitle1": "We would be happy to receive new content from anyone who wants to contribute to the site.",
         "subtitle2": "You are welcome to fill out the form and after approval by a manager the content will be added to the site",
         "create_new_organization": "Создать новую организацию",
