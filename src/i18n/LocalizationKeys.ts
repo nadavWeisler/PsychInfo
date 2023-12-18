@@ -83,6 +83,7 @@ export class LocalizationKeys {
         Title: "upload.title",
         Subtitle1: "upload.subtitle1",
         Subtitle2: "upload.subtitle2",
+        Image: "upload.image",
         CreateNewOrganization: "upload.create_new_organization",
         CreateNewTag: "upload.create_new_tag",
         CreateNewLanguage: "upload.create_new_language",

@@ -1,5 +1,5 @@
 "use client";
-import { useState, useEffect, FormEvent } from "react";
+import { useState, useEffect, FormEvent, ChangeEvent } from "react";
 import {
     Button,
     TextField,
@@ -7,7 +7,6 @@ import {
     Typography,
     Chip,
     FormControl,
-    InputLabel,
     MenuItem,
     OutlinedInput,
     Select,
@@ -16,6 +15,7 @@ import {
     Snackbar,
     IconButton,
     FormLabel,
+    Input,
 } from "@mui/material";
 import CloseIcon from "@mui/icons-material/Close";
 import { appTheme } from "@/app/[lng]/general/styles";
@@ -30,15 +30,13 @@ import {
     getAllOrganizations,
     getAllTags,
     postPendingContent,
+    uploadFile,
 } from "@/app/[lng]/firebase/commands";
 import { styled } from "@mui/material/styles";
 import useTrans from "@/app/[lng]/hooks/useTrans";
 import styles from "@/app/[lng]/upload/select.module.css";
-import { ThemeProvider, createTheme } from "@mui/material/styles";
 import { stylesObj } from "@/app/[lng]/upload/page.style";
 import { LocalizationKeys } from "@/i18n/LocalizationKeys";
-
-const theme = createTheme(stylesObj.theme);
 
 const CssTextField = styled(TextField)(stylesObj.textField);
 
@@ -70,6 +68,7 @@ export default function UploadContent() {
         useState<Organization | null>(EMPTY_ORGANIZATION);
     const [selectedLanguage, setSelectedLanguage] = useState<string>("");
     const [isSubmit, setIsSubmit] = useState<boolean>(false);
+    const [file, setFile] = useState<File | null>(null);
 
     const { t, i18n, direction } = useTrans();
 
@@ -92,6 +91,7 @@ export default function UploadContent() {
     ): Promise<void> {
         event.preventDefault();
         const data = new FormData(event.currentTarget);
+
         const newContent: ContentDB = {
             title: data.get("title")?.toString() || "",
             description: data.get("description")?.toString() || "",
@@ -100,8 +100,16 @@ export default function UploadContent() {
             organization: selectedOrganization as Organization,
             languageId: selectedLanguage,
             uploader: data.get("uploader")?.toString() || "",
+            isFile: file !== null,
         };
-        await postPendingContent(newContent);
+        try {
+            await postPendingContent(newContent);
+            if (file !== null) {
+                await uploadFile(file, newContent.title);
+            }
+        } catch (e) {
+            console.log(e);
+        }
         setIsSubmit(true);
     }
 
@@ -315,8 +323,8 @@ export default function UploadContent() {
                         }
                         renderValue={(selected) => (
                             <Box sx={stylesObj.box}>
-                                {selected.map((value) => (
-                                    <Chip key={value} label={value} />
+                                {selected.map((value, index) => (
+                                    <Chip key={index} label={value} />
                                 ))}
                             </Box>
                         )}
@@ -336,6 +344,22 @@ export default function UploadContent() {
                             </MenuItem>
                         ))}
                     </Select>
+                    <br />
+                    <Typography color={"grey"}>
+                        {t(LocalizationKeys.Upload.Image)}
+                    </Typography>
+                    <Input
+                        id="file"
+                        name="file"
+                        type="file"
+                        inputProps={{ accept: "image/*" }}
+                        onChange={(e: ChangeEvent<HTMLInputElement>) => {
+                            if (e.target.files) {
+                                setFile(e.target.files?.[0]);
+                            }
+                        }}
+                        required={false}
+                    />
                 </FormControl>
                 <FormControl
                     key={LocalizationKeys.Common.Uploader}

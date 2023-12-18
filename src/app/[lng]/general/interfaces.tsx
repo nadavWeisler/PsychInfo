@@ -33,6 +33,7 @@ export interface ContentDB {
     description: string;
     languageId: string;
     uploader: string;
+    isFile: boolean;
 }
 
 export interface Content extends ContentDB {

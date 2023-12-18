@@ -7,7 +7,12 @@ import {
     update,
     DataSnapshot,
 } from "@firebase/database";
-import { db, dbPath } from "./app";
+import { db, dbPath, storage, storagePath } from "./app";
+import {
+    ref as storageRef,
+    uploadBytesResumable,
+    getDownloadURL,
+} from "firebase/storage";
 import {
     Content,
     Operator,
@@ -377,6 +382,37 @@ export async function deletePendingContent(title: string): Promise<void> {
     } catch (error) {
         console.error("Error:", error);
     }
+}
+
+export async function uploadFile(file: File, fileName: string): Promise<void> {
+    const fileRef = storageRef(storage, storagePath.files + "/" + fileName);
+    const uploadTask = uploadBytesResumable(fileRef, file);
+    uploadTask.on(
+        "state_changed",
+        (snapshot) => {
+            const progress =
+                (snapshot.bytesTransferred / snapshot.totalBytes) * 100;
+            console.log("Upload is " + progress + "% done");
+        },
+        (error) => {
+            console.error("Error:", error);
+        },
+        () => {
+            console.log("Upload complete");
+        }
+    );
+}
+
+export async function getFiles(contentTitle: string): Promise<string> {
+    try {
+        const url = await getDownloadURL(
+            storageRef(storage, storagePath.files + "/" + contentTitle)
+        );
+    return url;
+    } catch (e) {
+        console.log(e);
+    }
+    return "Download succeed";
 }
 
 export async function getMistakes(): Promise<FoundMistakeDB[]> {
