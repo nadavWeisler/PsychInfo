@@ -17,4 +17,7 @@ export const stylesObj = {
     cardContent: {
         flexGrow: 1,
     },
+    text: {
+        textAlign: "justify",
+    },
 };

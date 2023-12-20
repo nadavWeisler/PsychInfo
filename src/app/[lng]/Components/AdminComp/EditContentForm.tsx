@@ -105,6 +105,7 @@ export default function EditContentForm({ prevContent }: EditContentFormProps) {
             languageId: selectedLanguage,
             uploader: data.get("uploader")?.toString() || "",
             id: prevContent.id,
+            isFile: prevContent.isFile,
         };
         await updateContent(newContent);
         setIsSubmit(true);
@@ -134,7 +135,9 @@ export default function EditContentForm({ prevContent }: EditContentFormProps) {
 
     return (
         <Box sx={styles.root}>
-            <Typography variant="h4">{t(LocalizationKeys.Upload.Title)}</Typography>
+            <Typography variant="h4">
+                {t(LocalizationKeys.Upload.Title)}
+            </Typography>
             <Box component="form" onSubmit={handleSubmit}>
                 <TextField
                     margin="normal"
@@ -157,7 +160,9 @@ export default function EditContentForm({ prevContent }: EditContentFormProps) {
                     defaultValue={prevContent.description}
                 />
                 <FormControl margin="normal" fullWidth required>
-                    <InputLabel>{t(LocalizationKeys.Common.Organization)}</InputLabel>
+                    <InputLabel>
+                        {t(LocalizationKeys.Common.Organization)}
+                    </InputLabel>
                     <Select
                         defaultValue={prevContent.organization}
                         value={selectedOrganization}
@@ -192,7 +197,9 @@ export default function EditContentForm({ prevContent }: EditContentFormProps) {
                     defaultValue={prevContent.link}
                 />
                 <FormControl margin="normal" fullWidth required>
-                    <InputLabel>{t(LocalizationKeys.Common.Language)}</InputLabel>
+                    <InputLabel>
+                        {t(LocalizationKeys.Common.Language)}
+                    </InputLabel>
                     <Select
                         defaultValue={prevContent.languageId}
                         value={selectedLanguage}
@@ -290,7 +297,9 @@ export default function EditContentForm({ prevContent }: EditContentFormProps) {
                 </Button>
             </Box>
             {isSubmit && (
-                <Typography variant="h5">{t(LocalizationKeys.Admin.EditSuccess)}</Typography>
+                <Typography variant="h5">
+                    {t(LocalizationKeys.Admin.EditSuccess)}
+                </Typography>
             )}
         </Box>
     );

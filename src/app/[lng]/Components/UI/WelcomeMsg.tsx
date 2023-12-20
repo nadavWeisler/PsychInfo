@@ -11,7 +11,7 @@ export default function WelcomeMsg({
     const { t, direction } = useTrans();
 
     return (
-        <Box margin={"20px"}>
+        <Box margin={"20px"} sx={styles.seperator}>
             <Typography
                 dir={direction}
                 margin={"normal"}

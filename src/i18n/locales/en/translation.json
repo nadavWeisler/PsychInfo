@@ -76,13 +76,17 @@
     },
     "upload": {
         "title": "Upload new content",
+        "image": "Image",
+        "subtitle1": "We would be happy to receive new content from anyone who wants to contribute to the site.",
+        "subtitle2": "You are welcome to fill out the form and after approval by a manager the content will be added to the site",
         "create_new_organization": "Create new organization",
         "create_new_tag": "Create new tag",
         "create_new_language": "Create new language",
         "submit_success": "The content was sent successfully, and will be reviewed by the site administrators"
     },
     "results": {
-        "title": "Results"
+        "title": "Results",
+        "no_results": "No matching results, please try again"
     },
     "gallary": {
         "title": "Topics"

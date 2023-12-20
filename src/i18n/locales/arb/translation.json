@@ -32,6 +32,10 @@
         "profession": "Profession",
         "not_required": "Not required"
     },
+    "results": {
+        "title": "Results",
+        "no_results": "No matching results, please try again"
+    },
     "errors": {
         "error_occurred": "حدث خطأ",
         "invalid_data_type": "نوع البيانات غير صالح"
@@ -55,6 +59,9 @@
     },
     "upload": {
         "title": "رفع محتوى جديد",
+        "image": "Image",
+        "subtitle1": "We would be happy to receive new content from anyone who wants to contribute to the site.",
+        "subtitle2": "You are welcome to fill out the form and after approval by a manager the content will be added to the site",
         "create_new_organization": "إنشاء منظمة جديدة",
         "create_new_tag": "إنشاء علامة جديدة",
         "create_new_language": "إنشاء لغة جديدة"

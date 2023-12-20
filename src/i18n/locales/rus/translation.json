@@ -32,6 +32,10 @@
         "profession": "Profession",
         "not_required": "Not required"
     },
+    "results": {
+        "title": "Results",
+        "no_results": "No matching results, please try again"
+    },
     "errors": {
         "error_occured": "Произошла ошибка",
         "invalid_data_type": "Данные неподходящего вида"
@@ -55,6 +59,9 @@
     },
     "upload": {
         "title": "Загрузка новых данных",
+        "image": "Image",
+        "subtitle1": "We would be happy to receive new content from anyone who wants to contribute to the site.",
+        "subtitle2": "You are welcome to fill out the form and after approval by a manager the content will be added to the site",
         "create_new_organization": "Создать новую организацию",
         "create_new_tag": "Выбрать новый тэг",
         "create_new_language": "Выбрать  язык"

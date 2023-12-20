@@ -47,4 +47,7 @@ export const styles = {
     desktopSelect: {
         color: "white",
     },
+    desktopAdminIcon: {
+        fontSize: 35,
+    },
 };

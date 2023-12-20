@@ -28,6 +28,7 @@ export function createRandomContent(): Content {
     const languageId = faker.helpers.arrayElement(["he", "en", "arb", "rus"]);
     const uploader = faker.person.firstName();
     const id = faker.string.uuid();
+    const isFile = faker.datatype.boolean();
 
     return {
         title,
@@ -38,5 +39,6 @@ export function createRandomContent(): Content {
         languageId,
         uploader,
         id,
+        isFile,
     };
 }
