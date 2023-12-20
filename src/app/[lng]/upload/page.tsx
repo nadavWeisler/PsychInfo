@@ -191,7 +191,7 @@ export default function UploadContent() {
             >
                 {t(LocalizationKeys.Upload.Subtitle2)}
             </Typography>
-            <Box component="form" onSubmit={handleSubmit}>
+            <Box component="form" onSubmit={handleSubmit} data-cy="form">
                 <FormControl
                     required
                     key={LocalizationKeys.Common.Title}
@@ -199,7 +199,13 @@ export default function UploadContent() {
                     margin="normal"
                 >
                     <FormLabel>{t(LocalizationKeys.Common.Title)}</FormLabel>
-                    <CssTextField required id="title" name="title" autoFocus />
+                    <CssTextField
+                        required
+                        id="title"
+                        name="title"
+                        autoFocus
+                        data-cy="title"
+                    />
                 </FormControl>
                 <FormControl
                     key={LocalizationKeys.Common.Description}
@@ -215,6 +221,7 @@ export default function UploadContent() {
                         name="description"
                         id="description"
                         multiline
+                        data-cy="description"
                     />
                 </FormControl>
                 <FormControl
@@ -230,13 +237,14 @@ export default function UploadContent() {
                         color={"secondary"}
                         value={
                             selectedOrganization === EMPTY_ORGANIZATION
-                                ? null
+                                ? undefined
                                 : selectedOrganization
                         }
                         onChange={hangleChangeOrganization}
                         renderValue={(selected) =>
                             (selected as Organization).display
                         }
+                        data-cy="organization"
                     >
                         {organizations.map((org) => (
                             <MenuItem
@@ -261,7 +269,7 @@ export default function UploadContent() {
                     fullWidth
                 >
                     <FormLabel>{t(LocalizationKeys.Common.Link)}</FormLabel>
-                    <CssTextField name="link" id="link" />
+                    <CssTextField name="link" id="link" data-cy="link" />
                 </FormControl>
                 <FormControl
                     key={LocalizationKeys.Common.Language}
@@ -282,6 +290,7 @@ export default function UploadContent() {
                                 selected as keyof typeof DisplayLanguages
                             ]
                         }
+                        data-cy="language"
                     >
                         {Object.keys(DisplayLanguages).map((lang) => (
                             <MenuItem
@@ -329,6 +338,7 @@ export default function UploadContent() {
                             </Box>
                         )}
                         MenuProps={MenuProps}
+                        data-cy="tags"
                     >
                         {tags.map((tag) => (
                             <MenuItem
@@ -344,21 +354,26 @@ export default function UploadContent() {
                             </MenuItem>
                         ))}
                     </Select>
-                    <br />
-                    <Typography color={"grey"}>
-                        {t(LocalizationKeys.Upload.Image)}
-                    </Typography>
+                </FormControl>
+                <FormControl
+                    key={LocalizationKeys.Upload.Image}
+                    fullWidth
+                    required
+                    margin="normal"
+                >
+                    <FormLabel>{t(LocalizationKeys.Upload.Image)}</FormLabel>
                     <Input
                         id="file"
                         name="file"
                         type="file"
-                        inputProps={{ accept: "image/*" }}
+                        inputProps={{ accept: "image/*", value: undefined }}
                         onChange={(e: ChangeEvent<HTMLInputElement>) => {
                             if (e.target.files) {
                                 setFile(e.target.files?.[0]);
                             }
                         }}
                         required={false}
+                        data-cy="file"
                     />
                 </FormControl>
                 <FormControl
@@ -368,7 +383,11 @@ export default function UploadContent() {
                     required
                 >
                     <FormLabel>{t(LocalizationKeys.Common.Uploader)}</FormLabel>
-                    <CssTextField name="uploader" id="uploader" />
+                    <CssTextField
+                        name="uploader"
+                        id="uploader"
+                        data-cy="uploader"
+                    />
                 </FormControl>
                 <Button type="submit" variant="contained" sx={stylesObj.button}>
                     {t(LocalizationKeys.Common.Submit)}
