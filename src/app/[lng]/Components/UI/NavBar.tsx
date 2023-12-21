@@ -1,5 +1,5 @@
 "use client";
-import { useState, useEffect, useContext, Fragment } from "react";
+import { useState, useEffect, useContext, useRef  } from "react";
 import {
   AppBar,
   Toolbar,
@@ -28,13 +28,14 @@ import { styles } from "@/app/[lng]/Components/UI/NavBar.style";
 
 export default function Navbar(): React.ReactElement {
   const [openMenu, setOpenMenu] = useState<boolean>(false);
+  const [openDesktopMenu, setOpenDesktopMenu] = useState<boolean>(false);
   const [authUser, setAuthUser] = useState<User | null>(null);
 
   const width = useWindowWidth();
   const [isMobile, setIsMobile] = useState<boolean>(width <= 768);
 
+  const iconButtonRef = useRef(null);
   const { user } = useContext(AuthContext);
-
   const { t, i18n, direction } = useTrans();
 
   useEffect(() => {
@@ -63,13 +64,6 @@ export default function Navbar(): React.ReactElement {
       </Typography>
     </Link>
   );
-
-  const pages: NavBarPage[] = [
-    {
-      text: t(LocalizationKeys.Navbar.AboutUs),
-      url: `/${i18n.language}/about-us`,
-    },
-  ];
 
   useScroll(openMenu, setOpenMenu, isMobile);
 
@@ -114,17 +108,13 @@ export default function Navbar(): React.ReactElement {
                 </IconButton>
               </Link>
             </MenuItem>
-            {pages.map((page, index) => (
-              <MenuItem key={index} onClick={() => setOpenMenu(false)}>
-                <Fragment>
-                  <Link href={page.url}>
+              <MenuItem onClick={() => setOpenMenu(false)}>
+                  <Link href={`/${i18n.language}/about-us`}>
                     <Typography textAlign="center" component="div">
-                      {page.text}
+                      {t(LocalizationKeys.Navbar.AboutUs)}
                     </Typography>
                   </Link>
-                </Fragment>
               </MenuItem>
-            ))}
             <MenuItem onClick={() => setOpenMenu(false)}>{adminPage}</MenuItem>
           </Menu>
         </Box>
@@ -154,16 +144,44 @@ export default function Navbar(): React.ReactElement {
           direction: direction,
         }}
       >
-        <div>
-          <Link>
-            <IconButton
-              href={`/${i18n.language}/home-page`}
-              size="small"
-              sx={styles.desktopIconBtn}
-            />
-          </Link>
-        </div>
-        <div>
+        <IconButton
+            ref={iconButtonRef}
+            onClick={() => setOpenDesktopMenu(true)}
+            sx={styles.desktopIconBtn}
+          >
+            <MenuIcon />
+          </IconButton>
+          <Menu
+            sx={styles.desktopMenu}
+            anchorEl={iconButtonRef.current}
+            anchorOrigin={{
+              vertical: "top",
+              horizontal: "right",
+            }}
+            keepMounted
+            transformOrigin={{
+              vertical: "top",
+              horizontal: "center",
+            }}
+            open={openDesktopMenu}
+            onClose={() => setOpenDesktopMenu(false)}
+          >
+            <MenuItem onClick={() => setOpenDesktopMenu(false)}>
+                  <Link href={`/${i18n.language}/about-us`}>
+                    <Typography textAlign="center" component="div">
+                      {t(LocalizationKeys.Navbar.AboutUs)}
+                    </Typography>
+                  </Link>
+              </MenuItem>
+            <MenuItem onClick={() => setOpenMenu(false)}>{adminPage}</MenuItem>
+            <MenuItem onClick={() => setOpenMenu(false)}>
+            <Link href={`/${i18n.language}/magazine`}>
+                    <Typography textAlign="center" component="div">
+                      {t(LocalizationKeys.Navbar.Magazine)}
+                    </Typography>
+                  </Link>
+            </MenuItem>
+          </Menu>
           <Link>
             <IconButton
               href={`/${i18n.language}/home-page`}
@@ -178,29 +196,12 @@ export default function Navbar(): React.ReactElement {
               {t(LocalizationKeys.Common.AppName)}
             </IconButton>
           </Link>
-        </div>
-        <div>
-          <Link href={`/${i18n.language}/about-us`}>
-            <Typography variant="h6" component="div" sx={styles.desktopTyp}>
-              {t(LocalizationKeys.Navbar.AboutUs)}
-            </Typography>
-          </Link>
-        </div>
-        <div>{!!authUser && authUser !== null ?
-          <IconButton href={`/${i18n.language}/admin`}>
-            <AdminPanelSettingsIcon sx={styles.desktopAdminIcon} />
-          </IconButton>
-          : <IconButton href={`/${i18n.language}/admin-signin`}>
-            <LoginIcon sx={styles.desktopAdminIcon} />
-          </IconButton>
-        }
-        </div>
-        <div>
+          <Box sx={styles.desktopSelect}>
           <Select
             onChange={(e) => i18n.changeLanguage(e.target.value as string)}
             aria-label="change language"
             value={i18n.language || "he"}
-            sx={styles.desktopSelect}
+            
           >
             {Object.keys(DisplayLanguages).map((lang) => (
               <MenuItem key={lang} value={lang}>
@@ -208,7 +209,7 @@ export default function Navbar(): React.ReactElement {
               </MenuItem>
             ))}
           </Select>
-        </div>
+          </Box>
       </Toolbar>
     </AppBar>
   );

@@ -36,6 +36,13 @@
     "title": "Results",
     "no_results": "No matching results, please try again"
   },
+  "navbar": {
+    "admin_log_in": "admin? login",
+    "open_menu": "open menu",
+    "upload_content": "upload content",
+    "about_us": "About us",
+    "magazine": "Magazine"
+  },
   "errors": {
     "error_occured": "Произошла ошибка",
     "invalid_data_type": "Данные неподходящего вида"

@@ -100,6 +100,7 @@ export class LocalizationKeys {
     OpenMenu: "navbar.open_menu",
     UploadContent: "navbar.upload_content",
     AboutUs: "navbar.about_us",
+    Magazine: "navbar.magazine",
   };
   static Admin = {
     Title: "admin.title",

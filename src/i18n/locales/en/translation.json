@@ -94,7 +94,8 @@
     "admin_log_in": "admin? login",
     "open_menu": "open menu",
     "upload_content": "upload content",
-    "about_us": "About us"
+    "about_us": "About us",
+    "magazine": "Magazine"
   },
   "admin": {
     "title": "Admin dashboard",
