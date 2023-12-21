@@ -1,130 +1,130 @@
 {
-    "common": {
-        "app_name": "التعامل مع الطوارئ النفسية",
-        "next": "التالي",
-        "back": "رجوع",
-        "submit": "إرسال",
-        "create": "إنشاء",
-        "cancel": "إلغاء",
-        "close": "إغلاق",
-        "save": "حفظ",
-        "edit": "تحرير",
-        "delete": "حذف",
-        "add": "إضافة",
-        "search": "بحث",
-        "loading": "جاري التحميل...",
-        "title": "عنوان",
-        "description": "وصف",
-        "content": "محتوى",
-        "organization": "منظمة",
-        "tag": "وسم",
-        "tags": "وسوم",
-        "link": "رابط",
-        "links": "روابط",
-        "uploader": "المرفق",
-        "language": "لغة",
-        "languages": "اللغات",
-        "start": "بدء",
-        "choose": "اختيار",
-        "organizations": "المنظمات",
-        "info_therapist": "Therapist information",
-        "tel": "Phone",
-        "profession": "Profession",
-        "not_required": "Not required"
+  "common": {
+    "app_name": "التعامل مع الطوارئ النفسية",
+    "next": "التالي",
+    "back": "رجوع",
+    "submit": "إرسال",
+    "create": "إنشاء",
+    "cancel": "إلغاء",
+    "close": "إغلاق",
+    "save": "حفظ",
+    "edit": "تحرير",
+    "delete": "حذف",
+    "add": "إضافة",
+    "search": "بحث",
+    "loading": "جاري التحميل...",
+    "title": "عنوان",
+    "description": "وصف",
+    "content": "محتوى",
+    "organization": "منظمة",
+    "tag": "وسم",
+    "tags": "وسوم",
+    "link": "رابط",
+    "links": "روابط",
+    "uploader": "المرفق",
+    "language": "لغة",
+    "languages": "اللغات",
+    "start": "بدء",
+    "choose": "اختيار",
+    "organizations": "المنظمات",
+    "info_therapist": "Therapist information",
+    "tel": "Phone",
+    "profession": "Profession",
+    "not_required": "Not required"
+  },
+  "results": {
+    "title": "Results",
+    "no_results": "No matching results, please try again"
+  },
+  "errors": {
+    "error_occurred": "حدث خطأ",
+    "invalid_data_type": "نوع البيانات غير صالح"
+  },
+  "welcome": {
+    "title": "مرحبًا بك في موقع الوصول إلى محتوى التعامل مع الطوارئ النفسية",
+    "subtitle1": "يهدف الموقع إلى توفير جميع المعلومات الهامة التي ظهرت في الأيام الأخيرة بشأن التعامل النفسي في هذه الحالة الاستثنائية التي نواجهها بطريقة وديمقراطية ومنظمة. هناك طريقتان يمكنكم من خلالهما استخدام قاعدة البيانات لدينا: <br> 1. الدخول إلى أحد المواضيع المقترحة واطلع على المحتوى المجمع فيها بشكل مركز. <br> 2. استخدام وظيفة \"التخصيص\" لدينا ومن خلال اختيار العلامات المتعلقة بك لتكوين المحتوى بشكل شخصي. <br> ندعوكم لتجربة عملية التخصيص من خلال الزر أدناه أو الدخول إلى المواضيع المقترحة المقدمة في هذه الصفحة.",
+    "list1": "1. الدخول إلى أحد المواضيع المقترحة واطلع على المحتوى المجمع فيها بشكل مركز.",
+    "list2": "2. استخدام وظيفة \"التخصيص\" لدينا ومن خلال اختيار العلامات المتعلقة بك لتكوين المحتوى بشكل شخصي.",
+    "subtitle2": "ندعوكم لتجربة عملية التخصيص من خلال الزر أدناه أو الدخول إلى المواضيع المقترحة المقدمة في هذه الصفحة",
+    "therapist": "Therapist? we need you!"
+  },
+  "add_string": {
+    "enter_id": "أدخل الهوية",
+    "enter_display": "أدخل العرض"
+  },
+  "wizard": {
+    "which_info_you_need": "أي معلومات تحتاجها؟",
+    "choose_organizations": "اختر المنظمات",
+    "choose_tags": "اختر العلامات"
+  },
+  "upload": {
+    "title": "رفع محتوى جديد",
+    "image": "Image",
+    "subtitle1": "We would be happy to receive new content from anyone who wants to contribute to the site.",
+    "subtitle2": "You are welcome to fill out the form and after approval by a manager the content will be added to the site",
+    "create_new_organization": "إنشاء منظمة جديدة",
+    "create_new_tag": "إنشاء علامة جديدة",
+    "create_new_language": "إنشاء لغة جديدة"
+  },
+  "credits": {
+    "netanel": {
+      "title": "نتانئيل حوري، مؤسس مدرسة غصن الزيتون ",
+      "description": "لتعليم اللغة العربية"
     },
-    "results": {
-        "title": "Results",
-        "no_results": "No matching results, please try again"
+    "nitzan": {
+      "title": "Nitzan Rosen",
+      "description": "Product Definition, Business Development"
     },
-    "errors": {
-        "error_occurred": "حدث خطأ",
-        "invalid_data_type": "نوع البيانات غير صالح"
+    "tatiana": {
+      "title": "Tatiana Philippova",
+      "description": "Translated the website to Russian"
     },
-    "welcome": {
-        "title": "مرحبًا بك في موقع الوصول إلى محتوى التعامل مع الطوارئ النفسية",
-        "subtitle1": "يهدف الموقع إلى توفير جميع المعلومات الهامة التي ظهرت في الأيام الأخيرة بشأن التعامل النفسي في هذه الحالة الاستثنائية التي نواجهها بطريقة وديمقراطية ومنظمة. هناك طريقتان يمكنكم من خلالهما استخدام قاعدة البيانات لدينا: <br> 1. الدخول إلى أحد المواضيع المقترحة واطلع على المحتوى المجمع فيها بشكل مركز. <br> 2. استخدام وظيفة \"التخصيص\" لدينا ومن خلال اختيار العلامات المتعلقة بك لتكوين المحتوى بشكل شخصي. <br> ندعوكم لتجربة عملية التخصيص من خلال الزر أدناه أو الدخول إلى المواضيع المقترحة المقدمة في هذه الصفحة.",
-        "list1": "1. الدخول إلى أحد المواضيع المقترحة واطلع على المحتوى المجمع فيها بشكل مركز.",
-        "list2": "2. استخدام وظيفة \"التخصيص\" لدينا ومن خلال اختيار العلامات المتعلقة بك لتكوين المحتوى بشكل شخصي.",
-        "subtitle2": "ندعوكم لتجربة عملية التخصيص من خلال الزر أدناه أو الدخول إلى المواضيع المقترحة المقدمة في هذه الصفحة",
-        "therapist": "Therapist? we need you!"
+    "nadav_w": {
+      "title": "Nadav Weisler",
+      "description": "Founder and developer of the website"
     },
-    "add_string": {
-        "enter_id": "أدخل الهوية",
-        "enter_display": "أدخل العرض"
+    "nadav_p": {
+      "title": "Nadav Porat",
+      "description": "Developer"
     },
-    "wizard": {
-        "which_info_you_need": "أي معلومات تحتاجها؟",
-        "choose_organizations": "اختر المنظمات",
-        "choose_tags": "اختر العلامات"
+    "shlomi": {
+      "title": "Shlomi Shitrit",
+      "description": "Developer"
     },
-    "upload": {
-        "title": "رفع محتوى جديد",
-        "image": "Image",
-        "subtitle1": "We would be happy to receive new content from anyone who wants to contribute to the site.",
-        "subtitle2": "You are welcome to fill out the form and after approval by a manager the content will be added to the site",
-        "create_new_organization": "إنشاء منظمة جديدة",
-        "create_new_tag": "إنشاء علامة جديدة",
-        "create_new_language": "إنشاء لغة جديدة"
+    "gaia": {
+      "title": "Gaia Aran",
+      "description": "כתיבה, תוכן ואפיון האתר"
     },
-    "credits": {
-        "netanel": {
-            "title": "نتانئيل حوري، مؤسس مدرسة غصن الزيتون ",
-            "description": "لتعليم اللغة العربية"
-        },
-        "nitzan": {
-            "title": "Nitzan Rosen",
-            "description": "Product Definition, Business Development"
-        },
-        "tatiana": {
-            "title": "Tatiana Philippova",
-            "description": "Translated the website to Russian"
-        },
-        "nadav_w": {
-            "title": "Nadav Weisler",
-            "description": "Founder and developer of the website"
-        },
-        "nadav_p": {
-            "title": "Nadav Porat",
-            "description": "Developer"
-        },
-        "shlomi": {
-            "title": "Shlomi Shitrit",
-            "description": "Developer"
-        },
-        "gaia": {
-            "title": "Gaia Aran",
-            "description": "כתיבה, תוכן ואפיון האתר"
-        },
-        "shir": {
-            "title": "Shir barabi",
-            "description": "מייסדת האתר, אחראית ניהול תוכן ואפיון האתר"
-        },
-        "yotam": {
-            "title": "Yotam Aran",
-            "description": "Developer"
-        },
-        "ana": {
-            "title": "Anna Koren",
-            "description": "Developer and QA lead"
-        }
+    "shir": {
+      "title": "Shir barabi",
+      "description": "מייסדת האתר, אחראית ניהול תוכן ואפיון האתר"
     },
-    "register": {
-        "email": "Email",
-        "name": "Name",
-        "tel": "Phone",
-        "profession": "Profession",
-        "title1": "אנו מחפשים אנשי טיפול אשר מעוניינים לאפשר שיחה אחת, חינמית, דרך הזום, למי שצריכה, כדי להקשיב, לתת מקום ואולי קצת כלים שיעזרו בהתמודדות המורכבת.",
-        "title2": "הפרטים שלך יישארו חסויים במערכת וישמשו על מנת שניצור איתך קשר",
-        "submit_success": "Your information sent successfully!"
+    "yotam": {
+      "title": "Yotam Aran",
+      "description": "Developer"
     },
-    "admin": {
-        "therapists": "Therapists Information",
-        "no_therapists": "No therapists information",
-        "move_therapists": "Move to therapists information"
-    },
-    "sign_in": {
-        "invalid_email": "Invalid email address, please enter valid email",
-        "invalid_cred": "Please check your email and password, one of them is inncorrect",
-        "general_error": "Something went wrong, please try again"
+    "ana": {
+      "title": "Anna Koren",
+      "description": "Developer and QA lead"
     }
+  },
+  "register": {
+    "email": "Email",
+    "name": "Name",
+    "tel": "Phone",
+    "profession": "Profession",
+    "title1": "אנו מחפשים אנשי טיפול אשר מעוניינים לאפשר שיחה אחת, חינמית, דרך הזום, למי שצריכה, כדי להקשיב, לתת מקום ואולי קצת כלים שיעזרו בהתמודדות המורכבת.",
+    "title2": "הפרטים שלך יישארו חסויים במערכת וישמשו על מנת שניצור איתך קשר",
+    "submit_success": "Your information sent successfully!"
+  },
+  "admin": {
+    "therapists": "Therapists Information",
+    "no_therapists": "No therapists information",
+    "move_therapists": "Move to therapists information"
+  },
+  "sign_in": {
+    "invalid_email": "Invalid email address, please enter valid email",
+    "invalid_cred": "Please check your email and password, one of them is inncorrect",
+    "general_error": "Something went wrong, please try again"
+  }
 }

@@ -24,12 +24,12 @@ export const app = initializeApp(firebaseConfig);
 export const db = getDatabase(app, process.env.NEXT_PUBLIC_DATABASE_URL);
 
 export const dbPath = {
-    tags: process.env.NEXT_PUBLIC_ENV + "/tags",
-    organizations: process.env.NEXT_PUBLIC_ENV + "/organizations",
-    content: process.env.NEXT_PUBLIC_ENV + "/content",
-    pendingContent: process.env.NEXT_PUBLIC_ENV + "/pendingContent",
-    validateContent: process.env.NEXT_PUBLIC_ENV + "/validateContent",
-    therapist: process.env.NEXT_PUBLIC_ENV + "/therapist",
+  tags: process.env.NEXT_PUBLIC_ENV + "/tags",
+  organizations: process.env.NEXT_PUBLIC_ENV + "/organizations",
+  content: process.env.NEXT_PUBLIC_ENV + "/content",
+  pendingContent: process.env.NEXT_PUBLIC_ENV + "/pendingContent",
+  validateContent: process.env.NEXT_PUBLIC_ENV + "/validateContent",
+  therapist: process.env.NEXT_PUBLIC_ENV + "/therapist",
 };
 
 export const storagePath = {

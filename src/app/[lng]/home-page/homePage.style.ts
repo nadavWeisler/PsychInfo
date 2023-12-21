@@ -1,8 +1,8 @@
 export const fabStyle = {
   margin: 0,
-  top: 'auto',
+  top: "auto",
   right: 20,
   bottom: 20,
-  left: 'auto',
-  position: 'fixed',
+  left: "auto",
+  position: "fixed",
 };

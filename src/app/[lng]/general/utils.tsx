@@ -34,7 +34,7 @@ export function GetFilters(): Filter[] {
 }
 
 export function isEmptyOrSpaces(str: string): boolean {
-    return str === null || str?.match(/^ *$/) !== null || str === "\r";
+  return str === null || str?.match(/^ *$/) !== null || str === "\r";
 }
 
 export function ifValidLink(url: string): boolean {

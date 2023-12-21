@@ -1,175 +1,175 @@
 {
-    "common": {
-        "app_name": "Psych Info",
-        "next": "Next",
-        "back": "Back",
-        "submit": "Submit",
-        "create": "Create",
-        "cancel": "Cancel",
-        "close": "Close",
-        "save": "Save",
-        "edit": "Edit",
-        "delete": "Delete",
-        "add": "Add",
-        "search": "Search",
-        "loading": "Loading...",
-        "title": "Title",
-        "content": "Content",
-        "organization": "Organization",
-        "tag": "Tag",
-        "tags": "Tags",
-        "link": "Link",
-        "links": "Links",
-        "uploader": "Uploader",
-        "language": "Language",
-        "languages": "Languages",
-        "start": "Start",
-        "choose": "Choose",
-        "organizations": "Organizations",
-        "no_data": "No data",
-        "enter": "Enter",
-        "click": "Click",
-        "share": "Share",
-        "hello": "Hello",
-        "login": "Login",
-        "logout": "Logout",
-        "info_therapist": "Therapist information",
-        "personalize": "Personalize",
-        "name": "Name",
-        "email": "Email",
-        "password": "Password",
-        "description": "Description",
-        "invalid_link": "Invalid link",
-        "link_title": "For the link click here",
-        "tel": "Phone",
-        "profession": "Profession",
-        "not_required": "Not required"
+  "common": {
+    "app_name": "Psych Info",
+    "next": "Next",
+    "back": "Back",
+    "submit": "Submit",
+    "create": "Create",
+    "cancel": "Cancel",
+    "close": "Close",
+    "save": "Save",
+    "edit": "Edit",
+    "delete": "Delete",
+    "add": "Add",
+    "search": "Search",
+    "loading": "Loading...",
+    "title": "Title",
+    "content": "Content",
+    "organization": "Organization",
+    "tag": "Tag",
+    "tags": "Tags",
+    "link": "Link",
+    "links": "Links",
+    "uploader": "Uploader",
+    "language": "Language",
+    "languages": "Languages",
+    "start": "Start",
+    "choose": "Choose",
+    "organizations": "Organizations",
+    "no_data": "No data",
+    "enter": "Enter",
+    "click": "Click",
+    "share": "Share",
+    "hello": "Hello",
+    "login": "Login",
+    "logout": "Logout",
+    "info_therapist": "Therapist information",
+    "personalize": "Personalize",
+    "name": "Name",
+    "email": "Email",
+    "password": "Password",
+    "description": "Description",
+    "invalid_link": "Invalid link",
+    "link_title": "For the link click here",
+    "tel": "Phone",
+    "profession": "Profession",
+    "not_required": "Not required"
+  },
+  "errors": {
+    "error_occured": "An error occurred",
+    "invalid_data_type": "Invalid data type"
+  },
+  "welcome": {
+    "title": "Accessible mental health content in times of emergency",
+    "subtitle1": "The purpose of the website is to make available all the important information that has been circling around in recent days about psychological coping in light of the unusual situation we are facing, in a friendly and orderly manner.  There are two ways you can use our database:",
+    "list1": "1. Enter each of the given topics and look at the content that appears in them in a concentrated way.",
+    "list2": "2. Use our \"personalisation\" function, and by selecting the tags relevant to you, gather all the desired information in a personalized way.",
+    "subtitle2": "You are welcome to try the personalisation process through the button below, or enter the recommended topics shown on this page"
+  },
+  "add_string": {
+    "enter_id": "Enter ID",
+    "enter_display": "Enter display",
+    "enter_language": "Enter language"
+  },
+  "wizard": {
+    "which_info_you_need": "What information do you need?",
+    "choose_organizations": "Choose organizations",
+    "choose_tags": "Choose tags",
+    "choose_all": "Choose all",
+    "clear": "Clear",
+    "choose_langueges": "Choose languages",
+    "invalid_step": "Invalid step",
+    "no_tags": "Must choose at least one tag",
+    "no_orgs": "Must choose at least one organization",
+    "no_langs": "Must choose at least one language"
+  },
+  "upload": {
+    "title": "Upload new content",
+    "image": "Image",
+    "subtitle1": "We would be happy to receive new content from anyone who wants to contribute to the site.",
+    "subtitle2": "You are welcome to fill out the form and after approval by a manager the content will be added to the site",
+    "create_new_organization": "Create new organization",
+    "create_new_tag": "Create new tag",
+    "create_new_language": "Create new language",
+    "submit_success": "The content was sent successfully, and will be reviewed by the site administrators"
+  },
+  "results": {
+    "title": "Results",
+    "no_results": "No matching results, please try again"
+  },
+  "gallary": {
+    "title": "Topics"
+  },
+  "navbar": {
+    "admin_log_in": "admin? login",
+    "open_menu": "open menu",
+    "upload_content": "upload content",
+    "about_us": "About us"
+  },
+  "admin": {
+    "title": "Admin dashboard",
+    "waiting_requests": "Pending requests",
+    "no_requests": "No pending requests",
+    "admin_login": "Admin login",
+    "login": "Login",
+    "open_tags": "open tags",
+    "open_organizations": "open organizations",
+    "empty_list": "No items to show",
+    "edit_success": "The item was edited successfully",
+    "edit_title": "Edit item",
+    "no_content": "No content",
+    "therapists": "Therapists Information",
+    "no_therapists": "No therapists information",
+    "move_therapists": "Move to therapists information"
+  },
+  "about_us": {
+    "title": "About us      ",
+    "description": "Thank to all the people who helped us build this website"
+  },
+  "credits": {
+    "netanel": {
+      "title": "Netanel Huri, Founder of 'Ale Zait' school for Arabic language",
+      "description": "Translated the website to Arabic"
     },
-    "errors": {
-        "error_occured": "An error occurred",
-        "invalid_data_type": "Invalid data type"
+    "nitzan": {
+      "title": "Nitzan Rosen",
+      "description": "Product Definition, Business Development"
     },
-    "welcome": {
-        "title": "Accessible mental health content in times of emergency",
-        "subtitle1": "The purpose of the website is to make available all the important information that has been circling around in recent days about psychological coping in light of the unusual situation we are facing, in a friendly and orderly manner.  There are two ways you can use our database:",
-        "list1": "1. Enter each of the given topics and look at the content that appears in them in a concentrated way.",
-        "list2": "2. Use our \"personalisation\" function, and by selecting the tags relevant to you, gather all the desired information in a personalized way.",
-        "subtitle2": "You are welcome to try the personalisation process through the button below, or enter the recommended topics shown on this page"
+    "tatiana": {
+      "title": "Tatiana Philippova",
+      "description": "Translated the website to Russian"
     },
-    "add_string": {
-        "enter_id": "Enter ID",
-        "enter_display": "Enter display",
-        "enter_language": "Enter language"
+    "nadav_w": {
+      "title": "Nadav Weisler",
+      "description": "Founder and developer of the website"
     },
-    "wizard": {
-        "which_info_you_need": "What information do you need?",
-        "choose_organizations": "Choose organizations",
-        "choose_tags": "Choose tags",
-        "choose_all": "Choose all",
-        "clear": "Clear",
-        "choose_langueges": "Choose languages",
-        "invalid_step": "Invalid step",
-        "no_tags": "Must choose at least one tag",
-        "no_orgs": "Must choose at least one organization",
-        "no_langs": "Must choose at least one language"
+    "nadav_p": {
+      "title": "Nadav Porat",
+      "description": "Developer"
     },
-    "upload": {
-        "title": "Upload new content",
-        "image": "Image",
-        "subtitle1": "We would be happy to receive new content from anyone who wants to contribute to the site.",
-        "subtitle2": "You are welcome to fill out the form and after approval by a manager the content will be added to the site",
-        "create_new_organization": "Create new organization",
-        "create_new_tag": "Create new tag",
-        "create_new_language": "Create new language",
-        "submit_success": "The content was sent successfully, and will be reviewed by the site administrators"
+    "shlomi": {
+      "title": "Shlomi Shitrit",
+      "description": "Developer"
     },
-    "results": {
-        "title": "Results",
-        "no_results": "No matching results, please try again"
+    "gaia": {
+      "title": "Gaia Aran",
+      "description": "כתיבה, תוכן ואפיון האתר"
     },
-    "gallary": {
-        "title": "Topics"
+    "shir": {
+      "title": "Shir barabi",
+      "description": "מייסדת האתר, אחראית ניהול תוכן ואפיון האתר"
     },
-    "navbar": {
-        "admin_log_in": "admin? login",
-        "open_menu": "open menu",
-        "upload_content": "upload content",
-        "about_us": "About us"
+    "yotam": {
+      "title": "Yotam Aran",
+      "description": "Developer"
     },
-    "admin": {
-        "title": "Admin dashboard",
-        "waiting_requests": "Pending requests",
-        "no_requests": "No pending requests",
-        "admin_login": "Admin login",
-        "login": "Login",
-        "open_tags": "open tags",
-        "open_organizations": "open organizations",
-        "empty_list": "No items to show",
-        "edit_success": "The item was edited successfully",
-        "edit_title": "Edit item",
-        "no_content": "No content",
-        "therapists": "Therapists Information",
-        "no_therapists": "No therapists information",
-        "move_therapists": "Move to therapists information"
-    },
-    "about_us": {
-        "title": "About us      ",
-        "description": "Thank to all the people who helped us build this website"
-    },
-    "credits": {
-        "netanel": {
-            "title": "Netanel Huri, Founder of 'Ale Zait' school for Arabic language",
-            "description": "Translated the website to Arabic"
-        },
-        "nitzan": {
-            "title": "Nitzan Rosen",
-            "description": "Product Definition, Business Development"
-        },
-        "tatiana": {
-            "title": "Tatiana Philippova",
-            "description": "Translated the website to Russian"
-        },
-        "nadav_w": {
-            "title": "Nadav Weisler",
-            "description": "Founder and developer of the website"
-        },
-        "nadav_p": {
-            "title": "Nadav Porat",
-            "description": "Developer"
-        },
-        "shlomi": {
-            "title": "Shlomi Shitrit",
-            "description": "Developer"
-        },
-        "gaia": {
-            "title": "Gaia Aran",
-            "description": "כתיבה, תוכן ואפיון האתר"
-        },
-        "shir": {
-            "title": "Shir barabi",
-            "description": "מייסדת האתר, אחראית ניהול תוכן ואפיון האתר"
-        },
-        "yotam": {
-            "title": "Yotam Aran",
-            "description": "Developer"
-        },
-        "ana": {
-            "title": "Anna Koren",
-            "description": "Developer and QA lead"
-        }
-    },
-    "register": {
-        "email": "Email",
-        "name": "Name",
-        "tel": "Phone",
-        "profession": "Profession",
-        "title1": "אנו מחפשים אנשי טיפול אשר מעוניינים לאפשר שיחה אחת, חינמית, דרך הזום, למי שצריכה, כדי להקשיב, לתת מקום ואולי קצת כלים שיעזרו בהתמודדות המורכבת.",
-        "title2": "YOYOYOהפרטים שלך יישארו חסויים במערכת וישמשו על מנת שניצור איתך קשר",
-        "submit_success": "Your information sent successfully!"
-    },
-    "sign_in": {
-        "invalid_email": "Invalid email address, please enter valid email",
-        "invalid_cred": "Please check your email and password, one of them is inncorrect",
-        "general_error": "Something went wrong, please try again"
+    "ana": {
+      "title": "Anna Koren",
+      "description": "Developer and QA lead"
     }
+  },
+  "register": {
+    "email": "Email",
+    "name": "Name",
+    "tel": "Phone",
+    "profession": "Profession",
+    "title1": "אנו מחפשים אנשי טיפול אשר מעוניינים לאפשר שיחה אחת, חינמית, דרך הזום, למי שצריכה, כדי להקשיב, לתת מקום ואולי קצת כלים שיעזרו בהתמודדות המורכבת.",
+    "title2": "YOYOYOהפרטים שלך יישארו חסויים במערכת וישמשו על מנת שניצור איתך קשר",
+    "submit_success": "Your information sent successfully!"
+  },
+  "sign_in": {
+    "invalid_email": "Invalid email address, please enter valid email",
+    "invalid_cred": "Please check your email and password, one of them is inncorrect",
+    "general_error": "Something went wrong, please try again"
+  }
 }

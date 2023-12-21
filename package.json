@@ -10,7 +10,8 @@
     "locals": "node scripts/generateLocals.js",
     "local-dev": "npm run locals && npm run dev",
     "full-dev": "npm run locals && npm run build && npm run dev",
-    "cypress": "cypress open"
+    "cypress": "cypress open",
+    "prettier": "prettier --write ."
   },
   "dependencies": {
     "@emotion/react": "^11.11.1",

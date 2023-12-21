@@ -14,11 +14,11 @@ import {
   getDownloadURL,
 } from "firebase/storage";
 import {
-    Content,
-    Operator,
-    Organization,
-    Tag,
-    ContentDB,
+  Content,
+  Operator,
+  Organization,
+  Tag,
+  ContentDB,
 } from "@/app/[lng]/general/interfaces";
 
 export async function getAllTags(
