@@ -13,6 +13,8 @@ import {
   Icon,
 } from "@mui/material";
 import AccountCircleIcon from "@mui/icons-material/AccountCircle";
+import LoginIcon from '@mui/icons-material/Login';
+import AdminPanelSettingsIcon from '@mui/icons-material/AdminPanelSettings';
 import MenuIcon from "@mui/icons-material/Menu";
 import { User, onAuthStateChanged } from "@firebase/auth";
 import { auth } from "@/app/[lng]/firebase/app";
@@ -49,20 +51,6 @@ export default function Navbar(): React.ReactElement {
     authUser?.email?.indexOf("@") !== -1
       ? authUser?.email?.split("@")[0]
       : authUser?.email;
-
-  const greetMsg: React.ReactElement = (
-    <Link href={`/${i18n.language}/admin`}>
-      <Typography variant="h6" component="div" sx={styles.linkTyp}>
-        {t(LocalizationKeys.Common.Hello)} {userEmail}
-      </Typography>
-    </Link>
-  );
-
-  const adminLink: React.ReactElement = (
-    <IconButton href={`/${i18n.language}/admin-signin`}>
-      <AccountCircleIcon sx={styles.desktopAdminIcon} />
-    </IconButton>
-  );
 
   const adminPage = !authUser ? (
     <IconButton href={`/${i18n.language}/admin-signin`}>
@@ -198,7 +186,15 @@ export default function Navbar(): React.ReactElement {
             </Typography>
           </Link>
         </div>
-        <div>{!!authUser && authUser !== null ? greetMsg : adminLink}</div>
+        <div>{!!authUser && authUser !== null ?
+          <IconButton href={`/${i18n.language}/admin`}>
+            <AdminPanelSettingsIcon sx={styles.desktopAdminIcon} />
+          </IconButton>
+          : <IconButton href={`/${i18n.language}/admin-signin`}>
+            <LoginIcon sx={styles.desktopAdminIcon} />
+          </IconButton>
+        }
+        </div>
         <div>
           <Select
             onChange={(e) => i18n.changeLanguage(e.target.value as string)}
