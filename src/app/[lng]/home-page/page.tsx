@@ -15,6 +15,7 @@ import useTrans from "../hooks/useTrans";
 import { AuthContext } from "@/app/[lng]/context/AuthContext";
 import { useRouter } from "next/navigation";
 import { auth } from "../firebase/app";
+import OrgWizard from "@/app/[lng]/Components/OrgWizard";
 
 export default function HomePage() {
   const [open, setOpen] = useState(false);
@@ -35,6 +36,7 @@ export default function HomePage() {
     <>
       <Provider store={store}>
         <WelcomeMsg openWizradHandler={() => setOpen(true)} />
+        <OrgWizard />
         <Wizrad open={open} onClose={() => setOpen(false)} />
         <Gallary filters={filters} />
         {authUser && (
