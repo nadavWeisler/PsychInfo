@@ -1,5 +1,5 @@
-import {NextResponse, NextRequest} from 'next/server';
-import {fallbackLng, locales} from '@/i18n/settings';
+import { NextResponse, NextRequest } from "next/server";
+import { fallbackLng, locales } from "@/i18n/settings";
 
 export function middleware(request: NextRequest) {
   // Check if there is any supported locale in the pathname
@@ -16,7 +16,7 @@ export function middleware(request: NextRequest) {
       new URL(
         pathname.replace(
           `/${fallbackLng}`,
-          pathname === `/${fallbackLng}` ? '/' : '',
+          pathname === `/${fallbackLng}` ? "/" : "",
         ),
         request.url,
       ),
@@ -24,7 +24,8 @@ export function middleware(request: NextRequest) {
   }
 
   const pathnameIsMissingLocale = locales.every(
-    locale => !pathname.startsWith(`/${locale}/`) && pathname !== `/${locale}`,
+    (locale) =>
+      !pathname.startsWith(`/${locale}/`) && pathname !== `/${locale}`,
   );
 
   if (pathnameIsMissingLocale) {
@@ -42,5 +43,5 @@ export function middleware(request: NextRequest) {
 export const config = {
   // Do not run the middleware on the following paths
   matcher:
-    '/((?!api|_next/static|_next/image|manifest.json|assets|favicon.ico).*)',
+    "/((?!api|_next/static|_next/image|manifest.json|assets|favicon.ico).*)",
 };

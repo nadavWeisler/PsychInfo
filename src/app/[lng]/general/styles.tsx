@@ -14,7 +14,7 @@ export const appTheme = createTheme({
     },
   },
   typography: {
-    fontFamily: 'Assistant, sans-serif',
+    fontFamily: "Assistant, sans-serif",
   },
   components: {
     MuiTextField: {
@@ -25,4 +25,3 @@ export const appTheme = createTheme({
     },
   },
 });
-

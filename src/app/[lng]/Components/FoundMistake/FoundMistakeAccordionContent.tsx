@@ -6,40 +6,40 @@ import { styles } from "@/app/[lng]/Components/FoundMistake/FoundMistakeAccordio
 import { LocalizationKeys } from "@/i18n/LocalizationKeys";
 
 export default function FoundMistakeAccordionContent({
-    deleteHandler,
-    data,
+  deleteHandler,
+  data,
 }: FoundMistakeAccordionContentProps) {
-    const { t, direction } = useTrans();
+  const { t, direction } = useTrans();
 
-    async function deleteMistake(): Promise<void> {
-        await deletePendingMistake(data.id);
-        deleteHandler();
-    }
+  async function deleteMistake(): Promise<void> {
+    await deletePendingMistake(data.id);
+    deleteHandler();
+  }
 
-    const btnDirrection = direction === "rtl" ? "ltr" : "rtl";
+  const btnDirrection = direction === "rtl" ? "ltr" : "rtl";
 
-    return (
-        <Box dir={btnDirrection} sx={styles.root}>
-            <Typography dir={direction} sx={styles.typ} variant="h6">
-                {t(LocalizationKeys.Common.Name)}: {data.name}
-            </Typography>
-            <Typography dir={direction} sx={styles.typ} variant="h6">
-                {t(LocalizationKeys.Common.Email)}: {data.emailToContact}
-            </Typography>
-            <Typography dir={direction} sx={styles.typ} variant="h6">
-                {t(LocalizationKeys.Common.Description)}: {data.description}
-            </Typography>
+  return (
+    <Box dir={btnDirrection} sx={styles.root}>
+      <Typography dir={direction} sx={styles.typ} variant="h6">
+        {t(LocalizationKeys.Common.Name)}: {data.name}
+      </Typography>
+      <Typography dir={direction} sx={styles.typ} variant="h6">
+        {t(LocalizationKeys.Common.Email)}: {data.emailToContact}
+      </Typography>
+      <Typography dir={direction} sx={styles.typ} variant="h6">
+        {t(LocalizationKeys.Common.Description)}: {data.description}
+      </Typography>
 
-            <Box sx={styles.box}>
-                <Button
-                    sx={styles.button}
-                    color={"error"}
-                    variant={"outlined"}
-                    onClick={deleteMistake}
-                >
-                    {t(LocalizationKeys.Common.Delete)}
-                </Button>
-            </Box>
-        </Box>
-    );
+      <Box sx={styles.box}>
+        <Button
+          sx={styles.button}
+          color={"error"}
+          variant={"outlined"}
+          onClick={deleteMistake}
+        >
+          {t(LocalizationKeys.Common.Delete)}
+        </Button>
+      </Box>
+    </Box>
+  );
 }

@@ -1,8 +1,8 @@
-import { useEffect, useState } from 'react';
+import { useEffect, useState } from "react";
 
 export function getWindowWidth(): number {
   // If window is not defined (i.e., during SSR), return a default value
-  if (typeof window === 'undefined') {
+  if (typeof window === "undefined") {
     return 0; // or another appropriate default value
   }
 
@@ -19,9 +19,9 @@ export function useWindowWidth(): number {
       setWindowWidth(getWindowWidth());
     }
 
-    window.addEventListener('resize', handleResize);
+    window.addEventListener("resize", handleResize);
     return () => {
-      window.removeEventListener('resize', handleResize);
+      window.removeEventListener("resize", handleResize);
     };
   }, []);
 
