@@ -21,8 +21,8 @@ const NavbarNoSSr = dynamic(() => import("./[lng]/Components/UI/NavBar"), {
 const inter = Inter({ subsets: ["latin"] });
 
 export const metadata: Metadata = {
-  title: "מידע פסיכולוגי",
-  description: "ריכוז תוכן להתמודדות נפשית בשעת חירום",
+    title: "PsychInfo",
+    description: "ריכוז תוכן להתמודדות נפשית בשעת חירום",
 };
 
 export default function RootLayout({
