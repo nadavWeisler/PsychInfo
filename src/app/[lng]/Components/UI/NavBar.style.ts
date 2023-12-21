@@ -30,13 +30,15 @@ export const styles = {
     color: "white",
   },
   desktopRoot: {
-    display: "flex",
-    justifyContent: "space-evenly",
-    alignItems: "center",
+    position: 'relative',
+    display: 'flex',
+    alignItems: 'center',
+    justifyContent: 'flex-start',    
   },
   desktopIconBtn: {
     ml: 2,
   },
+  
   desktopImg: {
     marginLeft: "8px",
   },
@@ -46,8 +48,16 @@ export const styles = {
   },
   desktopSelect: {
     color: "white",
+    mr: 30,
+    position: 'absolute', 
+    left: 0,
+    ml: 2,
+    
   },
   desktopAdminIcon: {
     fontSize: 35,
   },
+  desktopMenu: {
+    mt: "2%",
+  }
 };
