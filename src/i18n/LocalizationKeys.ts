@@ -134,6 +134,10 @@ export class LocalizationKeys {
         Description: "about_us.description",
     };
     static Credits = {
+        Nitzan: {
+            Title: "credits.nitzan.title",
+            Description: "credits.nitzan.description",
+        },
         Netanel: {
             Title: "credits.netanel.title",
             Description: "credits.netanel.description",
