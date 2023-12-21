@@ -51,11 +51,12 @@ export default function AboutUs() {
       linkedin: "https://www.linkedin.com/in/nadav-porat-126805b1/",
     },
     {
-        id: 5,
-        title: t(LocalizationKeys.Credits.Nitzan.Title),
-        description: t(LocalizationKeys.Credits.Nitzan.Description),
-        imageUrl: "https://media.licdn.com/dms/image/C5603AQH4PYEY5LNFRg/profile-displayphoto-shrink_800_800/0/1603109816717?e=1708560000&v=beta&t=bpxcZnlkiBSDskZmQuGKYkMLtwaTb886qOEHWbMApqQ",
-        linkedin: "https://www.linkedin.com/in/nitzan-rosen-1b91771ba/",
+      id: 5,
+      title: t(LocalizationKeys.Credits.Nitzan.Title),
+      description: t(LocalizationKeys.Credits.Nitzan.Description),
+      imageUrl:
+        "https://media.licdn.com/dms/image/C5603AQH4PYEY5LNFRg/profile-displayphoto-shrink_800_800/0/1603109816717?e=1708560000&v=beta&t=bpxcZnlkiBSDskZmQuGKYkMLtwaTb886qOEHWbMApqQ",
+      linkedin: "https://www.linkedin.com/in/nitzan-rosen-1b91771ba/",
     },
     {
       id: 6,

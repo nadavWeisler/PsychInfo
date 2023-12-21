@@ -38,7 +38,6 @@ export class LocalizationKeys {
     Logout: "common.logout",
     Email: "common.email",
     Password: "common.password",
-    ReportedMistake: "common.reported_mistake",
     InfoTherapist: "common.info_therapist",
     Name: "common.name",
     Yes: "common.yes",
@@ -81,9 +80,9 @@ export class LocalizationKeys {
   };
   static Upload = {
     Title: "upload.title",
+    Image: "upload.image",
     Subtitle1: "upload.subtitle1",
     Subtitle2: "upload.subtitle2",
-    Image: "upload.image",
     CreateNewOrganization: "upload.create_new_organization",
     CreateNewTag: "upload.create_new_tag",
     CreateNewLanguage: "upload.create_new_language",
@@ -100,21 +99,10 @@ export class LocalizationKeys {
     AdminLogIn: "navbar.admin_log_in",
     OpenMenu: "navbar.open_menu",
     UploadContent: "navbar.upload_content",
-    FoundMistake: "navbar.found_mistake",
     AboutUs: "navbar.about_us",
-  };
-  static Mistake = {
-    Name: "mistake.name",
-    Email: "mistake.email",
-    Description: "mistake.description",
-    Send: "mistake.send",
-    Greeting: "mistake.greeting",
-    FormSent: "mistake.form_sent",
   };
   static Admin = {
     Title: "admin.title",
-    MistakesRequests: "admin.mistakes_requests",
-    NoMistakes: "admin.no_mistakes",
     WaitingRequests: "admin.waiting_requests",
     NoRequests: "admin.no_requests",
     AdminLogin: "admin.admin_login",

@@ -18,8 +18,6 @@ import {
   Operator,
   Organization,
   Tag,
-  FoundMistakeDB,
-  FoundMistake,
   ContentDB,
 } from "@/app/[lng]/general/interfaces";
 
@@ -389,69 +387,6 @@ export async function getFiles(contentTitle: string): Promise<string> {
     console.log(e);
   }
   return "Download succeed";
-}
-
-export async function getMistakes(): Promise<FoundMistakeDB[]> {
-  try {
-    const snapshot = await get(ref(db, dbPath.foundMistakes));
-    if (snapshot.exists()) {
-      return Object.values(snapshot.val());
-    } else {
-      console.log("No data available");
-      return [];
-    }
-  } catch (error) {
-    console.error("Error:", error);
-    throw error;
-  }
-}
-
-export async function postMistakes(content: FoundMistake) {
-  try {
-    const mistakes = await getMistakes();
-    if (mistakes.length === 0) {
-      const newContent = {
-        ...content,
-        id: 1,
-      };
-      const newContentRef = await push(ref(db, dbPath.foundMistakes));
-      return await update(newContentRef, newContent);
-    } else {
-      const lastMistake = mistakes[mistakes.length - 1];
-      const newId = lastMistake.id + 1;
-      const newContent = {
-        ...content,
-        id: newId,
-      };
-      const newContentRef = await push(ref(db, dbPath.foundMistakes));
-      return await update(newContentRef, newContent);
-    }
-  } catch (error) {
-    console.error("Error:", error);
-    throw error;
-  }
-}
-
-export async function deletePendingMistake(index: string): Promise<void> {
-  try {
-    const snapshot = await get(ref(db, dbPath.foundMistakes));
-    const mistakes: FoundMistakeDB[] = snapshot.val();
-    let mistakeKey = "";
-    for (const key in mistakes) {
-      if (mistakes[key].id === index) {
-        mistakeKey = key;
-        break;
-      }
-    }
-    if (mistakeKey !== "") {
-      const contentRef = ref(db, `${dbPath.foundMistakes}/${mistakeKey}`);
-      await remove(contentRef);
-    } else {
-      console.log(`No mistake found with id ${index}`);
-    }
-  } catch (error) {
-    console.error("Error:", error);
-  }
 }
 
 export async function deleteTags(id: string) {

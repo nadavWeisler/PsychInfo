@@ -1,134 +1,134 @@
 {
-    "common": {
-        "app_name": "Как справиться с психологическим стрессом",
-        "next": "Вперед",
-        "back": "Назад",
-        "submit": "Отослать",
-        "create": "Создать",
-        "cancel": "Отмена",
-        "close": "Закрыть",
-        "save": "Сохранить",
-        "edit": "Редактировать",
-        "delete": "Стереть",
-        "add": "Добавить",
-        "search": "Поиск",
-        "loading": "Загрузка...",
-        "title": "Заголовок",
-        "description": "Описание",
-        "content": "Cодержание",
-        "organization": "Организация",
-        "tag": "Тэг",
-        "tags": "Тэги ",
-        "link": "Ссылка",
-        "links": "Ссылки",
-        "uploader": "Загрузить",
-        "language": "Язык",
-        "languages": "Языки",
-        "start": "Начало",
-        "choose": "Выбрать",
-        "organizations": "Организации",
-        "info_therapist": "Therapist information",
-        "tel": "Phone",
-        "profession": "Profession",
-        "not_required": "Not required"
+  "common": {
+    "app_name": "Как справиться с психологическим стрессом",
+    "next": "Вперед",
+    "back": "Назад",
+    "submit": "Отослать",
+    "create": "Создать",
+    "cancel": "Отмена",
+    "close": "Закрыть",
+    "save": "Сохранить",
+    "edit": "Редактировать",
+    "delete": "Стереть",
+    "add": "Добавить",
+    "search": "Поиск",
+    "loading": "Загрузка...",
+    "title": "Заголовок",
+    "description": "Описание",
+    "content": "Cодержание",
+    "organization": "Организация",
+    "tag": "Тэг",
+    "tags": "Тэги ",
+    "link": "Ссылка",
+    "links": "Ссылки",
+    "uploader": "Загрузить",
+    "language": "Язык",
+    "languages": "Языки",
+    "start": "Начало",
+    "choose": "Выбрать",
+    "organizations": "Организации",
+    "info_therapist": "Therapist information",
+    "tel": "Phone",
+    "profession": "Profession",
+    "not_required": "Not required"
+  },
+  "results": {
+    "title": "Results",
+    "no_results": "No matching results, please try again"
+  },
+  "errors": {
+    "error_occured": "Произошла ошибка",
+    "invalid_data_type": "Данные неподходящего вида"
+  },
+  "welcome": {
+    "title": "Добро пожаловать на сайт, который поможет вам легче найти информацию, как справиться с психологическим стрессом в экстенных ситуациях",
+    "subtitle1": "Наша цель - сделать поиск этой информации более легким и  доступным. Есть две возможности для использования этой информации",
+    "list1": "1. Зайти в каждую из предложенных тем и выбрать ту тему, которая Вас  нтересует.",
+    "list 2": "2. Воспользоваться функцией Авторизация, выбрать нужные тэги, которые позволят сорать иформацию, подходящую лично Вам.",
+    "subtitle2": "Приглашаем Вас нажать на кнопку внизу и провести Авторизацию или выбрать подходящие Вам темы, представленные на этой странице.",
+    "therapist": "Therapist? we need you!"
+  },
+  "add_string": {
+    "enter_id": "Авторизация",
+    "enter_display": "Внешний вид"
+  },
+  "wizard": {
+    "which_info_you_need": "Какая информация Вас интересует?",
+    "choose_organizations": "Выбор организации",
+    "choose_tags": "Выбрать тэги"
+  },
+  "upload": {
+    "title": "Загрузка новых данных",
+    "image": "Image",
+    "subtitle1": "We would be happy to receive new content from anyone who wants to contribute to the site.",
+    "subtitle2": "You are welcome to fill out the form and after approval by a manager the content will be added to the site",
+    "create_new_organization": "Создать новую организацию",
+    "create_new_tag": "Выбрать новый тэг",
+    "create_new_language": "Выбрать  язык"
+  },
+  "about_us": {
+    "title": "About us",
+    "description": "Thank you"
+  },
+  "credits": {
+    "netanel": {
+      "title": "Netanel Huri, Founder of 'Ale Zait' school for Arabic language",
+      "description": "Translated the website to Arabic"
     },
-    "results": {
-        "title": "Results",
-        "no_results": "No matching results, please try again"
+    "nitzan": {
+      "title": "Nitzan Rosen",
+      "description": "Product Definition, Business Development"
     },
-    "errors": {
-        "error_occured": "Произошла ошибка",
-        "invalid_data_type": "Данные неподходящего вида"
+    "tatiana": {
+      "title": "Татьяна Филиппова",
+      "description": "Перевод Татьяны Филипповой"
     },
-    "welcome": {
-        "title": "Добро пожаловать на сайт, который поможет вам легче найти информацию, как справиться с психологическим стрессом в экстенных ситуациях",
-        "subtitle1": "Наша цель - сделать поиск этой информации более легким и  доступным. Есть две возможности для использования этой информации",
-        "list1": "1. Зайти в каждую из предложенных тем и выбрать ту тему, которая Вас  нтересует.",
-        "list 2": "2. Воспользоваться функцией Авторизация, выбрать нужные тэги, которые позволят сорать иформацию, подходящую лично Вам.",
-        "subtitle2": "Приглашаем Вас нажать на кнопку внизу и провести Авторизацию или выбрать подходящие Вам темы, представленные на этой странице.",
-        "therapist": "Therapist? we need you!"
+    "nadav_w": {
+      "title": "Nadav Weisler",
+      "description": "Founder and developer of the website"
     },
-    "add_string": {
-        "enter_id": "Авторизация",
-        "enter_display": "Внешний вид"
+    "nadav_p": {
+      "title": "Nadav Porat",
+      "description": "Developer"
     },
-    "wizard": {
-        "which_info_you_need": "Какая информация Вас интересует?",
-        "choose_organizations": "Выбор организации",
-        "choose_tags": "Выбрать тэги"
+    "shlomi": {
+      "title": "Shlomi Shitrit",
+      "description": "Developer"
     },
-    "upload": {
-        "title": "Загрузка новых данных",
-        "image": "Image",
-        "subtitle1": "We would be happy to receive new content from anyone who wants to contribute to the site.",
-        "subtitle2": "You are welcome to fill out the form and after approval by a manager the content will be added to the site",
-        "create_new_organization": "Создать новую организацию",
-        "create_new_tag": "Выбрать новый тэг",
-        "create_new_language": "Выбрать  язык"
+    "gaia": {
+      "title": "Gaia Aran",
+      "description": "כתיבה, תוכן ואפיון האתר"
     },
-    "about_us": {
-        "title": "About us",
-        "description": "Thank you"
+    "shir": {
+      "title": "Shir barabi",
+      "description": "מייסדת האתר, אחראית ניהול תוכן ואפיון האתר"
     },
-    "credits": {
-        "netanel": {
-            "title": "Netanel Huri, Founder of 'Ale Zait' school for Arabic language",
-            "description": "Translated the website to Arabic"
-        },
-        "nitzan": {
-            "title": "Nitzan Rosen",
-            "description": "Product Definition, Business Development"
-        },
-        "tatiana": {
-            "title": "Татьяна Филиппова",
-            "description": "Перевод Татьяны Филипповой"
-        },
-        "nadav_w": {
-            "title": "Nadav Weisler",
-            "description": "Founder and developer of the website"
-        },
-        "nadav_p": {
-            "title": "Nadav Porat",
-            "description": "Developer"
-        },
-        "shlomi": {
-            "title": "Shlomi Shitrit",
-            "description": "Developer"
-        },
-        "gaia": {
-            "title": "Gaia Aran",
-            "description": "כתיבה, תוכן ואפיון האתר"
-        },
-        "shir": {
-            "title": "Shir barabi",
-            "description": "מייסדת האתר, אחראית ניהול תוכן ואפיון האתר"
-        },
-        "yotam": {
-            "title": "Yotam Aran",
-            "description": "Developer"
-        },
-        "ana": {
-            "title": "Anna Koren",
-            "description": "Developer and QA lead"
-        }
+    "yotam": {
+      "title": "Yotam Aran",
+      "description": "Developer"
     },
-    "register": {
-        "email": "Email",
-        "name": "Name",
-        "tel": "Phone",
-        "profession": "Profession",
-        "title1": "אנו מחפשים אנשי טיפול אשר מעוניינים לאפשר שיחה אחת, חינמית, דרך הזום, למי שצריכה, כדי להקשיב, לתת מקום ואולי קצת כלים שיעזרו בהתמודדות המורכבת.",
-        "title2": "הפרטים שלך יישארו חסויים במערכת וישמשו על מנת שניצור איתך קשר",
-        "submit_success": "Your information sent successfully!"
-    },
-    "admin": {
-        "therapists": "Therapists Information",
-        "no_therapists": "No therapists information",
-        "move_therapists": "Move to therapists information"
-    },
-    "sign_in": {
-        "invalid_email": "Invalid email address, please enter valid email",
-        "invalid_cred": "Please check your email and password, one of them is inncorrect",
-        "general_error": "Something went wrong, please try again"
+    "ana": {
+      "title": "Anna Koren",
+      "description": "Developer and QA lead"
     }
+  },
+  "register": {
+    "email": "Email",
+    "name": "Name",
+    "tel": "Phone",
+    "profession": "Profession",
+    "title1": "אנו מחפשים אנשי טיפול אשר מעוניינים לאפשר שיחה אחת, חינמית, דרך הזום, למי שצריכה, כדי להקשיב, לתת מקום ואולי קצת כלים שיעזרו בהתמודדות המורכבת.",
+    "title2": "הפרטים שלך יישארו חסויים במערכת וישמשו על מנת שניצור איתך קשר",
+    "submit_success": "Your information sent successfully!"
+  },
+  "admin": {
+    "therapists": "Therapists Information",
+    "no_therapists": "No therapists information",
+    "move_therapists": "Move to therapists information"
+  },
+  "sign_in": {
+    "invalid_email": "Invalid email address, please enter valid email",
+    "invalid_cred": "Please check your email and password, one of them is inncorrect",
+    "general_error": "Something went wrong, please try again"
+  }
 }

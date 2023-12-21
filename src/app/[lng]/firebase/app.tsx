@@ -28,7 +28,6 @@ export const dbPath = {
   organizations: process.env.NEXT_PUBLIC_ENV + "/organizations",
   content: process.env.NEXT_PUBLIC_ENV + "/content",
   pendingContent: process.env.NEXT_PUBLIC_ENV + "/pendingContent",
-  foundMistakes: process.env.NEXT_PUBLIC_ENV + "/foundMistakes",
   validateContent: process.env.NEXT_PUBLIC_ENV + "/validateContent",
   therapist: process.env.NEXT_PUBLIC_ENV + "/therapist",
 };
