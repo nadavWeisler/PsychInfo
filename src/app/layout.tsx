@@ -37,7 +37,7 @@ export default function RootLayout({
       <body className={inter.className}>
         <ThemeProvider theme={appTheme}>
           <NavbarNoSSr />
-          <Container component="main" maxWidth="md">
+          <Container component="main" maxWidth="xl">
             <AuthProvider>
               <Providers>{children}</Providers>
             </AuthProvider>
