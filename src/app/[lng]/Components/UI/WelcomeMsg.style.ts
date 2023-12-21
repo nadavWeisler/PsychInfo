@@ -13,4 +13,5 @@ export const styles = {
     marginTop: "50px",
   },
   seperator: { borderBottom: 1, borderWidth: "1px" },
+ 
 };

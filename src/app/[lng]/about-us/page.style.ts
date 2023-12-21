@@ -1,6 +1,6 @@
 export const stylesObj = {
   root: {
-    pt: 8,
+    pt: 4,
     pb: 6,
   },
   container: {
