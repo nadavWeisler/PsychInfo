@@ -11,10 +11,11 @@ import { Container } from "@mui/material";
 import dynamic from "next/dynamic";
 
 export async function generateStaticParams() {
-    return locales.map((lng) => ({ lng }));
+  return locales.map((lng) => ({ lng }));
 }
+
 const NavbarNoSSr = dynamic(() => import("./[lng]/Components/UI/NavBar"), {
-    ssr: false,
+  ssr: false,
 });
 
 const inter = Inter({ subsets: ["latin"] });
@@ -25,24 +26,24 @@ export const metadata: Metadata = {
 };
 
 export default function RootLayout({
-    children,
-    params: { lng },
+  children,
+  params: { lng },
 }: {
-    children: React.ReactNode;
-    params: { lng: string };
+  children: React.ReactNode;
+  params: { lng: string };
 }) {
-    return (
-        <html lang={lng} dir={dir(lng)}>
-            <body className={inter.className}>
-                <ThemeProvider theme={appTheme}>
-                    <NavbarNoSSr />
-                    <Container component="main" maxWidth="md">
-                        <AuthProvider>
-                            <Providers>{children}</Providers>
-                        </AuthProvider>
-                    </Container>
-                </ThemeProvider>
-            </body>
-        </html>
-    );
+  return (
+    <html lang={lng} dir={dir(lng)}>
+      <body className={inter.className}>
+        <ThemeProvider theme={appTheme}>
+          <NavbarNoSSr />
+          <Container component="main" maxWidth="md">
+            <AuthProvider>
+              <Providers>{children}</Providers>
+            </AuthProvider>
+          </Container>
+        </ThemeProvider>
+      </body>
+    </html>
+  );
 }
