@@ -1,4 +1,4 @@
-import { Filter, Organization, Tag } from "@/app/[lng]/general/interfaces";
+import { Content, Filter, Organization, Tag } from "@/app/[lng]/general/interfaces";
 
 export function ListContainsById(
   StringObjectList: Tag[] | Organization[],
@@ -40,4 +40,16 @@ export function isEmptyOrSpaces(str: string): boolean {
 export function ifValidLink(url: string): boolean {
   const urlPattern = /^(https?|ftp):\/\/[^\s/$.?#].[^\s]*$/i;
   return urlPattern.test(url);
+}
+
+export function getTagsFromContents(content: Content[]): Tag[] {
+  let tags: Tag[] = [];
+  content.forEach((item) => {
+    item.tags?.forEach((tag) => {
+      if (!ListContainsById(tags, tag.id)) {
+        tags.push(tag);
+      }
+    });
+  });
+  return tags;
 }
