@@ -103,15 +103,15 @@ export default function AboutUs() {
   return (
     <>
       <CssBaseline />
-      <main>
         <Box sx={stylesObj.root}>
-          <Container maxWidth="md">
+          <Container maxWidth="lg">
             <Typography
-              component="h1"
-              variant="h2"
-              align="center"
-              color="text.primary"
+              margin={"normal"}
+              color={"black"}
+              variant="h4"
+              component="div"
               gutterBottom
+              textAlign={"center"}
             >
               {t(LocalizationKeys.AboutUs.Title)}
             </Typography>
@@ -129,7 +129,7 @@ export default function AboutUs() {
             ))}
           </Container>
         </Box>
-        <Container sx={stylesObj.container} maxWidth="md">
+        <Container sx={stylesObj.container} maxWidth="lg">
           <Grid container spacing={4}>
             {cards.map((card) => (
               <Grid item key={card.id} xs={12} sm={6} md={4}>
@@ -155,7 +155,6 @@ export default function AboutUs() {
             ))}
           </Grid>
         </Container>
-      </main>
     </>
   );
 }

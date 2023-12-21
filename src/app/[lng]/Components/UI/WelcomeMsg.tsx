@@ -12,6 +12,7 @@ export default function WelcomeMsg({
 
   return (
     <Box margin={"20px"} sx={styles.seperator}>
+      <Container maxWidth={"md"}>
       <Typography
         dir={direction}
         margin={"normal"}
@@ -58,6 +59,7 @@ export default function WelcomeMsg({
         <br />
         {`${t(LocalizationKeys.Welcome.End2)}`}
       </Typography>
+      </Container>
       <Box sx={styles.box}>
         <Button
           sx={styles.button}
