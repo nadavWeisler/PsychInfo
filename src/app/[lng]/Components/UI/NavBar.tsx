@@ -78,14 +78,6 @@ export default function Navbar(): React.ReactElement {
 
     const pages: NavBarPage[] = [
         {
-            text: t(LocalizationKeys.Navbar.UploadContent),
-            url: `/${i18n.language}/upload`,
-        },
-        {
-            text: t(LocalizationKeys.Navbar.FoundMistake),
-            url: `/${i18n.language}/found-mistake`,
-        },
-        {
             text: t(LocalizationKeys.Navbar.AboutUs),
             url: `/${i18n.language}/about-us`,
         },
@@ -202,28 +194,6 @@ export default function Navbar(): React.ReactElement {
                             />
                             {t(LocalizationKeys.Common.AppName)}
                         </IconButton>
-                    </Link>
-                </div>
-                <div>
-                    <Link href={`/${i18n.language}/upload`}>
-                        <Typography
-                            variant="h6"
-                            component="div"
-                            sx={styles.desktopTyp}
-                        >
-                            {t(LocalizationKeys.Navbar.UploadContent)}
-                        </Typography>
-                    </Link>
-                </div>
-                <div>
-                    <Link href={`/${i18n.language}/found-mistake`}>
-                        <Typography
-                            variant="h6"
-                            component="div"
-                            sx={styles.desktopTyp}
-                        >
-                            {t(LocalizationKeys.Navbar.FoundMistake)}
-                        </Typography>
                     </Link>
                 </div>
                 <div>

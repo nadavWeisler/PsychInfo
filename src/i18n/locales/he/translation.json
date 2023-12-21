@@ -38,7 +38,6 @@
         "logout": "התנתק",
         "email": "אימייל",
         "password": "סיסמה",
-        "reported_mistake": "דיווח על טעות",
         "info_therapist": "פרטי מטפל",
         "name": "שם",
         "yes": "כן",
@@ -100,21 +99,10 @@
         "admin_log_in": "אדמין? התחבר",
         "open_menu": "פתח תפריט",
         "upload_content": "העלאת תוכן",
-        "found_mistake": "מצאת טעות?",
         "about_us": "עלינו"
-    },
-    "mistake": {
-        "name": "שם מלא (לא חובה)",
-        "email": "אימייל ליצירת קשר (לא חובה)",
-        "description": "תיאור הבעיה",
-        "send": "שלח",
-        "greeting": "אם מצאת בעיה כלשהי באתר, נשמח אם תמלא את הטופס הבא. תודה על עזרתך!",
-        "form_sent": "הטופס נשלח בהצלחה!"
     },
     "admin": {
         "title": "לוח בקרה למנהל",
-        "mistakes_requests": "טעויות הממתינות לבדיקה",
-        "no_mistakes": "אין טעויות הממתינות לבדיקה",
         "waiting_requests": "בקשות הממתינות לבדיקה",
         "no_requests": "אין בקשות הממתינות לבדיקה",
         "admin_login": "כניסת מנהל",

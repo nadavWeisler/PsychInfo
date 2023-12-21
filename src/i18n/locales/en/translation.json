@@ -33,7 +33,6 @@
         "hello": "Hello",
         "login": "Login",
         "logout": "Logout",
-        "reported_mistake": "Reported mistake",
         "info_therapist": "Therapist information",
         "personalize": "Personalize",
         "name": "Name",
@@ -95,21 +94,10 @@
         "admin_log_in": "admin? login",
         "open_menu": "open menu",
         "upload_content": "upload content",
-        "found_mistake": "found a mistake?",
         "about_us": "About us"
-    },
-    "mistake": {
-        "name": "Full name (not required)",
-        "email": "Email (not required)",
-        "description": "Description of the mistake",
-        "send": "Send",
-        "greeting": "If you found a mistake in the content of the site, please fill out the form below. Thank you for your help!",
-        "form_sent": "The form was sent successfully!"
     },
     "admin": {
         "title": "Admin dashboard",
-        "mistakes_requests": "Pending mistakes",
-        "no_mistakes": "No pending mistakes",
         "waiting_requests": "Pending requests",
         "no_requests": "No pending requests",
         "admin_login": "Admin login",

@@ -108,30 +108,6 @@ export interface AuthProviderProps {
     children: ReactNode;
 }
 
-export interface FoundMistake {
-    name: string;
-    emailToContact: string;
-    description: string;
-}
-
-export interface FoundMistakeDB extends FoundMistake {
-    id: string;
-}
-
-export interface FoundMistakeFormProps {
-    isSentHandler: () => void;
-}
-
-export interface FoundMistakeAccordionContentProps {
-    data: FoundMistakeDB;
-    deleteHandler: () => void;
-}
-
-export interface FoundMistakeAccordionProps {
-    data: FoundMistakeDB[];
-    deleteHandler: () => void;
-}
-
 export interface NavBarPage {
     text: string;
     url: string;

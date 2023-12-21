@@ -33,6 +33,7 @@ export function GetFilters(): Filter[] {
 }
 
 export function isEmptyOrSpaces(str: string): boolean {
+    console.log(str);
     return str === null || str?.match(/^ *$/) !== null || str === "\r";
 }
 

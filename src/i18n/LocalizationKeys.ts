@@ -38,7 +38,6 @@ export class LocalizationKeys {
         Logout: "common.logout",
         Email: "common.email",
         Password: "common.password",
-        ReportedMistake: "common.reported_mistake",
         InfoTherapist: "common.info_therapist",
         Name: "common.name",
         Yes: "common.yes",
@@ -100,7 +99,6 @@ export class LocalizationKeys {
         AdminLogIn: "navbar.admin_log_in",
         OpenMenu: "navbar.open_menu",
         UploadContent: "navbar.upload_content",
-        FoundMistake: "navbar.found_mistake",
         AboutUs: "navbar.about_us",
     };
     static Mistake = {
