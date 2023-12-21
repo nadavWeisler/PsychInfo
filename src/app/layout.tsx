@@ -20,7 +20,7 @@ const NavbarNoSSr = dynamic(() => import("./[lng]/Components/UI/NavBar"), {
 const inter = Inter({ subsets: ["latin"] });
 
 export const metadata: Metadata = {
-    title: "מידע פסיכולוגי",
+    title: "PsychInfo",
     description: "ריכוז תוכן להתמודדות נפשית בשעת חירום",
 };
 
