@@ -1,5 +1,5 @@
 export const styles = {
-    root: {
-        zIndex: 3000,
-    },
+  root: {
+    zIndex: 3000,
+  },
 };

@@ -1,5 +1,5 @@
 export const styles = {
-    noResultTyp: {
-        mt: "5%",
-    },
+  noResultTyp: {
+    mt: "5%",
+  },
 };

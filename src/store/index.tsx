@@ -5,11 +5,11 @@ import { tagsAndOrgSlice } from "@/store/tagsAndOrgSlice";
 import { isStateSlice } from "@/store/isStateSlice";
 
 const store = configureStore({
-    reducer: {
-        pages: pagesSlice.reducer,
-        tagsAndOrg: tagsAndOrgSlice.reducer,
-        isState: isStateSlice.reducer,
-    },
+  reducer: {
+    pages: pagesSlice.reducer,
+    tagsAndOrg: tagsAndOrgSlice.reducer,
+    isState: isStateSlice.reducer,
+  },
 });
 
 export type RootState = ReturnType<typeof store.getState>;
