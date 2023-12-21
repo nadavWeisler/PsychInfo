@@ -5,14 +5,14 @@
     font-weight: lighter;
     background: rgba(92, 129, 202, 1);
     background: -moz-linear-gradient(
-        left,
-        rgba(92, 129, 202, 1) 0%,
-        rgba(249, 140, 112, 1) 100%
+            left,
+            rgba(92, 129, 202, 1) 0%,
+            rgba(249, 140, 112, 1) 100%
     );
     background: -webkit-linear-gradient(
-        left,
-        rgba(92, 129, 202, 1) 0%,
-        rgba(249, 140, 112, 1) 100%
+            left,
+            rgba(92, 129, 202, 1) 0%,
+            rgba(249, 140, 112, 1) 100%
     );
 }
 

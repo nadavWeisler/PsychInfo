@@ -9,49 +9,44 @@ import { styles } from "@/app/[lng]/Components/AdminComp/IncomingMistakes.style"
 import { LocalizationKeys } from "@/i18n/LocalizationKeys";
 
 export default function IncomingMistakes() {
-    const [mistakes, setMistakes] = useState<FoundMistakeDB[]>([]);
-    const [isDelete, setIsDelete] = useState<boolean>(false);
+  const [mistakes, setMistakes] = useState<FoundMistakeDB[]>([]);
+  const [isDelete, setIsDelete] = useState<boolean>(false);
 
-    const { t } = useTrans();
+  const { t } = useTrans();
 
-    useEffect(() => {
-        getMistakes()
-            .then((mistakes) => {
-                setMistakes(mistakes);
-            })
-            .catch((error) => {
-                console.log(error);
-            });
-    }, [isDelete]);
+  useEffect(() => {
+    getMistakes()
+      .then((mistakes) => {
+        setMistakes(mistakes);
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+  }, [isDelete]);
 
-    return (
-        <>
-            <Typography
-                sx={styles.typ}
-                align={"center"}
-                variant="h5"
-                color={"black"}
-            >
-                {t(LocalizationKeys.Admin.MistakesRequests)}
-            </Typography>
-            {mistakes && mistakes.length > 0 ? (
-                <Box sx={styles.box}>
-                    <FoundMistakeAccordion
-                        data={mistakes}
-                        deleteHandler={() => setIsDelete(!isDelete)}
-                    />
-                    <br />
-                </Box>
-            ) : (
-                <Typography
-                    sx={styles.typ}
-                    align={"center"}
-                    variant="h6"
-                    color={"black"}
-                >
-                    {t(LocalizationKeys.Admin.NoMistakes)}
-                </Typography>
-            )}
-        </>
-    );
+  return (
+    <>
+      <Typography sx={styles.typ} align={"center"} variant="h5" color={"black"}>
+        {t(LocalizationKeys.Admin.MistakesRequests)}
+      </Typography>
+      {mistakes && mistakes.length > 0 ? (
+        <Box sx={styles.box}>
+          <FoundMistakeAccordion
+            data={mistakes}
+            deleteHandler={() => setIsDelete(!isDelete)}
+          />
+          <br />
+        </Box>
+      ) : (
+        <Typography
+          sx={styles.typ}
+          align={"center"}
+          variant="h6"
+          color={"black"}
+        >
+          {t(LocalizationKeys.Admin.NoMistakes)}
+        </Typography>
+      )}
+    </>
+  );
 }
