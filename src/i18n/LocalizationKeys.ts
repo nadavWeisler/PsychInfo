@@ -138,6 +138,10 @@ export class LocalizationKeys {
       Title: "credits.netanel.title",
       Description: "credits.netanel.description",
     },
+    Nitzan: {
+      Title: "credits.nitzan.title",
+      Description: "credits.nitzan.description",
+    },
     Tatiana: {
       Title: "credits.tatiana.title",
       Description: "credits.tatiana.description",
