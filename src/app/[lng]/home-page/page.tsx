@@ -8,7 +8,7 @@ import Gallary from "@/app/[lng]/Components/gallary/gallary";
 import { GetFilters } from "@/app/[lng]/general/utils";
 import { Provider } from "react-redux";
 import store from "@/store";
-import { Fab } from "@mui/material";
+import { Fab, Button } from "@mui/material";
 import AddIcon from "@mui/icons-material/Add";
 import { fabStyle } from "./homePage.style";
 import useTrans from "../hooks/useTrans";
@@ -19,6 +19,7 @@ import OrgWizard from "@/app/[lng]/Components/OrgWizard";
 
 export default function HomePage() {
   const [open, setOpen] = useState(false);
+  const [openOrg, setOpenOrg] = useState(false);
   const filters: Filter[] = GetFilters();
   const { user } = useContext(AuthContext);
   const [authUser, setAuthUser] = useState<User | null>(null);
@@ -35,8 +36,8 @@ export default function HomePage() {
   return (
     <>
       <Provider store={store}>
-        <WelcomeMsg openWizradHandler={() => setOpen(true)} />
-        <OrgWizard />
+        <WelcomeMsg openWizradHandler={() => setOpenOrg(true)} />
+        <OrgWizard open={openOrg} onClose={() => setOpenOrg(false)} />
         <Wizrad open={open} onClose={() => setOpen(false)} />
         <Gallary filters={filters} />
         {authUser && (
