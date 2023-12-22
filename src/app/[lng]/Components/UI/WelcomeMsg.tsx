@@ -14,15 +14,6 @@ export default function WelcomeMsg(): React.ReactElement {
       <Typography dir={direction} variant="h4" gutterBottom>
         {t(LocalizationKeys.Welcome.Title)}
       </Typography>
-      <Typography dir={direction} variant="h6" gutterBottom>
-        <i>
-          {`${t(LocalizationKeys.Welcome.Start1)}`}
-          <br />
-          {`${t(LocalizationKeys.Welcome.Start2)}`}
-          <br />
-          {`${t(LocalizationKeys.Welcome.Start3)}`}
-        </i>
-      </Typography>
       <Typography
         dir={direction}
         variant="h6"
@@ -32,6 +23,13 @@ export default function WelcomeMsg(): React.ReactElement {
         {`${t(LocalizationKeys.Welcome.Main1)}`}
         <br />
         {`${t(LocalizationKeys.Welcome.Main2)}`}
+        <br />
+        <br />
+        {`${t(LocalizationKeys.Welcome.Main3)}`}
+        <br />
+        {`${t(LocalizationKeys.Welcome.Main4)}`}
+        <br />
+        {`${t(LocalizationKeys.Welcome.Main5)}`}
         <br />
         <br />
         {`${t(LocalizationKeys.Welcome.End1)}`}
