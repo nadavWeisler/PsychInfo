@@ -12,6 +12,7 @@ import { LocalizationKeys } from "@/i18n/LocalizationKeys";
 import { Delete, Edit, Share } from "@mui/icons-material";
 import { auth } from "../firebase/app";
 import { deleteContent, getFiles } from "../firebase/commands";
+import { descriptionText } from "./magazine.style";
 
 export interface SingleArticleProps {
     article: Content;
@@ -29,11 +30,11 @@ export default function SingleArticle({ article }: SingleArticleProps) {
 
     useEffect(() => {
         if (article?.isFile) {
-          getFiles(article?.title).then((file) => {
-            setFileUrl(file);
-          });
+            getFiles(article?.title).then((file) => {
+                setFileUrl(file);
+            });
         }
-      }, [article?.isFile]);
+    }, [article?.isFile]);
 
     useEffect(() => {
         onAuthStateChanged(auth, (user) => {
@@ -60,11 +61,12 @@ export default function SingleArticle({ article }: SingleArticleProps) {
                                 data-testid="title"
                                 component={"div"}
                                 dir={direction}
-                                variant="h5"
+                                variant="h4"
                             >
                                 {article?.title}
                             </Typography>
                             <Typography
+                                sx={descriptionText}
                                 data-testid="description-title"
                                 component={"div"}
                                 dir={direction}
@@ -89,14 +91,18 @@ export default function SingleArticle({ article }: SingleArticleProps) {
                                     </Link>
                                 </Box>
                             )}
-                        <Box component={"div"} marginTop="5px" dir={direction}  >
-                            {article?.tags?.map((tag) => (
-                                <Chip
-                                    key={tag.id}
-                                    label={tag.display}
-                                    variant="outlined"
-                                />
-                            ))}
+                        <Box component={"div"} marginTop="5px" dir={direction}>
+                            <Grid container spacing={1}>
+                                {article?.tags?.map((tag) => (
+                                    <Grid item>
+                                        <Chip
+                                            key={tag.id}
+                                            label={tag.display}
+                                            variant="outlined"
+                                        />
+                                    </Grid>
+                                ))}
+                            </Grid>
                         </Box>
                         {article.isFile ? (
                             <Box component={"div"} dir={direction}>
@@ -112,7 +118,6 @@ export default function SingleArticle({ article }: SingleArticleProps) {
                     </Box>
                 </CardContent>
                 {
-
                     <CardActions>
                         <IconButton onClick={() => setOpenShare(true)}>
                             <Share />

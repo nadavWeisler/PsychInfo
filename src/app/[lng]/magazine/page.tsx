@@ -6,12 +6,9 @@ import useTrans from "@/app/[lng]/hooks/useTrans";
 import { LocalizationKeys } from "@/i18n/LocalizationKeys";
 import { useEffect, useState } from "react";
 import SingleArticle from "./singleArticle";
-import { magazineCard, magazineCardSelected, magazineContainer, magazineTitle } from "./magazine.style";
+import { magazineCard, magazineCardSelected, magazineContainer, magazineTagsSelectionContainer, magazineTitle } from "./magazine.style";
 import { ListContainsById } from "../general/utils";
-
-interface MagazineProps {
-    tags?: Tag[];
-}
+import Loading from "../Components/UI/Loading";
 
 export default function Magazine() {
     const { t, direction, i18n } = useTrans();
@@ -30,6 +27,7 @@ export default function Magazine() {
     useEffect(() => {
         setLoading(true);
         getContent(selectedTags, [i18n.language], Operator.AND).then((res) => {
+            setLoading(false);
             setCards(res);
             if (res.length > 0) {
                 setSelectedCard(res[0]);
@@ -49,6 +47,7 @@ export default function Magazine() {
         }
     }
 
+    if (loading) return <Loading />;
     return (
         <Box sx={magazineContainer}>
             <Typography
@@ -58,11 +57,12 @@ export default function Magazine() {
             >
                 {t(LocalizationKeys.Welcome.Title)}
             </Typography>
-            <Box margin={"5px"}>
+            <Box sx={magazineTagsSelectionContainer}>
                 <Grid container spacing={2}>
                     {tags?.map((tag) => (
                         <Grid item key={tag.id}>
                             <Chip
+                                key={tag.id}
                                 label={tag.display}
                                 onClick={() => handleChoice(tag)}
                                 variant={ListContainsById(selectedTags, tag.id) ? "filled" : "outlined"}
@@ -76,6 +76,7 @@ export default function Magazine() {
                     {cards.map((card) => (
                         <Grid item key={card.id} xs={12}>
                             <Card
+                                key={card.id}
                                 sx={card === selectedCard ? magazineCardSelected : magazineCard}
                                 onClick={() => {
                                     setSelectedCard(card)
@@ -87,21 +88,20 @@ export default function Magazine() {
                                         {card.title}
                                     </Typography>
                                     <Typography>
-                                        {
-                                            card.tags.map((tag) => (
-                                                <Chip key={tag.id} label={tag.display} />
-                                            ))
-                                        }
+                                        <Grid container spacing={1}>
+                                            {card.tags.map((tag) => (
+                                                <Grid item key={tag.id}>
+                                                    <Chip key={tag.id} label={tag.display} />
+                                                </Grid>
+                                            ))}
+                                        </Grid>
                                     </Typography>
                                 </CardContent>
                             </Card>
                         </Grid>
                     ))}
                 </Grid>
-                <Grid
-                    item
-                    xs={6}
-                >
+                <Grid item xs={6}>
                     {selectedCard && <SingleArticle article={selectedCard} />}
                 </Grid>
             </Grid>

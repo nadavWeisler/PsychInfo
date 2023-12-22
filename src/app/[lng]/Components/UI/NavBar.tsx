@@ -1,5 +1,5 @@
 "use client";
-import { useState, useEffect, useContext, useRef  } from "react";
+import { useState, useEffect, useContext, useRef } from "react";
 import {
   AppBar,
   Toolbar,
@@ -10,17 +10,14 @@ import {
   IconButton,
   Menu,
   Link,
-  Icon,
 } from "@mui/material";
 import AccountCircleIcon from "@mui/icons-material/AccountCircle";
-import LoginIcon from '@mui/icons-material/Login';
-import AdminPanelSettingsIcon from '@mui/icons-material/AdminPanelSettings';
 import MenuIcon from "@mui/icons-material/Menu";
 import { User, onAuthStateChanged } from "@firebase/auth";
 import { auth } from "@/app/[lng]/firebase/app";
 import { AuthContext } from "@/app/[lng]/context/AuthContext";
 import { useWindowWidth } from "@/app/[lng]/hooks/useWidth";
-import { DisplayLanguages, NavBarPage } from "@/app/[lng]/general/interfaces";
+import { DisplayLanguages } from "@/app/[lng]/general/interfaces";
 import useTrans from "@/app/[lng]/hooks/useTrans";
 import { LocalizationKeys } from "@/i18n/LocalizationKeys";
 import useScroll from "@/app/[lng]/hooks/useScroll";
@@ -108,13 +105,13 @@ export default function Navbar(): React.ReactElement {
                 </IconButton>
               </Link>
             </MenuItem>
-              <MenuItem onClick={() => setOpenMenu(false)}>
-                  <Link href={`/${i18n.language}/about-us`}>
-                    <Typography textAlign="center" component="div">
-                      {t(LocalizationKeys.Navbar.AboutUs)}
-                    </Typography>
-                  </Link>
-              </MenuItem>
+            <MenuItem onClick={() => setOpenMenu(false)}>
+              <Link href={`/${i18n.language}/about-us`}>
+                <Typography textAlign="center" component="div">
+                  {t(LocalizationKeys.Navbar.AboutUs)}
+                </Typography>
+              </Link>
+            </MenuItem>
             <MenuItem onClick={() => setOpenMenu(false)}>{adminPage}</MenuItem>
           </Menu>
         </Box>
@@ -145,63 +142,55 @@ export default function Navbar(): React.ReactElement {
         }}
       >
         <IconButton
-            ref={iconButtonRef}
-            onClick={() => setOpenDesktopMenu(true)}
+          ref={iconButtonRef}
+          onClick={() => setOpenDesktopMenu(true)}
+          sx={styles.desktopIconBtn}
+        >
+          <MenuIcon />
+        </IconButton>
+        <Menu
+          sx={styles.desktopMenu}
+          anchorEl={iconButtonRef.current}
+          keepMounted
+          open={openDesktopMenu}
+          onClose={() => setOpenDesktopMenu(false)}
+        >
+          <MenuItem onClick={() => setOpenDesktopMenu(false)}>
+            <Link href={`/${i18n.language}/about-us`}>
+              <Typography textAlign="center" component="div">
+                {t(LocalizationKeys.Navbar.AboutUs)}
+              </Typography>
+            </Link>
+          </MenuItem>
+          <MenuItem onClick={() => setOpenMenu(false)}>{adminPage}</MenuItem>
+          <MenuItem onClick={() => setOpenMenu(false)}>
+            <Link href={`/${i18n.language}/magazine`}>
+              <Typography textAlign="center" component="div">
+                {t(LocalizationKeys.Navbar.Magazine)}
+              </Typography>
+            </Link>
+          </MenuItem>
+        </Menu>
+        <Link>
+          <IconButton
+            href={`/${i18n.language}/home-page`}
+            size="small"
             sx={styles.desktopIconBtn}
           >
-            <MenuIcon />
+            <img
+              src="https://i.ibb.co/HKcWrgn/pic-modified-modified-new.png"
+              alt="logo"
+              style={styles.desktopImg}
+            />
+            {t(LocalizationKeys.Common.AppName)}
           </IconButton>
-          <Menu
-            sx={styles.desktopMenu}
-            anchorEl={iconButtonRef.current}
-            anchorOrigin={{
-              vertical: "top",
-              horizontal: "right",
-            }}
-            keepMounted
-            transformOrigin={{
-              vertical: "top",
-              horizontal: "center",
-            }}
-            open={openDesktopMenu}
-            onClose={() => setOpenDesktopMenu(false)}
-          >
-            <MenuItem onClick={() => setOpenDesktopMenu(false)}>
-                  <Link href={`/${i18n.language}/about-us`}>
-                    <Typography textAlign="center" component="div">
-                      {t(LocalizationKeys.Navbar.AboutUs)}
-                    </Typography>
-                  </Link>
-              </MenuItem>
-            <MenuItem onClick={() => setOpenMenu(false)}>{adminPage}</MenuItem>
-            <MenuItem onClick={() => setOpenMenu(false)}>
-            <Link href={`/${i18n.language}/magazine`}>
-                    <Typography textAlign="center" component="div">
-                      {t(LocalizationKeys.Navbar.Magazine)}
-                    </Typography>
-                  </Link>
-            </MenuItem>
-          </Menu>
-          <Link>
-            <IconButton
-              href={`/${i18n.language}/home-page`}
-              size="small"
-              sx={styles.desktopIconBtn}
-            >
-              <img
-                src="https://i.ibb.co/HKcWrgn/pic-modified-modified-new.png"
-                alt="logo"
-                style={styles.desktopImg}
-              />
-              {t(LocalizationKeys.Common.AppName)}
-            </IconButton>
-          </Link>
-          <Box sx={styles.desktopSelect}>
+        </Link>
+        <Box sx={styles.desktopSelect}>
           <Select
+            sx={styles.desktopSelectColor}
             onChange={(e) => i18n.changeLanguage(e.target.value as string)}
             aria-label="change language"
             value={i18n.language || "he"}
-            
           >
             {Object.keys(DisplayLanguages).map((lang) => (
               <MenuItem key={lang} value={lang}>
@@ -209,7 +198,7 @@ export default function Navbar(): React.ReactElement {
               </MenuItem>
             ))}
           </Select>
-          </Box>
+        </Box>
       </Toolbar>
     </AppBar>
   );

@@ -7,10 +7,12 @@ export const styles = {
     flexGrow: 0,
   },
   mobileIconBtn: {
+    color: "white",
     p: 0,
     mr: "20px",
   },
   mobileMenu: {
+    color: "white",
     mt: "45px",
     zIndex: 3000,
   },
@@ -30,6 +32,7 @@ export const styles = {
     color: "white",
   },
   desktopRoot: {
+    color: "white",
     position: 'relative',
     display: 'flex',
     alignItems: 'center',
@@ -37,6 +40,7 @@ export const styles = {
   },
   desktopIconBtn: {
     ml: 2,
+    color: "white",
   },
   
   desktopImg: {
@@ -52,12 +56,17 @@ export const styles = {
     position: 'absolute', 
     left: 0,
     ml: 2,
-    
   },
+
+  desktopSelectColor: {
+    color: "white",    
+  },
+
   desktopAdminIcon: {
     fontSize: 35,
   },
   desktopMenu: {
     mt: "2%",
+    color: "white",
   }
 };
