@@ -48,7 +48,7 @@ export default function AdminSignInPage() {
 
   return (
     <>
-      <Typography sx={styles.typ} color={"black"} variant="h4" align="center">
+      <Typography sx={styles.typ} variant="h4" align="center">
         {t(LocalizationKeys.Admin.AdminLogin)}
       </Typography>
       {isError && <Alert severity={"error"}>{errorMsg}</Alert>}

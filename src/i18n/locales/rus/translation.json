@@ -32,9 +32,12 @@
     "profession": "Profession",
     "not_required": "Not required"
   },
-  "results": {
-    "title": "Results",
-    "no_results": "No matching results, please try again"
+  "navbar": {
+    "admin_log_in": "admin? login",
+    "open_menu": "open menu",
+    "upload_content": "upload content",
+    "about_us": "About us",
+    "magazine": "Magazine"
   },
   "errors": {
     "error_occured": "Произошла ошибка",
@@ -51,11 +54,6 @@
   "add_string": {
     "enter_id": "Авторизация",
     "enter_display": "Внешний вид"
-  },
-  "wizard": {
-    "which_info_you_need": "Какая информация Вас интересует?",
-    "choose_organizations": "Выбор организации",
-    "choose_tags": "Выбрать тэги"
   },
   "upload": {
     "title": "Загрузка новых данных",

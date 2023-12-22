@@ -1,6 +1,5 @@
 "use client";
 import { useState } from "react";
-import { useRouter } from "next/navigation";
 import PopUpList from "@/app/[lng]/Components/AdminComp/PopUpList";
 import { Button, Box } from "@mui/material";
 import useTrans from "@/app/[lng]/hooks/useTrans";
@@ -8,18 +7,14 @@ import { ControlPanelProps } from "@/app/[lng]/general/interfaces";
 import { styles } from "@/app/[lng]/Components/AdminComp/ControlPanel.style";
 import { LocalizationKeys } from "@/i18n/LocalizationKeys";
 
-export default function ControlPanel({
-  isDeleteHandler,
-  isDelete,
-}: ControlPanelProps) {
-  const [openTags, setOpenTags] = useState(false);
-  const [openOrganization, setOpenOrganization] = useState(false);
+export default function ControlPanel({ isDeleteHandler, isDelete }: ControlPanelProps) {
+  const [openTags, setOpenTags] = useState<boolean>(false);
+  const [openOrganization, setOpenOrganization] = useState<boolean>(false);
 
-  const router = useRouter();
-  const { t, i18n } = useTrans();
+  const { t } = useTrans();
 
   return (
-    <Box sx={styles.root}>
+    <>
       <PopUpList
         open={openTags}
         handleClose={() => setOpenTags(false)}
@@ -36,7 +31,7 @@ export default function ControlPanel({
         isDeleteHandler={isDeleteHandler}
         isDelete={isDelete}
       />
-      <Box sx={styles.secondary}>
+      <Box>
         <Button
           sx={styles.button}
           variant={"contained"}
@@ -51,14 +46,7 @@ export default function ControlPanel({
         >
           {t(LocalizationKeys.Admin.OpenOrganizations)}
         </Button>
-        <Button
-          sx={styles.button}
-          variant={"contained"}
-          onClick={() => router.replace(`/${i18n.language}/therapists-info`)}
-        >
-          {t(LocalizationKeys.Admin.MoveTherapists)}
-        </Button>
       </Box>
-    </Box>
+    </>
   );
 }

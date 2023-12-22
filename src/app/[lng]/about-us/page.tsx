@@ -101,61 +101,51 @@ export default function AboutUs() {
   ];
 
   return (
-    <>
-      <CssBaseline />
-      <main>
-        <Box sx={stylesObj.root}>
-          <Container maxWidth="md">
-            <Typography
-              component="h1"
-              variant="h2"
-              align="center"
-              color="text.primary"
-              gutterBottom
-            >
-              {t(LocalizationKeys.AboutUs.Title)}
-            </Typography>
-            {texts.map((text, index) => (
-              <Typography
-                key={index}
-                variant="h5"
-                align="center"
-                sx={stylesObj.text}
-                color="text.primary"
-                paragraph
-              >
-                {text}
-              </Typography>
-            ))}
-          </Container>
-        </Box>
-        <Container sx={stylesObj.container} maxWidth="md">
-          <Grid container spacing={4}>
-            {cards.map((card) => (
-              <Grid item key={card.id} xs={12} sm={6} md={4}>
-                <Card className={styles.hoverCard} sx={stylesObj.card}>
-                  <CardMedia
-                    sx={stylesObj.cardMedia}
-                    component="div"
-                    image={card.imageUrl}
-                  />
-                  <CardContent sx={stylesObj.cardContent}>
-                    <Typography gutterBottom variant="h5" component="h2">
-                      {card.title}
-                    </Typography>
+      <Container sx={stylesObj.container}>
+        <Typography
+          margin={"normal"}
+          variant="h4"
+          gutterBottom
+          textAlign={"center"}
+        >
+          {t(LocalizationKeys.AboutUs.Title)}
+        </Typography>
+        {texts.map((text, index) => (
+          <Typography
+            key={index}
+            variant="h6"
+            align="center"
+            sx={stylesObj.text}
+            color="text.primary"
+            paragraph
+          >
+            {text}
+          </Typography>
+        ))}
+        <Grid container spacing={4}>
+          {cards.map((card) => (
+            <Grid item key={card.id} xs={12} sm={6} md={4}>
+              <Card className={styles.hoverCard} sx={stylesObj.card}>
+                <CardMedia
+                  sx={stylesObj.cardMedia}
+                  component="div"
+                  image={card.imageUrl}
+                />
+                <CardContent sx={stylesObj.cardContent}>
+                  <Typography gutterBottom variant="h5" component="h2">
+                    {card.title}
                     {card.linkedin !== "" ? (
                       <IconButton href={card.linkedin}>
                         <LinkedInIcon />
                       </IconButton>
                     ) : null}
-                    <Typography>{card.description}</Typography>
-                  </CardContent>
-                </Card>
-              </Grid>
-            ))}
-          </Grid>
-        </Container>
-      </main>
-    </>
+                  </Typography>
+                  <Typography>{card.description}</Typography>
+                </CardContent>
+              </Card>
+            </Grid>
+          ))}
+        </Grid>
+      </Container>
   );
 }

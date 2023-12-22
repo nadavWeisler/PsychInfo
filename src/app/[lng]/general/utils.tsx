@@ -1,4 +1,4 @@
-import { Filter, Organization, Tag } from "@/app/[lng]/general/interfaces";
+import { Content, Organization, Tag } from "@/app/[lng]/general/interfaces";
 
 export function ListContainsById(
   StringObjectList: Tag[] | Organization[],
@@ -27,12 +27,6 @@ export const EMPTY_ORGANIZATION: Organization = {
   languageId: "",
 };
 
-export function GetFilters(): Filter[] {
-  const filterFile = require("./filters.json");
-  let filters: Filter[] = filterFile.filters;
-  return filters;
-}
-
 export function isEmptyOrSpaces(str: string): boolean {
   return str === null || str?.match(/^ *$/) !== null || str === "\r";
 }
@@ -40,4 +34,16 @@ export function isEmptyOrSpaces(str: string): boolean {
 export function ifValidLink(url: string): boolean {
   const urlPattern = /^(https?|ftp):\/\/[^\s/$.?#].[^\s]*$/i;
   return urlPattern.test(url);
+}
+
+export function getTagsFromContents(content: Content[]): Tag[] {
+  let tags: Tag[] = [];
+  content.forEach((item) => {
+    item.tags?.forEach((tag) => {
+      if (!ListContainsById(tags, tag.id)) {
+        tags.push(tag);
+      }
+    });
+  });
+  return tags;
 }

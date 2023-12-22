@@ -1,17 +1,12 @@
 "use client";
-import React, { useEffect, useState, createContext, ReactElement } from "react";
+import React, { useEffect, useState, createContext } from "react";
 import { auth } from "@/app/[lng]/firebase/app";
 import { User, onAuthStateChanged } from "@firebase/auth";
-import {
-  ContextProps,
-  AuthProviderProps,
-} from "@/app/[lng]/general/interfaces";
+import { ContextProps, AuthProviderProps } from "@/app/[lng]/general/interfaces";
 
 export const AuthContext = createContext<ContextProps>({ user: undefined });
 
-export default function AuthProvider({
-  children,
-}: AuthProviderProps): ReactElement {
+export default function AuthProvider({ children }: AuthProviderProps) {
   const [user, setUser] = useState<User | null | undefined>(undefined);
 
   useEffect(() => {
@@ -19,6 +14,8 @@ export default function AuthProvider({
   }, []);
 
   return (
-    <AuthContext.Provider value={{ user }}>{children}</AuthContext.Provider>
+    <AuthContext.Provider value={{ user }}>
+      {children}
+    </AuthContext.Provider>
   );
 }

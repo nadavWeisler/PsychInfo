@@ -66,18 +66,6 @@
     "enter_display": "הכנס תצוגה",
     "enter_language": "הכנס שפה"
   },
-  "wizard": {
-    "which_info_you_need": "איזה מידע אתה צריך?",
-    "choose_organizations": "בחר ארגונים",
-    "choose_tags": "בחר תגיות",
-    "choose_all": "בחר הכל",
-    "clear": "נקה",
-    "choose_languages": "בחר שפות",
-    "invalid_step": "שלב לא תקין",
-    "no_tags": "חייב לבחור לפחות תגית אחת",
-    "no_orgs": "חייב לבחור לפחות ארגון אחד",
-    "no_langs": "חייב לבחור לפחות שפה אחת"
-  },
   "upload": {
     "title": "העלאת תוכן חדש",
     "image": "תמונה",
@@ -88,18 +76,29 @@
     "create_new_language": "צור שפה חדשה",
     "submit_success": "הטופס נשלח בהצלחה, והוא ממתין לאישור מנהל"
   },
-  "results": {
-    "title": "תוצאות",
-    "no_results": "אין תוצאות מתאימות לחיפוש, מוזמנים לנסות חיפוש נוסף"
+  "rightsView": {
+    "title": "מיצוי זכויות",
+    "headers": {
+      "name": "שם",
+      "details": "פרטים"
+    }
   },
-  "gallary": {
-    "title": "נושאים נבחרים"
+  "energencyView": {
+    "title": "מוקדי חירום מיידיים",
+    "headers": {
+      "name": "שם",
+      "details": "פרטים"
+    }
   },
   "navbar": {
     "admin_log_in": "אדמין? התחבר",
     "open_menu": "פתח תפריט",
     "upload_content": "העלאת תוכן",
-    "about_us": "עלינו"
+    "about_us": "אודות",
+    "magazine": "תוכן לתמיכה נפשית"
+  },
+  "magazine": {
+    "title": "תוכן לתמיכה נפשית"
   },
   "admin": {
     "title": "לוח בקרה למנהל",

@@ -17,6 +17,7 @@ import {
   Typography,
 } from "@mui/material";
 import DeleteIcon from "@mui/icons-material/Delete";
+import AddIcon from "@mui/icons-material/Add";
 import { Tag, Organization } from "@/app/[lng]/general/interfaces";
 import useTrans from "@/app/[lng]/hooks/useTrans";
 import { deleteTags, deleteOrganization } from "@/app/[lng]/firebase/commands";
@@ -51,8 +52,8 @@ export default function PopUpList({
     dataType === "tags"
       ? (useAppSelector((state: RootState) => state.tagsAndOrg.tags) as Tag[])
       : (useAppSelector(
-          (state: RootState) => state.tagsAndOrg.organizations,
-        ) as Organization[]);
+        (state: RootState) => state.tagsAndOrg.organizations,
+      ) as Organization[]);
 
   const handleToggle = (value: number) => () => {
     const currentIndex = checked.indexOf(value);
@@ -192,15 +193,16 @@ export default function PopUpList({
             );
           })}
         </List>
-        <IconButton onClick={handleDelete} aria-label="delete">
-          <DeleteIcon />
-        </IconButton>
+
         {AddDialog}
       </DialogContent>
       <DialogActions>
-        <Button autoFocus onClick={openAddDialog} variant={"contained"}>
-          {t(LocalizationKeys.Common.Add)}
-        </Button>
+        <IconButton onClick={handleDelete} aria-label="delete">
+          <DeleteIcon />
+        </IconButton>
+        <IconButton onClick={openAddDialog} aria-label="add">
+          <AddIcon />
+        </IconButton>
         <Button autoFocus onClick={handleClose}>
           {t(LocalizationKeys.Common.Close)}
         </Button>

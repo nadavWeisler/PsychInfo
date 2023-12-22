@@ -1,10 +1,10 @@
 export const stylesObj = {
   root: {
-    pt: 8,
+    pt: 4,
     pb: 6,
   },
   container: {
-    py: 8,
+    margin: "20px",
   },
   card: {
     height: "100%",
