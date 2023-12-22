@@ -115,7 +115,7 @@ export default function Navbar() {
                 sx={styles.mobileIconBtnSec}
               >
                 <img
-                  src="https://i.ibb.co/HKcWrgn/pic-modified-modified-new.png"
+                  src="https://i.postimg.cc/8cYjkWqV/logo.png"
                   alt="logo"
                   style={styles.img}
                 />
@@ -198,11 +198,10 @@ export default function Navbar() {
             sx={styles.desktopIconBtn}
           >
             <img
-              src="https://i.ibb.co/HKcWrgn/pic-modified-modified-new.png"
+              src="https://i.postimg.cc/8cYjkWqV/logo.png"
               alt="logo"
               style={styles.desktopImg}
             />
-            {t(LocalizationKeys.Common.AppName)}
           </IconButton>
         </Link>
         <Box sx={styles.desktopSelect}>
