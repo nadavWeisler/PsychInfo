@@ -124,7 +124,7 @@ export default function AboutUs() {
         ))}
         <Grid container spacing={4}>
           {cards.map((card) => (
-            <Grid item key={card.id} xs={12} sm={6} md={4}>
+            <Grid item key={card.id} xs={12} sm={3} md={3}>
               <Card className={styles.hoverCard} sx={stylesObj.card}>
                 <CardMedia
                   sx={stylesObj.cardMedia}
@@ -132,7 +132,7 @@ export default function AboutUs() {
                   image={card.imageUrl}
                 />
                 <CardContent sx={stylesObj.cardContent}>
-                  <Typography gutterBottom variant="h5" component="h2">
+                  <Typography gutterBottom variant="h5" component="h5">
                     {card.title}
                     {card.linkedin !== "" ? (
                       <IconButton href={card.linkedin}>

@@ -53,11 +53,11 @@ export class LocalizationKeys {
         }
         static Welcome = {
         Title: 'welcome.title',
-        Start1: 'welcome.start1',
-        Start2: 'welcome.start2',
-        Start3: 'welcome.start3',
         Main1: 'welcome.main1',
         Main2: 'welcome.main2',
+        Main3: 'welcome.main3',
+        Main4: 'welcome.main4',
+        Main5: 'welcome.main5',
         End1: 'welcome.end1',
         End2: 'welcome.end2',
         }
