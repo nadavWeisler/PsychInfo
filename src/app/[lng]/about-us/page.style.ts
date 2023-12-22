@@ -4,7 +4,7 @@ export const stylesObj = {
     pb: 6,
   },
   container: {
-    py: 8,
+    margin: "20px",
   },
   card: {
     height: "100%",

@@ -1,12 +1,9 @@
 export const styles = {
-  root: {
-    marginTop: 4,
-  },
-  typ: {
+  container: {
+    marginTop: "20px",
     textAlign: "center",
   },
   box: {
-    display: "flex",
     justifyContent: "center",
     alignItems: "center",
     height: "100vh",

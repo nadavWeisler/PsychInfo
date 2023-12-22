@@ -1,3 +1,8 @@
+export const homePageContainer = {
+  margin: "20px",
+  textAlign: "center",
+};
+
 export const fabStyle = {
   margin: 0,
   top: "auto",

@@ -4,35 +4,17 @@ import { WelcomeMsgProps } from "@/app/[lng]/general/interfaces";
 import useTrans from "@/app/[lng]/hooks/useTrans";
 import { styles } from "@/app/[lng]/Components/UI/WelcomeMsg.style";
 import { LocalizationKeys } from "@/i18n/LocalizationKeys";
+import { homePageContainer } from "../../home-page/homePage.style";
 
-export default function WelcomeMsg({
-  openWizradHandler,
-}: WelcomeMsgProps): React.ReactElement {
+export default function WelcomeMsg(): React.ReactElement {
   const { t, direction } = useTrans();
 
   return (
-    <Box margin={"20px"} sx={styles.seperator}>
-      <Container maxWidth={"md"}>
-      <Typography
-        dir={direction}
-        margin={"normal"}
-        color={"black"}
-        variant="h4"
-        component="div"
-        gutterBottom
-        textAlign={"center"}
-      >
+    <Container sx={homePageContainer}>
+      <Typography dir={direction} variant="h4" gutterBottom>
         {t(LocalizationKeys.Welcome.Title)}
       </Typography>
-      <Typography
-        dir={direction}
-        margin={"normal"}
-        color={"black"}
-        variant="h6"
-        component="div"
-        textAlign={"center"}
-        gutterBottom
-      >
+      <Typography dir={direction} variant="h6" gutterBottom>
         <i>
           {`${t(LocalizationKeys.Welcome.Start1)}`}
           <br />
@@ -43,10 +25,7 @@ export default function WelcomeMsg({
       </Typography>
       <Typography
         dir={direction}
-        margin={"normal"}
-        color={"black"}
         variant="h6"
-        component="div"
         textAlign={"justify"}
         gutterBottom
       >
@@ -59,18 +38,6 @@ export default function WelcomeMsg({
         <br />
         {`${t(LocalizationKeys.Welcome.End2)}`}
       </Typography>
-      </Container>
-      <Box sx={styles.box}>
-        <Button
-          sx={styles.button}
-          variant="contained"
-          color="primary"
-          onClick={openWizradHandler}
-        >
-          {t(LocalizationKeys.Common.Start)}
-        </Button>
-      </Box>
-      <Container maxWidth={"sm"} sx={styles.container}></Container>
-    </Box>
+    </Container>
   );
 }

@@ -6,12 +6,6 @@ export enum Operator {
   OR,
 }
 
-export enum WizardStep {
-  Tags,
-  Organizations,
-  Languages,
-}
-
 export const DisplayLanguages = {
   he: "עברית",
   en: "English",
@@ -67,38 +61,21 @@ export interface OrganizationsState {
   organization: Organization[];
 }
 
-export interface WelcomeMsgProps {
-  openWizradHandler: () => void;
-}
+export interface WelcomeMsgProps {}
 
-export interface WizardDialogProps {
+export interface BasicDialogProps {
   open: boolean;
   onClose: () => void;
 }
 
-export interface ShareDialogProps extends WizardDialogProps {
+export interface ShareDialogProps extends BasicDialogProps {
   urlToShare: string;
-}
-
-export interface Filter {
-  id: string;
-  img: string;
-  tags: Tag[];
-  organizations: Organization[];
-  languages: string[];
-  title: string;
-  description: string;
 }
 
 export interface AdminSignInFormProps {
   emailHandler: (e: React.ChangeEvent<HTMLInputElement>) => void;
   passwordHandler: (e: React.ChangeEvent<HTMLInputElement>) => void;
   handleSubmit: (e: React.FormEvent<HTMLFormElement>) => void;
-}
-
-export interface RequestAccordionProps {
-  data: Content[];
-  deleteHandler: () => void;
 }
 
 export interface ContextProps {
@@ -131,7 +108,7 @@ export interface EditContentFormProps {
 }
 
 export interface EditContentDialogProps
-  extends WizardDialogProps,
+  extends BasicDialogProps,
     EditContentFormProps {}
 
 export interface AccordionContentProps {

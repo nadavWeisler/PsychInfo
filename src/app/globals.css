@@ -1,4 +1,4 @@
-@import url(https://fonts.googleapis.com/css?family=Assistant:300,400,600);
+@import url(https://fonts.googleapis.com/css?family=Fredoka:300,400,600);
 
 :root {
   --max-width: 1100px;
@@ -88,7 +88,7 @@ body {
 }
 
 body {
-  font-family: "Assistant";
+  font-family: "Fredoka";
   font-weight: lighter;
   color: black;
   background-color: #caedf5;

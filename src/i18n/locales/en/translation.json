@@ -61,18 +61,6 @@
     "enter_display": "Enter display",
     "enter_language": "Enter language"
   },
-  "wizard": {
-    "which_info_you_need": "What information do you need?",
-    "choose_organizations": "Choose organizations",
-    "choose_tags": "Choose tags",
-    "choose_all": "Choose all",
-    "clear": "Clear",
-    "choose_langueges": "Choose languages",
-    "invalid_step": "Invalid step",
-    "no_tags": "Must choose at least one tag",
-    "no_orgs": "Must choose at least one organization",
-    "no_langs": "Must choose at least one language"
-  },
   "upload": {
     "title": "Upload new content",
     "image": "Image",
@@ -82,13 +70,6 @@
     "create_new_tag": "Create new tag",
     "create_new_language": "Create new language",
     "submit_success": "The content was sent successfully, and will be reviewed by the site administrators"
-  },
-  "results": {
-    "title": "Results",
-    "no_results": "No matching results, please try again"
-  },
-  "gallary": {
-    "title": "Topics"
   },
   "navbar": {
     "admin_log_in": "admin? login",
