@@ -76,6 +76,20 @@ export class LocalizationKeys {
         CreateNewLanguage: 'upload.create_new_language',
         SubmitSuccess: 'upload.submit_success',
         }
+        static RightsView = {
+        Title: 'rightsView.title',
+        Headers: {
+        Name: 'rightsView.headers.name',
+        Details: 'rightsView.headers.details',
+        },
+        }
+        static EnergencyView = {
+        Title: 'energencyView.title',
+        Headers: {
+        Name: 'energencyView.headers.name',
+        Details: 'energencyView.headers.details',
+        },
+        }
         static Navbar = {
         AdminLogIn: 'navbar.admin_log_in',
         OpenMenu: 'navbar.open_menu',

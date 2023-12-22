@@ -76,6 +76,20 @@
     "create_new_language": "צור שפה חדשה",
     "submit_success": "הטופס נשלח בהצלחה, והוא ממתין לאישור מנהל"
   },
+  "rightsView": {
+    "title": "מיצוי זכויות",
+    "headers": {
+      "name": "שם",
+      "details": "פרטים"
+    }
+  },
+  "energencyView": {
+    "title": "מוקדי חירום מיידיים",
+    "headers": {
+      "name": "שם",
+      "details": "פרטים"
+    }
+  },
   "navbar": {
     "admin_log_in": "אדמין? התחבר",
     "open_menu": "פתח תפריט",

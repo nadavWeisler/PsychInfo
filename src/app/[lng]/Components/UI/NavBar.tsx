@@ -10,8 +10,12 @@ import {
   IconButton,
   Menu,
   Link,
+  Fab,
+  Button,
 } from "@mui/material";
 import AccountCircleIcon from "@mui/icons-material/AccountCircle";
+import ShareIcon from "@mui/icons-material/Share";
+import AddIcon from "@mui/icons-material/Add";
 import MenuIcon from "@mui/icons-material/Menu";
 import { User, onAuthStateChanged } from "@firebase/auth";
 import { auth } from "@/app/[lng]/firebase/app";
@@ -21,11 +25,14 @@ import { DisplayLanguages } from "@/app/[lng]/general/interfaces";
 import useTrans from "@/app/[lng]/hooks/useTrans";
 import { LocalizationKeys } from "@/i18n/LocalizationKeys";
 import useScroll from "@/app/[lng]/hooks/useScroll";
-import { styles } from "@/app/[lng]/Components/UI/NavBar.style";
+import { fabGavelStyle, fabShareStyle, fabStyle, styles } from "@/app/[lng]/Components/UI/NavBar.style";
 import { useRouter } from "next/navigation";
+import ShareDialog from "../shareDialog/ShareDialog";
+import { Gavel } from "@mui/icons-material";
 
 export default function Navbar() {
   const router = useRouter();
+  const [openShare, setOpenShare] = useState<boolean>(false);
   const [openMenu, setOpenMenu] = useState<boolean>(false);
   const [openDesktopMenu, setOpenDesktopMenu] = useState<boolean>(false);
   const [authUser, setAuthUser] = useState<User | null>(null);
@@ -199,6 +206,14 @@ export default function Navbar() {
           </IconButton>
         </Link>
         <Box sx={styles.desktopSelect}>
+          <Button
+            variant="contained"
+            color="error"
+            sx={{marginLeft: "5px"}}
+            onClick={() => router.replace(`/${i18n.language}/emergency-view`)}
+          >
+            {t(LocalizationKeys.EnergencyView.Title)}
+          </Button>
           <Select
             sx={styles.desktopSelectColor}
             onChange={(e) => i18n.changeLanguage(e.target.value as string)}
@@ -216,5 +231,41 @@ export default function Navbar() {
     </AppBar>
   );
 
-  return isMobile ? MobileAppBar : DesktopAppBar;
+  return (
+    <>
+      {isMobile ? MobileAppBar : DesktopAppBar}
+      <Fab
+        color="primary"
+        sx={fabGavelStyle}
+        onClick={() => router.push(`/${i18n.language}/rights-view`)}
+        aria-label="gavel"
+      >
+        <Gavel />
+      </Fab>
+      <Fab
+        color="primary"
+        sx={fabShareStyle}
+        onClick={() => setOpenShare(true)}
+        aria-label="share"
+      >
+        <ShareIcon />
+      </Fab>
+      {authUser && (
+        <Fab
+          color="primary"
+          sx={fabStyle}
+          onClick={() => router.push(`/${i18n.language}/upload`)}
+          aria-label="add"
+        >
+          <AddIcon />
+        </Fab>
+      )}
+      <ShareDialog
+        open={openShare}
+        onClose={() => setOpenShare(false)}
+        urlToShare={"https://www.psychinfo.co.il"}
+      />
+    </>
+
+  );
 }
