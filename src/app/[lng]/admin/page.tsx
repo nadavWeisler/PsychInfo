@@ -1,12 +1,10 @@
 "use client";
-
 import { useState, useContext, useEffect } from "react";
 import { useRouter } from "next/navigation";
 import { onAuthStateChanged, signOut } from "@firebase/auth";
-import IncomingRequests from "@/app/[lng]/Components/AdminComp/IncomingRequests";
 import { auth } from "@/app/[lng]/firebase/app";
 import { AuthContext } from "@/app/[lng]/context/AuthContext";
-import { Button, Box, Typography } from "@mui/material";
+import { Button, Box, Typography, Container } from "@mui/material";
 import useTrans from "@/app/[lng]/hooks/useTrans";
 import ControlPanel from "@/app/[lng]/Components/AdminComp/ControlPanel";
 import { getAllTags, getAllOrganizations } from "@/app/[lng]/firebase/commands";
@@ -16,7 +14,7 @@ import { tagsAndOrgActions } from "@/store/tagsAndOrgSlice";
 import { isStateActions } from "@/store/isStateSlice";
 import { RootState } from "@/store";
 import { LocalizationKeys } from "@/i18n/LocalizationKeys";
-import { styles } from "@/app/[lng]/admin/page.style";
+import { styles } from "@/app/[lng]/admin/admin.style";
 
 export default function AdminPage() {
   const [tags, setTags] = useState<Tag[]>([]);
@@ -68,17 +66,17 @@ export default function AdminPage() {
       });
   }
 
-  return user ? (
-    <Box sx={styles.root}>
-      <Typography color={"black"} variant={"h4"} sx={styles.typ}>
+  if (!user) return null;
+  return (
+    <Container sx={styles.container}>
+      <Typography variant={"h4"}>
         {t(LocalizationKeys.Admin.Title)}
       </Typography>
-      <ControlPanel
-        isDeleteHandler={() => dispatch(isStateActions.setIsDelete())}
-        isDelete={isDelete}
-      />
-      <IncomingRequests />
       <Box sx={styles.box}>
+        <ControlPanel
+          isDeleteHandler={() => dispatch(isStateActions.setIsDelete())}
+          isDelete={isDelete}
+        />
         <Button
           onClick={logoutHandler}
           sx={styles.button}
@@ -87,6 +85,6 @@ export default function AdminPage() {
           {t(LocalizationKeys.Common.Logout)}
         </Button>
       </Box>
-    </Box>
-  ) : null;
+    </Container>
+  );
 }

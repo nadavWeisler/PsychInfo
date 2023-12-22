@@ -22,8 +22,10 @@ import useTrans from "@/app/[lng]/hooks/useTrans";
 import { LocalizationKeys } from "@/i18n/LocalizationKeys";
 import useScroll from "@/app/[lng]/hooks/useScroll";
 import { styles } from "@/app/[lng]/Components/UI/NavBar.style";
+import { useRouter } from "next/navigation";
 
-export default function Navbar(): React.ReactElement {
+export default function Navbar() {
+  const router = useRouter();
   const [openMenu, setOpenMenu] = useState<boolean>(false);
   const [openDesktopMenu, setOpenDesktopMenu] = useState<boolean>(false);
   const [authUser, setAuthUser] = useState<User | null>(null);
@@ -51,15 +53,23 @@ export default function Navbar(): React.ReactElement {
       : authUser?.email;
 
   const adminPage = !authUser ? (
-    <IconButton href={`/${i18n.language}/admin-signin`}>
-      <AccountCircleIcon sx={styles.desktopAdminIcon} />
-    </IconButton>
+    <MenuItem onClick={() => {
+      setOpenMenu(false);
+      router.replace(`/${i18n.language}/admin-signin`);
+    }}>
+      <IconButton>
+        <AccountCircleIcon sx={styles.desktopAdminIcon} />
+      </IconButton>
+    </MenuItem>
   ) : (
-    <Link href={`/${i18n.language}/admin`}>
-      <Typography textAlign="center" component="div">
+    <MenuItem onClick={() => {
+      setOpenMenu(false);
+      router.replace(`/${i18n.language}/admin`);
+    }}>
+      <Typography>
         {t(LocalizationKeys.Common.Hello) + " " + userEmail}
       </Typography>
-    </Link>
+    </MenuItem>
   );
 
   useScroll(openMenu, setOpenMenu, isMobile);
@@ -89,30 +99,31 @@ export default function Navbar(): React.ReactElement {
             open={openMenu}
             onClose={() => setOpenMenu(false)}
           >
-            <MenuItem onClick={() => setOpenMenu(false)}>
-              <Link>
-                <IconButton
-                  href={`/${i18n.language}/home-page`}
-                  size="small"
-                  sx={styles.mobileIconBtnSec}
-                >
-                  <img
-                    src="https://i.ibb.co/HKcWrgn/pic-modified-modified-new.png"
-                    alt="logo"
-                    style={styles.img}
-                  />
-                  {t(LocalizationKeys.Common.AppName)}
-                </IconButton>
-              </Link>
+            <MenuItem onClick={() => {
+              setOpenMenu(false)
+              router.replace(`/${i18n.language}/home-page`);
+            }}>
+              <IconButton
+                size="small"
+                sx={styles.mobileIconBtnSec}
+              >
+                <img
+                  src="https://i.ibb.co/HKcWrgn/pic-modified-modified-new.png"
+                  alt="logo"
+                  style={styles.img}
+                />
+                {t(LocalizationKeys.Common.AppName)}
+              </IconButton>
             </MenuItem>
-            <MenuItem onClick={() => setOpenMenu(false)}>
-              <Link href={`/${i18n.language}/about-us`}>
-                <Typography textAlign="center" component="div">
-                  {t(LocalizationKeys.Navbar.AboutUs)}
-                </Typography>
-              </Link>
+            <MenuItem onClick={() => {
+              setOpenMenu(false)
+              router.replace(`/${i18n.language}/about-us`);
+            }}>
+              <Typography textAlign="center">
+                {t(LocalizationKeys.Navbar.AboutUs)}
+              </Typography>
             </MenuItem>
-            <MenuItem onClick={() => setOpenMenu(false)}>{adminPage}</MenuItem>
+            {adminPage}
           </Menu>
         </Box>
         <Box sx={styles.mobileSecondary}>
@@ -155,20 +166,22 @@ export default function Navbar(): React.ReactElement {
           open={openDesktopMenu}
           onClose={() => setOpenDesktopMenu(false)}
         >
-          <MenuItem onClick={() => setOpenDesktopMenu(false)}>
-            <Link href={`/${i18n.language}/about-us`}>
-              <Typography textAlign="center" component="div">
-                {t(LocalizationKeys.Navbar.AboutUs)}
-              </Typography>
-            </Link>
+          <MenuItem onClick={() => {
+            setOpenDesktopMenu(false)
+            router.replace(`/${i18n.language}/about-us`);
+          }}>
+            <Typography textAlign="center">
+              {t(LocalizationKeys.Navbar.AboutUs)}
+            </Typography>
           </MenuItem>
-          <MenuItem onClick={() => setOpenMenu(false)}>{adminPage}</MenuItem>
-          <MenuItem onClick={() => setOpenMenu(false)}>
-            <Link href={`/${i18n.language}/magazine`}>
-              <Typography textAlign="center" component="div">
-                {t(LocalizationKeys.Navbar.Magazine)}
-              </Typography>
-            </Link>
+          {adminPage}
+          <MenuItem onClick={() => {
+            setOpenMenu(false)
+            router.replace(`/${i18n.language}/magazine`);
+          }}>
+            <Typography textAlign="center">
+              {t(LocalizationKeys.Navbar.Magazine)}
+            </Typography>
           </MenuItem>
         </Menu>
         <Link>

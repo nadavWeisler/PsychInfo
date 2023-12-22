@@ -1,4 +1,4 @@
-import { Content, Filter, Organization, Tag } from "@/app/[lng]/general/interfaces";
+import { Content, Organization, Tag } from "@/app/[lng]/general/interfaces";
 
 export function ListContainsById(
   StringObjectList: Tag[] | Organization[],
@@ -26,12 +26,6 @@ export const EMPTY_ORGANIZATION: Organization = {
   used: false,
   languageId: "",
 };
-
-export function GetFilters(): Filter[] {
-  const filterFile = require("./filters.json");
-  let filters: Filter[] = filterFile.filters;
-  return filters;
-}
 
 export function isEmptyOrSpaces(str: string): boolean {
   return str === null || str?.match(/^ *$/) !== null || str === "\r";

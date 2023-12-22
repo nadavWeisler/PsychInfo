@@ -173,9 +173,7 @@ export default function UploadContent() {
       </Typography>
       <Typography
         margin={"normal"}
-        color={"black"}
         variant="h5"
-        component="div"
         gutterBottom
         textAlign={"center"}
       >
@@ -183,9 +181,7 @@ export default function UploadContent() {
       </Typography>
       <Typography
         margin={"normal"}
-        color={"black"}
         variant="h5"
-        component="div"
         gutterBottom
         textAlign={"center"}
       >
