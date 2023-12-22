@@ -45,6 +45,8 @@ export const styles = {
 
   desktopImg: {
     marginLeft: "8px",
+    width: "100px",
+    height: "70px",
   },
   desktopTyp: {
     cursor: "pointer",
