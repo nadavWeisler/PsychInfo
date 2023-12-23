@@ -22,7 +22,7 @@ import {
 } from "react-share";
 import { ShareDialogProps } from "@/app/[lng]/general/interfaces";
 import useTrans from "@/app/[lng]/hooks/useTrans";
-import { styles } from "@/app/[lng]/Components/shareDialog/ShareDialog.style";
+import { styles } from "@/app/[lng]/Components/ShareDialog/ShareDialog.style";
 import { LocalizationKeys } from "@/i18n/LocalizationKeys";
 
 export default function ShareDialog({

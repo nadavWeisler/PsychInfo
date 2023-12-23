@@ -1,15 +1,20 @@
 "use client";
-import { TableContainer, Paper, Table, TableHead, TableRow, TableCell, TableBody } from "@mui/material";
-
-interface TableViewProps {
-    headers: string[];
-    rows: string[][];
-}
+import {
+    TableContainer,
+    Paper,
+    Table,
+    TableHead,
+    TableRow,
+    TableCell,
+    TableBody,
+} from "@mui/material";
+import { styles } from "@/app/[lng]/Components/TableView/TableView.style";
+import { TableViewProps } from "@/app/[lng]/general/interfaces";
 
 export default function TableView({ headers, rows }: TableViewProps) {
     return (
         <TableContainer component={Paper}>
-            <Table sx={{ minWidth: 650, textAlignLast: "center" }} aria-label="simple table">
+            <Table sx={styles.table} aria-label="simple table">
                 <TableHead>
                     <TableRow>
                         {headers.map((header) => (
@@ -19,10 +24,7 @@ export default function TableView({ headers, rows }: TableViewProps) {
                 </TableHead>
                 <TableBody>
                     {rows.map((row, index) => (
-                        <TableRow
-                            key={index}
-                            sx={{ '&:last-child td, &:last-child th': { border: 0 } }}
-                        >
+                        <TableRow key={index} sx={styles.tableRow}>
                             {row.map((cell) => (
                                 <TableCell component="th" scope="row">
                                     {cell}
@@ -33,5 +35,5 @@ export default function TableView({ headers, rows }: TableViewProps) {
                 </TableBody>
             </Table>
         </TableContainer>
-    )
+    );
 }
