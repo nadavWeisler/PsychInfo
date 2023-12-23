@@ -3,7 +3,7 @@ import { useState } from "react";
 import PopUpList from "@/app/[lng]/Components/PopUpList";
 import { Button, Box } from "@mui/material";
 import useTrans from "@/app/[lng]/hooks/useTrans";
-import { ControlPanelProps } from "@/app/[lng]/general/interfaces";
+import { ControlPanelProps, dataType } from "@/app/[lng]/general/interfaces";
 import { styles } from "@/app/[lng]/Components/ControlPanel/ControlPanel.style";
 import { LocalizationKeys } from "@/i18n/LocalizationKeys";
 
@@ -16,39 +16,56 @@ export default function ControlPanel({
 
     const { t } = useTrans();
 
+    const popupsArray = [
+        {
+            open: openTags,
+            onClose: () => setOpenTags(false),
+            dataType: "tags" as dataType,
+            title: t(LocalizationKeys.Common.Tags),
+        },
+        {
+            open: openOrganization,
+            onClose: () => setOpenOrganization(false),
+            dataType: "organizations" as dataType,
+            title: t(LocalizationKeys.Common.Organizations),
+        },
+    ];
+
+    const buttonsArray = [
+        {
+            onClick: () => setOpenTags(true),
+            text: t(LocalizationKeys.Admin.OpenTags),
+        },
+        {
+            onClick: () => setOpenOrganization(true),
+            text: t(LocalizationKeys.Admin.OpenOrganizations),
+        },
+    ];
+
     return (
         <>
-            <PopUpList
-                open={openTags}
-                onClose={() => setOpenTags(false)}
-                dataType="tags"
-                title={t(LocalizationKeys.Common.Tags)}
-                isDeleteHandler={isDeleteHandler}
-                isDelete={isDelete}
-            />
-            <PopUpList
-                open={openOrganization}
-                onClose={() => setOpenOrganization(false)}
-                dataType="organizations"
-                title={t(LocalizationKeys.Common.Organizations)}
-                isDeleteHandler={isDeleteHandler}
-                isDelete={isDelete}
-            />
+            {popupsArray.map((popup, index) => (
+                <PopUpList
+                    key={index}
+                    open={popup.open}
+                    onClose={popup.onClose}
+                    dataType={popup.dataType}
+                    title={popup.title}
+                    isDeleteHandler={isDeleteHandler}
+                    isDelete={isDelete}
+                />
+            ))}
             <Box>
-                <Button
-                    sx={styles.button}
-                    variant={"contained"}
-                    onClick={() => setOpenTags(true)}
-                >
-                    {t(LocalizationKeys.Admin.OpenTags)}
-                </Button>
-                <Button
-                    sx={styles.button}
-                    variant={"contained"}
-                    onClick={() => setOpenOrganization(true)}
-                >
-                    {t(LocalizationKeys.Admin.OpenOrganizations)}
-                </Button>
+                {buttonsArray.map((button, index) => (
+                    <Button
+                        key={index}
+                        sx={styles.button}
+                        variant={"contained"}
+                        onClick={button.onClick}
+                    >
+                        {button.text}
+                    </Button>
+                ))}
             </Box>
         </>
     );

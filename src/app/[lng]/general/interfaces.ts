@@ -1,6 +1,6 @@
 import { ReactNode, ChangeEvent } from "react";
 import { User } from "@firebase/auth";
-import { SelectChangeEvent } from "@mui/material";
+import { SelectChangeEvent, Theme } from "@mui/material";
 
 export enum Operator {
     AND,
@@ -97,8 +97,10 @@ export interface ControlPanelProps {
     isDelete: boolean;
 }
 
+export type dataType = "tags" | "organizations";
+
 export interface PopUpListProps extends ControlPanelProps, BasicDialogProps {
-    dataType: "tags" | "organizations";
+    dataType: dataType;
     title: string;
 }
 
@@ -171,10 +173,45 @@ export interface SelectStepProps {
 }
 
 export interface SingleArticleProps {
-  article: Content;
+    article: Content;
 }
 
 export interface TableViewProps {
-  headers: string[];
-  rows: string[][];
+    headers: string[];
+    rows: string[][];
+}
+
+export interface AddStringDialogContentProps {
+    setInputValue: (value: Tag | Organization) => void;
+    inputValue: Tag | Organization;
+}
+
+export interface AddStringDialogActionProps {
+    handleCreate: () => void;
+    onClose: () => void;
+}
+
+export interface ContentTextsProps extends EditContentFormProps {}
+
+export interface ContentSelectOrgProps {
+    prevContent: Content;
+    organizations: Organization[];
+    selectedOrganization: Organization;
+    handleChangeOrganization: (event: SelectChangeEvent<Organization>) => void;
+    getSelectStyles: (obj: string, allObjects: string[], theme: Theme) => any;
+    appTheme: Theme;
+}
+
+export interface ContentSelectLangProps {
+    prevContent: Content;
+    selectedLanguage: string;
+    setSelectedLanguage: (value: string) => void;
+    getSelectStyles: (obj: string, allObjects: string[], theme: Theme) => any;
+}
+
+export interface ContentSelectTagProps {
+    tags: Tag[];
+    selectedTags: string[];
+    handleChangeTags: (event: SelectChangeEvent<string[]>) => void;
+    getSelectStyles: (obj: string, allObjects: string[], theme: Theme) => any;
 }
