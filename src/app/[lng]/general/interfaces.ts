@@ -215,3 +215,87 @@ export interface ContentSelectTagProps {
     handleChangeTags: (event: SelectChangeEvent<string[]>) => void;
     getSelectStyles: (obj: string, allObjects: string[], theme: Theme) => any;
 }
+interface SetOpenMenuProp {
+    setOpenMenu: (value: boolean) => void;
+}
+
+interface IsMobileProp {
+    isMobile: boolean;
+}
+
+export interface AdminPageNavbarProps extends SetOpenMenuProp {}
+
+export interface MobileNavbarProps extends SetOpenMenuProp {
+    openMenu: boolean;
+}
+
+export interface DesktopNavbarProps extends SetOpenMenuProp {}
+
+export interface HamburgerMenuIconProps extends IsMobileProp {
+    setOpenMenu: () => void;
+    iconButtonRef?: React.RefObject<HTMLButtonElement>;
+}
+
+export interface DesktopHamburgerMenuProps {
+    setOpenMenu: (value: boolean) => void;
+    iconButtonRef: React.RefObject<HTMLButtonElement>;
+    setOpenDesktopMenu: (value: boolean) => void;
+    openDesktopMenu: boolean;
+}
+
+export interface MobileHamburgerMenuProps {
+    setOpenMenu: (value: boolean) => void;
+    openMenu: boolean;
+}
+
+export interface OrgtagListProps {
+    handleToggle: (value: number) => () => void;
+    checked: number[];
+    data: Tag[] | Organization[];
+}
+
+export interface OrgTagListTextProps {
+    value: Organization | Tag;
+    labelId: string;
+}
+
+export interface AddDialogProps {
+    dataType: dataType;
+    openAddTagDialog: boolean;
+    openAddOrgDialog: boolean;
+    setOpenAddTagDialog: (value: boolean) => void;
+    setOpenAddOrgDialog: (value: boolean) => void;
+}
+
+export interface OrgTagListActionsProps {
+    data: Tag[] | Organization[];
+    dataType: dataType;
+    checked: number[];
+    isDeleteHandler: () => void;
+    onClose: () => void;
+    setOpenAddTagDialog: (value: boolean) => void;
+    setOpenAddOrgDialog: (value: boolean) => void;
+}
+
+export interface ArticleCardContentProps {
+    article: Content;
+}
+export interface ArticleCardActionsProps {
+    id: string;
+    setOpenShare: (value: boolean) => void;
+    setOpenEdit: (value: boolean) => void;
+}
+export interface ArticleCardTextsProps {
+    title: string;
+    description: string;
+}
+export interface ArticleCardContentLinkProps {
+    link: string;
+}
+export interface ArticleCardTagsProps {
+    tags: Tag[];
+}
+export interface ArticleCardFileProps {
+    isFile: boolean;
+    title: string;
+}
