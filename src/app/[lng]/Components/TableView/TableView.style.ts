@@ -3,9 +3,4 @@ export const styles = {
         minWidth: 650,
         textAlignLast: "center",
     },
-    tableRow: {
-        "&:last-child td, &:last-child th": {
-            border: 0,
-        },
-    },
 };

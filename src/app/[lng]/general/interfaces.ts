@@ -299,3 +299,11 @@ export interface ArticleCardFileProps {
     isFile: boolean;
     title: string;
 }
+
+export interface TableViewHeadProps {
+    headers: string[];
+}
+
+export interface TableViewBodyProps {
+    rows: string[][];                              
+}
