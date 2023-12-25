@@ -311,3 +311,48 @@ export interface TableViewBodyProps {
 export interface AdminContentProps {
     isDelete: boolean;
 }
+export interface MagazineTagsProps {
+    selectedTags: Tag[];
+    selectTagsHandler: (value: Tag[]) => void;
+}
+
+export interface MagazineCardsProps {
+    selectedCard: Content | null;
+    selectedCardHandler: (value: Content) => void;
+    cards: Content[];
+}
+
+export interface MagazineCardContentProps {
+    card: Content;
+}
+
+export interface UploadFormProps {
+    isSubmitHandler: (value: boolean) => void;
+}
+
+export interface CloseButtonProps {
+    handleClose: (
+        event?: React.SyntheticEvent | Event,
+        reason?: string
+    ) => void;
+}
+
+export interface UploadOrganizationProps {
+    selectedOrganization: Organization | null;
+    selectedOrganizationHandler: (value: Organization) => void;
+}
+
+export interface UploadLanguageProps {
+    selectedLanguageHandler: (value: string) => void;
+    selectedLanguage: string;
+}
+
+export interface UploadTagsProps {
+    selectedTags: string[];
+    selectedTagsHandler: (value: string[]) => void;
+    tags: Tag[];
+}
+
+export interface UploadFileProps {
+    fileHandler: (value: File) => void;
+}

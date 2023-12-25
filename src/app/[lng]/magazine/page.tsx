@@ -1,20 +1,15 @@
 "use client";
 import { useEffect, useState } from "react";
 import { Content, Operator, Tag } from "@/app/[lng]/general/interfaces";
-import { getAllTags, getContent } from "@/app/[lng]/firebase/commands";
-import { Box, Card, CardContent, Chip, Grid, Typography } from "@mui/material";
+import { getContent } from "@/app/[lng]/firebase/commands";
+import { Box, Grid, Typography } from "@mui/material";
 import useTrans from "@/app/[lng]/hooks/useTrans";
 import { LocalizationKeys } from "@/i18n/LocalizationKeys";
 import SingleArticle from "@/app/[lng]/Components/SingleArticle";
-import {
-    magazineCard,
-    magazineCardSelected,
-    magazineContainer,
-    magazineTagsSelectionContainer,
-    magazineTitle,
-} from "@/app/[lng]/magazine/page.style";
-import { ListContainsById } from "@/app/[lng]/general/utils";
+import { styles } from "@/app/[lng]/magazine/page.style";
 import Loading from "@/app/[lng]/Components/Loading";
+import MagazineTags from "@/app/[lng]/Components/MagazineTags";
+import MagazineCards from "@/app/[lng]/Components/MagazineCards";
 
 export default function Magazine() {
     const { t, direction, i18n } = useTrans();
@@ -22,13 +17,6 @@ export default function Magazine() {
     const [cards, setCards] = useState<Content[]>([]);
     const [selectedCard, setSelectedCard] = useState<Content | null>(null);
     const [selectedTags, setSelectedTags] = useState<Tag[]>([]);
-    const [tags, setTags] = useState<Tag[]>([]);
-
-    useEffect(() => {
-        getAllTags(true, i18n.language).then((res) => {
-            setTags(res);
-        });
-    }, []);
 
     useEffect(() => {
         setLoading(true);
@@ -43,83 +31,28 @@ export default function Magazine() {
         });
     }, [selectedTags, i18n.language]);
 
-    function handleChoice(tag: Tag): void {
-        if (ListContainsById(selectedTags, tag.id)) {
-            const index = selectedTags.indexOf(tag);
-            selectedTags.splice(index, 1);
-            setSelectedTags([...selectedTags]);
-        } else {
-            setSelectedTags([...selectedTags, tag]);
-        }
-    }
-
     if (loading) return <Loading />;
     return (
-        <Box sx={magazineContainer}>
-            <Typography dir={direction} variant="h4" sx={magazineTitle}>
+        <Box sx={styles.container}>
+            <Typography dir={direction} variant="h4" sx={styles.title}>
                 {t(LocalizationKeys.Magazine.Title)}
             </Typography>
-            <Box sx={magazineTagsSelectionContainer}>
-                <Grid container spacing={2}>
-                    {tags?.map((tag) => (
-                        <Grid item key={tag.id}>
-                            <Chip
-                                key={tag.id}
-                                label={tag.display}
-                                onClick={() => handleChoice(tag)}
-                                variant={
-                                    ListContainsById(selectedTags, tag.id)
-                                        ? "filled"
-                                        : "outlined"
-                                }
-                            />
-                        </Grid>
-                    ))}
-                </Grid>
-            </Box>
+            <MagazineTags
+                selectedTags={selectedTags}
+                selectTagsHandler={(value: Tag[]) => setSelectedTags(value)}
+            />
             <Grid container spacing={2}>
+                <MagazineCards
+                    selectedCard={selectedCard}
+                    selectedCardHandler={(value: Content) =>
+                        setSelectedCard(value)
+                    }
+                    cards={cards}
+                />
                 <Grid item xs={6}>
-                    {cards.map((card) => (
-                        <Grid item key={card.id} xs={12}>
-                            <Card
-                                key={card.id}
-                                sx={
-                                    card === selectedCard
-                                        ? magazineCardSelected
-                                        : magazineCard
-                                }
-                                onClick={() => {
-                                    setSelectedCard(card);
-                                    window.scrollTo(0, 0);
-                                }}
-                            >
-                                <CardContent>
-                                    <Typography
-                                        gutterBottom
-                                        variant="h5"
-                                        component="h5"
-                                    >
-                                        {card.title}
-                                    </Typography>
-                                    <Typography>
-                                        <Grid container spacing={1}>
-                                            {card.tags.map((tag) => (
-                                                <Grid item key={tag.id}>
-                                                    <Chip
-                                                        key={tag.id}
-                                                        label={tag.display}
-                                                    />
-                                                </Grid>
-                                            ))}
-                                        </Grid>
-                                    </Typography>
-                                </CardContent>
-                            </Card>
-                        </Grid>
-                    ))}
-                </Grid>
-                <Grid item xs={6}>
-                    {selectedCard && <SingleArticle article={selectedCard} />}
+                    {selectedCard ? (
+                        <SingleArticle article={selectedCard} />
+                    ) : null}
                 </Grid>
             </Grid>
         </Box>
