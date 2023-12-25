@@ -53,7 +53,7 @@ export default function MobileHamburgerMenu({
                     {t(LocalizationKeys.Navbar.AboutUs)}
                 </Typography>
             </MenuItem>
-            <AdminPageNavbar openMenu={openMenu} />
+            <AdminPageNavbar setOpenMenu={setOpenMenu} />
         </Menu>
     );
 }

@@ -12,11 +12,6 @@ export default function SingleArticle({ article }: SingleArticleProps) {
     const [openShare, setOpenShare] = useState<boolean>(false);
     const [openEdit, setOpenEdit] = useState(false);
 
-    const deleteSelectedContent = async () => {
-        await deleteContent(article?.id);
-        window.location.reload();
-    };
-
     return (
         <Paper elevation={3}>
             <Card>
@@ -28,7 +23,6 @@ export default function SingleArticle({ article }: SingleArticleProps) {
                         <ArticleCardActions
                             id={article?.id}
                             setOpenShare={setOpenShare}
-                            deleteSelectedContent={deleteSelectedContent}
                             setOpenEdit={setOpenEdit}
                         />
                     </CardActions>

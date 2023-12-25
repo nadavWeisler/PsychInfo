@@ -4,7 +4,7 @@ import useAuth from "@/app/[lng]/hooks/useAuth";
 import { deleteContent } from "@/app/[lng]/firebase/commands";
 import { ArticleCardActionsProps } from "@/app/[lng]/general/interfaces";
 
-export function ArticleCardActions({
+export default function ArticleCardActions({
     id,
     setOpenShare,
     setOpenEdit,
