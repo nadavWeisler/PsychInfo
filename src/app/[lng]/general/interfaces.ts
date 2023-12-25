@@ -305,5 +305,9 @@ export interface TableViewHeadProps {
 }
 
 export interface TableViewBodyProps {
-    rows: string[][];                              
+    rows: string[][];
+}
+
+export interface AdminContentProps {
+    isDelete: boolean;
 }
