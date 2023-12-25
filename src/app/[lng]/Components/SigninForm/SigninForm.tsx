@@ -23,34 +23,48 @@ export default function SigninForm({
     const windowWidth: string = isMobile ? "60%" : "40%";
     const marginForBtn: number = isMobile ? 12 : 20;
 
+    const inputArray = [
+        {
+            id: "email",
+            name: "email",
+            label: t(LocalizationKeys.Common.Email),
+            autoComplete: "email",
+            autoFocus: true,
+            type: undefined,
+            onChange: emailHandler,
+        },
+        {
+            id: "password",
+            name: "password",
+            label: t(LocalizationKeys.Common.Password),
+            autoComplete: "current-password",
+            autoFocus: false,
+            type: "password",
+            onChange: passwordHandler,
+        },
+    ];
+
     return (
         <Box
             component="form"
             onSubmit={handleSubmit}
             sx={{ ...styles.root, width: windowWidth }}
         >
-            <TextField
-                margin="normal"
-                required
-                fullWidth
-                id="email"
-                label={t(LocalizationKeys.Common.Email)}
-                name="email"
-                autoComplete="email"
-                autoFocus
-                onChange={emailHandler}
-            />
-            <TextField
-                margin="normal"
-                required
-                fullWidth
-                name="password"
-                label={t(LocalizationKeys.Common.Password)}
-                type="password"
-                id="password"
-                autoComplete="current-password"
-                onChange={passwordHandler}
-            />
+            {inputArray.map((input, index) => (
+                <TextField
+                    key={index}
+                    margin="normal"
+                    required
+                    fullWidth
+                    id={input.id}
+                    label={input.label}
+                    name={input.name}
+                    autoComplete={input.autoComplete}
+                    autoFocus={input.autoFocus}
+                    type={input.type}
+                    onChange={input.onChange}
+                />
+            ))}
 
             <Button
                 type="submit"

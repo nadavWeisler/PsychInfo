@@ -1,4 +1,5 @@
 "use client";
+import { Fragment } from "react";
 import { Card, CardContent, Typography, Box } from "@mui/material";
 
 const mainResults = [
@@ -97,7 +98,7 @@ export default function ResultsPage() {
             <br />
             <Box sx={{ flexDirection: "column" }}>
                 {mainResults.map((result, index) => (
-                    <>
+                    <Fragment key={index}>
                         <Card sx={{ minWidth: 275 }}>
                             <CardContent>
                                 <Typography
@@ -126,16 +127,13 @@ export default function ResultsPage() {
                                 <Typography variant="body2">
                                     {result?.telphone}
                                 </Typography>
-                                {/* <Typography variant="body2">
-                                    {result?.pay}
-                                </Typography> */}
                                 <Typography variant="body2">
                                     {result?.hafnaya}
                                 </Typography>
                             </CardContent>
                         </Card>
                         <br />
-                    </>
+                    </Fragment>
                 ))}
             </Box>
             <Box
@@ -146,7 +144,7 @@ export default function ResultsPage() {
                 }}
             >
                 {secondaryResult.map((result, index) => (
-                    <Card sx={{ minWidth: 550 }}>
+                    <Card key={index} sx={{ minWidth: 550 }}>
                         <CardContent>
                             <Typography
                                 sx={{ fontSize: 14 }}
@@ -171,9 +169,6 @@ export default function ResultsPage() {
                             <Typography variant="body2">
                                 {result?.telphone}
                             </Typography>
-                            {/* <Typography variant="body2">
-                                {result?.pay}
-                            </Typography> */}
                             <Typography variant="body2">
                                 {result?.hafnaya}
                             </Typography>

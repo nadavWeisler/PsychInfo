@@ -1,6 +1,6 @@
 import { ReactNode, ChangeEvent } from "react";
 import { User } from "@firebase/auth";
-import { SelectChangeEvent } from "@mui/material";
+import { SelectChangeEvent, Theme } from "@mui/material";
 
 export enum Operator {
     AND,
@@ -97,8 +97,10 @@ export interface ControlPanelProps {
     isDelete: boolean;
 }
 
+export type dataType = "tags" | "organizations";
+
 export interface PopUpListProps extends ControlPanelProps, BasicDialogProps {
-    dataType: "tags" | "organizations";
+    dataType: dataType;
     title: string;
 }
 
@@ -171,10 +173,186 @@ export interface SelectStepProps {
 }
 
 export interface SingleArticleProps {
-  article: Content;
+    article: Content;
 }
 
 export interface TableViewProps {
-  headers: string[];
-  rows: string[][];
+    headers: string[];
+    rows: string[][];
+}
+
+export interface AddStringDialogContentProps {
+    setInputValue: (value: Tag | Organization) => void;
+    inputValue: Tag | Organization;
+}
+
+export interface AddStringDialogActionProps {
+    handleCreate: () => void;
+    onClose: () => void;
+}
+
+export interface ContentTextsProps extends EditContentFormProps {}
+
+export interface ContentSelectOrgProps {
+    prevContent: Content;
+    organizations: Organization[];
+    selectedOrganization: Organization;
+    handleChangeOrganization: (event: SelectChangeEvent<Organization>) => void;
+    getSelectStyles: (obj: string, allObjects: string[], theme: Theme) => any;
+    appTheme: Theme;
+}
+
+export interface ContentSelectLangProps {
+    prevContent: Content;
+    selectedLanguage: string;
+    setSelectedLanguage: (value: string) => void;
+    getSelectStyles: (obj: string, allObjects: string[], theme: Theme) => any;
+}
+
+export interface ContentSelectTagProps {
+    tags: Tag[];
+    selectedTags: string[];
+    handleChangeTags: (event: SelectChangeEvent<string[]>) => void;
+    getSelectStyles: (obj: string, allObjects: string[], theme: Theme) => any;
+}
+interface SetOpenMenuProp {
+    setOpenMenu: (value: boolean) => void;
+}
+
+interface IsMobileProp {
+    isMobile: boolean;
+}
+
+export interface AdminPageNavbarProps extends SetOpenMenuProp {}
+
+export interface MobileNavbarProps extends SetOpenMenuProp {
+    openMenu: boolean;
+}
+
+export interface DesktopNavbarProps extends SetOpenMenuProp {}
+
+export interface HamburgerMenuIconProps extends IsMobileProp {
+    setOpenMenu: () => void;
+    iconButtonRef?: React.RefObject<HTMLButtonElement>;
+}
+
+export interface DesktopHamburgerMenuProps {
+    setOpenMenu: (value: boolean) => void;
+    iconButtonRef: React.RefObject<HTMLButtonElement>;
+    setOpenDesktopMenu: (value: boolean) => void;
+    openDesktopMenu: boolean;
+}
+
+export interface MobileHamburgerMenuProps {
+    setOpenMenu: (value: boolean) => void;
+    openMenu: boolean;
+}
+
+export interface OrgtagListProps {
+    handleToggle: (value: number) => () => void;
+    checked: number[];
+    data: Tag[] | Organization[];
+}
+
+export interface OrgTagListTextProps {
+    value: Organization | Tag;
+    labelId: string;
+}
+
+export interface AddDialogProps {
+    dataType: dataType;
+    openAddTagDialog: boolean;
+    openAddOrgDialog: boolean;
+    setOpenAddTagDialog: (value: boolean) => void;
+    setOpenAddOrgDialog: (value: boolean) => void;
+}
+
+export interface OrgTagListActionsProps {
+    data: Tag[] | Organization[];
+    dataType: dataType;
+    checked: number[];
+    isDeleteHandler: () => void;
+    onClose: () => void;
+    setOpenAddTagDialog: (value: boolean) => void;
+    setOpenAddOrgDialog: (value: boolean) => void;
+}
+
+export interface ArticleCardContentProps {
+    article: Content;
+}
+export interface ArticleCardActionsProps {
+    id: string;
+    setOpenShare: (value: boolean) => void;
+    setOpenEdit: (value: boolean) => void;
+}
+export interface ArticleCardTextsProps {
+    title: string;
+    description: string;
+}
+export interface ArticleCardContentLinkProps {
+    link: string;
+}
+export interface ArticleCardTagsProps {
+    tags: Tag[];
+}
+export interface ArticleCardFileProps {
+    isFile: boolean;
+    title: string;
+}
+
+export interface TableViewHeadProps {
+    headers: string[];
+}
+
+export interface TableViewBodyProps {
+    rows: string[][];
+}
+
+export interface AdminContentProps {
+    isDelete: boolean;
+}
+export interface MagazineTagsProps {
+    selectedTags: Tag[];
+    selectTagsHandler: (value: Tag[]) => void;
+}
+
+export interface MagazineCardsProps {
+    selectedCard: Content | null;
+    selectedCardHandler: (value: Content) => void;
+    cards: Content[];
+}
+
+export interface MagazineCardContentProps {
+    card: Content;
+}
+
+export interface UploadFormProps {
+    isSubmitHandler: (value: boolean) => void;
+}
+
+export interface CloseButtonProps {
+    handleClose: (
+        event?: React.SyntheticEvent | Event,
+        reason?: string
+    ) => void;
+}
+
+export interface UploadOrganizationProps {
+    selectedOrganization: Organization | null;
+    selectedOrganizationHandler: (value: Organization) => void;
+}
+
+export interface UploadLanguageProps {
+    selectedLanguageHandler: (value: string) => void;
+    selectedLanguage: string;
+}
+
+export interface UploadTagsProps {
+    selectedTags: string[];
+    selectedTagsHandler: (value: string[]) => void;
+    tags: Tag[];
+}
+
+export interface UploadFileProps {
+    fileHandler: (value: File) => void;
 }
