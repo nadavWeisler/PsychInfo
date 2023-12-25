@@ -24,7 +24,7 @@ import UploadTags from "@/app/[lng]/Components/UploadTags";
 import UploadFile from "@/app/[lng]/Components/UploadFile";
 import UploadUploader from "@/app/[lng]/Components/UploadUploader";
 
-export function UploadForm({ isSubmitHandler }: UploadFormProps) {
+export default function UploadForm({ isSubmitHandler }: UploadFormProps) {
     const [tags, setTags] = useState<Tag[]>([]);
     const [selectedTags, setSelectedTags] = useState<string[]>([]);
     const [selectedOrganization, setSelectedOrganization] =

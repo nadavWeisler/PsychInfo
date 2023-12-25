@@ -1,4 +1,3 @@
-import React from "react";
 import CSSTextField from "@/app/[lng]/Components/CSSTextField";
 import { FormControl, FormLabel } from "@mui/material";
 import { LocalizationKeys } from "@/i18n/LocalizationKeys";
