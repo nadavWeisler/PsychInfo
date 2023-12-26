@@ -17,7 +17,7 @@ export default function DesktopNavbar({
     const { direction } = useTrans();
 
     return (
-        <AppBar position="sticky">
+        <AppBar position="sticky" dir={direction}>
             <Toolbar
                 sx={{
                     ...styles.desktopRoot,
@@ -34,7 +34,13 @@ export default function DesktopNavbar({
                     handleCloseMenu={handleCloseMenu}
                 />
                 <DesktopHomeIcon />
-                <Box sx={styles.desktopSelect}>
+                <Box
+                    sx={
+                        direction === "rtl"
+                            ? styles.desktopSelectRtl
+                            : styles.desktopSelectLtr
+                    }
+                >
                     <EmergencyButton />
                     <LanguageSelect />
                 </Box>
