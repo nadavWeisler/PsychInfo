@@ -7,6 +7,7 @@ import { LocalizationKeys } from "@/i18n/LocalizationKeys";
 import AccountCircleIcon from "@mui/icons-material/AccountCircle";
 import { styles } from "@/app/[lng]/Components/AdminPageNavbar/AdminPageNavbar.style";
 import { AdminPageNavbarProps } from "@/app/[lng]/general/interfaces";
+import LoginIcon from "@mui/icons-material/Login";
 
 export default function AdminPageNavbar({
     handleCloseMenu,
@@ -29,7 +30,7 @@ export default function AdminPageNavbar({
                     }}
                 >
                     <IconButton>
-                        <AccountCircleIcon sx={styles.adminIcon} />
+                        <LoginIcon sx={styles.adminIcon} />
                     </IconButton>
                 </MenuItem>
             ) : (
