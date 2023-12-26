@@ -13,38 +13,36 @@ export default function MobileHamburgerMenu({
     const router = useRouter();
     const { t, i18n } = useTrans();
 
+    const menuItemsArray = [
+        {
+            text: t(LocalizationKeys.Common.AppName),
+            path: `/${i18n.language}/home-page`,
+        },
+        {
+            text: t(LocalizationKeys.Navbar.AboutUs),
+            path: `/${i18n.language}/about-us`,
+        },
+    ];
+
     return (
         <Menu
             sx={styles.mobileMenu}
             anchorEl={anchorEl}
             open={Boolean(anchorEl)}
             onClose={handleCloseMenu}
+            MenuListProps={styles.menuList}
         >
-            <MenuItem
-                onClick={() => {
-                    handleCloseMenu();
-                    router.replace(`/${i18n.language}/home-page`);
-                }}
-            >
-                <IconButton size="small" sx={styles.mobileIconBtnSec}>
-                    <img
-                        src="https://i.postimg.cc/8cYjkWqV/logo.png"
-                        alt="logo"
-                        style={styles.img}
-                    />
-                    {t(LocalizationKeys.Common.AppName)}
-                </IconButton>
-            </MenuItem>
-            <MenuItem
-                onClick={() => {
-                    handleCloseMenu();
-                    router.replace(`/${i18n.language}/about-us`);
-                }}
-            >
-                <Typography textAlign="center">
-                    {t(LocalizationKeys.Navbar.AboutUs)}
-                </Typography>
-            </MenuItem>
+            {menuItemsArray.map((item, index) => (
+                <MenuItem
+                    key={index}
+                    onClick={() => {
+                        handleCloseMenu();
+                        router.replace(item.path);
+                    }}
+                >
+                    <Typography textAlign="center">{item.text}</Typography>
+                </MenuItem>
+            ))}
             <AdminPageNavbar handleCloseMenu={handleCloseMenu} />
         </Menu>
     );

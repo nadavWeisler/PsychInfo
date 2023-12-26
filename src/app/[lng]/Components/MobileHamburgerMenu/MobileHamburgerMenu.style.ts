@@ -4,10 +4,9 @@ export const styles = {
         mt: "45px",
         zIndex: 3000,
     },
-    mobileIconBtnSec: {
-        ml: 2,
-    },
-    img: {
-        marginLeft: "8px",
+    menuList: {
+        style: {
+            backgroundColor: "#56899C",
+        },
     },
 };
