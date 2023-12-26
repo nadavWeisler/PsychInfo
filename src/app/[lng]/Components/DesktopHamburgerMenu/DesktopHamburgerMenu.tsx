@@ -36,6 +36,7 @@ export default function DesktopHamburgerMenu({
             anchorEl={anchorEl}
             open={Boolean(anchorEl)}
             onClose={handleCloseMenu}
+            MenuListProps={styles.menuList}
         >
             {menuArray.map((item, index) => (
                 <MenuItem key={index} onClick={item.onClick}>
