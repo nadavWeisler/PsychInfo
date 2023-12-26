@@ -4,7 +4,7 @@ export const styles = {
     },
     mobileSecondary: {
         mr: 30,
-        position: "fixed",
+        position: "absolute",
         left: 0,
         ml: 2,
     },
