@@ -7,8 +7,9 @@ import MobileHamburgerMenu from "@/app/[lng]/Components/MobileHamburgerMenu";
 import LanguageSelect from "@/app/[lng]/Components/LanguageSelect";
 
 export default function MobileNavbar({
-    setOpenMenu,
-    openMenu,
+    anchorEl,
+    handleOpenMenu,
+    handleCloseMenu,
 }: MobileNavbarProps) {
     const { direction } = useTrans();
     return (
@@ -17,11 +18,11 @@ export default function MobileNavbar({
                 <Box sx={{ ...styles.mobileRoot, direction: direction }}>
                     <HamburgerMenuIcon
                         isMobile={true}
-                        setOpenMenu={() => setOpenMenu(true)}
+                        handleOpenMenu={handleOpenMenu}
                     />
                     <MobileHamburgerMenu
-                        openMenu={openMenu}
-                        setOpenMenu={setOpenMenu}
+                        anchorEl={anchorEl}
+                        handleCloseMenu={handleCloseMenu}
                     />
                 </Box>
                 <Box sx={styles.mobileSecondary}>

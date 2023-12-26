@@ -215,38 +215,33 @@ export interface ContentSelectTagProps {
     handleChangeTags: (event: SelectChangeEvent<string[]>) => void;
     getSelectStyles: (obj: string, allObjects: string[], theme: Theme) => any;
 }
-interface SetOpenMenuProp {
-    setOpenMenu: (value: boolean) => void;
+interface NavBarCloseProps {
+    handleCloseMenu: () => void;
+    anchorEl: null | HTMLElement;
+}
+interface NavBarOpenProps {
+    handleOpenMenu: (event: React.MouseEvent<HTMLButtonElement>) => void;
 }
 
 interface IsMobileProp {
     isMobile: boolean;
 }
 
-export interface AdminPageNavbarProps extends SetOpenMenuProp {}
-
-export interface MobileNavbarProps extends SetOpenMenuProp {
-    openMenu: boolean;
+export interface AdminPageNavbarProps {
+    handleCloseMenu: () => void;
 }
 
-export interface DesktopNavbarProps extends SetOpenMenuProp {}
+export interface MobileNavbarProps extends NavBarCloseProps, NavBarOpenProps {}
+
+export interface DesktopNavbarProps extends NavBarCloseProps, NavBarOpenProps {}
 
 export interface HamburgerMenuIconProps extends IsMobileProp {
-    setOpenMenu: () => void;
-    iconButtonRef?: React.RefObject<HTMLButtonElement>;
+    handleOpenMenu: (event: React.MouseEvent<HTMLButtonElement>) => void;
 }
 
-export interface DesktopHamburgerMenuProps {
-    setOpenMenu: (value: boolean) => void;
-    iconButtonRef: React.RefObject<HTMLButtonElement>;
-    setOpenDesktopMenu: (value: boolean) => void;
-    openDesktopMenu: boolean;
-}
+export interface DesktopHamburgerMenuProps extends NavBarCloseProps {}
 
-export interface MobileHamburgerMenuProps {
-    setOpenMenu: (value: boolean) => void;
-    openMenu: boolean;
-}
+export interface MobileHamburgerMenuProps extends NavBarCloseProps {}
 
 export interface OrgtagListProps {
     handleToggle: (value: number) => () => void;

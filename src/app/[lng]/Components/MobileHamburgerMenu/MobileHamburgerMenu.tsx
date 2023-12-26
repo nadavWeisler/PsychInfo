@@ -1,5 +1,5 @@
 import { IconButton, Menu, MenuItem, Typography } from "@mui/material";
-import { useRouter } from "next/router";
+import { useRouter } from "next/navigation";
 import useTrans from "@/app/[lng]/hooks/useTrans";
 import { LocalizationKeys } from "@/i18n/LocalizationKeys";
 import { styles } from "@/app/[lng]/Components/MobileHamburgerMenu/MobileHamburgerMenu.style";
@@ -7,30 +7,22 @@ import { MobileHamburgerMenuProps } from "@/app/[lng]/general/interfaces";
 import AdminPageNavbar from "@/app/[lng]/Components/AdminPageNavbar";
 
 export default function MobileHamburgerMenu({
-    openMenu,
-    setOpenMenu,
+    anchorEl,
+    handleCloseMenu,
 }: MobileHamburgerMenuProps) {
     const router = useRouter();
     const { t, i18n } = useTrans();
+
     return (
         <Menu
             sx={styles.mobileMenu}
-            id="menu-appbar"
-            anchorOrigin={{
-                vertical: "top",
-                horizontal: "right",
-            }}
-            keepMounted
-            transformOrigin={{
-                vertical: "top",
-                horizontal: "right",
-            }}
-            open={openMenu}
-            onClose={() => setOpenMenu(false)}
+            anchorEl={anchorEl}
+            open={Boolean(anchorEl)}
+            onClose={handleCloseMenu}
         >
             <MenuItem
                 onClick={() => {
-                    setOpenMenu(false);
+                    handleCloseMenu();
                     router.replace(`/${i18n.language}/home-page`);
                 }}
             >
@@ -45,7 +37,7 @@ export default function MobileHamburgerMenu({
             </MenuItem>
             <MenuItem
                 onClick={() => {
-                    setOpenMenu(false);
+                    handleCloseMenu();
                     router.replace(`/${i18n.language}/about-us`);
                 }}
             >
@@ -53,7 +45,7 @@ export default function MobileHamburgerMenu({
                     {t(LocalizationKeys.Navbar.AboutUs)}
                 </Typography>
             </MenuItem>
-            <AdminPageNavbar setOpenMenu={setOpenMenu} />
+            <AdminPageNavbar handleCloseMenu={handleCloseMenu} />
         </Menu>
     );
 }

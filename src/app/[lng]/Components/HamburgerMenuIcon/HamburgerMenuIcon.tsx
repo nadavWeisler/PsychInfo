@@ -5,13 +5,11 @@ import { HamburgerMenuIconProps } from "@/app/[lng]/general/interfaces";
 
 export default function HamburgerMenuIcon({
     isMobile,
-    setOpenMenu,
-    iconButtonRef,
+    handleOpenMenu,
 }: HamburgerMenuIconProps) {
     return (
         <IconButton
-            ref={isMobile ? null : iconButtonRef}
-            onClick={setOpenMenu}
+            onClick={handleOpenMenu}
             sx={isMobile ? styles.mobileIconBtn : styles.desktopIconBtn}
         >
             <MenuIcon />
