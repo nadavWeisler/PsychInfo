@@ -1,3 +1,4 @@
+"use client";
 import { useRouter } from "next/navigation";
 import useTrans from "@/app/[lng]/hooks/useTrans";
 import { LocalizationKeys } from "@/i18n/LocalizationKeys";
@@ -7,43 +8,42 @@ import { Menu, MenuItem, Typography } from "@mui/material";
 import AdminPageNavbar from "@/app/[lng]/Components/AdminPageNavbar";
 
 export default function DesktopHamburgerMenu({
-    openDesktopMenu,
-    setOpenDesktopMenu,
-    setOpenMenu,
-    iconButtonRef,
+    handleCloseMenu,
+    anchorEl,
 }: DesktopHamburgerMenuProps) {
     const router = useRouter();
     const { t, i18n } = useTrans();
+
+    const menuArray = [
+        {
+            name: t(LocalizationKeys.Navbar.AboutUs),
+            onClick: () => {
+                handleCloseMenu();
+                router.replace(`/${i18n.language}/about-us`);
+            },
+        },
+        {
+            name: t(LocalizationKeys.Navbar.Magazine),
+            onClick: () => {
+                handleCloseMenu();
+                router.replace(`/${i18n.language}/magazine`);
+            },
+        },
+    ];
     return (
         <Menu
-            sx={styles.desktopMenu}
-            anchorEl={iconButtonRef.current}
-            keepMounted
-            open={openDesktopMenu}
-            onClose={() => setOpenDesktopMenu(false)}
+            sx={{ ...styles.desktopMenu }}
+            anchorEl={anchorEl}
+            open={Boolean(anchorEl)}
+            onClose={handleCloseMenu}
         >
-            <MenuItem
-                onClick={() => {
-                    setOpenDesktopMenu(false);
-                    router.replace(`/${i18n.language}/about-us`);
-                }}
-            >
-                <Typography textAlign="center">
-                    {t(LocalizationKeys.Navbar.AboutUs)}
-                </Typography>
-            </MenuItem>
+            {menuArray.map((item, index) => (
+                <MenuItem key={index} onClick={item.onClick}>
+                    <Typography textAlign="center">{item.name}</Typography>
+                </MenuItem>
+            ))}
 
-            <AdminPageNavbar setOpenMenu={setOpenMenu} />
-            <MenuItem
-                onClick={() => {
-                    setOpenMenu(false);
-                    router.replace(`/${i18n.language}/magazine`);
-                }}
-            >
-                <Typography textAlign="center">
-                    {t(LocalizationKeys.Navbar.Magazine)}
-                </Typography>
-            </MenuItem>
+            <AdminPageNavbar handleCloseMenu={handleCloseMenu} />
         </Menu>
     );
 }

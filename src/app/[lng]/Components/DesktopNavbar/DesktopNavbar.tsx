@@ -1,5 +1,4 @@
 "use client";
-import { useState, useRef } from "react";
 import useTrans from "@/app/[lng]/hooks/useTrans";
 import { AppBar, Toolbar, Box } from "@mui/material";
 import { styles } from "@/app/[lng]/Components/DesktopNavbar/DesktopNavbar.style";
@@ -10,24 +9,29 @@ import LanguageSelect from "@/app/[lng]/Components/LanguageSelect";
 import DesktopHomeIcon from "@/app/[lng]/Components/DesktopHomeIcon";
 import EmergencyButton from "@/app/[lng]/Components/EmergencyButton";
 
-export default function DesktopNavbar({ setOpenMenu }: DesktopNavbarProps) {
-    const [openDesktopMenu, setOpenDesktopMenu] = useState<boolean>(false);
+export default function DesktopNavbar({
+    anchorEl,
+    handleOpenMenu,
+    handleCloseMenu,
+}: DesktopNavbarProps) {
     const { direction } = useTrans();
-    const iconButtonRef = useRef(null);
+
     return (
-        <AppBar position="static">
-            <Toolbar sx={{ ...styles.desktopRoot, direction: direction }}>
+        <AppBar position="sticky">
+            <Toolbar
+                sx={{
+                    ...styles.desktopRoot,
+                    direction: direction,
+                }}
+            >
                 <HamburgerMenuIcon
-                    iconButtonRef={iconButtonRef}
-                    setOpenMenu={() => setOpenDesktopMenu(true)}
+                    handleOpenMenu={handleOpenMenu}
                     isMobile={false}
                 />
 
                 <DesktopHamburgerMenu
-                    iconButtonRef={iconButtonRef}
-                    openDesktopMenu={openDesktopMenu}
-                    setOpenDesktopMenu={setOpenDesktopMenu}
-                    setOpenMenu={setOpenMenu}
+                    anchorEl={anchorEl}
+                    handleCloseMenu={handleCloseMenu}
                 />
                 <DesktopHomeIcon />
                 <Box sx={styles.desktopSelect}>

@@ -8,7 +8,9 @@ import AccountCircleIcon from "@mui/icons-material/AccountCircle";
 import { styles } from "@/app/[lng]/Components/AdminPageNavbar/AdminPageNavbar.style";
 import { AdminPageNavbarProps } from "@/app/[lng]/general/interfaces";
 
-export default function AdminPageNavbar({ setOpenMenu }: AdminPageNavbarProps) {
+export default function AdminPageNavbar({
+    handleCloseMenu,
+}: AdminPageNavbarProps) {
     const { authUser } = useAuth();
     const router = useRouter();
     const { t, i18n } = useTrans();
@@ -22,7 +24,7 @@ export default function AdminPageNavbar({ setOpenMenu }: AdminPageNavbarProps) {
             {!authUser ? (
                 <MenuItem
                     onClick={() => {
-                        setOpenMenu(false);
+                        handleCloseMenu();
                         router.replace(`/${i18n.language}/admin-signin`);
                     }}
                 >
@@ -33,7 +35,7 @@ export default function AdminPageNavbar({ setOpenMenu }: AdminPageNavbarProps) {
             ) : (
                 <MenuItem
                     onClick={() => {
-                        setOpenMenu(false);
+                        handleCloseMenu();
                         router.replace(`/${i18n.language}/admin`);
                     }}
                 >

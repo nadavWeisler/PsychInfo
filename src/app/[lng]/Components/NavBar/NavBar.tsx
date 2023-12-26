@@ -19,6 +19,7 @@ export default function Navbar() {
     const [openShare, setOpenShare] = useState<boolean>(false);
     const [openMenu, setOpenMenu] = useState<boolean>(false);
     const [isMobile, setIsMobile] = useState<boolean>(width <= 768);
+    const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
 
     const { i18n } = useTrans();
     const { authUser } = useAuth();
@@ -28,6 +29,14 @@ export default function Navbar() {
     useEffect(() => {
         setIsMobile(width <= 768);
     }, [width]);
+
+    useEffect(() => {
+        if (anchorEl !== null) {
+            document.documentElement.style.overflowY = "hidden";
+        } else {
+            document.documentElement.style.overflowY = "auto";
+        }
+    }, [anchorEl]);
 
     const fabArray = [
         {
@@ -47,9 +56,21 @@ export default function Navbar() {
     return (
         <>
             {isMobile ? (
-                <MobileNavbar setOpenMenu={setOpenMenu} openMenu={openMenu} />
+                <MobileNavbar
+                    anchorEl={anchorEl}
+                    handleOpenMenu={(
+                        event: React.MouseEvent<HTMLButtonElement>
+                    ) => setAnchorEl(event.currentTarget)}
+                    handleCloseMenu={() => setAnchorEl(null)}
+                />
             ) : (
-                <DesktopNavbar setOpenMenu={setOpenMenu} />
+                <DesktopNavbar
+                    anchorEl={anchorEl}
+                    handleOpenMenu={(
+                        event: React.MouseEvent<HTMLButtonElement>
+                    ) => setAnchorEl(event.currentTarget)}
+                    handleCloseMenu={() => setAnchorEl(null)}
+                />
             )}
             {fabArray.map((fab, index) => (
                 <Fab
